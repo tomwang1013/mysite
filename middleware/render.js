@@ -2,7 +2,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import jade from 'jade';
-import routes from '../app/routes';
+import routes from '../app/routes-babeled';
       
 export default function(req, res) {   
   match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {

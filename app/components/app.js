@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './components/header'
-import Footer from './components/footer'
+import Header from './header'
+import Footer from './footer'
 
 class App extends React.Component {
   render() {
@@ -13,3 +13,5 @@ class App extends React.Component {
     )
   }
 }
+
+export default App;
