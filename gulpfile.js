@@ -4,31 +4,16 @@ var rename      = require('gulp-rename');
 var browserify  = require('browserify');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
+var sass        = require('gulp-sass');
 
 /*
- * react server render transfor
+ * server js transfork
  */
-//gulp.task('server-render', function() {
-  //return gulp.src(['middleware/render.js'])
-    //.pipe(babel())
-    //.pipe(rename(function(path) {
-      //path.basename += '-babeled';
-      //return path;
-    //}))
-    //.pipe(gulp.dest('middleware'));
-//});
-
-//gulp.task('server-routes', function() {
-  //return gulp.src(['app/routes.js'])
-    //.pipe(babel())
-    //.pipe(rename(function(path) {
-      //path.basename += '-babeled';
-      //return path;
-    //}))
-    //.pipe(gulp.dest('app'));
-//});
-
-//gulp.task('server', ['server-render', 'server-routes']);
+gulp.task('server-babel', function() {
+  return gulp.src(['src/**/*.js'])
+    .pipe(babel())
+    .pipe(gulp.dest('dest'));
+});
 
 /*
  * client js bundle
@@ -39,4 +24,11 @@ gulp.task('client-bundle', function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('public/js'))
+});
+
+// css
+gulp.task('css', function() {
+  return gulp.src('app/stylesheets/main.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public/css'));
 });

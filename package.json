@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "my site for university",
   "scripts": {
-    "start": "node app.js"
+    "start": "node dest/app.js"
   },
   "author": "wang xiantong",
   "dependencies": {
