@@ -15,20 +15,28 @@ gulp.task('server-babel', function() {
     .pipe(gulp.dest('dest'));
 });
 
+
 /*
  * client js bundle
  */
 gulp.task('client-bundle', function() {
-  browserify('app/main.js')
+  browserify('src/app/main.js')
     .transform(babelify)
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('public/js'))
 });
 
+gulp.task('watch', function() {
+  gulp.watch(['src/**/*.js'], ['server-babel']);
+  gulp.watch(['src/app/**/*.js'], ['client-bundle']);
+});
+
 // css
 gulp.task('css', function() {
-  return gulp.src('app/stylesheets/main.scss')
+  return gulp.src('src/app/stylesheets/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public/css'));
 });
+
+gulp.task('default', ['watch']);

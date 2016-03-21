@@ -3,20 +3,21 @@
   "version": "1.0.0",
   "description": "my site for university",
   "scripts": {
-    "start": "node dest/app.js"
+    "start": "node dest/app.js",
+    "watch": "nodemon dest/app.js"
   },
   "author": "wang xiantong",
   "dependencies": {
-    "alt": "^0.18.2",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
-    "history": "^2.0.1",
     "jade": "^1.11.0",
     "jquery": "^2.2.1",
     "morgan": "^1.7.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
+    "redux": "^3.3.1",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {

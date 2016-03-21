@@ -5,19 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 exports.default = function (req, res) {
-  (0, _reactRouter.match)({ routes: _routes2.default, location: req.url }, function (err, redirectLocation, renderProps) {
-    if (err) {
-      res.status(500).send(err.message);
-    } else if (redirectLocation) {
-      res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      var content = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
-      var page = _jade2.default.renderFile(__dirname + '/../views/index.jade', { content: content });
-      res.status(200).send(page);
-    } else {
-      res.status(404).send('Page Not Found');
-    }
-  });
+  var content = (0, _server.renderToString)(_react2.default.createElement(_app2.default, null));
+  var page = _jade2.default.renderFile(__dirname + '/../views/index.jade', { content: content });
+
+  res.send(page);
 };
 
 var _react = require('react');
@@ -32,9 +23,9 @@ var _jade = require('jade');
 
 var _jade2 = _interopRequireDefault(_jade);
 
-var _routes = require('../app/routes');
+var _app = require('../app/components/app');
 
-var _routes2 = _interopRequireDefault(_routes);
+var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
