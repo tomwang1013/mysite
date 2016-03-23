@@ -33,7 +33,43 @@ var Login = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        '登录'
+        _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-lg-6 col-lg-offset-3' },
+            _react2.default.createElement(
+              'form',
+              null,
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group' },
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'email' },
+                  'Email address'
+                ),
+                _react2.default.createElement('input', { type: 'email', className: 'form-control', id: 'email', placeholder: 'Email' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'form-group' },
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'password' },
+                  'Password'
+                ),
+                _react2.default.createElement('input', { type: 'password', className: 'form-control', id: 'password', placeholder: 'Password' })
+              ),
+              _react2.default.createElement(
+                'button',
+                { type: 'submit', className: 'btn btn-default' },
+                'Submit'
+              )
+            )
+          )
+        )
       );
     }
   }]);

@@ -3,7 +3,7 @@ import React from 'react'
 class Home extends React.Component {
   render() {
     return (
-      <div class="jumbotron">
+      <div className="jumbotron">
         <div className='container'>
           <h1>你好！</h1>
           <p>学做，学习去实践</p>

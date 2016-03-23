@@ -33,7 +33,20 @@ var Footer = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'container' },
-        '底部'
+        _react2.default.createElement(
+          'address',
+          { className: 'text-center' },
+          _react2.default.createElement(
+            'strong',
+            null,
+            'tom wang'
+          ),
+          _react2.default.createElement(
+            'a',
+            { href: 'mailto:#' },
+            '174604588@qq.com'
+          )
+        )
       );
     }
   }]);

@@ -32,7 +32,7 @@ var Home = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { 'class': 'jumbotron' },
+        { className: 'jumbotron' },
         _react2.default.createElement(
           'div',
           { className: 'container' },
