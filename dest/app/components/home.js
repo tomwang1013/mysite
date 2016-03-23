@@ -32,8 +32,30 @@ var Home = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        '首页'
+        { 'class': 'jumbotron' },
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            '你好！'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            '学做，学习去实践'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            _react2.default.createElement(
+              'a',
+              { className: 'btn btn-primary btn-lg', href: '#', role: 'button' },
+              'Learn more'
+            )
+          )
+        )
       );
     }
   }]);

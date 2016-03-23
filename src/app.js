@@ -11,6 +11,8 @@ app.use(favicon(__dirname + '/../public/favicon.ico'));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+
 app.use(serv_render);
 
 app.listen(3000, function() {

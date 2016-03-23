@@ -1,13 +1,13 @@
 import React from 'react'
 
-class Footer extends React.Component {
+class Login extends React.Component {
   render() {
     return (
       <div className='container'>
-        底部
+        登录
       </div>
     )
   }
 }
 
-export default Footer;
+export default Login;

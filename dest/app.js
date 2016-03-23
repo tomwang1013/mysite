@@ -29,6 +29,7 @@ app.use((0, _serveFavicon2.default)(__dirname + '/../public/favicon.ico'));
 app.use(_express2.default.static('public'));
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
+
 app.use(_render2.default);
 
 app.listen(3000, function () {

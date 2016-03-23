@@ -23990,7 +23990,7 @@ var Footer = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'container' },
         '底部'
       );
     }
@@ -24039,7 +24039,7 @@ var Header = function (_React$Component) {
         { className: "navbar navbar-default" },
         _react2.default.createElement(
           "div",
-          { className: "container-fluid" },
+          { className: "container" },
           _react2.default.createElement(
             "div",
             { className: "navbar-header" },
@@ -24050,17 +24050,29 @@ var Header = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            "ul",
-            { className: "nav navbar-nav navbar-right" },
+            "div",
+            { className: "collapse navbar-collapse" },
             _react2.default.createElement(
-              "button",
-              { type: "button", className: "btn btn-default navbar-btn" },
-              "登陆"
-            ),
-            _react2.default.createElement(
-              "button",
-              { type: "button", className: "btn btn-default navbar-btn" },
-              "注册"
+              "ul",
+              { className: "nav navbar-nav navbar-right" },
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "a",
+                  { href: "/login" },
+                  "登录"
+                )
+              ),
+              _react2.default.createElement(
+                "li",
+                null,
+                _react2.default.createElement(
+                  "a",
+                  { href: "/signup" },
+                  "注册"
+                )
+              )
             )
           )
         )
@@ -24108,8 +24120,30 @@ var Home = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
-        '首页'
+        { 'class': 'jumbotron' },
+        _react2.default.createElement(
+          'div',
+          { className: 'container' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            '你好！'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            '学做，学习去实践'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            _react2.default.createElement(
+              'a',
+              { className: 'btn btn-primary btn-lg', href: '#', role: 'button' },
+              'Learn more'
+            )
+          )
+        )
       );
     }
   }]);
@@ -24168,7 +24202,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _react2.default.createElement(
   _reactRouter.Route,
   { path: '/', component: _app2.default },
-  _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default })
+  _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'login', component: Login }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: Login })
 );
 
 },{"./components/app":216,"./components/home":219,"react":215,"react-router":30}]},{},[220]);

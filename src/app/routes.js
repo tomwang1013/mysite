@@ -6,5 +6,7 @@ import Home from './components/home'
 export default (
   <Route path='/' component={App}>
     <IndexRoute component={Home} />
+    <Route path='login' component={Login} />
+    <Route path='signup' component={Login} />
   </Route>
 )
