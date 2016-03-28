@@ -9,7 +9,7 @@ function signup(req, res, next) {
   u.save(function(err, nu) {
     if (err) return next(err);
 
-    res.Redirect('/xxx');
+    res.json({ status: 0, url: '/signin' });
   });
 }
 

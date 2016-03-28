@@ -2,11 +2,17 @@ import React from 'react'
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import jade from 'jade';
-import App from '../app/components/app'
+import routes from '../app/routes'
 
-export default function(req, res) {   
-  var content = renderToString(<App />)
-  var page = jade.renderFile(__dirname + '/../views/index.jade', { content: content });
+export default function(req, res, next) {   
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) return next(error);
+    if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    if (renderProps) {
+      var content = renderToString(<RouterContext {...renderProps} />);
+      res.send('index', { content: content });
+    }
 
-  res.send(page);
+    next(new Error('no route match'));
+  });
 };

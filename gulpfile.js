@@ -1,10 +1,43 @@
 var gulp        = require('gulp');
 var babel       = require('gulp-babel');
-var rename      = require('gulp-rename');
 var browserify  = require('browserify');
 var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var sass        = require('gulp-sass');
+var concat      = require('gulp-concat');
+
+var dependencies = ['react', 'react-dom', 'react-router']
+
+gulp.task('vendor-concat', function() {
+  return gulp.src(['jquery', 'bootstrap'])
+    .pipe(concat('vendor.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('public/js'));
+});
+
+/*
+ * bundle common third-party packages
+ */
+gulp.task('vendor-bundle', function() {
+  return browserify()
+  .require(dependencies)
+  .bundle()
+  .pipe(source('vendor.bundle.js'))
+  .pipe(uglify({ mangle: false }))
+  .pipe(gulp.dest('public/js'));
+});
+
+/*
+ * client js bundle
+ */
+gulp.task('main-bundle', function() {
+  browserify('src/app/main.js')
+    .external(dependencies)
+    .transform(babelify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('public/js'))
+});
 
 /*
  * server js transfork
@@ -13,18 +46,6 @@ gulp.task('server-babel', function() {
   return gulp.src(['src/**/*.js'])
     .pipe(babel())
     .pipe(gulp.dest('dest'));
-});
-
-
-/*
- * client js bundle
- */
-gulp.task('client-bundle', function() {
-  browserify('src/app/main.js')
-    .transform(babelify)
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('public/js'))
 });
 
 gulp.task('watch', function() {
