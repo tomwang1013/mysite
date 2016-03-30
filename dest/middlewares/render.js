@@ -4,11 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = function (req, res) {
-  var content = (0, _server.renderToString)(_react2.default.createElement(_app2.default, null));
-  var page = _jade2.default.renderFile(__dirname + '/../views/index.jade', { content: content });
+exports.default = function (req, res, next) {
+  (0, _reactRouter.match)({ routes: _routes2.default, location: req.url }, function (error, redirectLocation, renderProps) {
+    if (error) return next(error);
+    if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    if (renderProps) {
+      var content = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
+      return res.render('index', { content: content });
+    }
 
-  res.send(page);
+    next(new Error('no route match'));
+  });
 };
 
 var _react = require('react');
@@ -23,9 +29,9 @@ var _jade = require('jade');
 
 var _jade2 = _interopRequireDefault(_jade);
 
-var _app = require('../app/components/app');
+var _routes = require('../app/routes');
 
-var _app2 = _interopRequireDefault(_app);
+var _routes2 = _interopRequireDefault(_routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

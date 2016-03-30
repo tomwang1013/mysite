@@ -65,7 +65,7 @@ var Login = function (_React$Component) {
               _react2.default.createElement(
                 'button',
                 { type: 'submit', className: 'btn btn-default' },
-                'Submit'
+                '登陆'
               )
             )
           )

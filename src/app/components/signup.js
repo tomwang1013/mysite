@@ -4,7 +4,7 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = { email: '', password: '' };
-  },
+  }
 
   submitHandler(event) {
     event.preventDefault();
@@ -12,15 +12,23 @@ class Signup extends React.Component {
     $.post('/signup', this.state, function(data) {
       location.assign(data.url);
     });
-  },
+  }
 
   // check if this email is valid
   emailChecker(event) {
-  },
+    $.get('/email_check', { email: this.state.email }, function(data) {
+      if (data.error) {
+        alert('user already exists');
+      } else {
+        alert('you can use this email');
+      }
+    });
+  }
 
   // change input value
   handleChange(event) {
-  },
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
   render() {
     return (
@@ -32,6 +40,7 @@ class Signup extends React.Component {
                 <label htmlFor="email">Email address</label>
                 <input
                   type="email"
+                  name='email'
                   className="form-control"
                   value={this.state.email}
                   onBlur={this.emailChecker.bind(this)}
@@ -42,12 +51,13 @@ class Signup extends React.Component {
                 <label htmlFor="password">Password</label>
                 <input
                   type="password"
+                  name='password'
                   className="form-control"
                   value={this.state.password}
                   onChange={this.handleChange.bind(this)}
                 />
               </div>
-              <button type="submit" className="btn btn-default">注册</button>
+              <button type="submit" className="btn btn-primary">注册</button>
             </form>
           </div>
         </div>

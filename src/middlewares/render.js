@@ -10,7 +10,7 @@ export default function(req, res, next) {
     if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     if (renderProps) {
       var content = renderToString(<RouterContext {...renderProps} />);
-      res.send('index', { content: content });
+      return res.render('index', { content: content });
     }
 
     next(new Error('no route match'));

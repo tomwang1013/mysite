@@ -6,13 +6,15 @@ var source      = require('vinyl-source-stream');
 var sass        = require('gulp-sass');
 var concat      = require('gulp-concat');
 var uglify      = require('gulp-uglify');
+var streamify   = require('gulp-streamify');
 
 var dependencies = ['react', 'react-dom', 'react-router']
 
 gulp.task('vendor-concat', function() {
-  return gulp.src(['jquery', 'bootstrap'])
+  return gulp.src(['./node_modules/jquery/dist/jquery.min.js',
+                   './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'])
     .pipe(concat('vendor.js'))
-    .pipe(uglify())
+    .pipe(streamify(uglify({ mangle: false })))
     .pipe(gulp.dest('public/js'));
 });
 
@@ -24,7 +26,7 @@ gulp.task('vendor-bundle', function() {
   .require(dependencies)
   .bundle()
   .pipe(source('vendor.bundle.js'))
-  .pipe(uglify({ mangle: false }))
+  .pipe(streamify(uglify({ mangle: false })))
   .pipe(gulp.dest('public/js'));
 });
 
@@ -51,7 +53,7 @@ gulp.task('server-babel', function() {
 
 gulp.task('watch', function() {
   gulp.watch(['src/**/*.js'], ['server-babel']);
-  gulp.watch(['src/app/**/*.js'], ['client-bundle']);
+  gulp.watch(['src/app/**/*.js'], ['main-bundle']);
 });
 
 // css

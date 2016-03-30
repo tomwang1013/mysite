@@ -1,6 +1,6 @@
 import User from '../models/user'
 
-function signup(req, res, next) {
+function signupHandler(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
 
@@ -9,8 +9,16 @@ function signup(req, res, next) {
   u.save(function(err, nu) {
     if (err) return next(err);
 
-    res.json({ status: 0, url: '/signin' });
+    res.json({ status: 0, url: '/login' });
   });
 }
 
-export default signup;
+function emailChecker(req, res, next) {
+  let email = req.query.email;
+
+  User.findOne({ 'email': email }, function(err, result) {
+    res.json({ error: !!result });
+  })
+}
+
+export {signupHandler, emailChecker};
