@@ -5,6 +5,7 @@ var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var sass        = require('gulp-sass');
 var concat      = require('gulp-concat');
+var uglify      = require('gulp-uglify');
 
 var dependencies = ['react', 'react-dom', 'react-router']
 
