@@ -28,7 +28,12 @@ var Signup = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Signup).call(this, props));
 
-    _this.state = { email: '', password: '' };
+    _this.state = {
+      email: '',
+      password: '',
+      isEmailValid: true,
+      emailHint: ''
+    };
     return _this;
   }
 
@@ -49,11 +54,17 @@ var Signup = function (_React$Component) {
     value: function emailChecker(event) {
       $.get('/email_check', { email: this.state.email }, function (data) {
         if (data.error) {
-          alert('user already exists');
+          this.setState({
+            isEmailValid: false,
+            emailHint: 'user already exists'
+          });
         } else {
-          alert('you can use this email');
+          this.setState({
+            isEmailValid: true,
+            emailHint: 'you can use this email'
+          });
         }
-      });
+      }.bind(this));
     }
 
     // change input value
@@ -93,7 +104,15 @@ var Signup = function (_React$Component) {
                   value: this.state.email,
                   onBlur: this.emailChecker.bind(this),
                   onChange: this.handleChange.bind(this)
-                })
+                }),
+                _react2.default.createElement(
+                  'div',
+                  {
+                    style: this.state.isEmailValid ? { display: 'none' } : { display: 'block' },
+                    className: this.state.isEmailValid ? 'alert alert-success' : 'alert alert-warning'
+                  },
+                  this.state.emailHint
+                )
               ),
               _react2.default.createElement(
                 'div',

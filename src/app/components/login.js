@@ -15,7 +15,7 @@ class Login extends React.Component {
                 <label htmlFor="password">Password</label>
                 <input type="password" className="form-control" id="password" placeholder="Password"/>
               </div>
-              <button type="submit" className="btn btn-default">登陆</button>
+              <button type="submit" className="btn btn-primary">登陆</button>
             </form>
           </div>
         </div>

@@ -3,7 +3,12 @@ import React from 'react'
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = {
+      email: '',
+      password: '',
+      isEmailValid: true,
+      emailHint: ''
+    };
   }
 
   submitHandler(event) {
@@ -16,13 +21,19 @@ class Signup extends React.Component {
 
   // check if this email is valid
   emailChecker(event) {
-    $.get('/email_check', { email: this.state.email }, function(data) {
+    $.get('/email_check', { email: this.state.email }, (function(data) {
       if (data.error) {
-        alert('user already exists');
+        this.setState({
+          isEmailValid: false,
+          emailHint: 'user already exists'
+        });
       } else {
-        alert('you can use this email');
+        this.setState({
+          isEmailValid: true,
+          emailHint: 'you can use this email'
+        });
       }
-    });
+    }).bind(this));
   }
 
   // change input value
@@ -46,6 +57,12 @@ class Signup extends React.Component {
                   onBlur={this.emailChecker.bind(this)}
                   onChange={this.handleChange.bind(this)}
                 />
+                <div
+                  style={this.state.isEmailValid ? {display: 'none'} : {display: 'block'}}
+                  className={this.state.isEmailValid ? 'alert alert-success' : 'alert alert-warning'}
+                >
+                  {this.state.emailHint}
+                </div>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
