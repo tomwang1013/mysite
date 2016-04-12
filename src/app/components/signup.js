@@ -6,34 +6,38 @@ class Signup extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isEmailValid: true,
-      emailHint: ''
+      sucess: true, // if signup succeeded
+      message: '',  // message if signup failed
+      alertKlass: 'alert alert-success',
+      alertStyle: { display: 'none' }
     };
   }
 
   submitHandler(event) {
     event.preventDefault();
 
-    $.post('/signup', this.state, function(data) {
-      location.assign(data.url);
-    });
-  }
+    let that = this;
 
-  // check if this email is valid
-  emailChecker(event) {
-    $.get('/email_check', { email: this.state.email }, (function(data) {
+    $.post('/signup', this.state, function(data) {
       if (data.error) {
-        this.setState({
-          isEmailValid: false,
-          emailHint: 'user already exists'
+        that.setState({
+          success: false,
+          message: data.message,
+          alertKlass: 'alert alert-warning',
+          alertStyle: { display: 'block' }
         });
       } else {
-        this.setState({
-          isEmailValid: true,
-          emailHint: 'you can use this email'
+        that.setState({
+          success: true,
+          message: '',
+          alertKlass: 'alert alert-success',
+          alertStyle: { display: 'none' }
         });
+
+        // if signup succeeded, redirect to elsewhere
+        location.assign(data.redirect_url);
       }
-    }).bind(this));
+    });
   }
 
   // change input value
@@ -46,7 +50,7 @@ class Signup extends React.Component {
       <div className='container'>
         <div className='row'>
           <div className='col-lg-6 col-lg-offset-3'>
-            <form onSubmit={this.submitHandler.bind(this)}>
+            <form method='post' onSubmit={this.submitHandler.bind(this)}>
               <div className="form-group">
                 <label htmlFor="email">Email address</label>
                 <input
@@ -54,15 +58,8 @@ class Signup extends React.Component {
                   name='email'
                   className="form-control"
                   value={this.state.email}
-                  onBlur={this.emailChecker.bind(this)}
                   onChange={this.handleChange.bind(this)}
                 />
-                <div
-                  style={this.state.isEmailValid ? {display: 'none'} : {display: 'block'}}
-                  className={this.state.isEmailValid ? 'alert alert-success' : 'alert alert-warning'}
-                >
-                  {this.state.emailHint}
-                </div>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
@@ -73,6 +70,9 @@ class Signup extends React.Component {
                   value={this.state.password}
                   onChange={this.handleChange.bind(this)}
                 />
+              </div>
+              <div className={this.state.alertKlass} style={this.state.alertStyle}>
+                {this.state.message}
               </div>
               <button type="submit" className="btn btn-primary">注册</button>
             </form>

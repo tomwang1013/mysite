@@ -31,8 +31,10 @@ var Signup = function (_React$Component) {
     _this.state = {
       email: '',
       password: '',
-      isEmailValid: true,
-      emailHint: ''
+      sucess: true, // if signup succeeded
+      message: '', // message if signup failed
+      alertKlass: 'alert alert-success',
+      alertStyle: { display: 'none' }
     };
     return _this;
   }
@@ -42,29 +44,28 @@ var Signup = function (_React$Component) {
     value: function submitHandler(event) {
       event.preventDefault();
 
+      var that = this;
+
       $.post('/signup', this.state, function (data) {
-        location.assign(data.url);
-      });
-    }
-
-    // check if this email is valid
-
-  }, {
-    key: 'emailChecker',
-    value: function emailChecker(event) {
-      $.get('/email_check', { email: this.state.email }, function (data) {
         if (data.error) {
-          this.setState({
-            isEmailValid: false,
-            emailHint: 'user already exists'
+          that.setState({
+            success: false,
+            message: data.message,
+            alertKlass: 'alert alert-warning',
+            alertStyle: { display: 'block' }
           });
         } else {
-          this.setState({
-            isEmailValid: true,
-            emailHint: 'you can use this email'
+          that.setState({
+            success: true,
+            message: '',
+            alertKlass: 'alert alert-success',
+            alertStyle: { display: 'none' }
           });
+
+          // if signup succeeded, redirect to elsewhere
+          location.assign(data.redirect_url);
         }
-      }.bind(this));
+      });
     }
 
     // change input value
@@ -88,7 +89,7 @@ var Signup = function (_React$Component) {
             { className: 'col-lg-6 col-lg-offset-3' },
             _react2.default.createElement(
               'form',
-              { onSubmit: this.submitHandler.bind(this) },
+              { method: 'post', onSubmit: this.submitHandler.bind(this) },
               _react2.default.createElement(
                 'div',
                 { className: 'form-group' },
@@ -102,17 +103,8 @@ var Signup = function (_React$Component) {
                   name: 'email',
                   className: 'form-control',
                   value: this.state.email,
-                  onBlur: this.emailChecker.bind(this),
                   onChange: this.handleChange.bind(this)
-                }),
-                _react2.default.createElement(
-                  'div',
-                  {
-                    style: this.state.isEmailValid ? { display: 'none' } : { display: 'block' },
-                    className: this.state.isEmailValid ? 'alert alert-success' : 'alert alert-warning'
-                  },
-                  this.state.emailHint
-                )
+                })
               ),
               _react2.default.createElement(
                 'div',
@@ -129,6 +121,11 @@ var Signup = function (_React$Component) {
                   value: this.state.password,
                   onChange: this.handleChange.bind(this)
                 })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: this.state.alertKlass, style: this.state.alertStyle },
+                this.state.message
               ),
               _react2.default.createElement(
                 'button',

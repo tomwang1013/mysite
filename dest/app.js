@@ -49,8 +49,11 @@ app.use(_express2.default.static('public'));
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
 
+// ajax
 app.post('/signup', user.signupHandler);
-app.get('/email_check', user.emailChecker);
+app.post('/login', user.loginHandler);
+
+// render page
 app.get('/', _render2.default);
 app.get('/signup', _render2.default);
 app.get('/login', _render2.default);

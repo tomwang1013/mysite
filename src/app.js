@@ -21,8 +21,11 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// ajax
 app.post('/signup', user.signupHandler);
-app.get('/email_check', user.emailChecker);
+app.post('/login', user.loginHandler);
+
+// render page
 app.get('/', serv_render);
 app.get('/signup', serv_render);
 app.get('/login', serv_render);
