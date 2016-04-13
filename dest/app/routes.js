@@ -18,13 +18,9 @@ var _home = require('./components/home');
 
 var _home2 = _interopRequireDefault(_home);
 
-var _login = require('./components/login');
+var _sign = require('./components/sign');
 
-var _login2 = _interopRequireDefault(_login);
-
-var _signup = require('./components/signup');
-
-var _signup2 = _interopRequireDefault(_signup);
+var _sign2 = _interopRequireDefault(_sign);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,6 +28,6 @@ exports.default = _react2.default.createElement(
   _reactRouter.Route,
   { path: '/', component: _app2.default },
   _react2.default.createElement(_reactRouter.IndexRoute, { component: _home2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _login2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default })
+  _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _sign2.default }),
+  _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _sign2.default })
 );

@@ -1,15 +1,19 @@
+/**
+ * signup and login
+ */
 import React from 'react'
 
-class Signup extends React.Component {
+class Sign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      sucess: true, // if signup succeeded
-      message: '',  // message if signup failed
+      message: '',  // message if signup or login failed
       alertKlass: 'alert alert-success',
-      alertStyle: { display: 'none' }
+      alertStyle: { display: 'none' },
+      submitUrl: this.props.location.pathname,
+      submitText: this.props.location.pathname == '/signup' ? '注册' : '登陆'
     };
   }
 
@@ -18,24 +22,27 @@ class Signup extends React.Component {
 
     let that = this;
 
-    $.post('/signup', this.state, function(data) {
+    $.post(this.state.submitUrl, this.state, function(data) {
       if (data.error) {
         that.setState({
-          success: false,
           message: data.message,
           alertKlass: 'alert alert-warning',
           alertStyle: { display: 'block' }
         });
       } else {
         that.setState({
-          success: true,
           message: '',
           alertKlass: 'alert alert-success',
           alertStyle: { display: 'none' }
         });
 
-        // if signup succeeded, redirect to elsewhere
-        location.assign(data.redirect_url);
+        if (that.props.location.pathname == '/signup') {
+          // if signup succeeded, redirect to elsewhere
+          location.assign(data.redirect_url);
+        } else {
+          // TODO
+          location.assign('/');
+        }
       }
     });
   }
@@ -74,7 +81,7 @@ class Signup extends React.Component {
               <div className={this.state.alertKlass} style={this.state.alertStyle}>
                 {this.state.message}
               </div>
-              <button type="submit" className="btn btn-primary">注册</button>
+              <button type="submit" className="btn btn-primary">{this.state.submitText}</button>
             </form>
           </div>
         </div>
@@ -83,4 +90,4 @@ class Signup extends React.Component {
   }
 }
 
-export default Signup;
+export default Sign;

@@ -1,43 +1,59 @@
 import User from '../models/user'
+import bcrypt from 'bcrypt'
+
+const VALID_EMAIL_REG = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
+const SALT_ROUNDS = 10;
 
 function signupHandler(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
-  let validEmailReg = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/
 
   if (!email || !password) {
     return res.json({ error: 1, message: 'email or password is empty'});
   }
 
-  if (!validEmailReg.test(email)) {
+  if (!VALID_EMAIL_REG.test(email)) {
     return res.json({ error: 1, message: 'please enter a valid email'});
   }
 
-  let u = new User({ email: email, password: password });
+  bcrypt.hash(password, SALT_ROUNDS, function(err, hash) {
+    let u = new User({ email: email, password: hash });
 
-  u.save(function(err, nu) {
-    if (err) {
-      return res.json({ error: 1, message: 'signup failed, please try again later'});
-    }
+    u.save(function(err, nu) {
+      if (err) {
+        return res.json({ error: 1, message: 'signup failed, please try again later'});
+      }
 
-    res.json({ error: 0, redirect_url: '/login' });
+      res.json({ error: 0, redirect_url: '/login' });
+    });
   });
 }
 
 function loginHandler(req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
-  let validEmailReg = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/
 
   if (!email || !password) {
     return res.json({ error: 1, message: 'email or password is empty'});
   }
 
-  if (!validEmailReg.test(email)) {
+  if (!VALID_EMAIL_REG.test(email)) {
     return res.json({ error: 1, message: 'please enter a valid email'});
   }
 
-  // TODO authentication
+  User.findOne({ email }, function(err, user) {
+    if (!user) {
+      return res.json({ error: 1, message: 'user not exist' });
+    }
+
+    bcrypt.compare(password, user.password, function(err, match) {
+      if (match) {
+        return res.json({ error: 0 });
+      } else {
+        return res.json({ error: 1, message: 'user and password not match' });
+      }
+    });
+  })
 }
 
 export { signupHandler, loginHandler };
