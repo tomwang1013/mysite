@@ -48,7 +48,8 @@ function loginHandler(req, res, next) {
 
     bcrypt.compare(password, user.password, function(err, match) {
       if (match) {
-        return res.json({ error: 0 });
+        req.session.userName = email;
+        return res.json({ error: 0, email });
       } else {
         return res.json({ error: 1, message: 'user and password not match' });
       }

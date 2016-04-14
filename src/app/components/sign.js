@@ -36,12 +36,11 @@ class Sign extends React.Component {
           alertStyle: { display: 'none' }
         });
 
+        // TODO how to pass props to new router component?
         if (that.props.location.pathname == '/signup') {
-          // if signup succeeded, redirect to elsewhere
-          location.assign(data.redirect_url);
+          that.context.router.push(data.redirect_url);
         } else {
-          // TODO
-          location.assign('/');
+          that.context.router.push('/');
         }
       }
     });
@@ -89,5 +88,9 @@ class Sign extends React.Component {
     )
   }
 }
+
+Sign.contextTypes = {
+  router: React.PropTypes.object
+};
 
 export default Sign;

@@ -20,6 +20,10 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
+var _expressSession = require('express-session');
+
+var _expressSession2 = _interopRequireDefault(_expressSession);
+
 var _user = require('./controllers/user');
 
 var user = _interopRequireWildcard(_user);
@@ -39,6 +43,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _mongoose2.default.connect('mongodb://localhost/mysite');
 
 var app = (0, _express2.default)();
+var MongoStore = require('connect-mongo')(_expressSession2.default);
 
 app.set('views', __dirname + '/../dest/views');
 app.set('view engine', 'jade');
@@ -48,6 +53,12 @@ app.use((0, _serveFavicon2.default)(__dirname + '/../public/favicon.ico'));
 app.use(_express2.default.static('public'));
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
 app.use(_bodyParser2.default.json());
+app.use((0, _expressSession2.default)({
+  secret: 'xiongwang',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: _mongoose2.default.connection })
+}));
 
 // ajax
 app.post('/signup', user.signupHandler);

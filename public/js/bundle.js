@@ -30,10 +30,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App() {
+  function App(props) {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
   }
 
   _createClass(App, [{
@@ -42,7 +42,7 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_header2.default, null),
+        _react2.default.createElement(_header2.default, this.props),
         this.props.children,
         _react2.default.createElement(_footer2.default, null)
       );
@@ -51,6 +51,8 @@ var App = function (_React$Component) {
 
   return App;
 }(_react2.default.Component);
+
+App.defaultProps = { isLogin: false, loginEmail: '' };
 
 exports.default = App;
 
@@ -137,10 +139,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = function (_React$Component) {
   _inherits(Header, _React$Component);
 
-  function Header() {
+  function Header(props) {
     _classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
   }
 
   _createClass(Header, [{
@@ -163,7 +165,7 @@ var Header = function (_React$Component) {
           ),
           _react2.default.createElement(
             "div",
-            { className: "collapse navbar-collapse" },
+            { className: "collapse navbar-collapse", style: { display: this.props.isLogin ? 'none' : 'block' } },
             _react2.default.createElement(
               "ul",
               { className: "nav navbar-nav navbar-right" },
@@ -185,6 +187,17 @@ var Header = function (_React$Component) {
                   "注册"
                 )
               )
+            )
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "navbar-text", style: { display: this.props.isLogin ? 'block' : 'none' } },
+            "你好，",
+            this.props.email,
+            _react2.default.createElement(
+              "a",
+              { href: "#", className: "navbar-link" },
+              "退出"
             )
           )
         )
@@ -332,12 +345,11 @@ var Sign = function (_React$Component) {
             alertStyle: { display: 'none' }
           });
 
+          // TODO how to pass props to new router component?
           if (that.props.location.pathname == '/signup') {
-            // if signup succeeded, redirect to elsewhere
-            location.assign(data.redirect_url);
+            that.context.router.push(data.redirect_url);
           } else {
-            // TODO
-            location.assign('/');
+            that.context.router.push('/');
           }
         }
       });
@@ -416,6 +428,10 @@ var Sign = function (_React$Component) {
 
   return Sign;
 }(_react2.default.Component);
+
+Sign.contextTypes = {
+  router: _react2.default.PropTypes.object
+};
 
 exports.default = Sign;
 

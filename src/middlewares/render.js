@@ -6,11 +6,23 @@ import routes from '../app/routes'
 
 export default function(req, res, next) {   
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
-    if (error) return next(error);
-    if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    if (error) {
+      return next(error);
+    }
+
+    if (redirectLocation) {
+      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    }
+
     if (renderProps) {
-      var content = renderToString(<RouterContext {...renderProps} />);
-      return res.render('index', { content: content });
+      renderProps = Object.assign(renderProps, {
+        isLogin: !!req.session.email,
+        email: req.session.email
+      });
+
+      return res.render('index', {
+        content: renderToString(<RouterContext {...renderProps} />)
+      });
     }
 
     next(new Error('no route match'));

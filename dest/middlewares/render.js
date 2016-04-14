@@ -6,11 +6,23 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = function (req, res, next) {
   (0, _reactRouter.match)({ routes: _routes2.default, location: req.url }, function (error, redirectLocation, renderProps) {
-    if (error) return next(error);
-    if (redirectLocation) return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    if (error) {
+      return next(error);
+    }
+
+    if (redirectLocation) {
+      return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    }
+
     if (renderProps) {
-      var content = (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps));
-      return res.render('index', { content: content });
+      renderProps = Object.assign(renderProps, {
+        isLogin: !!req.session.email,
+        email: req.session.email
+      });
+
+      return res.render('index', {
+        content: (0, _server.renderToString)(_react2.default.createElement(_reactRouter.RouterContext, renderProps))
+      });
     }
 
     next(new Error('no route match'));

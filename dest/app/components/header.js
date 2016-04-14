@@ -21,10 +21,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = function (_React$Component) {
   _inherits(Header, _React$Component);
 
-  function Header() {
+  function Header(props) {
     _classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
   }
 
   _createClass(Header, [{
@@ -47,7 +47,7 @@ var Header = function (_React$Component) {
           ),
           _react2.default.createElement(
             "div",
-            { className: "collapse navbar-collapse" },
+            { className: "collapse navbar-collapse", style: { display: this.props.isLogin ? 'none' : 'block' } },
             _react2.default.createElement(
               "ul",
               { className: "nav navbar-nav navbar-right" },
@@ -69,6 +69,17 @@ var Header = function (_React$Component) {
                   "注册"
                 )
               )
+            )
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "navbar-text", style: { display: this.props.isLogin ? 'block' : 'none' } },
+            "你好，",
+            this.props.email,
+            _react2.default.createElement(
+              "a",
+              { href: "#", className: "navbar-link" },
+              "退出"
             )
           )
         )
