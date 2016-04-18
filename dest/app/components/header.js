@@ -21,10 +21,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = function (_React$Component) {
   _inherits(Header, _React$Component);
 
-  function Header(props) {
+  function Header() {
     _classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
   }
 
   _createClass(Header, [{
@@ -75,7 +75,7 @@ var Header = function (_React$Component) {
             "p",
             { className: "navbar-text", style: { display: this.props.isLogin ? 'block' : 'none' } },
             "你好，",
-            this.props.email,
+            this.props.loginEmail,
             _react2.default.createElement(
               "a",
               { href: "#", className: "navbar-link" },

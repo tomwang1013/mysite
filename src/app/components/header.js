@@ -1,10 +1,6 @@
 import React from 'react'
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <nav className="navbar navbar-default">
@@ -19,7 +15,7 @@ class Header extends React.Component {
               <li><a href="/signup">注册</a></li>
             </ul>
           </div>
-          <p className="navbar-text" style={{ display: this.props.isLogin ? 'block' : 'none' }}>你好，{this.props.email}<a href="#" className="navbar-link">退出</a></p>
+          <p className="navbar-text" style={{ display: this.props.isLogin ? 'block' : 'none' }}>你好，{this.props.loginEmail}<a href="#" className="navbar-link">退出</a></p>
         </div>
       </nav>
     )

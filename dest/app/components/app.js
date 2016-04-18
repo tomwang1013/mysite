@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _header = require('./header');
+var _wrapHeader = require('../containers/wrapHeader');
 
-var _header2 = _interopRequireDefault(_header);
+var _wrapHeader2 = _interopRequireDefault(_wrapHeader);
 
 var _footer = require('./footer');
 
@@ -29,10 +29,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App(props) {
+  function App() {
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
   }
 
   _createClass(App, [{
@@ -41,7 +41,7 @@ var App = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_header2.default, this.props),
+        _react2.default.createElement(_wrapHeader2.default, null),
         this.props.children,
         _react2.default.createElement(_footer2.default, null)
       );
@@ -50,7 +50,5 @@ var App = function (_React$Component) {
 
   return App;
 }(_react2.default.Component);
-
-App.defaultProps = { isLogin: false, loginEmail: '' };
 
 exports.default = App;
