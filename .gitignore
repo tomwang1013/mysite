@@ -1,4 +1,6 @@
 npm-debug.log
 *.swp
 *.swo
+dest/
 node_modules/
+public/js/
