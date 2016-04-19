@@ -4,9 +4,10 @@ import { render } from 'react-dom'
 import routes from './routes'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import mysiteApp from './reducers'
+import reducer from './reducers'
 
-let store = createStore(mysiteApp)
+const initialState = window.__INITIAL_STATE__
+const store = createStore(reducer, initialState)
 
 render(
   <Provider store={store}>

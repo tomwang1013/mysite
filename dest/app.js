@@ -36,6 +36,10 @@ var _render = require('./middlewares/render');
 
 var _render2 = _interopRequireDefault(_render);
 
+var _current_user = require('./middlewares/current_user');
+
+var _current_user2 = _interopRequireDefault(_current_user);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -59,6 +63,7 @@ app.use((0, _expressSession2.default)({
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: _mongoose2.default.connection })
 }));
+app.use(_current_user2.default);
 
 // ajax
 app.post('/signup', user.signupHandler);
@@ -68,6 +73,7 @@ app.post('/login', user.loginHandler);
 app.get('/', _render2.default);
 app.get('/signup', _render2.default);
 app.get('/login', _render2.default);
+
 app.use(_error2.default);
 
 app.listen(3000, function () {

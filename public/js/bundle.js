@@ -1655,6 +1655,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
+var _actions = require('../actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1713,6 +1717,7 @@ var Sign = function (_React$Component) {
           if (that.props.location.pathname == '/signup') {
             that.context.router.push(data.redirect_url);
           } else {
+            that.props.dispatch((0, _actions.userLogin)(data.email));
             that.context.router.push('/');
           }
         }
@@ -1797,16 +1802,14 @@ Sign.contextTypes = {
   router: _react2.default.PropTypes.object
 };
 
-exports.default = Sign;
+exports.default = (0, _reactRedux.connect)()(Sign);
 
-},{"react":"react"}],29:[function(require,module,exports){
+},{"../actions":23,"react":"react","react-redux":4}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _reactRedux = require('react-redux');
 
@@ -1817,7 +1820,10 @@ var _header2 = _interopRequireDefault(_header);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state) {
-  return _extends({}, state);
+  return {
+    isLogin: state.isLogin,
+    loginEmail: state.loginEmail
+  };
 };
 
 var WrapHeader = (0, _reactRedux.connect)(mapStateToProps)(_header2.default);
@@ -1849,7 +1855,8 @@ var _reducers2 = _interopRequireDefault(_reducers);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_reducers2.default);
+var initialState = window.__INITIAL_STATE__;
+var store = (0, _redux.createStore)(_reducers2.default, initialState);
 
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,

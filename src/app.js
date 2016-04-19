@@ -7,7 +7,8 @@ import session     from 'express-session';
 
 import * as user from './controllers/user'
 import errorHandler from './controllers/error'
-import serv_render from './middlewares/render';
+import servRender from './middlewares/render';
+import currentUser from './middlewares/current_user';
 
 mongoose.connect('mongodb://localhost/mysite');
 
@@ -28,15 +29,17 @@ app.use(session({
   saveUninitialized: false,
   store:             new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+app.use(currentUser);
 
 // ajax
 app.post('/signup', user.signupHandler);
 app.post('/login',  user.loginHandler);
 
 // render page
-app.get('/', serv_render);
-app.get('/signup', serv_render);
-app.get('/login', serv_render);
+app.get('/', servRender);
+app.get('/signup', servRender);
+app.get('/login', servRender);
+
 app.use(errorHandler);
 
 app.listen(3000, function() {

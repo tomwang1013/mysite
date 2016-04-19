@@ -8,6 +8,7 @@ html
     link(href="/css/main.css", rel="stylesheet")
   body
     div(id='app')= content
+    script(type='text/javascript') window.__INITIAL_STATE__ = !{JSON.stringify(initialState)}
     script(type='text/javascript', src='/js/vendor.js')
     script(type='text/javascript', src='/js/vendor.bundle.js')
     script(type='text/javascript', src='/js/bundle.js')

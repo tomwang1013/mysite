@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = require('react-redux');
+
+var _actions = require('../actions');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -68,6 +72,7 @@ var Sign = function (_React$Component) {
           if (that.props.location.pathname == '/signup') {
             that.context.router.push(data.redirect_url);
           } else {
+            that.props.dispatch((0, _actions.userLogin)(data.email));
             that.context.router.push('/');
           }
         }
@@ -152,4 +157,4 @@ Sign.contextTypes = {
   router: _react2.default.PropTypes.object
 };
 
-exports.default = Sign;
+exports.default = (0, _reactRedux.connect)()(Sign);

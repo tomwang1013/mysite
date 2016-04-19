@@ -2,6 +2,8 @@
  * signup and login
  */
 import React from 'react'
+import { connect } from 'react-redux'
+import { userLogin } from '../actions'
 
 class Sign extends React.Component {
   constructor(props) {
@@ -40,6 +42,7 @@ class Sign extends React.Component {
         if (that.props.location.pathname == '/signup') {
           that.context.router.push(data.redirect_url);
         } else {
+          that.props.dispatch(userLogin(data.email));
           that.context.router.push('/');
         }
       }
@@ -90,7 +93,7 @@ class Sign extends React.Component {
 }
 
 Sign.contextTypes = {
-  router: React.PropTypes.object
+  router: React.PropTypes.object,
 };
 
-export default Sign;
+export default connect()(Sign);
