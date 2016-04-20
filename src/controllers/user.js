@@ -57,4 +57,13 @@ function loginHandler(req, res, next) {
   })
 }
 
-export { signupHandler, loginHandler };
+// logout
+function logoutHandler(req, res, next) {
+  if (req.session.email) {
+    req.session.email = null;
+  }
+
+  res.redirect('/');
+}
+
+export { signupHandler, loginHandler, logoutHandler };

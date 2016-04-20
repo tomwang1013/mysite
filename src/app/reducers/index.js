@@ -1,4 +1,4 @@
-import { USER_LOGIN } from '../actions/index'
+import { USER_LOGIN, USER_LOGOUT } from '../actions/index'
 
 const initialState = {
   isLogin: false,
@@ -12,6 +12,8 @@ function mysiteApp(state = initialState, action) {
         isLogin: true,
         loginEmail: action.loginEmail
       });
+    case USER_LOGOUT:
+      return initialState;
     default:
       return state;
   }

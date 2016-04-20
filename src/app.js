@@ -31,9 +31,10 @@ app.use(session({
 }));
 app.use(currentUser);
 
-// ajax
+// ajax or redirect
 app.post('/signup', user.signupHandler);
 app.post('/login',  user.loginHandler);
+app.post('/logout', user.logoutHandler);
 
 // render page
 app.get('/', servRender);

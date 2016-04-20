@@ -8,8 +8,14 @@ var concat      = require('gulp-concat');
 var uglify      = require('gulp-uglify');
 var streamify   = require('gulp-streamify');
 
-var dependencies = ['react', 'react-dom', 'react-router']
+var dependencies = [
+  'react', 'react-dom', 'react-router',
+  'redux', 'react-redux'
+]
 
+/*
+ * browser only file concat
+ */
 gulp.task('vendor-concat', function() {
   return gulp.src(['./node_modules/jquery/dist/jquery.min.js',
                    './node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'])
@@ -43,16 +49,25 @@ gulp.task('main-bundle', function() {
 });
 
 /*
- * server js transfork
+ * server js transform
  */
 gulp.task('server-babel', function() {
-  return gulp.src(['src/**/*.js'])
+  return gulp.src(['src/**/*.js', '!src/**/*.jade'])
     .pipe(babel())
+    .pipe(gulp.dest('dest'));
+});
+
+/**
+ * jade file copy
+ */
+gulp.task('copy-jade', function() {
+  return gulp.src(['src/**/*.jade'])
     .pipe(gulp.dest('dest'));
 });
 
 gulp.task('watch', function() {
   gulp.watch(['src/**/*.js'], ['server-babel']);
+  gulp.watch(['src/**/*.jade'], ['copy-jade']);
   gulp.watch(['src/app/**/*.js'], ['main-bundle']);
 });
 
