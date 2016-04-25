@@ -4,6 +4,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { userLogin } from '../actions'
+import Input from './controls/input'
+import Submit from './controls/submit'
+import Radio from './controls/radio'
 
 class Sign extends React.Component {
   constructor(props) {
@@ -12,8 +15,6 @@ class Sign extends React.Component {
       email: '',
       password: '',
       message: '',  // message if signup or login failed
-      alertKlass: 'alert alert-success',
-      alertStyle: { display: 'none' },
       submitUrl: this.props.location.pathname,
       submitText: this.props.location.pathname == '/signup' ? '注册' : '登陆'
     };
@@ -26,19 +27,10 @@ class Sign extends React.Component {
 
     $.post(this.state.submitUrl, this.state, function(data) {
       if (data.error) {
-        that.setState({
-          message: data.message,
-          alertKlass: 'alert alert-warning',
-          alertStyle: { display: 'block' }
-        });
+        that.setState({ message: data.message });
       } else {
-        that.setState({
-          message: '',
-          alertKlass: 'alert alert-success',
-          alertStyle: { display: 'none' }
-        });
+        that.setState({ message: '' });
 
-        // TODO how to pass props to new router component?
         if (that.props.location.pathname == '/signup') {
           that.context.router.push(data.redirect_url);
         } else {
@@ -58,32 +50,16 @@ class Sign extends React.Component {
     return (
       <div className='container'>
         <div className='row'>
-          <div className='col-lg-6 col-lg-offset-3'>
-            <form method='post' onSubmit={this.submitHandler.bind(this)}>
-              <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input
-                  type="email"
-                  name='email'
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.handleChange.bind(this)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  name='password'
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.handleChange.bind(this)}
-                />
-              </div>
-              <div className={this.state.alertKlass} style={this.state.alertStyle}>
-                {this.state.message}
-              </div>
-              <button type="submit" className="btn btn-primary">{this.state.submitText}</button>
+          <div className='col-lg-8 col-lg-offset-2'>
+            <form className="form-horizontal" method='post' onSubmit={this.submitHandler.bind(this)}>
+              <Input type="email" name="email" value={this.state.email}
+                onChange={this.handleChange.bind(this)} label="邮箱："/>
+              <Input type="password" name="password" value={this.state.password}
+                onChange={this.handleChange.bind(this)} label="密码："/>
+              <Radio name="userType" leftlabel="用户类型："
+                radios={[{id: 'ur1', value: 'student', label: '学生'},
+                         {id: 'ur2', value: 'ent', label: '企业'}]}/>
+              <Submit text={this.state.submitText}/>
             </form>
           </div>
         </div>
