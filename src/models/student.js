@@ -7,7 +7,7 @@ let studentSchema = Schema({
   major:        String, // 专业
   entranceTime: Date,   // 入学时间
   gender:       Number, // 性别：0:female,1:male
-  _userId:       Schema.Types.ObjectId
+  _userId:      Schema.Types.ObjectId
 });
 
 let Student = mongoose.model('Student', userSchema);

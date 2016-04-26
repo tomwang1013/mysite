@@ -6,17 +6,14 @@ import { connect } from 'react-redux'
 import { userLogin } from '../actions'
 import Input from './controls/input'
 import Submit from './controls/submit'
-import Radio from './controls/radio'
 
-class Sign extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      message: '',  // message if signup or login failed
-      submitUrl: this.props.location.pathname,
-      submitText: this.props.location.pathname == '/signup' ? '注册' : '登陆'
+      message: '',  // message if login failed
     };
   }
 
@@ -25,18 +22,13 @@ class Sign extends React.Component {
 
     let that = this;
 
-    $.post(this.state.submitUrl, this.state, function(data) {
+    $.post('/login', this.state, function(data) {
       if (data.error) {
         that.setState({ message: data.message });
       } else {
         that.setState({ message: '' });
-
-        if (that.props.location.pathname == '/signup') {
-          that.context.router.push(data.redirect_url);
-        } else {
-          that.props.dispatch(userLogin(data.email));
-          that.context.router.push('/');
-        }
+        that.props.dispatch(userLogin(data.email));
+        that.context.router.push('/');
       }
     });
   }
@@ -56,10 +48,7 @@ class Sign extends React.Component {
                 onChange={this.handleChange.bind(this)} label="邮箱："/>
               <Input type="password" name="password" value={this.state.password}
                 onChange={this.handleChange.bind(this)} label="密码："/>
-              <Radio name="userType" leftlabel="用户类型："
-                radios={[{id: 'ur1', value: 'student', label: '学生'},
-                         {id: 'ur2', value: 'ent', label: '企业'}]}/>
-              <Submit text={this.state.submitText}/>
+              <Submit text='登陆'/>
             </form>
           </div>
         </div>
@@ -68,8 +57,8 @@ class Sign extends React.Component {
   }
 }
 
-Sign.contextTypes = {
+Login.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default connect()(Sign);
+export default connect()(Login);
