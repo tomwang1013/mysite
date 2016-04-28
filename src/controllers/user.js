@@ -1,4 +1,6 @@
 import User from '../models/user'
+import Student from '../models/student'
+import Enterprise from '../models/enterprise'
 import bcrypt from 'bcrypt'
 
 const VALID_EMAIL_REG = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
@@ -6,6 +8,7 @@ const SALT_ROUNDS = 10;
 
 function signupHandler(req, res, next) {
   let email = req.body.email;
+  let userType = req.body.userType;
   let password = req.body.password;
 
   if (!email || !password) {
@@ -17,14 +20,24 @@ function signupHandler(req, res, next) {
   }
 
   bcrypt.hash(password, SALT_ROUNDS, function(err, hash) {
-    let u = new User({ email: email, password: hash });
+    let u = new User({ email: email, password: hash, userType: userType });
 
-    u.save(function(err, nu) {
+    u.save(function(err) {
       if (err) {
         return res.json({ error: 1, message: 'signup failed, please try again later'});
       }
 
-      res.json({ error: 0, redirect_url: '/login' });
+      let m;
+      if (userType == 'student') {
+        m = new Student(req.body.student);
+      } else {
+        m = new Enterprise(req.body.ent);
+      }
+
+      m._userId = u.id;
+      m.save(function(err) {
+        res.json({ error: 0 });
+      });
     });
   });
 }

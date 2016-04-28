@@ -36,12 +36,16 @@ class Signup extends React.Component {
 
     let that = this;
 
-    $.post('/signup', this.state, function(data) {
+    $.ajax('/signup', {
+      type: 'POST',
+      data: JSON.stringify(this.state),
+      contentType: 'application/json; charset=UTF-8',
+    }).done(function(data) {
       if (data.error) {
         that.setState({ message: data.message });
       } else {
         that.setState({ message: '' });
-        that.context.router.push(data.redirect_url);
+        that.context.router.push('/login');
       }
     });
   }

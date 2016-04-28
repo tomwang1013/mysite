@@ -13,7 +13,7 @@ class SignupEnt extends React.Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value }, () => {
-      this.props.notifyParent(this.state);
+      this.props.notifyParent('ent', this.state);
     });
   }
 

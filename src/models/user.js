@@ -6,7 +6,7 @@ let userSchema = Schema({
   email:    String, // 邮箱
   phone:    String, // 电话号码
   password: String, // 加密后的密码
-  cate:     Number  // 用户类型：0:个人,1:企业
+  userType: String  // 用户类型：student,enterprise
 });
 
 let User = mongoose.model('User', userSchema);

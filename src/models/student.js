@@ -10,7 +10,6 @@ let studentSchema = Schema({
   _userId:      Schema.Types.ObjectId
 });
 
-let Student = mongoose.model('Student', userSchema);
+let Student = mongoose.model('Student', studentSchema);
 
 export default Student;
-
