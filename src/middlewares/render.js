@@ -22,7 +22,7 @@ export default function(req, res, next) {
       const store = createStore(reducer);
 
       if (req.currentUser) {
-        store.dispatch(userLogin(req.currentUser.email));
+        store.dispatch(userLogin(req.currentUser.email, req.currentUser.userType));
       }
 
       return res.render('index', {

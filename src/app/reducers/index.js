@@ -2,7 +2,8 @@ import { USER_LOGIN, USER_LOGOUT } from '../actions/index'
 
 const initialState = {
   isLogin: false,
-  loginEmail: ''
+  loginEmail: '',
+  userType: ''
 };
 
 function mysiteApp(state = initialState, action) {
@@ -10,7 +11,8 @@ function mysiteApp(state = initialState, action) {
     case USER_LOGIN:
       return Object.assign({}, state, {
         isLogin: true,
-        loginEmail: action.loginEmail
+        loginEmail: action.loginEmail,
+        userType: action.userType
       });
     case USER_LOGOUT:
       return initialState;

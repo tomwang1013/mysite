@@ -40,6 +40,10 @@ app.post('/logout', user.logoutHandler);
 app.get('/', servRender);
 app.get('/signup', servRender);
 app.get('/login', servRender);
+app.get('/after_login', servRender);
+app.get('/create_job', servRender);
+app.get('/jobs', servRender);
+app.get('/students', servRender);
 
 app.use(errorHandler);
 

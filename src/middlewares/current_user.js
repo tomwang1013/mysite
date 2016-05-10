@@ -3,7 +3,7 @@
  */
 export default function(req, res, next) {   
   if (req.session && req.session.email) {
-    req.currentUser = { email: req.session.email };
+    req.currentUser = { email: req.session.email, userType: req.session.userType };
   }
 
   next();

@@ -27,7 +27,7 @@ class Login extends React.Component {
         that.setState({ message: data.message });
       } else {
         that.setState({ message: '' });
-        that.props.dispatch(userLogin(data.email));
+        that.props.dispatch(userLogin(data.email, data.userType));
         that.context.router.push('/');
       }
     });
