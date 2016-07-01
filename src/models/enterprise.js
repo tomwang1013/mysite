@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+'use strict'
 
+const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let enterpriseSchema = Schema({
   entName:      String, // 企业名称
@@ -9,4 +10,4 @@ let enterpriseSchema = Schema({
 
 let Enterprise = mongoose.model('Enterprise', enterpriseSchema);
 
-export default Enterprise;
+exports = module.exports = Enterprise;

@@ -1,51 +1,28 @@
-import express     from 'express';
-import logger      from 'morgan';
-import bodyParser  from 'body-parser';
-import favicon     from 'serve-favicon';
-import mongoose    from 'mongoose';
-import session     from 'express-session';
+'use strict'
 
-import * as user from './controllers/user'
-import errorHandler from './controllers/error'
-import servRender from './middlewares/render';
-import currentUser from './middlewares/current_user';
+const express       = require('express');
+const logger        = require( 'morgan');
+const bodyParser    = require( 'body-parser');
+const favicon       = require( 'serve-favicon');
+const path          = require('path');
 
-mongoose.connect('mongodb://localhost/mysite');
+global.app          = express();
+global.gControllers = require('./controllers');
+global.gModels      = require('./models');
+global.root         = __dirname;
 
-const app        = express();
-const MongoStore = require('connect-mongo')(session);
-
-app.set('views', __dirname + '/../dest/views')
+app.set('views', __dirname + './views')
 app.set('view engine', 'jade')
 
 app.use(logger('dev'));
-app.use(favicon(__dirname + '/../public/favicon.ico'));
+app.use(favicon(path.join(root, '../public/favicon.ico')));
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(session({
-  secret:            'xiongwang',
-  resave:            false,
-  saveUninitialized: false,
-  store:             new MongoStore({ mongooseConnection: mongoose.connection })
-}));
-app.use(currentUser);
-
-// ajax or redirect
-app.post('/signup', user.signupHandler);
-app.post('/login',  user.loginHandler);
-app.post('/logout', user.logoutHandler);
-
-// render page
-app.get('/', servRender);
-app.get('/signup', servRender);
-app.get('/login', servRender);
-app.get('/after_login', servRender);
-app.get('/create_job', servRender);
-app.get('/jobs', servRender);
-app.get('/students', servRender);
-
-app.use(errorHandler);
+app.use(gControllers.middlewares.session);
+app.use(gControllers.middlewares.currentUser);
+app.use(require('./route'));
+app.use(gControllers.error);
 
 app.listen(3000, function() {
   console.log('server started and listen on 3000...');

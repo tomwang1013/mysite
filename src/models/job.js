@@ -1,4 +1,6 @@
-import mongoose from 'mongoose';
+'use strict'
+
+const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 let jobSchema = Schema({
@@ -10,4 +12,4 @@ let jobSchema = Schema({
 
 let Job = mongoose.model('Job', jobSchema);
 
-export default Job;
+exports = module.exports = Job;

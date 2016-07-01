@@ -1,7 +1,9 @@
-import User from '../models/user'
-import Student from '../models/student'
-import Enterprise from '../models/enterprise'
-import bcrypt from 'bcrypt'
+'use strict'
+
+const User       = require('../models/user');
+const Student    = require('../models/student');
+const Enterprise = require('../models/enterprise');
+const bcrypt     = require( 'bcrypt');
 
 const VALID_EMAIL_REG = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
 const SALT_ROUNDS = 10;
@@ -80,4 +82,8 @@ function logoutHandler(req, res, next) {
   res.redirect('/');
 }
 
-export { signupHandler, loginHandler, logoutHandler };
+exports = module.exports = {
+  signup: signupHandler,
+  login:  loginHandler,
+  logout: logoutHandler
+};

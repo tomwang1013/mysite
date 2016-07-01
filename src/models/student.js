@@ -1,4 +1,6 @@
-import mongoose from 'mongoose';
+'use strict'
+
+const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 let studentSchema = Schema({
@@ -12,4 +14,4 @@ let studentSchema = Schema({
 
 let Student = mongoose.model('Student', studentSchema);
 
-export default Student;
+exports = module.exports = Student;
