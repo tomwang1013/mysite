@@ -1,22 +1,21 @@
-'use strict'
+'use strict';
 
 const express       = require('express');
-const logger        = require( 'morgan');
-const bodyParser    = require( 'body-parser');
-const favicon       = require( 'serve-favicon');
-const path          = require('path');
+const logger        = require('morgan');
+const bodyParser    = require('body-parser');
+const favicon       = require('serve-favicon');
 
 global.app          = express();
 global.gControllers = require('./controllers');
 global.gModels      = require('./models');
 global.root         = __dirname;
 
-app.set('views', __dirname + './views')
-app.set('view engine', 'jade')
+app.set('views', './views')
+app.set('view engine', 'pug')
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(favicon(path.join(root, '../public/favicon.ico')));
-app.use(express.static('public'));
+app.use(express.static(__dirname + 'public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(gControllers.middlewares.session);
