@@ -8,6 +8,11 @@ const bcrypt     = require( 'bcrypt');
 const VALID_EMAIL_REG = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
 const SALT_ROUNDS = 10;
 
+function signupView(req, res, next) {
+  res.locals.title = '学做-用户注册';
+  res.render('user/signupView');
+}
+
 function signupHandler(req, res, next) {
   let email = req.body.email;
   let userType = req.body.userType;
@@ -42,6 +47,11 @@ function signupHandler(req, res, next) {
       });
     });
   });
+}
+
+function loginView(req, res, next) {
+  res.locals.title = '学做-用户登陆';
+  res.render('user/loginView');
 }
 
 function loginHandler(req, res, next) {
@@ -83,7 +93,9 @@ function logoutHandler(req, res, next) {
 }
 
 exports = module.exports = {
+  signupView: signupView,
   signup: signupHandler,
+  loginView: loginView,
   login:  loginHandler,
   logout: logoutHandler
 };

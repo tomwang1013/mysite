@@ -20,7 +20,8 @@ a:hover {
 
 /* header */
 header,
-main {
+main,
+footer {
   position:relative;
   padding:0.5em;
   margin-bottom:0.5em;
@@ -47,19 +48,15 @@ footer li {
 
 /* main */
 main {
-  overflow:hidden;
+  display:flex;
+  align-items:center;
+  position:relative;
+  min-height:30em;
 }
 
 main div {
-  width:49%;
-}
-
-div.intro-left {
-  float:left;
-}
-
-div.intro-right {
-  float:right;
+  padding:0 16px;
+  width:50%;
 }
 
 /* footer */
