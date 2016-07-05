@@ -8,7 +8,7 @@ let userSchema = Schema({
   email:    String, // 邮箱
   phone:    String, // 电话号码
   password: String, // 加密后的密码
-  userType: String  // 用户类型：student,enterprise
+  userType: Number  // 用户类型：0:student,1:company
 });
 
 let User = mongoose.model('User', userSchema);

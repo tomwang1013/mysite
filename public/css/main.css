@@ -68,3 +68,33 @@ footer ul {
 footer li:last-child {
   padding-left:0.5em;
 }
+
+/* form */
+div.form-wrapper {
+  width:50%;
+  margin:0 auto;
+  min-height:30em;
+}
+
+label {
+  display:inline-block;
+  text-align:right;
+  vertical-align:top;
+  width:80px;
+}
+
+fieldset.radios {
+  background-color:transparent;
+  margin:0;
+  padding:0;
+  border:none;
+}
+
+legend {
+  padding:0;
+  width:80px;
+}
+
+.radios label {
+  vertical-align:middle;
+}

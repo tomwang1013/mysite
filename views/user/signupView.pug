@@ -1,4 +1,24 @@
 extends ../layouts/main
 
 block content
-  | to signup
+  div(class='form-wrapper')
+    form(method='post', action='/signup')
+      p.row
+        label(for='name') 用户名：
+        input(type='text', name='name', id='name' required)
+      p.row
+        label(for='email') 邮箱：
+        input(type='email', name='email', id='email' required)
+      p.row
+        label(for='password') 密码：
+        input(type='password', name='password', id='password' required)
+      fieldset.radios
+        legend 用户类型：
+        p.row
+          input(type='radio', id='user-type-student', name='user_type', value=0)
+          label(for='user-type-student') 学生
+        p.row
+          input(type='radio', id='user-type-company', name='user_type', value=1)
+          label(for='user-type-company') 公司
+      p.row
+        input(type='submit', value='注册')
