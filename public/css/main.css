@@ -51,7 +51,6 @@ main {
   display:flex;
   align-items:center;
   position:relative;
-  min-height:30em;
 }
 
 main div {
@@ -73,7 +72,6 @@ footer li:last-child {
 div.form-wrapper {
   width:50%;
   margin:0 auto;
-  min-height:30em;
 }
 
 label {
@@ -83,18 +81,21 @@ label {
   width:80px;
 }
 
-fieldset.radios {
-  background-color:transparent;
-  margin:0;
-  padding:0;
-  border:none;
+#user-type-student {
+  margin-left:0;
 }
 
-legend {
-  padding:0;
-  width:80px;
+[type="radio"]+label {
+  text-align:left;
+  width:auto;
 }
 
-.radios label {
-  vertical-align:middle;
+[type="submit"] {
+  margin-left:80px;
+}
+
+[type="text"],
+[type="email"],
+[type="password"] {
+  width:75%;
 }
