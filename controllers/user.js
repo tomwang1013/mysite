@@ -51,10 +51,8 @@ function signupHandler(req, res, next) {
       userType: userType
     });
 
-    return { error: 0, location: '/login'};
-  }).then(function(result) {
-    res.json(result);
-  }); 
+    res.json({ error: 0, location: '/login'});
+  });
 }
 
 function loginView(req, res, next) {
