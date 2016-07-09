@@ -97,5 +97,21 @@ label {
 [type="text"],
 [type="email"],
 [type="password"] {
-  width:75%;
+  width:50%;
+}
+
+input.error {
+  border-color:red;
+}
+
+div.form-hint {
+  color:#aaa;
+  margin-left:80px;
+  font-size:80%;
+}
+
+span.invalid {
+  color:red;
+  font-size:80%;
+  padding-left:6px;
 }

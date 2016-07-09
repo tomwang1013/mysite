@@ -1,52 +1,60 @@
 'use strict'
 
-const User       = require('../models/user');
-const Student    = require('../models/student');
-const Enterprise = require('../models/enterprise');
-const bcrypt     = require( 'bcrypt');
+const bcrypt = require('bcrypt');
+const co     = require('co');
 
-const VALID_EMAIL_REG = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
-const SALT_ROUNDS = 10;
+const validEmailFormat = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
 
 function signupView(req, res, next) {
   res.locals.title = '学做-用户注册';
   res.render('user/signupView');
 }
 
+/**
+ * signup a user
+ */
 function signupHandler(req, res, next) {
-  let email = req.body.email;
-  let userType = req.body.userType;
+  // format validation
+  let name     = req.body.name;
+  let email    = req.body.email;
   let password = req.body.password;
+  let userType = req.body.user_type;
 
-  if (!email || !password) {
-    return res.json({ error: 1, message: 'email or password is empty'});
+  if (!(name && email && password)) {
+    return res.json({ error: 1, message: '用户名或邮箱或密码为空'});
   }
 
-  if (!VALID_EMAIL_REG.test(email)) {
-    return res.json({ error: 1, message: 'please enter a valid email'});
+  if (!validEmailFormat.test(email)) {
+    return res.json({ error: 1, message: '邮箱格式错误'});
   }
 
-  bcrypt.hash(password, SALT_ROUNDS, function(err, hash) {
-    let u = new User({ email: email, password: hash, userType: userType });
+  // check if name or email is already used by others
+  // if yes, return error
+  // else create the user and give the next location to go
+  co(function* () {
+    let user = yield gModels.User.findOne().or([{ name: name}, {email: email }]).then();
 
-    u.save(function(err) {
-      if (err) {
-        return res.json({ error: 1, message: 'signup failed, please try again later'});
-      }
+    if (user) {
+      return res.json({ error: 1, message: '用户名或邮箱已存在' });
+    }
 
-      let m;
-      if (userType == 'student') {
-        m = new Student(req.body.student);
-      } else {
-        m = new Enterprise(req.body.ent);
-      }
-
-      m._userId = u.id;
-      m.save(function(err) {
-        res.json({ error: 0 });
+    let hashedPwd = yield new Promise(function(resolve) {
+      bcrypt.hash(password, 10, function(err, hash) {
+        return resolve(hash);
       });
     });
-  });
+
+    user = yield gModels.User.create({
+      name:     name,
+      email:    email,
+      password: hashedPwd,
+      userType: userType
+    });
+
+    return { error: 0, location: '/login'};
+  }).then(function(result) {
+    res.json(result);
+  }); 
 }
 
 function loginView(req, res, next) {
@@ -62,7 +70,7 @@ function loginHandler(req, res, next) {
     return res.json({ error: 1, message: 'email or password is empty'});
   }
 
-  if (!VALID_EMAIL_REG.test(email)) {
+  if (!validEmailFormat.test(email)) {
     return res.json({ error: 1, message: 'please enter a valid email'});
   }
 

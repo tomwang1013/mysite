@@ -11,6 +11,9 @@ let userSchema = Schema({
   userType: Number  // 用户类型：0:student,1:company
 });
 
+userSchema.index({ name: 1 });
+userSchema.index({ email: 1 });
+
 let User = mongoose.model('User', userSchema);
 
 exports = module.exports =  User;
