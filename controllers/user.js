@@ -61,40 +61,37 @@ function loginView(req, res, next) {
 }
 
 function loginHandler(req, res, next) {
-  let email = req.body.email;
+  let name = req.body.name;
   let password = req.body.password;
 
-  if (!email || !password) {
-    return res.json({ error: 1, message: 'email or password is empty'});
+  if (!name || !password) {
+    return res.json({ error: 1, message: '用户或密码为空'});
   }
 
-  if (!validEmailFormat.test(email)) {
-    return res.json({ error: 1, message: 'please enter a valid email'});
-  }
+  co(function* () {
+    let user = yield gModels.User.findOne().
+      or([{ name: name }, { email: name }]).then();
 
-  User.findOne({ email }, function(err, user) {
     if (!user) {
-      return res.json({ error: 1, message: 'user not exist' });
+      return res.json({ error: 1, message: '用户名或密码错误' });
     }
 
-    bcrypt.compare(password, user.password, function(err, match) {
-      if (match) {
-        req.session.email = email;
-        req.session.userType = user.userType;
-        return res.json({ error: 0, email, userType: user.userType });
-      } else {
-        return res.json({ error: 1, message: 'user and password not match' });
-      }
+    let match = yield new Promise(function(resolve, reject) {
+      bcrypt.compare(password, user.password, function(err, match) {
+        return resolve(match);
+      });
     });
-  })
+
+    if (match) {
+      res.json({ error: 0, location: '/' });
+    } else {
+      res.json({ error: 1, message: '用户名或密码错误' });
+    }
+  });
 }
 
-// logout
+// TODO logout
 function logoutHandler(req, res, next) {
-  if (req.session.email) {
-    req.session.email = null;
-  }
-
   res.redirect('/');
 }
 

@@ -1,4 +1,16 @@
 extends ../layouts/main
 
 block content
-  | to login
+  div(class='form-wrapper')
+    form(method='post', action='/login', class='login')
+      p.row
+        label(for='name') 用户：
+        input(type='text', name='name', id='name', placeholder='用户名/邮箱', required, autofocus)
+        span(style={display: 'none'}, class='invalid')
+      p.row
+        label(for='password') 密码：
+        input(type='password', name='password', id='password', required)
+        span(style={display: 'none'}, class='invalid')
+      p.row
+        input(type='submit', value='登陆', formnovalidate)
+        span(style={display: 'none'}, class='invalid')

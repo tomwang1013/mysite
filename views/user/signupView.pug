@@ -5,7 +5,7 @@ block content
     form(method='post', action='/signup', class='signup')
       p.row
         label(for='name') 用户名：
-        input(type='text', name='name', id='name', required)
+        input(type='text', name='name', id='name', required, autofocus)
         span(style={display: 'none'}, class='invalid')
       p.row
         label(for='email') 邮箱：
