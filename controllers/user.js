@@ -107,8 +107,9 @@ function profile(req, res, next) {
 
 exports = module.exports = {
   signupView: signupView,
-  signup: signupHandler,
-  loginView: loginView,
-  login:  loginHandler,
-  logout: logoutHandler
+  signup:     signupHandler,
+  loginView:  loginView,
+  login:      loginHandler,
+  logout:     logoutHandler,
+  profile:    profile,
 };
