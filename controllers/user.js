@@ -83,6 +83,8 @@ function loginHandler(req, res, next) {
     });
 
     if (match) {
+      req.session.userName = user.name;
+      req.session.userType = user.userType;
       res.json({ error: 0, location: '/' });
     } else {
       res.json({ error: 1, message: '用户名或密码错误' });
@@ -90,10 +92,18 @@ function loginHandler(req, res, next) {
   });
 }
 
-// TODO logout
+// logout
 function logoutHandler(req, res, next) {
+  req.session.destroy(function(err) {
+    res.redirect('/');
+  });
+}
+
+// TODO user center & profile
+function profile(req, res, next) {
   res.redirect('/');
 }
+
 
 exports = module.exports = {
   signupView: signupView,

@@ -1,5 +1,11 @@
 header(role='banner')
   a(href='/') 学做网
   ul.user-info
-    li: a(href='login') 登陆
-    li: a(href='signup') 注册
+    - var cu = req.currentUser
+    if cu
+      li 你好,
+        a(href='/profile') #{cu.name}
+      li: a(href='/logout') 退出
+    else
+      li: a(href='login') 登陆
+      li: a(href='signup') 注册

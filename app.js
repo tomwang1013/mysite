@@ -18,8 +18,11 @@ app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(gControllers.middlewares.getReq);
 app.use(gControllers.middlewares.session);
 app.use(gControllers.middlewares.currentUser);
+
 app.use(require('./route'));
 app.use(gControllers.error);
 
