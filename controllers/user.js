@@ -85,7 +85,12 @@ function loginHandler(req, res, next) {
     if (match) {
       req.session.userName = user.name;
       req.session.userType = user.userType;
-      res.json({ error: 0, location: '/' });
+
+      if (user.isStudent()) {
+        res.json({ error: 0, location: '/jobs' });
+      } else {
+        res.json({ error: 0, location: '/jobs/new' });
+      }
     } else {
       res.json({ error: 1, message: '用户名或密码错误' });
     }

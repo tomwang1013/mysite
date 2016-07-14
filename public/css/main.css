@@ -96,6 +96,7 @@ label {
 
 [type="text"],
 [type="email"],
+textarea,
 [type="password"] {
   width:50%;
 }

@@ -14,6 +14,10 @@ let userSchema = Schema({
 userSchema.index({ name: 1 });
 userSchema.index({ email: 1 });
 
+userSchema.methods.isStudent = function() {
+  return this.userType === 0;
+};
+
 let User = mongoose.model('User', userSchema);
 
 exports = module.exports =  User;
