@@ -16,7 +16,11 @@ function getReq(req, res, next) {
  */
 function currentUser(req, res, next) {   
   if (req.session && req.session.userName) {
-    req.currentUser = { name: req.session.userName, userType: req.session.userType };
+    req.currentUser = {
+      id:   req.session.userId,
+      name: req.session.userName,
+      type: req.session.userType
+    };
   }
 
   next();

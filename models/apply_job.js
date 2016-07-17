@@ -9,6 +9,6 @@ let applyJobSchema = Schema({
   _userId:      Schema.Types.ObjectId
 });
 
-let ApplyJob = mongoose.model('ApplyJob', applyJobSchema);
+let ApplyJob = mongoose.model('apply_job', applyJobSchema);
 
 exports = module.exports = ApplyJob;

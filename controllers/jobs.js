@@ -1,6 +1,7 @@
 'use strict'
 
 var _ = require('lodash');
+const mongoose = require('mongoose');
 
 function index(req, res, next) {
   gModels.Job.find({}, function(err, jobs) {
@@ -34,7 +35,11 @@ function apply(req, res, next) {
   var userId = req.currentUser.id;
   var jobId  = req.body.job_id;
 
-  gModels.ApplyJob.create({ status: 0, _jobId: jobId, _userId: userId }).then(function() {
+  gModels.ApplyJob.create({
+    status: 0,
+    _jobId: new mongoose.Types.ObjectId(jobId),
+    _userId: new mongoose.Types.ObjectId(userId)
+  }).then(function() {
     res.json({ error: 0, message: '申请成功' });
   }).catch(function(err) {
     res.json({ error: 1, message: '申请失败' });
