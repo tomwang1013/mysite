@@ -83,6 +83,7 @@ function loginHandler(req, res, next) {
     });
 
     if (match) {
+      req.session.userId   = user.id;
       req.session.userName = user.name;
       req.session.userType = user.userType;
 

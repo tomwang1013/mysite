@@ -1,3 +1,17 @@
 extends ../layouts/main
 block content
-  | TODO
+  table
+    thead
+      tr
+        th 职位名称
+        th 职责
+        th 要求
+        th 操作
+    tbody
+      each job in jobs
+        tr(data-job_id=job.id)
+          td= job.title
+          td= job.duty
+          td= job.requirement
+          td
+            button(type='button' class='apply-job') 申请

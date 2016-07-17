@@ -15,6 +15,7 @@ router.get('/logout',   gControllers.user.logout);
 router.get('/jobs',          gControllers.jobs.index);
 router.get('/jobs/new',      gControllers.jobs.newJob);
 router.post('/jobs',         gControllers.jobs.create);
+router.post('/jobs/apply',   gControllers.jobs.apply);
 router.get('/jobs/:id/edit', gControllers.jobs.edit);
 router.post('/jobs/:id',     gControllers.jobs.update);
 

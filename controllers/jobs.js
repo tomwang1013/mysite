@@ -24,10 +24,28 @@ function edit(req, res, next) {
 function update(req, res, next) {
 }
 
+// apply for a job
+function apply(req, res, next) {
+  if (!req.currentUser) {
+    res.redirect('/login');
+    return;
+  }
+
+  var userId = req.currentUser.id;
+  var jobId  = req.body.job_id;
+
+  gModels.ApplyJob.create({ status: 0, _jobId: jobId, _userId: userId }).then(function() {
+    res.json({ error: 0, message: '申请成功' });
+  }).catch(function(err) {
+    res.json({ error: 1, message: '申请失败' });
+  });
+}
+
 exports = module.exports = {
   index:  index,
   newJob: newJob,
   create: create,
   edit:   edit,
-  update: update
+  update: update,
+  apply:  apply
 };
