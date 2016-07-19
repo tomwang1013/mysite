@@ -3,7 +3,9 @@
 var _ = require('lodash');
 
 function index(req, res, next) {
-  res.send('no job yet');
+  gModels.Job.find({}, function(err, jobs) {
+    res.render('jobs/index', { jobs: jobs });
+  });
 }
 
 function newJob(req, res, next) {
