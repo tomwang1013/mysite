@@ -105,9 +105,13 @@ function logoutHandler(req, res, next) {
   });
 }
 
-// TODO user center & profile
+// user center & profile
 function profile(req, res, next) {
-  res.redirect('/');
+  if (!req.currentUser) {
+    return res.redirect('/login');
+  }
+
+  res.render('user/profile', { pos: 'user_info', user: req.currentUser });
 }
 
 

@@ -1,0 +1,22 @@
+extends ../layouts/main
+block content
+  ul
+    li
+      a(href='/profile/user_info') 个人信息
+    li
+      a(href='/profile/jobs') 申请的职位
+  div
+    if pos == 'user_info'
+      p
+        label 用户名
+        span= user.name
+        input(type='text' value=user.name)
+      p
+        label 邮箱
+        span= user.email
+        input(type='text' value=user.email)
+      p
+        label 电话号码
+        span= user.phone
+        input(type='text' value=user.phone)
+    else if pos == 'jobs'
