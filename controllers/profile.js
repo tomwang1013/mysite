@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 function index(req, res, next) {
   if (!req.currentUser) {
     res.redirect('/login');
@@ -11,9 +13,13 @@ function userInfo(req, res, next) {
     return res.redirect('/login');
   }
 
-  res.render('profile/index', {
-    pos: 'user_info',
-    user: req.currentUser
+  gModels.User.findOne({
+    _id: new mongoose.Types.ObjectId(req.currentUser.id)
+  }).exec(function(err, user) {
+    res.render('profile/index', {
+      pos:  'user_info',
+      user: user
+    });
   });
 }
 
