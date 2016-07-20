@@ -1,32 +1,36 @@
 extends ../layouts/main
 block content
-  ul
-    li
-      a(href='/profile/user_info') 个人信息
-    li
-      a(href='/profile/jobs') 申请的职位
-  div
-    if pos == 'user_info'
-      p
-        label 用户名
-        input(type='text' value=user.name class='noneditable' readonly)
-      p
-        label 邮箱
-        input(type='text' value=user.email class='noneditable' readonly)
-      p
-        label 电话号码
-        input(type='text' value=user.phone class='noneditable' readonly)
-    else if pos == 'jobs'
-      table
-        thead
-          tr
-            th 职位名称
-            th 职责
-            th 要求
-            th 状态
-        tbody
-          each job in jobs
+  .col-container
+    ul
+      li
+        a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
+      li
+        a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+    div.profile-right
+      if pos == 'user_info'
+        p
+          label 用户名：
+          input(type='text' name='name' value=user.name class='noneditable' readonly)
+          input(type='button' value='修改')
+        p
+          label 邮箱：
+          input(type='text' name='email' value=user.email class='noneditable' readonly)
+          input(type='button' value='修改')
+        p
+          label 电话号码：
+          input(type='text' name='phone' value=user.phone class='noneditable' readonly)
+          input(type='button' value='修改')
+      else if pos == 'jobs'
+        table
+          thead
             tr
-              td job.title
-              td job.duty
-              td job.requirement
+              th 职位名称
+              th 职责
+              th 要求
+              th 状态
+          tbody
+            each job in jobs
+              tr
+                td= job.title
+                td= job.duty
+                td= job.requirement

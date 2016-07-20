@@ -23,5 +23,6 @@ router.post('/jobs/:id',     gControllers.jobs.update);
 router.get('/profile',            gControllers.profile.index);
 router.get('/profile/user_info',  gControllers.profile.userInfo);
 router.get('/profile/jobs',       gControllers.profile.jobs);
+router.post('/profile/change_user_info',       gControllers.profile.changeUserInfo);
 
 module.exports = router;

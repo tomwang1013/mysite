@@ -18,6 +18,18 @@ a:hover {
   text-decoration:underline;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+input {
+  font-size:1em;
+  font-family:inherit;
+}
+
 /* header */
 header,
 main,
@@ -77,7 +89,7 @@ div.form-wrapper {
 label {
   display:inline-block;
   text-align:right;
-  vertical-align:top;
+  vertical-align:baseline;
   width:80px;
 }
 
@@ -115,4 +127,31 @@ span.invalid {
   color:red;
   font-size:80%;
   padding-left:6px;
+}
+
+/* profile */
+.col-container {
+  border:1px solid #999;
+  overflow:hidden;
+  margin-bottom:0.8em;
+}
+
+.col-container ul {
+  float:left;
+  width:20%;
+}
+
+.col-container .profile-right  {
+  float:right;
+  width:80%;
+}
+
+.col-container a.active {
+  background-color:#aaa;
+  cursor:default;
+}
+
+input.noneditable {
+  border:none;
+  border-color:transparent;
 }

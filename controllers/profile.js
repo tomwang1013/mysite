@@ -34,8 +34,29 @@ function jobs(req, res, next) {
   });
 }
 
+function changeUserInfo(req, res, next) {
+  if (!req.currentUser) {
+    return res.redirect('/login');
+  }
+
+  var update = {};
+
+  update[req.body.attrName] = req.body.value;
+
+  gModels.User.findOneAndUpdate({
+    _id: new mongoose.Types.ObjectId(req.currentUser.id)
+  }, update, function(err, user) {
+    if (err) {
+      res.json({ error: 1, message: err.message });
+    } else {
+      res.json({ error: 0 });
+    }
+  });
+}
+
 exports = module.exports = {
   index:    index,
   userInfo: userInfo,
   jobs:     jobs,
+  changeUserInfo: changeUserInfo,
 };
