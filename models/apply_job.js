@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let applyJobSchema = Schema({
   status:       Number, // 当前申请状态，如发出申请，企业已回复，否定，录取等
-  _jobId:       Schema.Types.ObjectId,
+  _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
   _userId:      Schema.Types.ObjectId
 });
 

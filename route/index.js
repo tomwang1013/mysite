@@ -20,6 +20,8 @@ router.get('/jobs/:id/edit', gControllers.jobs.edit);
 router.post('/jobs/:id',     gControllers.jobs.update);
 
 // user center
-router.get('/profile',  gControllers.user.profile);
+router.get('/profile',            gControllers.profile.index);
+router.get('/profile/user_info',  gControllers.profile.userInfo);
+router.get('/profile/jobs',       gControllers.profile.jobs);
 
 module.exports = router;

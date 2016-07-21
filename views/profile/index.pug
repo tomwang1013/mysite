@@ -1,0 +1,32 @@
+extends ../layouts/main
+block content
+  ul
+    li
+      a(href='/profile/user_info') 个人信息
+    li
+      a(href='/profile/jobs') 申请的职位
+  div
+    if pos == 'user_info'
+      p
+        label 用户名
+        input(type='text' value=user.name class='noneditable' readonly)
+      p
+        label 邮箱
+        input(type='text' value=user.email class='noneditable' readonly)
+      p
+        label 电话号码
+        input(type='text' value=user.phone class='noneditable' readonly)
+    else if pos == 'jobs'
+      table
+        thead
+          tr
+            th 职位名称
+            th 职责
+            th 要求
+            th 状态
+        tbody
+          each job in jobs
+            tr
+              td job.title
+              td job.duty
+              td job.requirement

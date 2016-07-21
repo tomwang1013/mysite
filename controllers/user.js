@@ -105,21 +105,10 @@ function logoutHandler(req, res, next) {
   });
 }
 
-// user center & profile
-function profile(req, res, next) {
-  if (!req.currentUser) {
-    return res.redirect('/login');
-  }
-
-  res.render('user/profile', { pos: 'user_info', user: req.currentUser });
-}
-
-
 exports = module.exports = {
   signupView: signupView,
   signup:     signupHandler,
   loginView:  loginView,
   login:      loginHandler,
   logout:     logoutHandler,
-  profile:    profile,
 };
