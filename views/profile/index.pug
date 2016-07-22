@@ -12,14 +12,17 @@ block content
           label 用户名：
           input(type='text' name='name' value=user.name class='noneditable' readonly)
           input(type='button' value='修改')
+          span(class='hint' style={display: none})
         p
           label 邮箱：
           input(type='text' name='email' value=user.email class='noneditable' readonly)
           input(type='button' value='修改')
+          span(class='hint' style={display: none})
         p
           label 电话号码：
           input(type='text' name='phone' value=user.phone class='noneditable' readonly)
           input(type='button' value='修改')
+          span(class='hint' style={display: none})
       else if pos == 'jobs'
         table
           thead
