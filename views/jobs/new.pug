@@ -2,18 +2,24 @@ extends ../layouts/main
 block content
   div(class='form-wrapper')
     form(method='post', action='/jobs', class='new-job')
-      p.row
+      p
         label(for='title') 职位名称：
         input(type='text', name='title', id='title', required, autofocus)
-        span(style={display: 'none'}, class='invalid')
-      p.row
+      p
+        label(for='address') 工作地点：
+        input(type='text', name='address', id='address', required)
+      p
+        label(for='salary') 薪资：
+        input(type='text', name='salary', id='salary' value='0')
+        span 元/月
+      p
         label(for='duty') 职责：
         textarea(name='duty', id='duty', required)
-        span(style={display: 'none'}, class='invalid')
-      p.row
+      p
         label(for='requirement') 要求：
         textarea(name='requirement', id='requirement', required)
-        span(style={display: 'none'}, class='invalid')
-      p.row
+      p
+        label(for='notes') 备注：
+        textarea(name='notes', id='notes')
+      p
         input(type='submit', value='创建')
-        span(style={display: 'none'}, class='invalid')

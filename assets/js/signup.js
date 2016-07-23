@@ -64,3 +64,16 @@ $('form.signup').submit(function() {
 
   return false;
 });
+
+$(':radio[name=user_type]').change(function() {
+  $('fieldset.student, fieldset.company').toggle();
+  //var t = $(this).val();
+
+  //if (t == 0) {
+    //$('fieldset.student').show();
+    //$('fieldset.company').hide();
+  //} else {
+    //$('fieldset.student').show();
+    //$('fieldset.company').hide();
+  //}
+});

@@ -1,26 +1,51 @@
 extends ../layouts/main
 block content
   div(class='form-wrapper')
-    form(method='post', action='/signup', class='signup')
-      p.row
-        label(for='name') 用户名：
-        input(type='text', name='name', id='name', required, autofocus)
-        span(style={display: 'none'}, class='invalid')
-      p.row
-        label(for='email') 邮箱：
-        input(type='email', name='email', id='email', required)
-        span(style={display: 'none'}, class='invalid')
-      p.row
-        label(for='password') 密码：
-        input(type='password', name='password', id='password', required)
-        span(style={display: 'none'}, class='invalid')
-        div(class='form-hint') 至少8位且至少包含数字和字母
-      p.row
-        label 用户类型：
-        input(type='radio', id='user-type-student', name='user_type', value=0, checked)
-        label(for='user-type-student') 学生
-        input(type='radio', id='user-type-company', name='user_type', value=1)
-        label(for='user-type-company') 公司
-      p.row
+    form(method='post', action='/signup', class='signup', autocomplete='off')
+      fieldset
+        // disable autocomplete
+        input(style={display: 'none'}, type='email')
+        input(style={display: 'none'}, type="password")
+        p
+          label(for='name') 用户名：
+          input(type='text', name='name', id='name', required, autofocus)
+          span(style={display: 'none'}, class='invalid')
+        p
+          label(for='email') 邮箱：
+          input(type='email', name='email', id='email', required)
+          span(style={display: 'none'}, class='invalid')
+        p
+          label(for='password') 密码：
+          input(type='password', name='password', id='password', required)
+          span(style={display: 'none'}, class='invalid')
+          div(class='form-hint') 至少8位且至少包含数字和字母
+        p
+          label(for='phone') 电话：
+          input(type='text', name='phone', id='phone')
+          span(style={display: 'none'}, class='invalid')
+        p
+          label 用户类型：
+          input(type='radio', id='user-type-student', name='user_type', value=0, checked)
+          label(for='user-type-student') 学生
+          input(type='radio', id='user-type-company', name='user_type', value=1)
+          label(for='user-type-company') 公司
+      fieldset.student
+        p
+          label(for='university') 就读院校：
+          input(type='text', name='university', id='university', required)
+        p
+          label(for='major') 专业：
+          input(type='text', name='major', id='major', required)
+        p
+          label(for='entryDate') 入学年份：
+          input(type='text', name='entryDate', id='entryDate', required)
+      fieldset.company(style={display: 'none'})
+        p
+          label(for='url') 公司网址：
+          input(type='text', name='url', id='url')
+        p
+          label(for='desc') 公司介绍：
+          textarea(name='desc', id='desc')
+      p
         input(type='submit', value='注册', formnovalidate)
         span(style={display: 'none'}, class='invalid')

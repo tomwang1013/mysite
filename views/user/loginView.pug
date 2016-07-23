@@ -3,6 +3,8 @@ extends ../layouts/main
 block content
   div(class='form-wrapper')
     form(method='post', action='/login', class='login')
+      input(style={display: 'none'})
+      input(style={display: 'none'}, type="password")
       p.row
         label(for='name') 用户：
         input(type='text', name='name', id='name', placeholder='用户名/邮箱', required, autofocus)
