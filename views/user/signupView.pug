@@ -3,9 +3,6 @@ block content
   div(class='form-wrapper')
     form(method='post', action='/signup', class='signup', autocomplete='off')
       fieldset
-        // disable autocomplete
-        input(style={display: 'none'}, type='email')
-        input(style={display: 'none'}, type="password")
         p
           label(for='name') 用户名：
           input(type='text', name='name', id='name', required, autofocus)
@@ -47,5 +44,5 @@ block content
           label(for='desc') 公司介绍：
           textarea(name='desc', id='desc')
       p
-        input(type='submit', value='注册', formnovalidate)
+        input(type='submit', value='注册')
         span(style={display: 'none'}, class='invalid')

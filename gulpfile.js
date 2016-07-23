@@ -8,7 +8,10 @@ var sass        = require('gulp-sass');
 
 gulp.task('vendor.js', function() {
   return browserify()
-    .require(['jquery', './assets/js/common.js'])
+    .require('jquery')
+    .add(['./node_modules/jquery-validation/dist/jquery.validate.js',
+          './node_modules/jquery-validation/dist/additional-methods.js',
+          './assets/js/common.js'])
     .bundle()
     .pipe(source('vendor.js'))
     .pipe(buffer())
@@ -20,7 +23,7 @@ gulp.task('bundle.js', function() {
   return browserify({
     entries: './assets/js/main.js',
     debug:   true
-  }).external(['jquery', 'common'])
+  }).external('jquery')
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
