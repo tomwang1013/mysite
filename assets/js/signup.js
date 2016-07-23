@@ -3,9 +3,12 @@ var $ = require('jquery');
 $(document).ready(function() {
   $('form.signup').validate({
     submitHandler: function(form) {
+      var me = this;
+
       $.post(form.action, $(form).serializeObject(), function(data) {
         if (data.error) {
-          alert(error.message);
+          if (data.errors) me.showErrors(data.errors);
+          else alert(data.message);
         } else {
           location = data.location;
         }

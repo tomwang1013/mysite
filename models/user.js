@@ -3,6 +3,14 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
+function isStudent() {
+  return this.userType === 0;
+};
+
+function isCompany() {
+  return this.userType === 1;
+};
+
 let Schema = mongoose.Schema;
 let userSchema = Schema({
   name:     { type: String, required: [true, '请输入用户名'], unique: true },
@@ -22,7 +30,7 @@ let userSchema = Schema({
   entryDate:  { type: Date,   required: [isStudent, '请选择入学年份'] },
 
   // 企业属性
-  url:        { type: String, required: [isCompany, '请输入公司网址'], unique: true },
+  url:        { type: String, required: [isCompany, '请输入公司网址'] },
   desc:       { type: String, required: [isCompany, '请输入公司介绍'] }
 });
 
@@ -30,11 +38,11 @@ userSchema.plugin(uniqueValidator, { message: '{VALUE}已经存在' });
 userSchema.index({ name: 1 },  { unique: true });
 userSchema.index({ email: 1 }, { unique: true });
 
-var isStudent = userSchema.methods.isStudent = function() {
+userSchema.methods.isStudent = function() {
   return this.userType === 0;
 };
 
-var isCompany = userSchema.methods.isCompany = function() {
+userSchema.methods.isCompany = function() {
   return this.userType === 1;
 };
 

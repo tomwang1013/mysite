@@ -20,13 +20,17 @@ function signupHandler(req, res, next) {
       });
     });
 
+    req.body.entryDate = new Date(req.body.entryDate);
+
     let attrs = _.pick(req.body, ['name', 'email', 'phone', 'userType',
                        'university', 'major', 'entryDate', 'url', 'desc']);
-    user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
+    let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
     res.json({ error: 0, location: '/login'});
   }).catch(function(err) {
     if (err.errors) {
+      res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
     } else {
+      res.json({ error: 1, message: err.message });
     }
   });
 }
