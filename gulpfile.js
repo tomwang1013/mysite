@@ -4,6 +4,7 @@ var source      = require('vinyl-source-stream');
 var uglify      = require('gulp-uglify');
 var buffer      = require('vinyl-buffer');
 var sourcemaps  = require('gulp-sourcemaps');
+var sass        = require('gulp-sass');
 
 gulp.task('vendor.js', function() {
   return browserify()
@@ -27,6 +28,16 @@ gulp.task('bundle.js', function() {
     .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./public/js/'));
+});
+
+gulp.task('sass', function () {
+  return gulp.src('./assets/sass/**/[^_]*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./public/css/'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('./assets/sass/**/*.scss', ['sass']);
 });
 
 gulp.task('watch', function() {

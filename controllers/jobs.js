@@ -14,7 +14,7 @@ function newJob(req, res, next) {
 }
 
 function create(req, res, next) {
-  gModels.Job.create(_.pick(req.body, ['title', 'duty', 'requirement'])).then(function(job) {
+  gModels.Job.create(_.pick(req.body, ['title', 'duty', 'requirement', 'address', 'notes', 'salary'])).then(function(job) {
     res.redirect(301, '/jobs');
   });
 }
@@ -28,7 +28,7 @@ function update(req, res, next) {
 // apply for a job
 function apply(req, res, next) {
   if (!req.currentUser) {
-    res.redirect('/login');
+    res.json({ error: 1, location: '/login', message: '用户未登陆' });
     return;
   }
 

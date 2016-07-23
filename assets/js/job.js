@@ -6,6 +6,10 @@ $('button.apply-job').click(function() {
   $.post('/jobs/apply', {
     job_id: me.closest('tr').data('jobId')
   }, function(data) {
-    alert(data.message);
+    if (data.error) {
+      window.location = data.location;
+    } else {
+      alert(data.message);
+    }
   });
 });
