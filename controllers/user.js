@@ -2,8 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const co     = require('co');
-
-const validEmailFormat = /\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/; 
+const _      = require('lodash');
 
 function signupView(req, res, next) {
   res.locals.title = '学做-用户注册';
@@ -15,41 +14,19 @@ function signupView(req, res, next) {
  */
 function signupHandler(req, res, next) {
   // format validation
-  let name     = req.body.name;
-  let email    = req.body.email;
-  let password = req.body.password;
   let userType = req.body.user_type;
 
-  if (!(name && email && password)) {
-    return res.json({ error: 1, message: '用户名或邮箱或密码为空'});
-  }
-
-  if (!validEmailFormat.test(email)) {
-    return res.json({ error: 1, message: '邮箱格式错误'});
-  }
-
-  // check if name or email is already used by others
-  // if yes, return error
-  // else create the user and give the next location to go
   co(function* () {
-    let user = yield gModels.User.findOne().or([{ name: name}, {email: email }]).then();
-
-    if (user) {
-      return res.json({ error: 1, message: '用户名或邮箱已存在' });
-    }
-
     let hashedPwd = yield new Promise(function(resolve) {
       bcrypt.hash(password, 10, function(err, hash) {
         return resolve(hash);
       });
     });
 
-    user = yield gModels.User.create({
-      name:     name,
-      email:    email,
-      password: hashedPwd,
-      userType: userType
-    });
+    let attrs = _.pick(req.body, ['name', 'email', 'phone', 'userType',
+                       'university', 'major', 'entryDate', 'url', 'desc']);
+
+    user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
 
     res.json({ error: 0, location: '/login'});
   });
