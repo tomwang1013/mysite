@@ -15,21 +15,9 @@ $(document).ready(function() {
       });
     },
 
-    invalidHandler: function(event, validator) {
-      var errors = validator.numberOfInvalids();
-      if (errors) {
-        var message = errors == 1
-          ? 'You missed 1 field. It has been highlighted'
-          : 'You missed ' + errors + ' fields. They have been highlighted';
-        alert(message);
-      } else {
-        alert('valid');
-      }
-    },
-
     rules: {
-      name:     { required: true },
-      password: { required: true }
+      name:     'required',
+      password: 'required'
     },
 
     messages: {
