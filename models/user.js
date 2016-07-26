@@ -17,21 +17,25 @@ let userSchema = Schema({
   userType: Number, // 用户类型：0:student,1:company
 
   // 学生属性
-  university: { type: String, required: [true, '请输入学校名称'] },
-  major:      { type: String, required: [true, '请输入专业名称'] },
-  entryDate:  { type: Date,   required: [true, '请选择入学年份'] },
+  university: { type: String, required: [isStudent, '请输入学校名称'] },
+  major:      { type: String, required: [isStudent, '请输入专业名称'] },
+  entryDate:  { type: Date,   required: [isStudent, '请选择入学年份'] },
 
   // 企业属性
-  url:        { type: String, required: [true, '请输入公司网址'], unique: true },
-  desc:       { type: String, required: [true, '请输入公司介绍'] }
+  url:        { type: String, required: [isCompany, '请输入公司网址'], unique: true },
+  desc:       { type: String, required: [isCompany, '请输入公司介绍'] }
 });
 
 userSchema.plugin(uniqueValidator, { message: '{VALUE}已经存在' });
 userSchema.index({ name: 1 },  { unique: true });
 userSchema.index({ email: 1 }, { unique: true });
 
-userSchema.methods.isStudent = function() {
+var isStudent = userSchema.methods.isStudent = function() {
   return this.userType === 0;
+};
+
+var isCompany = userSchema.methods.isCompany = function() {
+  return this.userType === 1;
 };
 
 let User = mongoose.model('User', userSchema);

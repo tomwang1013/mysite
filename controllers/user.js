@@ -13,22 +13,21 @@ function signupView(req, res, next) {
  * signup a user
  */
 function signupHandler(req, res, next) {
-  // format validation
-  let userType = req.body.user_type;
-
   co(function* () {
     let hashedPwd = yield new Promise(function(resolve) {
-      bcrypt.hash(password, 10, function(err, hash) {
+      bcrypt.hash(req.body.password, 10, function(err, hash) {
         return resolve(hash);
       });
     });
 
     let attrs = _.pick(req.body, ['name', 'email', 'phone', 'userType',
                        'university', 'major', 'entryDate', 'url', 'desc']);
-
     user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
-
     res.json({ error: 0, location: '/login'});
+  }).catch(function(err) {
+    if (err.errors) {
+    } else {
+    }
   });
 }
 
