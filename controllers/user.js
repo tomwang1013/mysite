@@ -41,19 +41,15 @@ function loginView(req, res, next) {
 }
 
 function loginHandler(req, res, next) {
-  let name = req.body.name;
+  let name     = req.body.name;
   let password = req.body.password;
-
-  if (!name || !password) {
-    return res.json({ error: 1, message: '用户或密码为空'});
-  }
 
   co(function* () {
     let user = yield gModels.User.findOne().
-      or([{ name: name }, { email: name }]).then();
+      or([{ name: name }, { email: name }]).exec();
 
     if (!user) {
-      return res.json({ error: 1, message: '用户名或密码错误' });
+      return res.json({ error: 1, message: '该用户不存在' });
     }
 
     let match = yield new Promise(function(resolve, reject) {
@@ -73,7 +69,7 @@ function loginHandler(req, res, next) {
         res.json({ error: 0, location: '/jobs/new' });
       }
     } else {
-      res.json({ error: 1, message: '用户名或密码错误' });
+      res.json({ error: 1, message: '密码错误' });
     }
   });
 }

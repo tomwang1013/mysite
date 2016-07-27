@@ -1,43 +1,42 @@
 var $ = require('jquery');
-var common = require('./common');
 
-/**
- * 1. field validation
- * 2. validation passed, post info to server to signup the user
- * 3. if server validation passed, open new page got from server;
- *    else show error and go back to #1 
- */
-$('form.login').submit(function() {
-  var name = $('#name').val().trim();
-  var password = $('#password').val().trim();
+$(document).ready(function() {
+  $('form.login').validate({
+    submitHandler: function(form) {
+      var me = this;
 
-  // presence
-  var invalid = ['name', 'password'].some(function(attr) {
-    var id = '#' + attr;
-    var value = $(id).val().trim();
-    var label = $('[for=' + attr + ']').text().slice(0, -1);
+      $.post(form.action, $(form).serializeObject(), function(data) {
+        if (data.error) {
+          // TODO should display error message below the form
+          alert(data.message);
+        } else {
+          location = data.location;
+        }
+      });
+    },
 
-    if (!value) {
-      $(id).addClass('error').focus();
-      $(id + ' + span').text('请指定' + label).show();
-      return true;
-    } else {
-      $(id).removeClass('error');
-      $(id + ' + span').hide();
-      return false;
-    }
+    invalidHandler: function(event, validator) {
+      var errors = validator.numberOfInvalids();
+      if (errors) {
+        var message = errors == 1
+          ? 'You missed 1 field. It has been highlighted'
+          : 'You missed ' + errors + ' fields. They have been highlighted';
+        alert(message);
+      } else {
+        alert('valid');
+      }
+    },
+
+    rules: {
+      name:     { required: true },
+      password: { required: true }
+    },
+
+    messages: {
+      name:     { required: '请输入用户名或邮箱' },
+      password: { required: '请输入密码' }
+    },
+
+    debug: true
   });
-
-  if (invalid) return false;
-
-  // client validation passed, submit to server
-  $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
-    if (data.error) {
-      $(':submit + span').text(data.message).show();
-    } else {
-      location = data.location;
-    }
-  });
-
-  return false;
 });

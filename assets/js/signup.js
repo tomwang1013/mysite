@@ -8,7 +8,7 @@ $(document).ready(function() {
       $.post(form.action, $(form).serializeObject(), function(data) {
         if (data.error) {
           if (data.errors) me.showErrors(data.errors);
-          else alert(data.message);
+          else alert(data.message); // TODO general error message display
         } else {
           location = data.location;
         }
