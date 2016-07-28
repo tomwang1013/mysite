@@ -374,14 +374,41 @@ textarea {
  * 2. font
  * 3. button
  */
-body header .content,
-body main,
-body footer .content {
+* {
+  box-sizing: border-box; }
+
+body {
+  font-size: 100%; }
+
+/* header */
+header {
+  background-color: #ddd;
+  padding: 6px 0; }
+  header .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative; }
+    header .content span.user-nav {
+      position: absolute;
+      right: 0; }
+      header .content span.user-nav a, header .content span.user-nav span {
+        margin-left: 6px; }
+
+main {
   max-width: 1200px;
   margin: 0 auto; }
+  main .left {
+    float: left;
+    width: 50%;
+    padding-right: 6px; }
+  main .right {
+    float: right;
+    width: 50%;
+    padding-left: 6px; }
 
 /* footer */
 footer {
+  font-size: 0.8rem;
   border-top: 1px solid #e8e8e8;
   bottom: 1%;
   color: #999;
@@ -389,5 +416,8 @@ footer {
   text-align: center;
   width: 100%;
   padding: 10px 0; }
+  footer .content {
+    max-width: 1200px;
+    margin: 0 auto; }
   footer a {
     margin: 0 10px; }

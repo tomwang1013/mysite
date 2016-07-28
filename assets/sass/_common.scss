@@ -4,11 +4,10 @@
  * 2. font
  * 3. button
  */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  header .content,
-  main,
-  footer .content {
-    max-width:1200px;
-    margin:0 auto;
-  }
+  font-size: 100%;
 }

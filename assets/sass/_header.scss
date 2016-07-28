@@ -1,3 +1,17 @@
 /* header */
 header {
+  background-color: #ddd;
+  padding: 6px 0;
+  .content {
+    max-width:1200px;
+    margin:0 auto;
+    position: relative;
+    span.user-nav {
+      position: absolute;
+      right: 0;
+      a, span {
+        margin-left: 6px;
+      }
+    }
+  }
 }
