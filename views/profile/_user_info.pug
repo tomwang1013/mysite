@@ -1,4 +1,4 @@
-div
+div(class=['user-info'])
   p
     span 用户名：
     span= user.name
@@ -26,8 +26,8 @@ div
       span 公司介绍：
       span= user.desc
   button(type='button') 编辑
-div
-  form(method='post', action='/profile/change_user_info', class='user-info-edit')
+div(class=['user-info'], style={ display: 'none' })
+  form(method='post', action='/profile/change_user_info')
     p
       label 用户名：
       input(type='text' name='name' value=user.name)
@@ -54,5 +54,6 @@ div
       p
         label 公司介绍：
         textarea(name='desc' value=user.desc)
-      p
-        input(type='submit' value='保存')
+    p
+      input(type='submit' value='保存')
+      input(type='button' value='取消')

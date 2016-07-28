@@ -14,7 +14,11 @@ function newJob(req, res, next) {
 }
 
 function create(req, res, next) {
-  gModels.Job.create(_.pick(req.body, ['title', 'duty', 'requirement', 'address', 'notes', 'salary'])).then(function(job) {
+  if (!req.currentUser) {
+    return res.redirect('/login');
+  }
+
+  gModels.Job.create(_.merge(req.body, { _creator: req.currentUser.id })).then(function(job) {
     res.redirect(301, '/jobs');
   });
 }

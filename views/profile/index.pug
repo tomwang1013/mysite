@@ -5,7 +5,10 @@ block content
       li
         a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
       li
-        a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+        if pos == 'user_info'
+          a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+        else
+          a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
     div
       if pos == 'user_info'
         include _user_info.pug
