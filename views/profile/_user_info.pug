@@ -1,0 +1,58 @@
+div
+  p
+    span 用户名：
+    span= user.name
+  p
+    span 邮箱：
+    span= user.email
+  p
+    span 电话号码：
+    span= user.phone
+  if user.isStudent()
+    p
+      span 就读院校：
+      span= user.university
+    p
+      span 就读专业：
+      span= user.major
+    p
+      span 入学年份：
+      span= user.entryDate
+  else
+    p
+      span 公司网址：
+      span= user.url
+    p
+      span 公司介绍：
+      span= user.desc
+  button(type='button') 编辑
+div
+  form(method='post', action='/profile/change_user_info', class='user-info-edit')
+    p
+      label 用户名：
+      input(type='text' name='name' value=user.name)
+    p
+      label 邮箱：
+      input(type='text' name='email' value=user.email)
+    p
+      label 电话号码：
+      input(type='text' name='phone' value=user.phone)
+    if user.isStudent()
+      p
+        label 就读院校：
+        input(type='text' name='university' value=user.university)
+      p
+        label 就读专业：
+        input(type='text' name='major' value=user.major)
+      p
+        label 入学年份：
+        input(type='text' name='entryDate' value=user.entryDate)
+    else
+      p
+        label 公司网址：
+        input(type='text' name='url' value=user.url)
+      p
+        label 公司介绍：
+        textarea(name='desc' value=user.desc)
+      p
+        input(type='submit' value='保存')

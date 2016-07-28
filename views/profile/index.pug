@@ -1,39 +1,13 @@
 extends ../layouts/main
 block content
-  .col-container
+  div
     ul
       li
         a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
       li
         a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
-    div.profile-right
+    div
       if pos == 'user_info'
-        p
-          label 用户名：
-          input(type='text' name='name' value=user.name class='noneditable' autocomplete='off' readonly)
-          input(type='button' value='修改')
-          span(class='hint' style={display: none})
-        p
-          label 邮箱：
-          input(type='text' name='email' value=user.email class='noneditable' autocomplete='off' readonly)
-          input(type='button' value='修改')
-          span(class='hint' style={display: none})
-        p
-          label 电话号码：
-          input(type='text' name='phone' value=user.phone class='noneditable' autocomplete='off' readonly)
-          input(type='button' value='修改')
-          span(class='hint' style={display: none})
+        include _user_info.pug
       else if pos == 'jobs'
-        table
-          thead
-            tr
-              th 职位名称
-              th 职责
-              th 要求
-              th 状态
-          tbody
-            each job in jobs
-              tr
-                td= job.title
-                td= job.duty
-                td= job.requirement
+        include _jobs.pug
