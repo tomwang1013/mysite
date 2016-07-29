@@ -1,0 +1,14 @@
+/**
+ * include common attrs to the whole site, such as:
+ * 1. layout, header, main, footer
+ * 2. font
+ * 3. button
+ */
+body {
+  header .content,
+  main,
+  footer .content {
+    max-width:1200px;
+    margin:0 auto;
+  }
+}

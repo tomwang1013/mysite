@@ -39,10 +39,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./public/css/'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./assets/sass/**/*.scss', ['sass']);
-});
-
 gulp.task('watch', function() {
+  gulp.watch('./assets/sass/**/*.scss', ['sass']);
   gulp.watch('./assets/js/**/*.js', ['bundle.js']);
 });

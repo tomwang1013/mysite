@@ -367,3 +367,27 @@ textarea {
   /* 1 */
   font: inherit;
   /* 2 */ }
+
+/**
+ * include common attrs to the whole site, such as:
+ * 1. layout, header, main, footer
+ * 2. font
+ * 3. button
+ */
+body header .content,
+body main,
+body footer .content {
+  max-width: 1200px;
+  margin: 0 auto; }
+
+/* footer */
+footer {
+  border-top: 1px solid #e8e8e8;
+  bottom: 1%;
+  color: #999;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  padding: 10px 0; }
+  footer a {
+    margin: 0 10px; }
