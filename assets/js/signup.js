@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
   });
 
-  $(':radio[name=user_type]').change(function() {
+  $(':radio[name=userType]').change(function() {
     $('fieldset.student, fieldset.company').toggle();
   });
 });

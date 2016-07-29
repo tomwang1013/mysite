@@ -377,8 +377,40 @@ textarea {
 * {
   box-sizing: border-box; }
 
+p {
+  margin: 0 0 0.8em;
+  padding: 0; }
+
 body {
   font-size: 100%; }
+
+/* form and controls */
+form {
+  padding: 20px; }
+  form fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-top: 1px solid #ccc;
+    padding-top: 20px; }
+  form .label {
+    display: inline-block;
+    width: 120px;
+    vertical-align: top;
+    text-align: right;
+    margin-right: 15px; }
+  form label.button-box {
+    margin-right: 12px; }
+  form .right-column {
+    margin-left: 135px; }
+  form .hint {
+    font-size: 0.8px;
+    color: #ccc; }
+  form input[type=text],
+  form input[type=email],
+  form input[type=password],
+  form textarea {
+    width: 320px; }
 
 /* header */
 header {
