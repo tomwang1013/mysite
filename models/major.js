@@ -12,6 +12,6 @@ let majorSchema = Schema({
   eduRank:    Number,   // 学历层次: 1 本科 2 专科
 });
 
-let Major = mongoose.model('University', majorSchema);
+let Major = mongoose.model('Major', majorSchema);
 
 exports = module.exports =  Major;

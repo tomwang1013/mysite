@@ -6,34 +6,14 @@ block content
     h2 加入学做网
     p  提前获得实习机会，在实践中成长
     .progress.flex
-      div.signup-active 创建账号
-      div 完善基本资料
-      div 注册完毕
+      div(class={'signup-active': step == 1}) 创建账号
+      div(class={'signup-active': step == 2}) 完善基本资料
+      div(class={'signup-active': step == 3}) 注册完毕
     .current-step.flex
-      form(method='post', action='/signup')
-        input(type='hidden', name='step', value='1')
-        .form-group
-          label(for='name' class='label label-input') 用户名
-          input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control')
-        .form-group
-          label(for='email' class='label label-input') Email
-          input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')
-        .form-group
-          label(for='password' class='label label-input') 密码
-          input(type='password', name='password', id='password', placeholder='不少于6位' class='form-control')
-        .form-group
-          label(class='label label-radio')
-            input(type='radio', id='user-type-student', name='userType', value=0, checked)
-            | 学生
-          label(class='label label-radio')
-            input(type='radio', id='user-type-company', name='userType', value=1)
-            | 公司
-        .form-group
-          input(type='submit', value='注 册' class='btn btn-primary')
-      .comments
-        .header 在这里，你将：
-        ul.nav
-          li 找到合适的实习机会
-          li 在实践中成长，让实践检验学习
-          li 收获技能与自信，不再迷茫
-          li 每天都过得充实
+      case step
+        when 1
+          include ./_signup_step1.pug
+        when 2
+          include ./_signup_step2.pug
+        when 3
+          include ./_signup_step3.pug

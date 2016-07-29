@@ -5,27 +5,46 @@ const co     = require('co');
 const _      = require('lodash');
 
 function signupView(req, res, next) {
+  let step = req.query.step ? parseInt(req.query.step) : 1;
+  let userType = req.session.signupUserType ? parseInt(req.session.signupUserType) : -1;
   res.locals.title = '学做-用户注册';
-  res.render('user/signupView');
+  res.render('user/signupView', { step: step, userType: userType });
 }
 
 /**
  * signup a user
  */
 function signupHandler(req, res, next) {
+  let curStep = parseInt(req.body.step);
+  let nextStep = curStep + 1;
+
   co(function* () {
-    let hashedPwd = yield new Promise(function(resolve) {
-      bcrypt.hash(req.body.password, 10, function(err, hash) {
-        return resolve(hash);
-      });
-    });
+    switch(curStep) {
+      case 1:
+        let hashedPwd = yield new Promise(function(resolve) {
+          bcrypt.hash(req.body.password, 10, function(err, hash) {
+            return resolve(hash);
+          });
+        });
 
-    req.body.entryDate = new Date(req.body.entryDate);
+        let attrs = _.pick(req.body, ['name', 'email', 'userType']);
+        let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
+        req.session.signupUserId = user.id;
+        req.session.signupUserType = user.userType;
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      default:
+        break;
+    }
 
-    let attrs = _.pick(req.body, ['name', 'email', 'phone', 'userType',
-                       'university', 'major', 'entryDate', 'url', 'desc']);
-    let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
-    res.json({ error: 0, location: '/login'});
+    if (nextStep > 3) {
+      res.json({ error: 0, location: '/login'});
+    } else {
+      res.json({ error: 0, location: '/signup?step=' + nextStep });
+    }
   }).catch(function(err) {
     if (err.errors) {
       res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });

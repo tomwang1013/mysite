@@ -20,21 +20,20 @@ let userSchema = Schema({
     unique:   true,
     match:    [/\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/, '邮箱格式错误']
   },
-  phone:    String,
   password: { type: String, required: [true, '请输入密码'] },
   userType: Number, // 用户类型：0:student,1:company
 
   // 学生属性
-  university: { type: String, required: [isStudent, '请输入学校名称'] },
-  major:      { type: String, required: [isStudent, '请输入专业名称'] },
-  entryDate:  { type: Date,   required: [isStudent, '请选择入学年份'] },
+  university: String, // 学校名称
+  major:      String, // 专业
+  entryDate:  Date,   // 入学日期
   careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
   grade:      Number, // 成绩
 
   // 企业属性
-  url:        { type: String, required: [isCompany, '请输入公司网址'] },
-  desc:       { type: String, required: [isCompany, '请输入公司介绍'] },
+  url:        String, // 公司主页
+  desc:       String, // 公司介绍
   _business:  Schema.Types.ObjectId,  // 行业
   scale:      Number, // 规模：0~50,50~100，etc
   maturity:   Number, // 成熟度：初创，A轮，B轮，C轮，上市，etc
