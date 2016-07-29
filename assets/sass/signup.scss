@@ -1,0 +1,50 @@
+@import 'main';
+
+.formal-signup {
+  width: 720px;
+  margin: 20px auto;
+
+  .progress {
+    & > div {
+      flex: 1;
+      border-left: 1px solid #eee;
+      padding: 20px 30px;
+      text-align: center;
+    }
+
+    & > div:first-child {
+      border-left: none;
+    }
+
+    .signup-active {
+      background-color: #eee;
+    }
+
+    border: 1px solid #eee;
+    border-radius: 3px;
+  }
+
+  .current-step {
+    margin-top: 20px;
+
+    form {
+      flex: 3 1 60%;
+    }
+
+    .comments {
+      flex: 2 1 40%;
+      margin-left: 30px;
+      padding-left: 30px;
+
+      .header {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 54px;
+      }
+
+      li {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

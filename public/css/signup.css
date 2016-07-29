@@ -482,19 +482,32 @@ footer {
   footer a {
     margin: 0 10px; }
 
-.index-container {
-  margin-top: 20px;
-  border-bottom: 1px solid #eee; }
-  .index-container .index-signup {
-    flex: 1 1 400px;
-    padding-right: 40px; }
-  .index-container .slogan {
-    flex: 2 1 800px;
-    padding-left: 40px;
-    text-align: center; }
-
-.index-middle {
-  margin-top: 20px;
-  text-align: center; }
-  .index-middle > div {
-    flex: 1; }
+.formal-signup {
+  width: 720px;
+  margin: 20px auto; }
+  .formal-signup .progress {
+    border: 1px solid #eee;
+    border-radius: 3px; }
+    .formal-signup .progress > div {
+      flex: 1;
+      border-left: 1px solid #eee;
+      padding: 20px 30px;
+      text-align: center; }
+    .formal-signup .progress > div:first-child {
+      border-left: none; }
+    .formal-signup .progress .signup-active {
+      background-color: #eee; }
+  .formal-signup .current-step {
+    margin-top: 20px; }
+    .formal-signup .current-step form {
+      flex: 3 1 60%; }
+    .formal-signup .current-step .comments {
+      flex: 2 1 40%;
+      margin-left: 30px;
+      padding-left: 30px; }
+      .formal-signup .current-step .comments .header {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 54px; }
+      .formal-signup .current-step .comments li {
+        margin-bottom: 16px; }

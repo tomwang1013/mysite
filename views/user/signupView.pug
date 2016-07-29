@@ -1,44 +1,39 @@
 extends ../layouts/main
+block css
+  link(href="/css/signup.css", rel="stylesheet")
 block content
-  div
-    form(method='post', action='/signup', class='signup', autocomplete='off')
-      p
-        label(for='name' class='label') 用户名：
-        input(type='text', name='name', id='name', autofocus)
-      p
-        label(for='email' class='label') 邮箱：
-        input(type='email', name='email', id='email')
-      p
-        label(for='password' class='label') 密码：
-        input(type='password', name='password', id='password')
-        div(class='hint' class='right-column') 至少8位且至少包含数字和字母
-      p
-        label(for='phone' class='label') 电话：
-        input(type='text', name='phone', id='phone')
-      p
-        span(class='label') 用户类型：
-        label(class='button-box')
-          input(type='radio', id='user-type-student', name='userType', value=0, checked)
-          | 学生
-        label(class='button-box')
-          input(type='radio', id='user-type-company', name='userType', value=1)
-          | 公司
-      fieldset.student
-        p
-          label(for='university' class='label') 就读院校：
-          input(type='text', name='university', id='university')
-        p
-          label(for='major' class='label') 专业：
-          input(type='text', name='major', id='major')
-        p
-          label(for='entryDate' class='label') 入学年份：
-          input(type='text', name='entryDate', id='entryDate')
-      fieldset.company(style={display: 'none'})
-        p
-          label(for='url' class='label') 公司网址：
-          input(type='text', name='url', id='url')
-        p
-          label(for='desc' class='label') 公司介绍：
-          textarea(name='desc', id='desc')
-      p
-        input(type='submit', value='注册' class='right-column')
+  .formal-signup
+    h2 加入学做网
+    p  提前获得实习机会，在实践中成长
+    .progress.flex
+      div.signup-active 创建账号
+      div 完善基本资料
+      div 注册完毕
+    .current-step.flex
+      form(method='post', action='/signup')
+        input(type='hidden', name='step', value='1')
+        .form-group
+          label(for='name' class='label label-input') 用户名
+          input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control')
+        .form-group
+          label(for='email' class='label label-input') Email
+          input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')
+        .form-group
+          label(for='password' class='label label-input') 密码
+          input(type='password', name='password', id='password', placeholder='不少于6位' class='form-control')
+        .form-group
+          label(class='label label-radio')
+            input(type='radio', id='user-type-student', name='userType', value=0, checked)
+            | 学生
+          label(class='label label-radio')
+            input(type='radio', id='user-type-company', name='userType', value=1)
+            | 公司
+        .form-group
+          input(type='submit', value='注 册' class='btn btn-primary')
+      .comments
+        .header 在这里，你将：
+        ul.nav
+          li 找到合适的实习机会
+          li 在实践中成长，让实践检验学习
+          li 收获技能与自信，不再迷茫
+          li 每天都过得充实
