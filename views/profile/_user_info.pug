@@ -1,59 +1,60 @@
 div(class=['user-info'])
-  p
-    span 用户名：
-    span= user.name
-  p
-    span 邮箱：
-    span= user.email
-  p
-    span 电话号码：
-    span= user.phone
-  if user.isStudent()
+  form
     p
-      span 就读院校：
-      span= user.university
+      span(class='label') 用户名：
+      span= user.name
     p
-      span 就读专业：
-      span= user.major
+      span(class='label') 邮箱：
+      span= user.email
     p
-      span 入学年份：
-      span= user.entryDate
-  else
-    p
-      span 公司网址：
-      span= user.url
-    p
-      span 公司介绍：
-      span= user.desc
-  button(type='button') 编辑
+      span(class='label') 电话号码：
+      span= user.phone
+    if user.isStudent()
+      p
+        span(class='label') 就读院校：
+        span= user.university
+      p
+        span(class='label') 就读专业：
+        span= user.major
+      p
+        span(class='label') 入学年份：
+        span= user.entryDate
+    else
+      p
+        span(class='label') 公司网址：
+        span= user.url
+      p
+        span(class='label') 公司介绍：
+        span= user.desc
+    button(type='button' class='right-column') 编辑
 div(class=['user-info'], style={ display: 'none' })
   form(method='post', action='/profile/change_user_info')
     p
-      label 用户名：
+      label(class='label') 用户名：
       input(type='text' name='name' value=user.name)
     p
-      label 邮箱：
+      label(class='label') 邮箱：
       input(type='text' name='email' value=user.email)
     p
-      label 电话号码：
+      label(class='label') 电话号码：
       input(type='text' name='phone' value=user.phone)
     if user.isStudent()
       p
-        label 就读院校：
+        label(class='label') 就读院校：
         input(type='text' name='university' value=user.university)
       p
-        label 就读专业：
+        label(class='label') 就读专业：
         input(type='text' name='major' value=user.major)
       p
-        label 入学年份：
+        label(class='label') 入学年份：
         input(type='text' name='entryDate' value=user.entryDate)
     else
       p
-        label 公司网址：
+        label(class='label') 公司网址：
         input(type='text' name='url' value=user.url)
       p
-        label 公司介绍：
+        label(class='label') 公司介绍：
         textarea(name='desc' value=user.desc)
     p
-      input(type='submit' value='保存')
+      input(type='submit' value='保存' class='right-column')
       input(type='button' value='取消')

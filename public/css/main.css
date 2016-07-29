@@ -391,7 +391,7 @@ form {
     margin: 0;
     padding: 0;
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #8e8e8e;
     padding-top: 20px; }
   form .label {
     display: inline-block;
@@ -412,6 +412,39 @@ form {
   form textarea {
     width: 320px; }
 
+/* tables */
+table {
+  border-collapse: collapse; }
+  table tr:nth-of-type(even) {
+    background-color: #ccc; }
+  table tr.header {
+    background-color: #bbb; }
+  table th, table td {
+    border: 1px solid #aaa;
+    padding: 6px 12px; }
+
+table.jobs {
+  margin-top: 12px auto 0 auto; }
+
+/* list */
+ul.nav {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 0; }
+  ul.nav a {
+    display: block;
+    height: 2;
+    line-height: 2;
+    border-top: none;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-left: 3px solid #000;
+    border-bottom: 1px solid #ccc;
+    padding-left: 8px; }
+  ul.nav li:first-child a {
+    border-top: 1px solid #ccc; }
+
 /* header */
 header {
   background-color: #ddd;
@@ -428,7 +461,8 @@ header {
 
 main {
   max-width: 1200px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  margin-top: 12px; }
   main .left {
     float: left;
     width: 50%;

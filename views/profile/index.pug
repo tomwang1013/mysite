@@ -1,7 +1,7 @@
 extends ../layouts/main
 block content
-  div
-    ul
+  div.left
+    ul.nav
       li
         a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
       li
@@ -9,8 +9,8 @@ block content
           a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
         else
           a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
-    div
-      if pos == 'user_info'
-        include _user_info.pug
-      else if pos == 'jobs'
-        include _jobs.pug
+  div.right
+    if pos == 'user_info'
+      include _user_info.pug
+    else if pos == 'jobs'
+      include _jobs.pug
