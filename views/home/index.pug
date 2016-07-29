@@ -3,22 +3,37 @@ block css
   link(href="/css/index.css", rel="stylesheet")
 block content
   .flex.index-container.content
-    div.index-signup
+    .index-signup
       form(method='post', action='/signup')
         .form-group
-          input(type='text', name='name', id='name', placeholder='用户名' class='form-control')
+          label(for='name' class='label label-input') 用户名
+          input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control')
         .form-group
-          input(type='email', name='email', id='email', placeholder='邮箱' class='form-control')
+          label(for='email' class='label label-input') Email
+          input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')
         .form-group
-          input(type='password', name='password', id='password', placeholder='密码 不少于6位' class='form-control')
+          label(for='password' class='label label-input') 密码
+          input(type='password', name='password', id='password', placeholder='不少于6位' class='form-control')
         .form-group
-          label(class='button-box')
+          label(class='label label-radio')
             input(type='radio', id='user-type-student', name='userType', value=0, checked)
             | 学生
-          label(class='button-box')
+          label(class='label label-radio')
             input(type='radio', id='user-type-company', name='userType', value=1)
             | 公司
         .form-group
-          input(type='submit', value='注册')
-    div.welcome
-      | Set is easy to use with Enumerable objects (implementing each). Most of the initializer methods and binary operators accept generic Enumerable objects besides sets and arrays. An Enumerable object can be converted to Set using the to_set method
+          input(type='submit', value='注册' class='btn btn-primary')
+    .slogan
+      h1 1000万大学生信赖的实习平台
+      h2 大学，是最好的学习锻炼时光
+      h2 边做边学中，学习不再是为了一张毕业证
+      h2 踏入社会时，别人在迷茫中苦苦摸索，而你已成竹在胸
+  .flex.index-middle.content
+    .guide-student
+      h3 我是学生：
+      h4
+        a(href='/jobs' class='btn btn-large btn-primary') 开始找寻实习岗位
+    .guide-company
+      h3 我是公司：
+      h4
+        a(href='/students' class='btn btn-large btn-primary') 开始找寻心仪学生

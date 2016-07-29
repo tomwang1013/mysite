@@ -11,12 +11,26 @@
 
 body {
   font-size: 100%;
+  font-family: \5FAE\8F6F\96C5\9ED1,\534E\6587\7EC6\9ED1
 }
 
 /* form and controls */
 form {
   .label {
     display: inline-block;
+  }
+
+  .label-input {
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .label-radio {
+    margin-right: 8px;
+  }
+
+  input[type='radio'] {
+    margin-right: 6px;
   }
 
   .form-group {
@@ -44,19 +58,32 @@ form {
     padding: 6px 12px;
     font-size: 14px;
     font-weight: 600;
-    line-height: 20px;
-    color: #333;
+    line-height: 1.4;
+    color: #fff;
     text-align:center;
     vertical-align: middle;
     cursor: pointer;
     background-color: #eee;
-    background-image: linear-gradient(#fcfcfc, #eee);
     border: 1px solid #d5d5d5;
     border-radius: 3px;
   }
 
+  .btn:hover {
+    background-color: #fcfcfc;
+  }
+
   /* primary button look*/
-  .primary-btn {
+  .btn-primary {
+    background-color: #609B26;
+    border: 1px solid #355317;
+  }
+
+  .btn-primary:hover {
+    background-color: #4F7B22;
+  }
+
+  .btn-large {
+    font-size: 28px;
   }
 }
 

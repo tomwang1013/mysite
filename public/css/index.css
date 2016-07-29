@@ -378,7 +378,8 @@ textarea {
   box-sizing: border-box; }
 
 body {
-  font-size: 100%; }
+  font-size: 100%;
+  font-family: \5FAE\8F6F\96C5\9ED1,\534E\6587\7EC6\9ED1; }
 
 /* form and controls */
 form {
@@ -386,6 +387,13 @@ form {
   /* primary button look*/ }
   form .label {
     display: inline-block; }
+  form .label-input {
+    font-weight: 500;
+    margin-bottom: 6px; }
+  form .label-radio {
+    margin-right: 8px; }
+  form input[type='radio'] {
+    margin-right: 6px; }
   form .form-group {
     margin-bottom: 16px; }
   form .form-control {
@@ -399,32 +407,30 @@ form {
     border-radius: 3px;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     font-size: 14px;
-    line-height: 2;
-    color: #777;
-    outline: none; }
+    line-height: 20px;
+    color: #777; }
   form .btn {
-    position: relative;
     display: inline-block;
     padding: 6px 12px;
     font-size: 14px;
     font-weight: 600;
-    line-height: 20px;
-    color: #333;
-    white-space: nowrap;
+    line-height: 1.4;
+    color: #fff;
+    text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     background-color: #eee;
-    background-image: -webkit-linear-gradient(#fcfcfc, #eee);
-    background-image: linear-gradient(#fcfcfc, #eee);
     border: 1px solid #d5d5d5;
-    border-radius: 3px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; }
+    border-radius: 3px; }
+  form .btn:hover {
+    background-color: #fcfcfc; }
+  form .btn-primary {
+    background-color: #609B26;
+    border: 1px solid #355317; }
+  form .btn-primary:hover {
+    background-color: #4F7B22; }
+  form .btn-large {
+    font-size: 28px; }
 
 /* list */
 ul.nav {
@@ -476,5 +482,19 @@ footer {
   footer a {
     margin: 0 10px; }
 
-.index-container > div {
-  flex: 1; }
+.index-container {
+  margin-top: 20px;
+  border-bottom: 1px solid #eee; }
+  .index-container .index-signup {
+    flex: 1 1 400px;
+    padding-right: 40px; }
+  .index-container .slogan {
+    flex: 2 1 800px;
+    padding-left: 40px;
+    text-align: center; }
+
+.index-middle {
+  margin-top: 20px;
+  text-align: center; }
+  .index-middle > div {
+    flex: 1; }
