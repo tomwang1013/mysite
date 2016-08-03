@@ -1,14 +1,24 @@
 extends ../layouts/main
-
+block css
+  link(href="/css/index.css", rel="stylesheet")
 block content
-  div.left
-    p 学做网是一个面向大学生的实习平台，企业为了提前预约优秀学生，可以发布实习岗位；学生为了将来更好地工作，可以在上面寻找喜欢的实习岗位，一遍锻炼工作技能，一边学习专业知识
-  div.right
-    p 如果你是企业，你可以：
-    ol
-      li 寻找优秀学生，并给他们提供实习机会
-      li 发布实习岗位
-    p 如果你是学生，你可以：
-    ol
-      li 查找并申请想要的实习岗位
-      li 提交个人信息，让企业找到你
+  .flex.index-container.content
+    div.index-signup
+      form(method='post', action='/signup')
+        .form-group
+          input(type='text', name='name', id='name', placeholder='用户名' class='form-control')
+        .form-group
+          input(type='email', name='email', id='email', placeholder='邮箱' class='form-control')
+        .form-group
+          input(type='password', name='password', id='password', placeholder='密码 不少于6位' class='form-control')
+        .form-group
+          label(class='button-box')
+            input(type='radio', id='user-type-student', name='userType', value=0, checked)
+            | 学生
+          label(class='button-box')
+            input(type='radio', id='user-type-company', name='userType', value=1)
+            | 公司
+        .form-group
+          input(type='submit', value='注册')
+    div.welcome
+      | Set is easy to use with Enumerable objects (implementing each). Most of the initializer methods and binary operators accept generic Enumerable objects besides sets and arrays. An Enumerable object can be converted to Set using the to_set method

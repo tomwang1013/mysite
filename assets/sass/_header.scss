@@ -2,9 +2,7 @@
 header {
   background-color: #ddd;
   padding: 6px 0;
-  .content {
-    max-width:1200px;
-    margin:0 auto;
+  .header-container {
     position: relative;
     span.user-nav {
       position: absolute;

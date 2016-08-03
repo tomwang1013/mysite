@@ -4,11 +4,11 @@ html
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     title= title
-    link(href="/css/main.css", rel="stylesheet")
+    block css
   body
     include ./_head.pug
-    main
-      block content
+    block content
     include ./_foot.pug
     script(src='/js/vendor.js')
-    script(src='/js/bundle.js')
+    block js
+      script(src='/js/bundle.js')

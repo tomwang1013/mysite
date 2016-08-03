@@ -10,6 +10,6 @@ let jobTypeSchema = Schema({
   name: String
 });
 
-let jobType = mongoose.model('job_type', userSchema);
+let jobType = mongoose.model('job_type', jobTypeSchema);
 
 exports = module.exports =  jobType;

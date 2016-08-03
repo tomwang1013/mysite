@@ -34,7 +34,7 @@ let userSchema = Schema({
 
   // 企业属性
   url:        { type: String, required: [isCompany, '请输入公司网址'] },
-  desc:       { type: String, required: [isCompany, '请输入公司介绍'] }
+  desc:       { type: String, required: [isCompany, '请输入公司介绍'] },
   _business:  Schema.Types.ObjectId,  // 行业
   scale:      Number, // 规模：0~50,50~100，etc
   maturity:   Number, // 成熟度：初创，A轮，B轮，C轮，上市，etc

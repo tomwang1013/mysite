@@ -10,6 +10,6 @@ let jobLabelSchema = Schema({
   name: String
 });
 
-let jobLabel = mongoose.model('job_label', userSchema);
+let jobLabel = mongoose.model('job_label', jobLabelSchema);
 
 exports = module.exports =  jobLabel;
