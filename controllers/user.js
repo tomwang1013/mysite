@@ -5,10 +5,11 @@ const co     = require('co');
 const _      = require('lodash');
 
 function signupView(req, res, next) {
-  let step = req.query.step ? parseInt(req.query.step) : 1;
-  let userType = req.session.signupUserType ? parseInt(req.session.signupUserType) : -1;
-  res.locals.title = '学做-用户注册';
-  res.render('user/signupView', { step: step, userType: userType });
+  res.render('user/signupView', {
+    step:     req.query.step ? parseInt(req.query.step) : 1,
+    title:    '学做-用户注册',
+    userType: req.currentUser ? req.currentUser.type : undefined
+  });
 }
 
 /**
@@ -29,8 +30,7 @@ function signupHandler(req, res, next) {
 
         let attrs = _.pick(req.body, ['name', 'email', 'userType']);
         let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
-        req.session.signupUserId = user.id;
-        req.session.signupUserType = user.userType;
+        loginUser(req, user);
         break;
       case 2:
         break;
@@ -60,12 +60,11 @@ function loginView(req, res, next) {
 }
 
 function loginHandler(req, res, next) {
-  let name     = req.body.name;
+  let email    = req.body.email;
   let password = req.body.password;
 
   co(function* () {
-    let user = yield gModels.User.findOne().
-      or([{ name: name }, { email: name }]).exec();
+    let user = yield gModels.User.findOne({ email: email }).exec();
 
     if (!user) {
       return res.json({ error: 1, message: '该用户不存在' });
@@ -78,9 +77,7 @@ function loginHandler(req, res, next) {
     });
 
     if (match) {
-      req.session.userId   = user.id;
-      req.session.userName = user.name;
-      req.session.userType = user.userType;
+      loginUser(req, user);
 
       if (user.isStudent()) {
         res.json({ error: 0, location: '/jobs' });
@@ -98,6 +95,15 @@ function logoutHandler(req, res, next) {
   req.session.destroy(function(err) {
     res.redirect('/');
   });
+}
+
+// make user login
+function loginUser(req, user) {
+  req.session.currentUser = {
+    id:   user.id,
+    name: user.name,
+    type: user.userType
+  };
 }
 
 exports = module.exports = {

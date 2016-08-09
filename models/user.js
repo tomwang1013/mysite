@@ -29,12 +29,11 @@ let userSchema = Schema({
   entryDate:  Date,   // 入学日期
   careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
-  grade:      Number, // 成绩
 
   // 企业属性
   url:        String, // 公司主页
   desc:       String, // 公司介绍
-  _business:  Schema.Types.ObjectId,  // 行业
+  business:   String, // 行业
   scale:      Number, // 规模：0~50,50~100，etc
   maturity:   Number, // 成熟度：初创，A轮，B轮，C轮，上市，etc
 });

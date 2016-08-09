@@ -15,12 +15,8 @@ function getReq(req, res, next) {
  * get the current user if login
  */
 function currentUser(req, res, next) {   
-  if (req.session && req.session.userName) {
-    req.currentUser = {
-      id:   req.session.userId,
-      name: req.session.userName,
-      type: req.session.userType
-    };
+  if (req.session && req.session.currentUser) {
+    req.currentUser = req.session.currentUser;
   }
 
   next();

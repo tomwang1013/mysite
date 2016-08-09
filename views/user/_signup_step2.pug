@@ -1,4 +1,38 @@
-if userType == 0
-  // 学生信息
-else
-  // 公司信息
+form(method='post', action='/signup', class='signup' + step)
+  input(type='hidden', name='step', value=step)
+  if userType == 0
+    // 学生信息
+    .form-group
+      label(for='university' class='label label-input') 学校名称
+      input(type='text', name='university', id='university', class='form-control')
+    .form-group
+      label(for='major' class='label label-input') 专业
+      input(type='text', name='major', id='major', class='form-control')
+    .form-group
+      label(for='entryDate' class='label label-input') 入学日期
+      input(type='text', name='entryDate', id='entryDate', class='form-control')
+    .form-group
+      label(for='careerPlan' class='label label-input') 职业规划
+      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control')
+    .form-group
+      label(for='zuopin' class='label label-input') 课外作品
+      textarea(name='zuopin', id='zuopin', rows=8, class='form-control')
+  else
+    // 公司信息
+    .form-group
+      label(for='url' class='label label-input') 公司主页
+      input(type='text', name='url', id='url', class='form-control')
+    .form-group
+      label(for='business' class='label label-input') 所属行业
+      input(type='text', name='business', id='business', class='form-control')
+    .form-group
+      label(for='scale' class='label label-input') 规模
+      input(type='text', name='scale', id='scale', class='form-control')
+    .form-group
+      label(for='maturity' class='label label-input') 成熟度
+      input(type='text', name='maturity', id='maturity', class='form-control')
+    .form-group
+      label(for='desc' class='label label-input') 介绍
+      textarea(name='desc', id='desc', rows=8, class='form-control')
+  .form-group
+    input(type='submit', value='保 存' class='btn btn-primary')
