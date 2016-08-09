@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let majorSchema = Schema({
   name:       String,   // 专业名称
-  type:       Number,   // 类别(工学，文学，...)
+  type:       String,   // 类别(工学，文学，...)
   eduRank:    Number,   // 学历层次: 1 本科 2 专科
 });
 
