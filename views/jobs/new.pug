@@ -5,24 +5,36 @@ block js
   script(src='/js/job.js')
 block content
   div.content
-    form(method='post', action='/jobs', class='new-job')
-      .form-group
-        label(for='title' class='label label-input') 职位名称：
-        input(type='text', name='title', id='title', class='form-control' autofocus)
-      .form-group
-        label(for='address' class='label label-input') 工作地点：
-        input(type='text', name='address', id='address', class='form-control')
-      .form-group
-        label(for='salary' class='label label-input') 薪资：
-        input(type='text', name='salary', id='salary' value='0', class='form-control')
-      .form-group
-        label(for='duty' class='label label-input') 职责：
-        textarea(name='duty', id='duty', class='form-control')
-      .form-group
-        label(for='requirement' class='label label-input') 要求：
-        textarea(name='requirement', id='requirement', class='form-control')
-      .form-group
-        label(for='notes' class='label label-input') 备注：
-        textarea(name='notes', id='notes', class='form-control')
+    form(method='post', action='/jobs', class='new-job flex')
+      div.flex.flex-column
+        div
+          .form-group
+            label(for='title' class='label label-input') 职位名称：
+            input(type='text', name='title', id='title', class='form-control' autofocus)
+          .form-group
+            label(for='address' class='label label-input') 工作地点：
+            input(type='text', name='address', id='address', class='form-control')
+          .form-group
+            label(for='salary' class='label label-input') 薪资：
+            input(type='text', name='salary', id='salary' value='0', class='form-control')
+          .form-group
+            label(for='business' class='label label-input') 行业：
+            input(type='text', name='business', id='business' class='form-control')
+          .form-group
+            label(for='type' class='label label-input') 类别：
+            input(type='text', name='type', id='type' class='form-control')
+          .form-group
+            label(for='labels' class='label label-input') 标签：
+            input(name='labels', id='labels', class='form-control')
+          .form-group
+            label(for='notes' class='label label-input') 备注：
+            textarea(name='notes', id='notes', class='form-control')
+        div
+          .form-group
+            label(for='duty' class='label label-input') 职责：
+            textarea(name='duty', id='duty', class='form-control')
+          .form-group
+            label(for='requirement' class='label label-input') 要求：
+            textarea(name='requirement', id='requirement', class='form-control')
       .form-group
         input(type='submit', value='创建', class='btn btn-primary')
