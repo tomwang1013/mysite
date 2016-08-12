@@ -1,4 +1,4 @@
-form(method='post', action='/signup', class='signup' + step)
+form(method='post', action='/signup', class='signup', data-step=step)
   input(type='hidden', name='step', value=step)
   .form-group
     label(for='name' class='label label-input') 用户名

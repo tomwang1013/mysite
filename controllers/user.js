@@ -18,6 +18,7 @@ function signupView(req, res, next) {
 function signupHandler(req, res, next) {
   let curStep = parseInt(req.body.step);
   let nextStep = curStep + 1;
+  let user;
 
   co(function* () {
     switch(curStep) {
@@ -30,13 +31,13 @@ function signupHandler(req, res, next) {
         });
 
         let attrs = _.pick(req.body, ['name', 'email', 'userType']);
-        let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
+        user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
         loginUser(req, user);
         break;
 
       case 2:
         // add other info
-        let user = yield gModels.User.findById(req.currentUser.id).exec();
+        user = yield gModels.User.findById(req.currentUser.id).exec();
         let attrsToUpdate;
 
         if (user.isStudent()) {
@@ -56,11 +57,7 @@ function signupHandler(req, res, next) {
         break;
     }
 
-    if (nextStep > 3) {
-      res.json({ error: 0, location: '/login'});
-    } else {
-      res.json({ error: 0, location: '/signup?step=' + nextStep });
-    }
+    res.json({ error: 0, location: '/signup?step=' + nextStep });
   }).catch(function(err) {
     if (err.errors) {
       res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });

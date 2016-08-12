@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
-  $('form.signup1').validate({
+  $('form.signup').validate({
     submitHandler: function(form) {
       var me = this;
 
