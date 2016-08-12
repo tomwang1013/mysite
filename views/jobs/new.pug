@@ -20,13 +20,13 @@ block content
           .form-group
             label(for='business' class='label label-input') 行业：
             select(name='business', id='business' class='form-control')
-              option(value='') 请选择 
+              option(value='' selected) 请选择
               each b in businesses
                 option(value=b)= b 
           .form-group
             label(for='type' class='label label-input') 类别：
             select(name='type', id='type' class='form-control')
-              option(value='') 请选择 
+              option(value='' selected) 请选择
               each t in types
                 option(value=t)= t 
           .form-group
