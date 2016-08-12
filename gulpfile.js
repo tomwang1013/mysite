@@ -11,7 +11,7 @@ gulp.task('vendor.js', function() {
     .require('jquery')
     .add(['./node_modules/jquery-validation/dist/jquery.validate.js',
           './node_modules/jquery-validation/dist/additional-methods.js',
-          './assets/js/common.js'])
+          './assets/js/common/index.js'])
     .bundle()
     .pipe(source('vendor.js'))
     .pipe(buffer())

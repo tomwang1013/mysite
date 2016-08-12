@@ -14,6 +14,15 @@ body {
   font-family: \5FAE\8F6F\96C5\9ED1,\534E\6587\7EC6\9ED1
 }
 
+.content {
+  max-width:1024px;
+  margin:0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
 /* form and controls */
 form {
   .label {
@@ -92,32 +101,68 @@ form {
 }
 
 /* list */
-ul.nav {
-  list-style-type: none;
-  margin-left: 0;
-  padding-left: 0;
-  margin-top: 0;
-  a {
-    display: block;
-    height: 2;
-    line-height: 2;
-    border-top: none;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    border-left: 3px solid #000;
-    padding-left: 8px;
-  }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
-  li:first-child a {
-    border-top: 1px solid #ccc;
+  &.nav {
+    a {
+      display: block;
+      height: 2;
+      line-height: 2;
+      border-top: none;
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+      border-left: 3px solid #000;
+      padding-left: 8px;
+    }
+
+    li:first-child a {
+      border-top: 1px solid #ccc;
+    }
   }
 }
 
-.content {
-  max-width:1024px;
-  margin:0 auto;
-}
+.tab-container {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
 
-.flex {
-  display: flex;
+  li {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .tab-header {
+    li {
+      padding: 3px 8px;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      position: relative;
+      background-color: #fff;
+      top: -1px;
+      z-index: 1;
+
+      &:hover:not(.tab-label-active) {
+        background-color: #aaa;
+      }
+
+      &.tab-label-active {
+        border: 2px solid blue;
+        border-bottom: none;
+        top: 0;
+      }
+    }
+  }
+
+  .tab-content {
+    border-top: 1px solid blue;
+    padding-top: 6px;
+    position: relative;
+    margin-top: -1px;
+
+    li:hover {
+      background-color: #aaa;
+    }
+  }
 }
