@@ -60,5 +60,6 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function() {
   gulp.watch('./assets/sass/**/*.scss', ['sass']);
-  gulp.watch('./assets/js/**/*.js', ['bundle.js']);
+  gulp.watch('./assets/js/common/*.js', ['vendor.js']);
+  gulp.watch('./assets/js/*.js', ['bundle.js']);
 });

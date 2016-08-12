@@ -25,7 +25,7 @@ $.fn.popupTabs = function(options) {
 		position: 'absolute',
 		left:     offset.left + 'px',
 		top:      (offset.top + myHeight) + 'px',
-		width:    (options.with || 1.5 * myWidth) + 'px'
+		width:    (options.with || myWidth) + 'px'
 	};
 
   var state     = {
@@ -36,66 +36,7 @@ $.fn.popupTabs = function(options) {
     selectedItems:  []
 	};
 
-	var dialog = $(createTabs()).css(style).hide();
-	input.after(dialog);
-
-	// switch tab
-	$(document).delegate('.tab-header li', 'click', function() {
-		if ($(this).is('.tab-label-active')) {
-      return;
-    }
-
-    state.activeLabel = $(this).text();
-
-    var level = state.labels.indexOf(state.activeLabel);
-    var curData = data;
-
-    for (var i = 0; i < level; i++) {
-      curData = curData[state.selectedItems[i]];
-    }
-
-    if (curData instanceof Array) {
-      state.items = curData;
-    } else {
-      state.items = Object.keys(curData);
-    }
-
-    state.activeItem  = state.selectedItems[level];
-    refreshTabs();
-	});
-
-  // select item of the active tab
-	$(document).delegate('.tab-content li', 'click', function() {
-    var level = state.labels.indexOf(state.activeLabel);
-    var clickItem = $(this).text();
-
-    state.selectedItems[level] = clickItem;
-
-    if (level == labels.length - 1) {
-      input.val(clickItem);
-      hideDialog();
-      return;
-    }
-
-    var curData = data;
-
-    for (var i = 0; i <= level; i++) {
-      curData = curData[state.selectedItems[i]];
-    }
-
-    if (curData instanceof Array) {
-      state.items = curData;
-    } else {
-      state.items = Object.keys(curData);
-    }
-
-    if (!state.labels[level + 1]) {
-      state.labels[level + 1] = labels[level + 1];
-    }
-
-    state.activeLabel = state.labels[level + 1];
-    refreshTabs();
-	});
+  var dialog;
 
   function refreshTabs() {
     dialog = $(createTabs()).css(style).replaceAll(dialog);
@@ -143,18 +84,80 @@ $.fn.popupTabs = function(options) {
 	}
 
 	function showDialog() {
-    dialog.show();
+    dialog = $(createTabs()).css(style);
+
+    $(document).on('click', '.tab-header li', function(e) {
+      if ($(this).is('.tab-label-active')) {
+        return;
+      }
+
+      state.activeLabel = $(this).text();
+
+      var level = state.labels.indexOf(state.activeLabel);
+      var curData = data;
+
+      for (var i = 0; i < level; i++) {
+        curData = curData[state.selectedItems[i]];
+      }
+
+      if (curData instanceof Array) {
+        state.items = curData;
+      } else {
+        state.items = Object.keys(curData);
+      }
+
+      state.activeItem  = state.selectedItems[level];
+      refreshTabs();
+    });
+
+    $(document).on('click', '.tab-content li', function(e) {
+      var level = state.labels.indexOf(state.activeLabel);
+      var clickItem = $(this).text();
+
+      state.selectedItems[level] = clickItem;
+
+      if (level == labels.length - 1) {
+        input.val(clickItem);
+        hideDialog();
+        return;
+      }
+
+      var curData = data;
+
+      for (var i = 0; i <= level; i++) {
+        curData = curData[state.selectedItems[i]];
+      }
+
+      if (curData instanceof Array) {
+        state.items = curData;
+      } else {
+        state.items = Object.keys(curData);
+      }
+
+      if (!state.labels[level + 1]) {
+        state.labels[level + 1] = labels[level + 1];
+      }
+
+      state.activeLabel = state.labels[level + 1];
+      refreshTabs();
+    });
+
+    input.after(dialog);
 
 		$('html').bind('click.tab', function(e) {
-      if (!$(e.target).closest(dialog.add(input)).length) {
+      if (!$(e.target).closest('.tab-container').length && 
+          !$(e.target).closest(input).length) {
         hideDialog();
       }
     });
 	}
 
 	function hideDialog() {
-    $('html').unbind('click.tab');
-	  dialog.hide();
+	  dialog.remove();
+    dialog = null;
+    $(document).off('click', '.tab-header li')
+    $(document).off('click', '.tab-content li')
+		$('html').unbind('click.tab');
 	}
 
 	function compile(template) {

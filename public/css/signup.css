@@ -460,7 +460,8 @@ ul {
 
 .tab-container {
   border: 1px solid #ccc;
-  padding: 6px 8px; }
+  padding: 6px 8px;
+  background-color: #eee; }
   .tab-container li {
     display: inline-block;
     cursor: pointer; }
@@ -483,6 +484,8 @@ ul {
     padding-top: 6px;
     position: relative;
     margin-top: -1px; }
+    .tab-container .tab-content li {
+      padding: 8px; }
     .tab-container .tab-content li:hover {
       background-color: #aaa; }
 

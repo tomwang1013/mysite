@@ -127,6 +127,7 @@ ul {
 .tab-container {
   border: 1px solid #ccc;
   padding: 6px 8px;
+  background-color: #eee;
 
   li {
     display: inline-block;
@@ -160,6 +161,10 @@ ul {
     padding-top: 6px;
     position: relative;
     margin-top: -1px;
+
+    li {
+      padding: 8px;
+    }
 
     li:hover {
       background-color: #aaa;
