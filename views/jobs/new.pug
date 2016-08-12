@@ -5,8 +5,8 @@ block js
   script(src='/js/job.js')
 block content
   div.content
-    form(method='post', action='/jobs', class='new-job flex')
-      div.flex.flex-column
+    form(method='post', action='/jobs', class='new-job')
+      .flex
         div
           .form-group
             label(for='title' class='label label-input') 职位名称：
@@ -29,12 +29,13 @@ block content
           .form-group
             label(for='notes' class='label label-input') 备注：
             textarea(name='notes', id='notes', class='form-control')
-        div
+        div.flex
           .form-group
             label(for='duty' class='label label-input') 职责：
             textarea(name='duty', id='duty', class='form-control')
           .form-group
             label(for='requirement' class='label label-input') 要求：
             textarea(name='requirement', id='requirement', class='form-control')
-      .form-group
-        input(type='submit', value='创建', class='btn btn-primary')
+      div
+        .form-group
+          input(type='submit', value='发布职位', class='btn btn-primary')
