@@ -4,20 +4,11 @@
   margin-top:20px;
 
   & > div.flex {
+    flex-flow:row wrap;
     justify-content:space-between;
 
     & > div {
       width:48%;
-    }
-
-    div.flex {
-      flex-flow:column;
-      .form-group {
-        flex:1;
-        textarea {
-          height:227px;
-        }
-      }
     }
   }
 }
