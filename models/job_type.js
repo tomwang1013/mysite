@@ -12,4 +12,6 @@ let jobTypeSchema = Schema({
 
 let jobType = mongoose.model('job_type', jobTypeSchema);
 
-exports = module.exports =  jobType;
+exports = module.exports = [
+  '研发', '技工', '销售', '财务', 'HR', '其他'
+];

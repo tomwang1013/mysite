@@ -19,10 +19,16 @@ block content
             input(type='text', name='salary', id='salary' value='0', class='form-control')
           .form-group
             label(for='business' class='label label-input') 行业：
-            input(type='text', name='business', id='business' class='form-control')
+            select(name='business', id='business' class='form-control')
+              option(value='') 请选择 
+              each b in businesses
+                option(value=b)= b 
           .form-group
             label(for='type' class='label label-input') 类别：
-            input(type='text', name='type', id='type' class='form-control')
+            select(name='type', id='type' class='form-control')
+              option(value='') 请选择 
+              each t in types
+                option(value=t)= t 
           .form-group
             label(for='labels' class='label label-input') 标签：
             input(name='labels', id='labels', class='form-control')

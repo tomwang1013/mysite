@@ -12,4 +12,6 @@ let businessSchema = Schema({
 
 let Business = mongoose.model('Business', businessSchema);
 
-exports = module.exports =  Business;
+exports = module.exports = [
+  'IT', '金融', '房地产', '汽车', '医疗', '餐饮', '制造业', '零售', '服务业'
+];

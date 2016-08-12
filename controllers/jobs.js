@@ -1,7 +1,9 @@
 'use strict'
 
-var _ = require('lodash');
+const _        = require('lodash');
 const mongoose = require('mongoose');
+const business = require('../models/business'); 
+const jobType  = require('../models/job_type'); 
 
 function index(req, res, next) {
   gModels.Job.find({}, function(err, jobs) {
@@ -10,7 +12,10 @@ function index(req, res, next) {
 }
 
 function newJob(req, res, next) {
-  res.render('jobs/new');
+  res.render('jobs/new', {
+    businesses: business,
+    types:      jobType
+  });
 }
 
 function create(req, res, next) {
