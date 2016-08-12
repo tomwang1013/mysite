@@ -5,11 +5,58 @@ const co     = require('co');
 const _      = require('lodash');
 
 function signupView(req, res, next) {
-  res.render('user/signupView', {
-    step:     req.query.step ? parseInt(req.query.step) : 1,
-    title:    '学做-用户注册',
-    userType: req.currentUser ? req.currentUser.type : undefined
-  });
+  let step = req.query.step ? parseInt(req.query.step) : 1;
+
+  if (step == 2) {
+    // university info
+    let universities = {
+      labels: ['省份', '学校名称'],
+      data:   {}
+    };
+
+    // major info
+    let majors = {
+      labels: ['层次', '类别', '专业名称'],
+      data:   { '本科': {}, '专科': {} }
+    };
+
+    let sp = gModels.University.find().batchSize(200).select('name province').exec();
+    let tp = gModels.Major.find().batchSize(200).exec();
+
+    Promise.all([sp, tp]).then(function(result) {
+      result[0].forEach(function(school) {
+        if (!universities.data[school.province]) {
+          universities.data[school.province] = [];
+        }
+
+        universities.data[school.province].push(school.name);
+      });
+
+
+
+      result[1].forEach(function(major) {
+        if (!majors.data[major.eduRank][major.type]) {
+          majors.data[major.eduRank][major.type] = [];
+        }
+
+        majors.data[major.eduRank][major.type].push(major.name);
+      });
+
+      res.render('user/signupView', {
+        step:         step,
+        title:        '学做-用户注册',
+        userType:     req.currentUser ? req.currentUser.type : undefined,
+        universities: universities,
+        majors:       majors
+      });
+    })
+  } else {
+    res.render('user/signupView', {
+      step:     step,
+      title:    '学做-用户注册',
+      userType: req.currentUser ? req.currentUser.type : undefined
+    });
+  }
 }
 
 /**

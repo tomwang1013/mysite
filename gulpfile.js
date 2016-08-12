@@ -44,7 +44,7 @@ gulp.task('bundle.js', function(done) {
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
       //.pipe(uglify())
-      .pipe(sourcemaps.write())
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('public/js'));
     });
 

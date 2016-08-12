@@ -1,6 +1,9 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
+  $('#university').popupTabs(window.us);
+  $('#major').popupTabs(window.ms);
+
   $('form.signup').validate({
     submitHandler: function(form) {
       var me = this;

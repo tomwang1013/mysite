@@ -1,3 +1,6 @@
+script.
+  window.us = !{JSON.stringify(universities)};
+  window.ms = !{JSON.stringify(majors)};
 form(method='post', action='/signup', class='signup', data-step=step)
   input(type='hidden', name='step', value=step)
   if userType == 0
