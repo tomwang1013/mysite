@@ -22,6 +22,7 @@ function signupHandler(req, res, next) {
   co(function* () {
     switch(curStep) {
       case 1:
+        // create account
         let hashedPwd = yield new Promise(function(resolve) {
           bcrypt.hash(req.body.password, 10, function(err, hash) {
             return resolve(hash);
@@ -32,10 +33,25 @@ function signupHandler(req, res, next) {
         let user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
         loginUser(req, user);
         break;
+
       case 2:
+        // add other info
+        let user = yield gModels.User.findById(req.currentUser.id).exec();
+        let attrsToUpdate;
+
+        if (user.isStudent()) {
+          attrsToUpdate = ['university', 'major', 'entryDate', 'careerPlan', 'zuopin'];
+        } else {
+          attrsToUpdate = ['url', 'business', 'scale', 'maturity', 'desc']
+        }
+
+        user = yield _.assign(user, _.pick(req.body, attrsToUpdate)).save();
         break;
+
       case 3:
+        // never be here: signup over
         break;
+
       default:
         break;
     }
