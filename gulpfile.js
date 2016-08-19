@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp        = require('gulp');
 var browserify  = require('browserify');
 var source      = require('vinyl-source-stream');
@@ -7,6 +9,7 @@ var sourcemaps  = require('gulp-sourcemaps');
 var sass        = require('gulp-sass');
 var glob        = require('glob');
 var concat      = require('gulp-concat');
+var es          = require('event-stream');
 
 var deps = ['jquery', 'lodash'];
 
@@ -24,18 +27,29 @@ gulp.task('vendor.js', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
-gulp.task('bundle.js', function() {
-  return browserify({
-    entries: ['./assets/js/signup.js'],
-    debug:   true
-  }).external(deps)
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    //.pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./public/js/'));
+gulp.task('bundle.js', function(done) {
+  glob('assets/js/*.js', (err, files) => {
+    if (err) {
+      return done(err);
+    }
+
+    const tasks = files.map(entry => {
+      const b = browserify({
+        entries:    entry,
+        debug:      true
+      });
+
+      return b.external(deps).bundle()
+      .pipe(source(entry.slice(entry.lastIndexOf('/') + 1)))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
+      //.pipe(uglify())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('public/js'));
+    });
+
+    es.merge(tasks).on('end', done);
+  });
 });
 
 gulp.task('sass', function () {
