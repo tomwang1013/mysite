@@ -18,6 +18,7 @@ gulp.task('vendor.js', function() {
     entries: [
     './node_modules/jquery-validation/dist/jquery.validate.js',
     './node_modules/jquery-validation/dist/additional-methods.js',
+    './node_modules/jquery-validation/dist/localization/messages_zh.js',
     './assets/js/common']
   }).require(deps)
     .bundle()

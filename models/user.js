@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const emailValidFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 function isStudent() {
   return this.userType === 0;
@@ -13,14 +14,14 @@ function isCompany() {
 
 let Schema = mongoose.Schema;
 let userSchema = Schema({
-  name:     { type: String, required: [true, '请输入用户名'], unique: true },
+  name:     { type: String, required: [true, '这是必填字段'], unique: true },
   email:    {
     type:     String,
-    required: [true, '请输入邮箱地址'],
+    required: [true, '这是必填字段'],
     unique:   true,
-    match:    [/\w+@\w+(\.[a-z0-9]{2,12})?\.[a-z]{2,12}/, '邮箱格式错误']
+    match:    [emailValidFormat, '请输入有效的电子邮件地址']
   },
-  password: { type: String, required: [true, '请输入密码'] },
+  password: { type: String, required: [true, '这是必填字段'] },
   userType: Number, // 用户类型：0:student,1:company
 
   // 学生属性
@@ -38,7 +39,7 @@ let userSchema = Schema({
   maturity:   Number, // 成熟度：初创，A轮，B轮，C轮，上市，etc
 });
 
-userSchema.plugin(uniqueValidator, { message: '{VALUE}已经存在' });
+userSchema.plugin(uniqueValidator, { message: '{VALUE} 已经存在' });
 userSchema.index({ name: 1 },  { unique: true });
 userSchema.index({ email: 1 }, { unique: true });
 

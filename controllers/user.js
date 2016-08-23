@@ -114,6 +114,26 @@ function signupHandler(req, res, next) {
   });
 }
 
+// 验证用户名的正确性
+function isValidName(req, res, next) {
+  var name = req.query.name;
+
+  gModels.User.findOne({ name: name }).exec().then(function(u) {
+    if (u) res.json(name + ' 已经存在');
+    else res.json('true');
+  });
+}
+
+// 验证email的正确性
+function isValidEmail(req, res, next) {
+  var email = req.query.email;
+
+  gModels.User.findOne({ email: email }).exec().then(function(u) {
+    if (u) res.json(email + ' 已经存在');
+    else res.json('true');
+  });
+}
+
 function loginView(req, res, next) {
   res.locals.title = '学做-用户登陆';
   res.render('user/loginView');
@@ -172,4 +192,6 @@ exports = module.exports = {
   loginView:  loginView,
   login:      loginHandler,
   logout:     logoutHandler,
+  isValidName:  isValidName,
+  isValidEmail: isValidEmail,
 };

@@ -27,6 +27,10 @@ p {
   margin:6px 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* form and controls */
 form {
   .label {
@@ -67,6 +71,21 @@ form {
 
   textarea.form-control {
     height: auto;
+  }
+
+  label.input-error {
+    display: inline-block;
+    margin-top: 6px;
+    color: #f00;
+    font-size: 0.9em;
+  }
+
+  input.input-error {
+    border: 1px solid #f00;
+  }
+
+  .input-valid {
+    border: 1px solid #0f0;
   }
 }
 

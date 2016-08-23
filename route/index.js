@@ -10,6 +10,8 @@ router.post('/login',   gControllers.user.login);
 router.get('/signup',   gControllers.user.signupView);
 router.get('/login',    gControllers.user.loginView);
 router.get('/logout',   gControllers.user.logout);
+router.get('/signup/is_valid_name',   gControllers.user.isValidName);
+router.get('/signup/is_valid_email',   gControllers.user.isValidEmail);
 
 // jobs
 router.get('/jobs',          gControllers.jobs.index);
