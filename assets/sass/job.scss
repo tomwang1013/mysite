@@ -18,9 +18,25 @@
 
   .job-item {
     margin-bottom:20px;
+    padding:10px;
+    background-color:#eee;
+
+    &:hover {
+      background-color:#d2d2d2;
+    }
 
     .job-info {
-      flex: 5;
+      flex: 8;
+
+      .job-title {
+        font-weight:bold;
+        font-size:1.1rem;
+        color:blue;
+      }
+
+      .job-basics span {
+        margin-right:16px;
+      }
 
       .job-others {
         justify-content:space-between;

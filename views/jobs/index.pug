@@ -6,25 +6,25 @@ block js
 block content
   .content.jobs-container
     each job in jobs
-      .job-item.flex
+      .job-item.flex(data-jobId=job.id)
         .job-info
-          .job-title
-            span= job._creator.name
-            span= job.title
-            span= job.createdAt
-          .job-basics.
-            工作地点：#{job.address}
-            薪资：#{job.salary}
+          p.job-title
+            a(href='/job/' + job.id)= job.title
+          p.job-basics
+            span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+            span 公司：<strong>#{job._creator.name}</strong>
+            span 工作地点：<strong>#{job.address}</strong>
+            span 薪资：<strong>#{job.salary}</strong>
           .job-others.flex
             div
-              p 工作职责
+              p 工作职责：
               div= job.duty
             div
-              p 要求
+              p 要求：
               div= job.requirement
         .job-op
           p
             button.btn.btn-primary 申请职位
           p
-            button.btn.btn-primary 收藏职位
+            button.btn 收藏职位
       .jobs-pages

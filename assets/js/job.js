@@ -44,11 +44,11 @@ $(document).ready(function() {
   $('#address').popupTabs(cities);
 
   // apply job
-  $('button.apply-job').click(function() {
+  $('.job-op p:first-child button').click(function() {
     var me = $(this);
 
     $.post('/jobs/apply', {
-      job_id: me.closest('tr').data('jobId')
+      job_id: me.closest('.job-item').data('jobId')
     }, function(data) {
       if (data.error) {
         location = data.location;

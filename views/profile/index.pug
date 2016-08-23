@@ -1,16 +1,22 @@
 extends ../layouts/main
+block js
+  script(src='/js/profile.js')
+block css
+  link(href="/css/profile.css", rel="stylesheet")
 block content
-  div.left
-    ul.nav
-      li
-        a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
-      li
-        if user.isStudent()
-          a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
-        else
-          a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
-  div.right
-    if pos == 'user_info'
-      include _user_info.pug
-    else if pos == 'jobs'
-      include _jobs.pug
+  .content
+    .flex.profile-container
+      div
+        ul.nav
+          li
+            a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
+          li
+            if user.isStudent()
+              a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+            else
+              a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
+      div
+        if pos == 'user_info'
+          include _user_info.pug
+        else if pos == 'jobs'
+          include _jobs.pug

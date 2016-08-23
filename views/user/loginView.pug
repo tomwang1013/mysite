@@ -1,13 +1,16 @@
 extends ../layouts/main
-
+block js
+  script(src='/js/login.js')
+block css
+  link(href="/css/login.css", rel="stylesheet")
 block content
-  div
-    form(method='post', action='/login', class='login', autocomplete='off')
-      p
-        label(for='name' class='label') 用户名：
-        input(type='text', name='name', id='name', placeholder='用户名/邮箱', autofocus)
-      p
-        label(for='password' class='label') 密码：
-        input(type='password', name='password', id='password')
-      p
-        input(type='submit', value='登陆' class='right-column')
+  div.content.login-container
+    form(method='post', action='/login', class='login')
+      .form-group
+        label(for='name' class='label label-input') 用户名：
+        input(type='text', name='name', id='name', placeholder='用户名/邮箱', class='form-control' autofocus)
+      .form-group
+        label(for='password' class='label label-input') 密码：
+        input(type='password', name='password', id='password' class='form-control')
+      .form-group
+        input(type='submit', value='登 陆' class='btn btn-primary')

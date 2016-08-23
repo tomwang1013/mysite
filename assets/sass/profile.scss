@@ -1,0 +1,35 @@
+@import 'main';
+
+.profile-container {
+  margin:20px auto;
+
+  & > div:first-child {
+    flex:1;
+    border: 1px solid #ccc;
+
+    ul {
+      a {
+        display: block;
+        height: 2;
+        line-height: 2;
+        border-bottom: 1px solid #ccc;
+        padding-left: 8px;
+      }
+
+      a.active {
+        background-color: #ddd;
+      }
+
+      a:hover:not(.active) {
+        background-color: #eee;
+      }
+    }
+  }
+
+  & > div:last-child {
+    flex:5;
+    padding: 0 0 20px 4%;
+    border: 1px solid #ccc;
+    border-left:none;
+  }
+}
