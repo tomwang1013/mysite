@@ -1,23 +1,30 @@
 extends ../layouts/main
+block css
+  link(href="/css/job.css", rel="stylesheet")
+block js
+  script(src='/js/job.js')
 block content
-  table.jobs
-    thead
-      tr(class='header')
-        th 职位名称
-        th 工作地点
-        th 薪资(元/月)
-        th 职责
-        th 要求
-        th 备注
-        th 操作
-    tbody
-      each job in jobs
-        tr(data-job-id=job.id)
-          td= job.title
-          td= job.address
-          td= job.salary
-          td= job.duty
-          td= job.requirement
-          td= job.notes
-          td
-            button(type='button' class='apply-job') 申请
+  .content.jobs-container
+    each job in jobs
+      .job-item.flex
+        .job-info
+          .job-title
+            span= job._creator.name
+            span= job.title
+            span= job.createdAt
+          .job-basics.
+            工作地点：#{job.address}
+            薪资：#{job.salary}
+          .job-others.flex
+            div
+              p 工作职责
+              div= job.duty
+            div
+              p 要求
+              div= job.requirement
+        .job-op
+          p
+            button.btn.btn-primary 申请职位
+          p
+            button.btn.btn-primary 收藏职位
+      .jobs-pages

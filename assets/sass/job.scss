@@ -12,3 +12,26 @@
     }
   }
 }
+
+.jobs-container {
+  margin-top:20px;
+
+  .job-item {
+    margin-bottom:20px;
+
+    .job-info {
+      flex: 5;
+
+      .job-others {
+        justify-content:space-between;
+        & > div {
+          width:48%;
+        }
+      }
+    }
+
+    .job-op {
+      flex: 1;
+    }
+  }
+}

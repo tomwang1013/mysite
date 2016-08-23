@@ -4,7 +4,7 @@ const _        = require('lodash');
 const mongoose = require('mongoose');
 
 function index(req, res, next) {
-  gModels.Job.find({}, function(err, jobs) {
+  gModels.Job.find().populate('_creator').exec(function(err, jobs) {
     res.render('jobs/index', { jobs: jobs });
   });
 }

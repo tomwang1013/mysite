@@ -17,10 +17,9 @@ let jobSchema = Schema({
   notes:        String,   // 备注
   business:     String,   // 行业
   type:         String,   // 类别
-  labels:       [String], // 标签
 
   // relations
-  _creator:     Schema.Types.ObjectId, // 创建者
+  _creator:     { type: Schema.Types.ObjectId, ref: 'User' } // 创建者
 },  {
   timestamps: true
 });
