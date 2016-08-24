@@ -48,14 +48,17 @@ function signupView(req, res, next) {
         userType:     req.currentUser ? req.currentUser.type : undefined,
         universities: universities,
         majors:       majors,
-        entryDates:   gModels.User.allEntryDates
+        entryDates:   gModels.User.allEntryDates,
+        businesses: gModels.Business,
+        scales:     gModels.User.scales,
+        maturities: gModels.User.maturities
       });
     })
   } else {
     res.render('user/signupView', {
-      step:     step,
-      title:    '学做-用户注册',
-      userType: req.currentUser ? req.currentUser.type : undefined
+      step:       step,
+      title:      '学做-用户注册',
+      userType:   req.currentUser ? req.currentUser.type : undefined
     });
   }
 }

@@ -15,7 +15,12 @@ body {
 }
 
 .content {
-  max-width:1024px;
+  max-width:960px;
+  margin:0 auto;
+}
+
+/* horizontal center */
+.hcenter {
   margin:0 auto;
 }
 

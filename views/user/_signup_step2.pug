@@ -31,18 +31,27 @@ form(method='post', action='/signup', class='signup', data-step=step)
     // 公司信息
     .form-group
       label(for='url' class='label label-input') 公司主页：
-      input(type='text', name='url', id='url', class='form-control')
+      input(type='url', name='url', id='url', class='form-control', required)
     .form-group
       label(for='business' class='label label-input') 所属行业：
-      input(type='text', name='business', id='business', class='form-control')
+      select(name='business', id='business', class='form-control', required)
+        option(value='') 请选择行业
+        each b in businesses
+          option(value=b)= b
     .form-group
       label(for='scale' class='label label-input') 规模：
-      input(type='text', name='scale', id='scale', class='form-control')
+      select(name='scale', id='scale', class='form-control', required)
+        option(value='') 请选择企业规模
+        each s,i in scales
+          option(value=i)= s
     .form-group
       label(for='maturity' class='label label-input') 成熟度：
-      input(type='text', name='maturity', id='maturity', class='form-control')
+      select(name='maturity', id='maturity', class='form-control', required)
+        option(value='') 请选择企业成熟度
+        each m,i in maturities
+          option(value=i)= m
     .form-group
       label(for='desc' class='label label-input') 介绍：
-      textarea(name='desc', id='desc', rows=8, class='form-control')
+      textarea(name='desc', id='desc', rows=8, class='form-control', data-rule-minlength=64, required)
   .form-group
     input(type='submit', value='保 存' class='btn btn-primary')

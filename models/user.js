@@ -52,5 +52,7 @@ userSchema.methods.isCompany = function() {
 let User = mongoose.model('User', userSchema);
 
 User.allEntryDates = allEntryDates;
+User.scales = ['0~50','50~100','100~500','500~1000','1000~10000','10000以上'];
+User.maturities = ['初创','天使轮','A轮','B轮','C轮','D轮','上市','非上市成熟型'];
 
 exports = module.exports =  User;
