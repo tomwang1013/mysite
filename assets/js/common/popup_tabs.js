@@ -17,16 +17,6 @@ $.fn.popupTabs = function(options) {
   var input     = this;
 	var labels    = options.labels;
 	var data      = options.data;
-	var offset    = this.offset();
-	var myWidth   = this.outerWidth();
-	var myHeight  = this.outerHeight();
-
-  var style     = {
-		position: 'absolute',
-		left:     offset.left + 'px',
-		top:      (offset.top + myHeight) + 'px',
-		width:    (options.with || myWidth) + 'px'
-	};
 
   var state     = {
 		labels:         labels.slice(0, 1),
@@ -38,8 +28,21 @@ $.fn.popupTabs = function(options) {
 
   var dialog;
 
+  function getDimensionStyle() {
+    var offset    = input.offset();
+    var myWidth   = input.outerWidth();
+    var myHeight  = input.outerHeight();
+
+    return {
+      position: 'absolute',
+      left:     offset.left + 'px',
+      top:      (offset.top + myHeight) + 'px',
+      width:    (options.with || myWidth) + 'px'
+    };
+  }
+
   function refreshTabs() {
-    dialog = $(createTabs()).css(style).replaceAll(dialog);
+    dialog = $(createTabs()).css(getDimensionStyle()).replaceAll(dialog);
   }
 
 	// disable manually input, force select from tabs
@@ -84,7 +87,7 @@ $.fn.popupTabs = function(options) {
 	}
 
 	function showDialog() {
-    dialog = $(createTabs()).css(style);
+    dialog = $(createTabs()).css(getDimensionStyle());
 
     $(document).on('click', '.tab-header li', function(e) {
       if ($(this).is('.tab-label-active')) {
@@ -119,6 +122,7 @@ $.fn.popupTabs = function(options) {
       if (level == labels.length - 1) {
         input.val(clickItem);
         hideDialog();
+        input.trigger('focusout.validate');
         return;
       }
 

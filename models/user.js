@@ -3,14 +3,12 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const emailValidFormat = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-function isStudent() {
-  return this.userType === 0;
-};
-
-function isCompany() {
-  return this.userType === 1;
-};
+const allEntryDates = [
+  2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+  2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+  2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,
+  2030,2031,2032,2033,2034,2035,2036,2037,2038,2039
+];
 
 let Schema = mongoose.Schema;
 let userSchema = Schema({
@@ -27,7 +25,7 @@ let userSchema = Schema({
   // 学生属性
   university: String, // 学校名称
   major:      String, // 专业
-  entryDate:  Date,   // 入学日期
+  entryDate:  Number, // 入学日期
   careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
 
@@ -52,5 +50,7 @@ userSchema.methods.isCompany = function() {
 };
 
 let User = mongoose.model('User', userSchema);
+
+User.allEntryDates = allEntryDates;
 
 exports = module.exports =  User;

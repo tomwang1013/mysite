@@ -6,36 +6,43 @@ form(method='post', action='/signup', class='signup', data-step=step)
   if userType == 0
     // 学生信息
     .form-group
-      label(for='university' class='label label-input') 学校名称
-      input(type='text', name='university', id='university', class='form-control')
+      label(for='university' class='label label-input') 学校名称：
+      input(type='text', name='university', id='university', class='form-control', required)
     .form-group
-      label(for='major' class='label label-input') 专业
-      input(type='text', name='major', id='major', class='form-control')
+      label(for='major' class='label label-input') 专业：
+      input(type='text', name='major', id='major', class='form-control', required)
     .form-group
-      label(for='entryDate' class='label label-input') 入学日期
-      input(type='text', name='entryDate', id='entryDate', class='form-control')
+      label(for='entryDate' class='label label-input') 入学年份：
+      select(name='entryDate', id='entryDate', class='form-control', required)
+        each ed in entryDates
+          option(value=ed)= ed 
     .form-group
-      label(for='careerPlan' class='label label-input') 职业规划
-      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control')
+      label(for='careerPlan' class='label label-input') 职业规划：
+      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-rule-minlength=64, required)
     .form-group
-      label(for='zuopin' class='label label-input') 课外作品
+      label(for='zuopin' class='label label-input') 课外作品（可选）：
       textarea(name='zuopin', id='zuopin', rows=8, class='form-control')
+      .form-control-hint.
+        可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
+        大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
+        相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]
+
   else
     // 公司信息
     .form-group
-      label(for='url' class='label label-input') 公司主页
+      label(for='url' class='label label-input') 公司主页：
       input(type='text', name='url', id='url', class='form-control')
     .form-group
-      label(for='business' class='label label-input') 所属行业
+      label(for='business' class='label label-input') 所属行业：
       input(type='text', name='business', id='business', class='form-control')
     .form-group
-      label(for='scale' class='label label-input') 规模
+      label(for='scale' class='label label-input') 规模：
       input(type='text', name='scale', id='scale', class='form-control')
     .form-group
-      label(for='maturity' class='label label-input') 成熟度
+      label(for='maturity' class='label label-input') 成熟度：
       input(type='text', name='maturity', id='maturity', class='form-control')
     .form-group
-      label(for='desc' class='label label-input') 介绍
+      label(for='desc' class='label label-input') 介绍：
       textarea(name='desc', id='desc', rows=8, class='form-control')
   .form-group
     input(type='submit', value='保 存' class='btn btn-primary')

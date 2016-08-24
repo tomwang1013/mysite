@@ -16,8 +16,8 @@ block content
             input(type='text', name='address', id='address', class='form-control')
           .form-group
             label(for='salary' class='label label-input') 薪资：
-            select(name='salary', id='salary' class='form-control')
-              option(value='-1' selected) 请选择
+            select(name='salary', id='salary' class='form-control', required)
+              option(value='' selected) 请选择
               each s, i in salaries
                 option(value=i)= s 
         div

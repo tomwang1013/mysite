@@ -47,7 +47,8 @@ function signupView(req, res, next) {
         title:        '学做-用户注册',
         userType:     req.currentUser ? req.currentUser.type : undefined,
         universities: universities,
-        majors:       majors
+        majors:       majors,
+        entryDates:   gModels.User.allEntryDates
       });
     })
   } else {
