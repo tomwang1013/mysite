@@ -7,7 +7,6 @@
 
   .index-signup {
     flex: 1;
-    padding-right:60px;
   }
 
   .slogan {
@@ -17,6 +16,7 @@
 }
 
 .index-middle {
+  max-width: 720px;
   margin-top: 20px;
   text-align: center;
   & > div {
