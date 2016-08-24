@@ -19,11 +19,17 @@ function newJob(req, res, next) {
 
 function create(req, res, next) {
   if (!req.currentUser) {
-    return res.redirect('/login');
+    return res.json({ error: 1, message: 'not login' });
   }
 
   gModels.Job.create(_.merge(req.body, { _creator: req.currentUser.id })).then(function(job) {
-    res.redirect(301, '/jobs');
+    res.json({ error: 0, location: '/jobs' });
+  }).catch(function(err) {
+    if (err.errors) {
+      res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
+    } else {
+      res.json({ error: 1, message: err.message });
+    }
   });
 }
 

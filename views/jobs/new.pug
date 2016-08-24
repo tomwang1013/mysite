@@ -10,10 +10,10 @@ block content
         div
           .form-group
             label(for='title' class='label label-input') 职位名称：
-            input(type='text', name='title', id='title', class='form-control' autofocus)
+            input(type='text', name='title', id='title', class='form-control' autofocus, required)
           .form-group
             label(for='address' class='label label-input') 工作地点：
-            input(type='text', name='address', id='address', class='form-control')
+            input(type='text', name='address', id='address', class='form-control', required)
           .form-group
             label(for='salary' class='label label-input') 薪资：
             select(name='salary', id='salary' class='form-control', required)
@@ -23,13 +23,13 @@ block content
         div
           .form-group
             label(for='business' class='label label-input') 行业：
-            select(name='business', id='business' class='form-control')
+            select(name='business', id='business' class='form-control' required)
               option(value='' selected) 请选择
               each b in businesses
                 option(value=b)= b 
           .form-group
             label(for='type' class='label label-input') 类别：
-            select(name='type', id='type' class='form-control')
+            select(name='type', id='type' class='form-control', required)
               option(value='' selected) 请选择
               each t in types
                 option(value=t)= t 
@@ -39,11 +39,11 @@ block content
         div
           .form-group
             label(for='duty' class='label label-input') 职责：
-            textarea(name='duty', id='duty', class='form-control', rows=12)
+            textarea(name='duty', id='duty', class='form-control', rows=12, required, data-rule-minlength=64)
         div
           .form-group
             label(for='requirement' class='label label-input') 要求：
-            textarea(name='requirement', id='requirement', class='form-control', rows=12)
+            textarea(name='requirement', id='requirement', class='form-control', rows=12, required, data-rule-minlength=64)
       div
         .form-group
           input(type='submit', value='发布职位', class='btn btn-primary')

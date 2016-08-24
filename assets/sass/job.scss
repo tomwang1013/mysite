@@ -3,6 +3,10 @@
 .new-job {
   margin-top:20px;
 
+  label.input-error {
+    margin: 0 0 6px;
+  }
+
   & > div.flex {
     flex-flow:row wrap;
     justify-content:space-between;
@@ -27,27 +31,52 @@
 
     .job-info {
       flex: 8;
+      padding-right:6px;
 
       .job-title {
         font-weight:bold;
         font-size:1.1rem;
         color:blue;
+        margin-top:0;
+        padding-bottom:6px;
+        border-bottom:1px solid #bbb;
       }
 
-      .job-basics span {
-        margin-right:16px;
+      .job-basics {
+        margin-top: 6px;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
+        border-bottom:1px dashed #bbb;
+
+        span {
+          padding:0 8px;
+          border-right:1px solid #bbb;
+          &:first-child {
+            padding-left:0;
+          }
+          &:last-child {
+            border-right:none;
+          }
+        }
       }
 
       .job-others {
         justify-content:space-between;
         & > div {
           width:48%;
+          p {
+            font-weight:bold;
+            padding-bottom:6px;
+          }
         }
       }
     }
 
     .job-op {
       flex: 1;
+      p {
+        text-align:center;
+      }
     }
   }
 }

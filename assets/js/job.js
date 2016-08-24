@@ -43,6 +43,13 @@ var cities = {
 $(document).ready(function() {
   $('#address').popupTabs(cities);
 
+  // create job
+  var validator = $('form.new-job').validate({
+    errorPlacement: function(error, element) {
+      error.insertBefore(element);
+    },
+  });
+
   // apply job
   $('.job-op p:first-child button').click(function() {
     var me = $(this);
