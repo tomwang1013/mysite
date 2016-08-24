@@ -132,6 +132,16 @@ form {
   background-color: #4F7B22;
 }
 
+/* warning button look*/
+.btn-warning {
+  background-color: #CD9B9B;
+  border: 1px solid #CD9B9B;
+}
+
+.btn-warning:hover {
+  background-color: #C67171;
+}
+
 /* list */
 ul {
   list-style: none;

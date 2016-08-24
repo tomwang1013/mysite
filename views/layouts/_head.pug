@@ -1,11 +1,11 @@
 header
-  .content.header-container
+  .content.header-container.flex
     a(href='/' class='logo') 学做网
     span.user-nav
       - var cu = req.currentUser
       if cu
-        span 你好, #[a(href='/profile')= cu.name]
-        a(href='/logout') 退出
+        a(href='/profile')= cu.name
+        a(href='/logout' class='btn btn-warning') 退出
       else
         a(href='login' class='btn btn-primary') 登陆
         a(href='signup' class='btn') 注册

@@ -151,7 +151,7 @@ function loginHandler(req, res, next) {
     let user = yield gModels.User.findOne({ email: email }).exec();
 
     if (!user) {
-      return res.json({ error: 1, message: '该用户不存在' });
+      return res.json({ error: 1, errors: { email: '该用户不存在' } });
     }
 
     let match = yield new Promise(function(resolve, reject) {
@@ -169,7 +169,7 @@ function loginHandler(req, res, next) {
         res.json({ error: 0, location: '/jobs/new' });
       }
     } else {
-      res.json({ error: 1, message: '密码错误' });
+      res.json({ error: 1, errors: { password: '密码错误' } });
     }
   });
 }
