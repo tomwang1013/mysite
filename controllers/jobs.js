@@ -51,8 +51,8 @@ function apply(req, res, next) {
 
   gModels.ApplyJob.create({
     status:  0,
-    _job:    new mongoose.Types.ObjectId(jobId),
-    _userId: new mongoose.Types.ObjectId(userId)
+    _job:    jobId,
+    _userId: userId
   }).then(function() {
     res.json({ error: 0, message: '申请成功' });
   }).catch(function(err) {

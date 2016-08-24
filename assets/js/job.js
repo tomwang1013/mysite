@@ -60,7 +60,9 @@ $(document).ready(function() {
       if (data.error) {
         location = data.location;
       } else {
-        alert(data.message);
+        me.text('已申请');
+        me.unbind('click');
+        me.css('cursor', 'default');
       }
     });
   });

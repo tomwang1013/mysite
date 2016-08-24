@@ -6,7 +6,7 @@ block js
 block content
   .content.jobs-container
     each job in jobs
-      .job-item.flex(data-jobId=job.id)
+      .job-item.flex(data-job-id=job.id)
         .job-info
           p.job-title
             a(href='/job/' + job.id)= job.title
@@ -25,6 +25,4 @@ block content
         .job-op
           p
             button.btn.btn-primary 申请职位
-          p
-            button.btn 收藏职位
       .jobs-pages

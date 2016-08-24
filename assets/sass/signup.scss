@@ -4,6 +4,10 @@
   width: 720px;
   margin: 20px auto;
 
+  & > p {
+    padding-bottom: 6px;
+  }
+
   .progress {
     & > div {
       flex: 1;
