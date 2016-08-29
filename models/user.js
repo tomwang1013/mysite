@@ -21,6 +21,7 @@ let userSchema = Schema({
   },
   password: { type: String, required: [true, '这是必填字段'] },
   userType: Number, // 用户类型：0:student,1:company
+  phone:    String, // 电话号码
 
   // 学生属性
   university: String, // 学校名称

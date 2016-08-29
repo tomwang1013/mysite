@@ -6,16 +6,18 @@ block css
 block content
   .content
     .flex.profile-container
-      div
-        ul.nav
-          li
-            a(href='/profile/user_info' class={active: pos == 'user_info'}) 个人信息
-          li
-            if user.isStudent()
-              a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
-            else
-              a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
-      div
+      ul.left-nav
+        li
+          a(href='/profile/account' class={active: pos == 'account'}) 账号与密码
+          a(href='/profile/user_info' class={active: pos == 'user_info'}) 基本信息
+        li
+          if user.isStudent()
+            a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+          else
+            a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
+      div.right-content
+        if pos == 'account'
+          include _account.pug
         if pos == 'user_info'
           include _user_info.pug
         else if pos == 'jobs'

@@ -1,24 +1,28 @@
-div(class=['user-info'])
+div.user-info
   form
-    p
-      span(class='label') 用户名：
-      span= user.name
-    p
-      span(class='label') 邮箱：
-      span= user.email
-    p
-      span(class='label') 电话号码：
-      span= user.phone
     if user.isStudent()
-      p
-        span(class='label') 就读院校：
-        span= user.university
-      p
-        span(class='label') 就读专业：
-        span= user.major
-      p
-        span(class='label') 入学年份：
-        span= user.entryDate
+      // 学生信息
+      .form-group
+        label(for='university') 学校名称：
+        input(type='text', name='university', id='university', class='static-control', value=user.university, readonly)
+      .form-group
+        label(for='major' class='label label-input') 专业：
+        input(type='text', name='major', id='major', class='form-control', required)
+      .form-group
+        label(for='entryDate' class='label label-input') 入学年份：
+        select(name='entryDate', id='entryDate', class='form-control', required)
+          //each ed in entryDates
+            //option(value=ed)= ed
+      .form-group
+        label(for='careerPlan' class='label label-input') 职业规划：
+        textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-rule-minlength=64, required)
+      .form-group
+        label(for='zuopin' class='label label-input') 课外作品（可选）：
+        textarea(name='zuopin', id='zuopin', rows=8, class='form-control')
+        .form-control-hint.
+          可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
+          大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
+          相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]
     else
       p
         span(class='label') 公司网址：
@@ -26,35 +30,3 @@ div(class=['user-info'])
       p
         span(class='label') 公司介绍：
         span= user.desc
-    button(type='button' class='right-column') 编辑
-div(class=['user-info'], style={ display: 'none' })
-  form(method='post', action='/profile/change_user_info')
-    p
-      label(class='label') 用户名：
-      input(type='text' name='name' value=user.name)
-    p
-      label(class='label') 邮箱：
-      input(type='text' name='email' value=user.email)
-    p
-      label(class='label') 电话号码：
-      input(type='text' name='phone' value=user.phone)
-    if user.isStudent()
-      p
-        label(class='label') 就读院校：
-        input(type='text' name='university' value=user.university)
-      p
-        label(class='label') 就读专业：
-        input(type='text' name='major' value=user.major)
-      p
-        label(class='label') 入学年份：
-        input(type='text' name='entryDate' value=user.entryDate)
-    else
-      p
-        label(class='label') 公司网址：
-        input(type='text' name='url' value=user.url)
-      p
-        label(class='label') 公司介绍：
-        textarea(name='desc' value=user.desc)
-    p
-      input(type='submit' value='保存' class='right-column')
-      input(type='button' value='取消')

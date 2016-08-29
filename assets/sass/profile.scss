@@ -3,33 +3,51 @@
 .profile-container {
   margin:20px auto;
 
-  & > div:first-child {
+ .left-nav {
     flex:1;
     border: 1px solid #ccc;
 
-    ul {
-      a {
-        display: block;
-        height: 2;
-        line-height: 2;
-        border-bottom: 1px solid #ccc;
-        padding-left: 8px;
-      }
+    a {
+      display: block;
+      line-height: 2;
+      border-bottom: 1px solid #ccc;
+      padding-left: 8px;
+    }
 
-      a.active {
-        background-color: #ddd;
-      }
+    a.active {
+      background-color: #ddd;
+    }
 
-      a:hover:not(.active) {
-        background-color: #eee;
-      }
+    a:hover:not(.active) {
+      background-color: #eee;
     }
   }
 
-  & > div:last-child {
+  .right-content {
     flex:5;
-    padding: 0 0 20px 4%;
+    padding: 6px 20px;
     border: 1px solid #ccc;
     border-left:none;
+  }
+
+  /* 浏览与修改用户信息 */
+  .user-info {
+    label {
+      width: 20%;
+      display: inline-block;
+      text-align: right;
+    }
+
+    input.static-control {
+      display: inline-block;
+      border: 1px solid #fff;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    input.static-control:hover {
+      display: inline-block;
+      border: 1px solid #ccc;
+    }
   }
 }
