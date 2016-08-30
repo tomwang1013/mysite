@@ -32,22 +32,8 @@
 
   /* 浏览与修改用户信息 */
   .user-info {
-    label {
-      width: 20%;
-      display: inline-block;
-      text-align: right;
-    }
-
-    input.static-control {
-      display: inline-block;
-      border: 1px solid #fff;
-      border-radius: 3px;
-      outline: none;
-    }
-
-    input.static-control:hover {
-      display: inline-block;
-      border: 1px solid #ccc;
+    .form-control, .form-control-hint {
+      width:80%;
     }
   }
 }

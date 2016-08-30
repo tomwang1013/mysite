@@ -123,6 +123,7 @@ $.fn.popupTabs = function(options) {
         input.val(clickItem);
         hideDialog();
         input.trigger('focusout.validate');
+        input.trigger('change');
         return;
       }
 

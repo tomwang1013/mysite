@@ -12,6 +12,28 @@ let majorSchema = Schema({
   eduRank:    String,   // 学历层次: 本科 专科
 });
 
+majorSchema.statics.all = function() {
+  let majors = {
+    labels: ['层次', '类别', '专业名称'],
+    data:   { '本科': {}, '专科': {} }
+  };
+
+  return new Promise(function(resolve, reject) {
+    gModels.Major.find().batchSize(200).exec().then(function(result) {
+      result.forEach(function(major) {
+        if (!majors.data[major.eduRank][major.type]) {
+          majors.data[major.eduRank][major.type] = [];
+        }
+
+        majors.data[major.eduRank][major.type].push(major.name);
+      });
+
+      resolve(majors);
+    }).catch(reject);
+  });
+
+}
+
 let Major = mongoose.model('Major', majorSchema);
 
 exports = module.exports =  Major;

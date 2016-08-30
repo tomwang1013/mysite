@@ -13,6 +13,28 @@ let universitySchema = Schema({
   eduRank:    String,   // 学历层次
 });
 
+// 按省份和学校获取所有数据
+universitySchema.statics.all = function() {
+  let universities = {
+    labels: ['省份', '学校名称'],
+    data:   {}
+  };
+
+  return new Promise(function(resolve, reject) {
+    gModels.University.find().select('name province').exec().then(function(result) {
+      result.forEach(function(school) {
+        if (!universities.data[school.province]) {
+          universities.data[school.province] = [];
+        }
+
+        universities.data[school.province].push(school.name);
+      });
+
+      resolve(universities);
+    }).catch(reject);
+  });
+}
+
 let University = mongoose.model('University', universitySchema);
 
 exports = module.exports =  University;

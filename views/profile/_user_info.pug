@@ -1,32 +1,39 @@
+script.
+  window.us = !{JSON.stringify(universities)};
+  window.ms = !{JSON.stringify(majors)};
 div.user-info
   form
     if user.isStudent()
       // 学生信息
       .form-group
-        label(for='university') 学校名称：
-        input(type='text', name='university', id='university', class='static-control', value=user.university, readonly)
+        label(for='university' class='label label-input') 学校名称：
+        input(type='text', name='university', id='university', class='form-control', data-ori-value=user.university, value=user.university, required)
+        button(type='button', class='btn', style={display: 'none'}) 修改
+        button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='major' class='label label-input') 专业：
-        input(type='text', name='major', id='major', class='form-control', required)
+        input(type='text', name='major', id='major', class='form-control', data-ori-value=user.major, value=user.major, required)
+        button(type='button', class='btn', style={display: 'none'}) 修改
+        button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='entryDate' class='label label-input') 入学年份：
-        select(name='entryDate', id='entryDate', class='form-control', required)
-          //each ed in entryDates
-            //option(value=ed)= ed
+        select(name='entryDate', id='entryDate', class='form-control', data-ori-value=user.entryDate, value=user.entryDate, required)
+          each ed in entryDates
+            option(value=ed)= ed
+        button(type='button', class='btn', style={display: 'none'}) 修改
+        button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='careerPlan' class='label label-input') 职业规划：
-        textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-rule-minlength=64, required)
+        textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-ori-value=user.careerPlan, value=user.careerPlan, data-rule-minlength=64, required)
+        button(type='button', class='btn', style={display: 'none'}) 修改
+        button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='zuopin' class='label label-input') 课外作品（可选）：
-        textarea(name='zuopin', id='zuopin', rows=8, class='form-control')
+        textarea(name='zuopin', id='zuopin', rows=8, class='form-control', data-ori-value=user.zuopin, value=user.zuopin)
+        button(type='button', class='btn', style={display: 'none'}) 修改
+        button(type='button', class='btn', style={display: 'none'}) 取消
         .form-control-hint.
           可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
           大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
           相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]
     else
-      p
-        span(class='label') 公司网址：
-        span= user.url
-      p
-        span(class='label') 公司介绍：
-        span= user.desc

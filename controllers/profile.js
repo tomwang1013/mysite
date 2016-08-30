@@ -17,11 +17,22 @@ function userInfo(req, res, next) {
     return res.redirect('/login');
   }
 
-  gModels.User.findOne({ _id: req.currentUser.id }).exec(function(err, user) {
+  Promise.all([
+    gModels.User.findOne({ _id: req.currentUser.id }).exec(),
+    gModels.University.all(),
+    gModels.Major.all()
+  ]).then(function(result) {
     res.render('profile/index', {
-      pos:  'user_info',
-      user: user
+      pos:          'user_info',
+      universities: result[1],
+      majors:       result[2],
+      entryDates:   gModels.User.allEntryDates,
+      businesses:   gModels.Business,
+      scales:       gModels.User.scales,
+      user:         result[0]
     });
+  }).catch(function(err) {
+    next(err);
   });
 }
 
