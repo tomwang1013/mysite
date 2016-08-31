@@ -20,4 +20,10 @@
             p 要求：
             div= job.requirement
         .job-status
-          // TODO 申请状态: 通过或拒绝
+          case appliedJob.status
+            when 0
+              .apply-pending 您的申请正在审核中，请耐心等待
+            when 1
+              .apply-refused= appliedJob.message
+            when 2
+              .apply-passed= appliedJob.message

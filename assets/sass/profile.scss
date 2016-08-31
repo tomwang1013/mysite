@@ -109,6 +109,24 @@
             }
           }
         }
+
+        .job-status {
+          margin-top: 6px;
+          padding-top: 6px;
+          border-top:1px dashed #bbb;
+
+          .apply-pending {
+            color: blue;
+          }
+
+          .apply-refused {
+            color: red;
+          }
+
+          .apply-passed {
+            color: green;
+          }
+        }
       }
     }
   }
