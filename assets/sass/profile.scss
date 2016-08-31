@@ -34,6 +34,14 @@
   .user-info {
     .form-control, .form-control-hint {
       width:80%;
+      margin-right: 6px;
+    }
+
+    button {
+      vertical-align:top;
+      &:first-of-type {
+        margin-right:6px;
+      }
     }
   }
 }

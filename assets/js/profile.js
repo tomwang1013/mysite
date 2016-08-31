@@ -17,8 +17,22 @@ $(document).ready(function() {
   $('#university, #major, #entryDate').change(checkEditState);
 
   $('.user-info .form-group button:first-of-type').click(function() {
+    var me    = $(this);
+    var field = me.prev();
+    var data  = {};
+
+    data[field.attr('name')] = field.val();
+
+    $.post('/profile/change_user_info', data, function() {
+      me.hide();
+      me.next().hide();
+    });
   });
 
   $('.user-info .form-group button:last-of-type').click(function() {
+    var field = $(this).siblings('input, textarea');
+    field.val(field.data('oriValue'));
+    $(this).hide();
+    $(this).prev().hide();
   });
 });

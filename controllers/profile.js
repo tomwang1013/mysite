@@ -66,20 +66,21 @@ function changeUserInfo(req, res, next) {
   }
 
   co(function* () {
-    let user = yield gModels.User.findOne({ _id: req.currentUser.id }).exec();
-    let updateAttrs = _.pick(req.body, ['name', 'email', 'phone']);
+    let user = yield gModels.User.findOne({
+      _id: req.currentUser.id
+    }).exec();
 
-    if (user.isStudent()) {
-      _.merge(updateAttrs, _.pick(req.body, ['university', 'major', 'entryDate']));
-    } else {
-      _.merge(updateAttrs, _.pick(req.body, ['url', 'desc']));
-    }
+    _.merge(user, req.body);
 
-    _.merge(user, updateAttrs);
     try {
       yield user.save();
     } catch(err) {
-      return res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
+      console.error(err);
+      return res.json({
+        error: 1,
+        errors: _.mapValues(err.errors, function(e) {
+          return e.message;
+      })});
     }
 
     return res.json({ error: 0 });

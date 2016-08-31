@@ -19,17 +19,20 @@ div.user-info
         label(for='entryDate' class='label label-input') 入学年份：
         select(name='entryDate', id='entryDate', class='form-control', data-ori-value=user.entryDate, value=user.entryDate, required)
           each ed in entryDates
-            option(value=ed)= ed
+            if ed == user.entryDate
+              option(value=ed, selected)= ed
+            else
+              option(value=ed)= ed
         button(type='button', class='btn', style={display: 'none'}) 修改
         button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='careerPlan' class='label label-input') 职业规划：
-        textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-ori-value=user.careerPlan, value=user.careerPlan, data-rule-minlength=64, required)
+        textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
         button(type='button', class='btn', style={display: 'none'}) 修改
         button(type='button', class='btn', style={display: 'none'}) 取消
       .form-group
         label(for='zuopin' class='label label-input') 课外作品（可选）：
-        textarea(name='zuopin', id='zuopin', rows=8, class='form-control', data-ori-value=user.zuopin, value=user.zuopin)
+        textarea(name='zuopin', id='zuopin', rows=8, class='form-control', data-ori-value=user.zuopin)= user.zuopin
         button(type='button', class='btn', style={display: 'none'}) 修改
         button(type='button', class='btn', style={display: 'none'}) 取消
         .form-control-hint.
