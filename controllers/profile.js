@@ -43,17 +43,22 @@ function jobs(req, res, next) {
   }
 
   co(function* () {
-    let user = yield gModels.User.findOne({ _id: req.currentUser.id }).exec();
+    let user;
     let jobs;
 
     if (user.isStudent()) {
-      let appliedJobs = yield gModels.ApplyJob.find({ _userId: user.id }).populate('_job').exec();
-      jobs = appliedJobs.map(function(a) { return a._job; });
+      user = yield gModels.User.findById(req.currentUser.id).populate({
+        path:     '_appliedJobs',
+        populate: { path: '_creator' }
+      }).exec();
+
+      jobs = user._appliedJobs;
     } else {
+      user = yield gModels.User.findById(req.currentUser.id).exec()
       jobs = yield gModels.Job.find({ _creator: user.id }).exec();
     }
 
-    res.render('profile/index', {
+    res.render('profile/jobs', {
       pos: 'jobs',
       jobs: jobs,
       user: user

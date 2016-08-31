@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
  * 行业：IT，金融，房地产，etc
  */
 let Schema = mongoose.Schema;
-let businessSchema = Schema({
+let businessSchema = new Schema({
   name: String
 });
 

@@ -49,11 +49,16 @@ function apply(req, res, next) {
   var userId = req.currentUser.id;
   var jobId  = req.body.job_id;
 
-  gModels.ApplyJob.create({
-    status:  0,
-    _job:    jobId,
-    _userId: userId
-  }).then(function() {
+  co(function* () {
+    yield gModels.Job.update({ _id: jobId }, {
+      $push: { _appliers: userId }
+    }).exec();
+
+    yield gModels.User.update({ _id: userId }, {
+      $inc:  { _appliersSize: 1 },
+      $push: { _appliedJobs: jobId }
+    }).exec();
+
     res.json({ error: 0, message: '申请成功' });
   }).catch(function(err) {
     res.json({ error: 1, message: '申请失败' });

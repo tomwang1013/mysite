@@ -1,20 +1,27 @@
-table
-  thead
-    tr
-      th 职位名称
-      th 工作地点
-      th 薪资(元/月)
-      th 职责
-      th 要求
-      th 备注
-      th 状态
-  tbody
-    each job in jobs
-      tr
-        td= job.title
-        td= job.address
-        td= job.salary
-        td= job.duty
-        td= job.requirement
-        td= job.notes
-        td 审核中
+.jobs-container
+  each job in jobs
+    .job-item.flex(data-job-id=job.id)
+      .job-info
+        p.job-title
+          a(href='/job/' + job.id)= job.title
+          if !user.isStudent()
+            span 申请人数：<strong>#{job._appliersSize}</strong>
+            button.btn.btn-primary 编辑
+        p.job-basics
+          span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+          span 申请日期：<strong>#{job._id.getTimestamp().toLocaleDateString()}</strong>
+          span 公司：    <strong>#{job._creator.name}</strong>
+          span 工作地点：<strong>#{job.address}</strong>
+          span 薪资：    <strong>#{job.salary}</strong>
+          if user.isStudent()
+            span 申请人数：<strong>#{job._appliersSize}</strong>
+        .job-others.flex
+          div
+            p 工作职责：
+            div= job.duty
+          div
+            p 要求：
+            div= job.requirement
+        if user.isStudent()
+          .job-status
+            // TODO 申请状态: 通过或拒绝

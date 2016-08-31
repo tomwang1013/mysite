@@ -8,7 +8,7 @@ const salaries = [
 ];
 
 let Schema = mongoose.Schema;
-let jobSchema = Schema({
+let jobSchema = new Schema({
   title:        String,   // 职位名称
   duty:         String,   // 职责
   requirement:  String,   // 要求
@@ -19,7 +19,9 @@ let jobSchema = Schema({
   type:         String,   // 类别
 
   // relations
-  _creator:     { type: Schema.Types.ObjectId, ref: 'User' } // 创建者
+  _creator:     { type: Schema.Types.ObjectId, ref: 'User' },   // 创建者
+  _appliers:    [{ type: Schema.Types.ObjectId, ref: 'User' }], // 申请者
+  _appliersSize:  Number,  // 申请人数
 },  {
   timestamps: true
 });

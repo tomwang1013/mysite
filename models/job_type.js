@@ -7,7 +7,7 @@ const _ = require('lodash');
  * 职位类别：研发，技工，销售，市场，etc
  */
 let Schema = mongoose.Schema;
-let jobTypeSchema = Schema({
+let jobTypeSchema = new Schema({
   name:     String,
   subTypes: [String]
 });
