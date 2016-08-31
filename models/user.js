@@ -24,6 +24,7 @@ let userSchema = new Schema({
   phone:    String, // 电话号码
 
   // 学生属性
+  gender:     String, // 性别
   university: String, // 学校名称
   major:      String, // 专业
   entryDate:  Number, // 入学日期

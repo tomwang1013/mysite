@@ -53,8 +53,8 @@ function apply(req, res, next) {
   co(function* () {
     var appliedJob = yield gModels.ApplyJob.create({
       status:   0,
-      _job:     jobId,
-      _userId:  userId
+      _job:   jobId,
+      _user:  userId
     });
 
     yield gModels.Job.update({ _id: jobId }, {
@@ -69,11 +69,34 @@ function apply(req, res, next) {
   });
 }
 
+// 管理申请者
+function appliers(req, res, next) {
+  if (!req.currentUser) {
+    res.redirect('/login');
+    return;
+  }
+
+  var jobId = req.params.id;
+
+  gModels.Job.findById(jobId).populate({
+    path:     '_appliers',
+    populate: { path: '_user' }
+  }).exec(function(err, job) {
+    if (err) return next(err);
+
+    res.render('jobs/appliers', {
+      job:      job,
+      appliers: job._appliers
+    });
+  })
+}
+
 exports = module.exports = {
-  index:  index,
-  newJob: newJob,
-  create: create,
-  edit:   edit,
-  update: update,
-  apply:  apply
+  index:    index,
+  newJob:   newJob,
+  create:   create,
+  edit:     edit,
+  update:   update,
+  apply:    apply,
+  appliers: appliers
 };

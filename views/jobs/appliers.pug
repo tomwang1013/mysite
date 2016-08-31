@@ -1,0 +1,26 @@
+extends ../layouts/main
+block css
+  link(href="/css/job.css", rel="stylesheet")
+block js
+  script(src='/js/job.js')
+block content
+  each applier in appliers
+    - var user = applier._user
+    h3
+      a(href='/job/' + job.id)= job.title
+    | ——申请者列表
+    .applier-info
+      span= user.name
+      span= user.gender
+      span= user.university
+      span= user.major
+      span 申请时间：#{applier.createdAt.toLocaleDateString()}
+    .apply-result
+      case applier.status
+        when 0
+          button.btn.btn-primary 通过
+          button.btn 拒绝
+        when 1
+          .apply-refused 已拒绝：#{applier.message}
+        when 2
+          .apply-passed 已通过：#{applier.message}

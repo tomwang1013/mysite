@@ -18,8 +18,9 @@ router.get('/jobs',          gControllers.jobs.index);
 router.get('/jobs/new',      gControllers.jobs.newJob);
 router.post('/jobs',         gControllers.jobs.create);
 router.post('/jobs/apply',   gControllers.jobs.apply);
-router.get('/jobs/:id/edit', gControllers.jobs.edit);
-router.post('/jobs/:id',     gControllers.jobs.update);
+router.get('/job/:id/edit', gControllers.jobs.edit);
+router.get('/job/:id/appliers', gControllers.jobs.appliers);
+router.post('/job/:id',     gControllers.jobs.update);
 
 // user center
 router.get('/profile',            gControllers.profile.index);

@@ -49,7 +49,7 @@ function jobs(req, res, next) {
 
     if (req.currentUser.type == 0) {
       appliedJobs = yield gModels.ApplyJob.find({
-        _userId: req.currentUser.id
+        _user: req.currentUser.id
       }).populate({
         path:     '_job',
         populate: { path: '_creator' }

@@ -3,9 +3,9 @@
 const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
-let applyJobSchema = Schema({
+let applyJobSchema = new Schema({
   _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
-  _userId:      Schema.Types.ObjectId,
+  _user:        { type: Schema.Types.ObjectId, ref: 'User' },
   status:       Number, // 申请状态：0：刚申请 1：拒绝 2：通过
   message:      String, // 企业在拒绝或通过一个申请时对应聘者的消息
 }, {
