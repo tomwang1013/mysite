@@ -59,6 +59,12 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./public/css/'));
 });
 
+gulp.task('font-awesome', function () {
+  return gulp.src('./assets/sass/font-awesome/font-awesome.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./public/css/'));
+});
+
 gulp.task('watch', function() {
   gulp.watch('./assets/sass/**/*.scss', ['sass']);
   gulp.watch('./assets/js/common/*.js', ['vendor.js']);
