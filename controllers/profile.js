@@ -29,6 +29,7 @@ function userInfo(req, res, next) {
       entryDates:   gModels.User.allEntryDates,
       businesses:   gModels.Business,
       scales:       gModels.User.scales,
+      maturities:   gModels.User.maturities,
       user:         result[0]
     });
   }).catch(function(err) {

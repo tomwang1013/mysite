@@ -13,8 +13,8 @@ $(document).ready(function() {
     }
   }
 
-  $('.user-info textarea').keyup(checkEditState);
-  $('#university, #major, #entryDate').change(checkEditState);
+  $('.user-info textarea, #url').keyup(checkEditState);
+  $('#university, #major, select').change(checkEditState);
 
   $('.user-info .form-group button:first-of-type').click(function() {
     var me    = $(this);
@@ -30,7 +30,7 @@ $(document).ready(function() {
   });
 
   $('.user-info .form-group button:last-of-type').click(function() {
-    var field = $(this).siblings('input, textarea');
+    var field = $(this).siblings('input, textarea, select');
     field.val(field.data('oriValue'));
     $(this).hide();
     $(this).prev().hide();
