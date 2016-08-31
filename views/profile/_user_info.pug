@@ -1,9 +1,0 @@
-script.
-  window.us = !{JSON.stringify(universities)};
-  window.ms = !{JSON.stringify(majors)};
-div.user-info
-  form
-    if user.isStudent()
-      include ./_student.pug
-    else
-      include ./_company.pug

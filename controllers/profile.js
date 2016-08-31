@@ -30,7 +30,8 @@ function userInfo(req, res, next) {
       businesses:   gModels.Business,
       scales:       gModels.User.scales,
       maturities:   gModels.User.maturities,
-      user:         result[0]
+      user:         result[0],
+      currentUser:  req.currentUser
     });
   }).catch(function(err) {
     next(err);
@@ -43,26 +44,28 @@ function jobs(req, res, next) {
   }
 
   co(function* () {
-    let user;
     let jobs;
+    let appliedJobs;
 
-    if (user.isStudent()) {
-      user = yield gModels.User.findById(req.currentUser.id).populate({
-        path:     '_appliedJobs',
+    if (req.currentUser.type == 0) {
+      appliedJobs = yield gModels.ApplyJob.find({
+        _userId: req.currentUser.id
+      }).populate({
+        path:     '_job',
         populate: { path: '_creator' }
       }).exec();
-
-      jobs = user._appliedJobs;
     } else {
-      user = yield gModels.User.findById(req.currentUser.id).exec()
-      jobs = yield gModels.Job.find({ _creator: user.id }).exec();
+      jobs = yield gModels.Job.find({ _creator: req.currentUser.id }).exec();
     }
 
-    res.render('profile/jobs', {
-      pos: 'jobs',
-      jobs: jobs,
-      user: user
+    res.render('profile/index', {
+      pos:          'jobs',
+      appliedJobs:  appliedJobs,
+      jobs:         jobs,
+      currentUser:  req.currentUser 
     });
+  }).catch(function(err) {
+    next(err);
   });
 }
 

@@ -58,7 +58,7 @@ $(document).ready(function() {
       job_id: me.closest('.job-item').data('jobId')
     }, function(data) {
       if (data.error) {
-        location = data.location;
+        alert(data.message);
       } else {
         me.text('已申请');
         me.unbind('click');

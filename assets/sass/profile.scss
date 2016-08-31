@@ -28,19 +28,87 @@
     padding: 6px 20px;
     border: 1px solid #ccc;
     border-left:none;
-  }
 
-  /* 浏览与修改用户信息 */
-  .user-info {
-    .form-control, .form-control-hint {
-      width:80%;
-      margin-right: 6px;
+    /* 浏览与修改用户信息 */
+    .user-info {
+      .form-control, .form-control-hint {
+        width:80%;
+        margin-right: 6px;
+      }
+
+      button {
+        vertical-align:top;
+        &:first-of-type {
+          margin-right:6px;
+        }
+      }
     }
 
-    button {
-      vertical-align:top;
-      &:first-of-type {
-        margin-right:6px;
+    /* 申请或创建的职位信息 */
+    .jobs-container .job-item {
+      margin-bottom:20px;
+      padding:10px;
+      background-color:#eee;
+
+      &:hover {
+        background-color:#d2d2d2;
+      }
+
+      .job-info {
+        flex: 8;
+        padding-right:6px;
+
+        .job-title {
+          margin-top:0;
+          padding-bottom:6px;
+          border-bottom:1px solid #bbb;
+          position: relative;
+
+          a.title-link, a.appliers-link {
+            font-weight:bold;
+            font-size:1.1rem;
+            color:blue;
+          }
+
+          a.title-link {
+            display: inline-block;
+            margin-right: 16px;
+          }
+
+          a.job-edit {
+            position: absolute;
+            right: 6px;
+          }
+        }
+
+        .job-basics {
+          margin-top: 6px;
+          margin-bottom: 6px;
+          padding-bottom: 6px;
+          border-bottom:1px dashed #bbb;
+
+          span {
+            padding:0 8px;
+            border-right:1px solid #bbb;
+            &:first-child {
+              padding-left:0;
+            }
+            &:last-child {
+              border-right:none;
+            }
+          }
+        }
+
+        .job-others {
+          justify-content:space-between;
+          & > div {
+            width:48%;
+            p {
+              font-weight:bold;
+              padding-bottom:6px;
+            }
+          }
+        }
       }
     }
   }

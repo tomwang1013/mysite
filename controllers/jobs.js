@@ -2,6 +2,7 @@
 
 const _        = require('lodash');
 const mongoose = require('mongoose');
+const co       = require('co');
 
 function index(req, res, next) {
   gModels.Job.find().populate('_creator').exec(function(err, jobs) {
@@ -50,17 +51,20 @@ function apply(req, res, next) {
   var jobId  = req.body.job_id;
 
   co(function* () {
-    yield gModels.Job.update({ _id: jobId }, {
-      $push: { _appliers: userId }
-    }).exec();
+    var appliedJob = yield gModels.ApplyJob.create({
+      status:   0,
+      _job:     jobId,
+      _userId:  userId
+    });
 
-    yield gModels.User.update({ _id: userId }, {
-      $inc:  { _appliersSize: 1 },
-      $push: { _appliedJobs: jobId }
+    yield gModels.Job.update({ _id: jobId }, {
+      $inc:   { _appliersSize: 1 },
+      $push:  { _appliers: appliedJob.id }
     }).exec();
 
     res.json({ error: 0, message: '申请成功' });
   }).catch(function(err) {
+    console.error(err);
     res.json({ error: 1, message: '申请失败' });
   });
 }

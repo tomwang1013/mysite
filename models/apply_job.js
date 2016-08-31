@@ -4,9 +4,12 @@ const mongoose = require('mongoose');
 
 let Schema = mongoose.Schema;
 let applyJobSchema = Schema({
-  status:       Number, // 当前申请状态，如发出申请，企业已回复，否定，录取等
   _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
-  _userId:      Schema.Types.ObjectId
+  _userId:      Schema.Types.ObjectId,
+  status:       Number, // 申请状态：0：刚申请 1：拒绝 2：通过
+  message:      String, // 企业在拒绝或通过一个申请时对应聘者的消息
+}, {
+  timestamps: true
 });
 
 let ApplyJob = mongoose.model('apply_job', applyJobSchema);

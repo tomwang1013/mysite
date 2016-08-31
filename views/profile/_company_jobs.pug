@@ -1,0 +1,20 @@
+.jobs-container
+  each job in jobs
+    .job-item.flex(data-job-id=job.id)
+      .job-info
+        p.job-title
+          a.title-link(href='/job/' + job.id)= job.title
+          span 申请人数：
+            a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
+          a.job-edit(href='/job/' + job.id + '/edit') 编辑
+        p.job-basics
+          span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+          span 工作地点：<strong>#{job.address}</strong>
+          span 薪资：    <strong>#{job.salary}</strong>
+        .job-others.flex
+          div
+            p 工作职责：
+            div= job.duty
+          div
+            p 要求：
+            div= job.requirement

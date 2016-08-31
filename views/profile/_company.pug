@@ -1,34 +1,36 @@
 // 公司信息
-mixin buttons
-  button(type='button', class='btn', style={display: 'none'}) 修改
-  button(type='button', class='btn', style={display: 'none'}) 取消
+div.user-info
+  form
+    mixin buttons
+      button(type='button', class='btn', style={display: 'none'}) 修改
+      button(type='button', class='btn', style={display: 'none'}) 取消
 
-.form-group
-  label(for='url' class='label label-input') 公司主页：
-  input(type='url', name='url', id='url', class='form-control', data-ori-value=user.url, value=user.url, required)
-  +buttons
-.form-group
-  label(for='business' class='label label-input') 所属行业：
-  select(name='business', id='business', class='form-control', data-ori-value=user.business, value=user.business, required)
-    option(value='') 请选择行业
-    each b in businesses
-      option(value=b selected=b == user.business)= b
-  +buttons
-.form-group
-  label(for='scale' class='label label-input') 规模：
-  select(name='scale', id='scale', class='form-control', data-ori-value=user.scale, value=user.scale, required)
-    option(value='') 请选择企业规模
-    each s,i in scales
-      option(value=i selected=i == user.scale)= s
-  +buttons
-.form-group
-  label(for='maturity' class='label label-input') 成熟度：
-  select(name='maturity', id='maturity', class='form-control', data-ori-value=user.maturity, value=user.maturity, required)
-    option(value='') 请选择企业成熟度
-    each m,i in maturities
-      option(value=i selected=i == user.maturity)= m
-  +buttons
-.form-group
-  label(for='desc' class='label label-input') 介绍：
-  textarea(name='desc', id='desc', rows=8, class='form-control', data-rule-minlength=64, data-ori-value=user.desc, required)= user.desc
-  +buttons
+    .form-group
+      label(for='url' class='label label-input') 公司主页：
+      input(type='url', name='url', id='url', class='form-control', data-ori-value=user.url, value=user.url, required)
+      +buttons
+    .form-group
+      label(for='business' class='label label-input') 所属行业：
+      select(name='business', id='business', class='form-control', data-ori-value=user.business, value=user.business, required)
+        option(value='') 请选择行业
+        each b in businesses
+          option(value=b selected=b == user.business)= b
+      +buttons
+    .form-group
+      label(for='scale' class='label label-input') 规模：
+      select(name='scale', id='scale', class='form-control', data-ori-value=user.scale, value=user.scale, required)
+        option(value='') 请选择企业规模
+        each s,i in scales
+          option(value=i selected=i == user.scale)= s
+      +buttons
+    .form-group
+      label(for='maturity' class='label label-input') 成熟度：
+      select(name='maturity', id='maturity', class='form-control', data-ori-value=user.maturity, value=user.maturity, required)
+        option(value='') 请选择企业成熟度
+        each m,i in maturities
+          option(value=i selected=i == user.maturity)= m
+      +buttons
+    .form-group
+      label(for='desc' class='label label-input') 介绍：
+      textarea(name='desc', id='desc', rows=8, class='form-control', data-rule-minlength=64, data-ori-value=user.desc, required)= user.desc
+      +buttons

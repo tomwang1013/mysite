@@ -29,7 +29,6 @@ let userSchema = new Schema({
   entryDate:  Number, // 入学日期
   careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
-  _appliedJobs: [{ type: Schema.Types.ObjectId, ref: 'Job' }],  // 申请的职位列表
 
   // 企业属性
   url:        String, // 公司主页
