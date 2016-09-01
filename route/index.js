@@ -21,6 +21,7 @@ router.post('/jobs/apply',   gControllers.jobs.apply);
 router.get('/job/:id/edit', gControllers.jobs.edit);
 router.get('/job/:id/appliers', gControllers.jobs.appliers);
 router.post('/job/:id',     gControllers.jobs.update);
+router.post('/job/:id/handle_apply',     gControllers.jobs.handleApply);
 
 // user center
 router.get('/profile',            gControllers.profile.index);

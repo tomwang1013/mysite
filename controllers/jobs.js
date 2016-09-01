@@ -91,12 +91,30 @@ function appliers(req, res, next) {
   })
 }
 
+function handleApply(req, res, next) {
+  var userId = req.body.userId;
+  var jobId = req.body.jobId;
+  var status = req.body.status;
+  var message = req.body.message;
+
+  gModels.ApplyJob.update({
+    _user:  userId,
+    _job:   jobId
+  }, {
+    status:   status,
+    message:  message
+  }).exec(function(err, result) {
+    res.json({ error: err });
+  });
+}
+
 exports = module.exports = {
-  index:    index,
-  newJob:   newJob,
-  create:   create,
-  edit:     edit,
-  update:   update,
-  apply:    apply,
-  appliers: appliers
+  index:        index,
+  newJob:       newJob,
+  create:       create,
+  edit:         edit,
+  update:       update,
+  apply:        apply,
+  appliers:     appliers,
+  handleApply:  handleApply,
 };

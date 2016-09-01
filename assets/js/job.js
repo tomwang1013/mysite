@@ -66,4 +66,53 @@ $(document).ready(function() {
       }
     });
   });
+
+  // pass or refuse applying
+  $('.apply-op button').click(function() {
+    var me = $(this);
+
+    me.prop('disabled', true);
+    
+    var confirm = me.parent().next();
+    var message;
+    var status;
+
+    confirm.show();
+
+    if (me.text() == '通过') {
+      message = '恭喜你通过审核：';
+      status = 1;
+    } else {
+      message = '很遗憾你暂时不适合这个岗位：';
+      status = 2;
+    }
+
+    confirm.find('textarea').data('status', status).val(message).focus();
+  });
+
+  $('.op-message form button:fist-child').click(function() {
+    var c = $(this).closest('.applier');
+    var userId = c.data('userId');
+    var jobId  = c.data('jobId');
+
+    var t = $(this).parent().prev().children().first();
+    var status = t.data('status');
+    var message = t.val();
+
+    $.post('/job/' + jobId + '/handle_apply', {
+      userId:   userId,
+      jobId:    jobId,
+      status:   status,
+      message:  message
+    }, function(data) {
+      var resultHtml =
+        "<div class='apply-passed'>" + message + "</div>";
+      $(this).closest('.handle-apply').replace(resultHtml);
+    });
+  });
+
+  $('.op-message form button:last-child').click(function() {
+    $(this).closest('.op-message').hide();
+    $(this).closest('.op-message').prev().children().prop('disabled', false);
+  });
 });

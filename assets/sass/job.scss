@@ -80,3 +80,41 @@
     }
   }
 }
+
+.appliers-container {
+  .applier {
+    padding: 6px 0;
+    margin-bottom: 6px;
+
+    .applier-title {
+      padding-bottom: 6px;
+      border-bottom: 1px solid #ccc;
+
+      .title-link {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+    }
+
+    .applier-info {
+      padding: 6px 0;
+      span {
+        display: inline-block;
+        padding: 0 6px;
+        border-right: 1px solid #ccc;
+      }
+      span:first-child {
+        padding-left: 0;
+      }
+      span:last-child {
+        border-right: none;
+      }
+    }
+
+    .apply-result {
+      .op-message {
+        margin-top: 16px;
+      }
+    }
+  }
+}
