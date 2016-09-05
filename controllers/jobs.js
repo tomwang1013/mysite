@@ -55,9 +55,32 @@ function create(req, res, next) {
 }
 
 function edit(req, res, next) {
+  var jobId = req.params.id;
+
+  gModels.Job.findById(jobId, function(err, job) {
+    res.render('jobs/edit', {
+      job: job,
+      businesses: gModels.Business,
+      types:      gModels.JobType,
+      salaries:   gModels.Job.salaries
+    });
+  })
 }
 
 function update(req, res, next) {
+  var jobId = req.params.id;
+
+  gModels.Job.findById(jobId, function(err, job) {
+    _.assign(job, req.body);
+    job.save(function(err, updatedJob) {
+      if (err) {
+        console.error(err);
+        res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
+      } else {
+        res.json({ error: 0, location: '/profile/jobs' });
+      }
+    });
+  })
 }
 
 // apply for a job

@@ -29,7 +29,7 @@ function checkCompanyLogin(req, res, next) {
     if (req.xhr) {
       return res.json({ error: 1, message: 'please login as a company' });
     } else {
-      return res.redirect('/login?return_to=' + (req.get('Referer') || '/'));
+      return res.redirect('/');
     }
   } else {
     next();
@@ -48,7 +48,7 @@ function checkStudentLogin(req, res, next) {
     if (req.xhr) {
       return res.json({ error: 1, message: 'please login as a student' });
     } else {
-      return res.redirect('/login?return_to=' + (req.get('Referer') || '/'));
+      return res.redirect('/');
     }
   } else {
     next();

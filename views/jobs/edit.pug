@@ -1,0 +1,49 @@
+extends ../layouts/main
+block css
+  link(href="/css/job.css", rel="stylesheet")
+block js
+  script(src='/js/job.js')
+block content
+  div.content
+    form(method='post', action='/job/' + job.id, class='edit-job')
+      .flex
+        div
+          .form-group
+            label(for='title' class='label label-input') 职位名称：
+            input(type='text', name='title', id='title', class='form-control' value=job.title, autofocus, required)
+          .form-group
+            label(for='address' class='label label-input') 工作地点：
+            input(type='text', name='address', id='address', class='form-control', value=job.address, required)
+          .form-group
+            label(for='salary' class='label label-input') 薪资：
+            select(name='salary', id='salary' class='form-control', required)
+              option(value='' selected) 请选择
+              each s, i in salaries
+                option(value=i, selected=i == job.salary)= s 
+        div
+          .form-group
+            label(for='business' class='label label-input') 行业：
+            select(name='business', id='business' class='form-control' required)
+              option(value='' selected) 请选择
+              each b in businesses
+                option(value=b, selected=b == job.business)= b 
+          .form-group
+            label(for='type' class='label label-input') 类别：
+            select(name='type', id='type' class='form-control', required)
+              option(value='' selected) 请选择
+              each t in types
+                option(value=t, selected=t == job.type)= t 
+          .form-group
+            label(for='notes' class='label label-input') 备注：
+            input(type='text', name='notes', id='notes', class='form-control', value=job.notes)
+        div
+          .form-group
+            label(for='duty' class='label label-input') 职责：
+            textarea(name='duty', id='duty', class='form-control', rows=12, required, data-rule-minlength=64)= job.duty
+        div
+          .form-group
+            label(for='requirement' class='label label-input') 要求：
+            textarea(name='requirement', id='requirement', class='form-control', rows=12, required, data-rule-minlength=64)= job.requirement
+      div
+        .form-group
+          input(type='submit', value='保 存', class='btn btn-primary')

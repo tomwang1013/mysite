@@ -52,7 +52,7 @@ input:-webkit-autofill:active {
 }
 
 .label-input {
-  font-weight: 500;
+  font-weight: bold;
   margin-bottom: 6px;
 }
 
@@ -99,7 +99,7 @@ input.input-error {
 }
 
 .input-valid {
-  border: 1px solid #0f0;
+  border: 1px solid green;
 }
 
 .form-control-hint {
@@ -146,7 +146,7 @@ input.input-error {
 }
 
 .btn-warning:hover {
-  background-color: #CD3700;
+  background-color: #8B2500;
 }
 
 /* cancel button */

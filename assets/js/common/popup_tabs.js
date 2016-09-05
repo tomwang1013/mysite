@@ -28,6 +28,15 @@ $.fn.popupTabs = function(options) {
 
   var dialog;
 
+  // initialize state by input's initial value
+  function initState() {
+    var initItem = input.val();
+
+    if (!initItem) return;
+
+    // TODO
+  }
+
   function refreshLevelItems(level) {
     var curData = data;
 
@@ -55,8 +64,8 @@ $.fn.popupTabs = function(options) {
   // get pos & size of pop dialog
   function getDimensionStyle() {
     var offset    = input.offset();
-    var myWidth   = input.outerWidth();
-    var myHeight  = input.outerHeight();
+    var myWidth   = Math.ceil(parseFloat(window.getComputedStyle(input.get(0)).width));
+    var myHeight  = input.outerHeight() - 1;
 
     return {
       position: 'absolute',

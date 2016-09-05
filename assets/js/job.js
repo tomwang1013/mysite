@@ -50,6 +50,13 @@ $(document).ready(function() {
     },
   });
 
+  // update job
+  var validator = $('form.edit-job').validate({
+    errorPlacement: function(error, element) {
+      error.insertBefore(element);
+    },
+  });
+
   // apply job
   $('.job-title button').click(function() {
     var me = $(this);
