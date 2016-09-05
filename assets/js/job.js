@@ -44,14 +44,14 @@ $(document).ready(function() {
   $('#address').popupTabs(cities);
 
   // create job
-  var validator = $('form.new-job').validate({
+  $('form.new-job').validate({
     errorPlacement: function(error, element) {
       error.insertBefore(element);
     },
   });
 
   // update job
-  var validator = $('form.edit-job').validate({
+  $('form.edit-job').validate({
     errorPlacement: function(error, element) {
       error.insertBefore(element);
     },

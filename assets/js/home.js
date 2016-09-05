@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 $(function() {
-  var validator = $('.index-signup > form').validate({
+  $('.index-signup > form').validate({
     rules: {
       name: {
         remote: '/signup/is_valid_name'
