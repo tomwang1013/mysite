@@ -25,12 +25,11 @@ block content
                   button.btn.btn-primary 通过
                   button.btn 拒绝
                 .op-message(style={display: 'none'})
-                  form
-                    .form-group
-                      textarea.form-control(name='op_message')
-                    .form-group
-                      button.btn.btn-primary 确定
-                      button.btn 取消
+                  .form-group
+                    textarea.form-control(name='op_message')
+                  .form-group
+                    button.btn.btn-primary 确定
+                    button.btn 取消
             when 1
               .apply-refused 已拒绝：#{applier.message}
             when 2

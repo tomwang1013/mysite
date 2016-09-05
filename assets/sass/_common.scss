@@ -39,81 +39,79 @@ a {
 }
 
 /* form and controls */
-form {
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    -webkit-transition-delay: 9999s;
-    -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 9999s;
+  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+}
 
-  .label {
-    display: block;
-  }
+.label {
+  display: block;
+}
 
-  .label-input {
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
+.label-input {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
 
-  .label-radio {
-    display:inline-block;
-    margin-right: 8px;
-  }
+.label-radio {
+  display:inline-block;
+  margin-right: 8px;
+}
 
-  input[type='radio'] {
-    margin-right: 6px;
-  }
+input[type='radio'] {
+  margin-right: 6px;
+}
 
-  .form-group {
-    margin-bottom: 16px;
-  }
+.form-group {
+  margin-bottom: 16px;
+}
 
-  .form-control {
-    display: inline-block;
-    width: 100%;
-    height: 35px;
-    padding: 6px 12px;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    color: #777;
-    line-height: 21px;
-    font-size: 14px;
-    outline:none;
-  }
+.form-control {
+  display: inline-block;
+  width: 100%;
+  height: 35px;
+  padding: 6px 12px;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #777;
+  line-height: 21px;
+  font-size: 14px;
+  outline:none;
+}
 
-  .form-control:focus {
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  }
+.form-control:focus {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
 
-  textarea.form-control {
-    height: auto;
-  }
+textarea.form-control {
+  height: auto;
+}
 
-  label.input-error {
-    display: inline-block;
-    margin-top: 6px;
-    color: #f00;
-  }
+label.input-error {
+  display: inline-block;
+  margin-top: 6px;
+  color: #f00;
+}
 
-  input.input-error {
-    border: 1px solid #f00;
-  }
+input.input-error {
+  border: 1px solid #f00;
+}
 
-  .input-valid {
-    border: 1px solid #0f0;
-  }
+.input-valid {
+  border: 1px solid #0f0;
+}
 
-  .form-control-hint {
-    color: #777;
-    font-size: 0.8em;
-    font-family: NSimSun, Microsoft YaHei;
-    margin-top:6px;
-    line-height:1.4;
-  }
+.form-control-hint {
+  color: #777;
+  font-size: 0.8em;
+  font-family: NSimSun, Microsoft YaHei;
+  margin-top:6px;
+  line-height:1.4;
 }
 
 /* normal button look*/

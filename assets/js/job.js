@@ -115,13 +115,10 @@ $(document).ready(function() {
 
       $(this).closest('.handle-apply').replaceWith(resultHtml);
     });
-
-    return false;
   });
 
   $('.op-message form button:last-child').click(function() {
     $(this).closest('.op-message').hide();
     $(this).closest('.op-message').prev().children().prop('disabled', false);
-    return false;
   });
 });
