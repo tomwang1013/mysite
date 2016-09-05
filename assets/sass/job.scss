@@ -115,6 +115,14 @@
       .op-message {
         margin-top: 16px;
       }
+
+      .apply-refused {
+        color: red;
+      }
+
+      .apply-passed {
+        color: green;
+      }
     }
   }
 }

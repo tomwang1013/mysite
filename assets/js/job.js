@@ -81,16 +81,16 @@ $(document).ready(function() {
 
     if (me.text() == '通过') {
       message = '恭喜你通过审核：';
-      status = 1;
+      status = 2;
     } else {
       message = '很遗憾你暂时不适合这个岗位：';
-      status = 2;
+      status = 1;
     }
 
     confirm.find('textarea').data('status', status).val(message).focus();
   });
 
-  $('.op-message form button:fist-child').click(function() {
+  $('.op-message form button:first-child').click(function() {
     var c = $(this).closest('.applier');
     var userId = c.data('userId');
     var jobId  = c.data('jobId');
@@ -105,14 +105,23 @@ $(document).ready(function() {
       status:   status,
       message:  message
     }, function(data) {
-      var resultHtml =
-        "<div class='apply-passed'>" + message + "</div>";
-      $(this).closest('.handle-apply').replace(resultHtml);
+      var resultHtml;
+
+      if (status == 1) {
+        resultHtml = "<div class='apply-refused'>已拒绝：" + message + "</div>";
+      } else {
+        resultHtml = "<div class='apply-passed'>已通过：" + message + "</div>";
+      }
+
+      $(this).closest('.handle-apply').replaceWith(resultHtml);
     });
+
+    return false;
   });
 
   $('.op-message form button:last-child').click(function() {
     $(this).closest('.op-message').hide();
     $(this).closest('.op-message').prev().children().prop('disabled', false);
+    return false;
   });
 });
