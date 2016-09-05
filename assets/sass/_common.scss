@@ -117,16 +117,15 @@ input.input-error {
 /* normal button look*/
 .btn {
   display: inline-block;
-  padding: 6px 12px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 4px 8px;
+  font-size: 15px;
   line-height: 1.4;
-  color: #fff;
+  color: #eee;
   text-align:center;
   vertical-align: middle;
   cursor: pointer;
   background-color: #777;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #777;
   border-radius: 3px;
 }
 
@@ -136,22 +135,22 @@ input.input-error {
 
 /* primary button look*/
 .btn-primary {
-  background-color: #609B26;
-  border: 1px solid #355317;
+  background-color: #2E37FE;
+  border: 1px solid #2E37FE;
 }
 
 .btn-primary:hover {
-  background-color: #4F7B22;
+  background-color: #0000CD;
 }
 
 /* warning button look*/
 .btn-warning {
-  background-color: #CD9B9B;
-  border: 1px solid #CD9B9B;
+  background-color: #B13E0F;
+  border: 1px solid #B13E0F;
 }
 
 .btn-warning:hover {
-  background-color: #C67171;
+  background-color: #CD3700;
 }
 
 /* list */
