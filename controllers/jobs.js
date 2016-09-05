@@ -5,9 +5,29 @@ const mongoose = require('mongoose');
 const co       = require('co');
 
 function index(req, res, next) {
-  gModels.Job.find().populate('_creator').exec(function(err, jobs) {
-    res.render('jobs/index', { jobs: jobs });
-  });
+  co(function* () {
+    var jobs = yield gModels.Job.find().populate('_creator').exec();
+
+    if (req.currentUser && req.currentUser.type === 0) {
+      var myAppliedJobs = yield gModels.ApplyJob.find({
+        _user: req.currentUser.id
+      }).exec()
+      
+      myAppliedJobs = myAppliedJobs.map(function(ap) {
+        return ap._job.toString();
+      });
+
+      jobs.forEach(function(job) {
+        if (myAppliedJobs.indexOf(job.id) >= 0) {
+          job.applied = true;
+        }
+      });
+
+      res.render('jobs/index', { jobs: jobs });
+    } else {
+      res.render('jobs/index', { jobs: jobs });
+    }
+  }).catch(next);
 }
 
 function newJob(req, res, next) {
@@ -51,6 +71,15 @@ function apply(req, res, next) {
   var jobId  = req.body.job_id;
 
   co(function* () {
+    var isApplied = yield gModels.ApplyJob.findOne({
+      _job:   jobId,
+      _user:  userId
+    }).exec();
+
+    if (isApplied) {
+      return res.json({ error: 0, message: '你已经申请过' });
+    }
+
     var appliedJob = yield gModels.ApplyJob.create({
       status:   0,
       _job:   jobId,

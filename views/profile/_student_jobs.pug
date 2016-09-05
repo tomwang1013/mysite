@@ -10,7 +10,7 @@
           span 申请日期：<strong>#{appliedJob.createdAt.toLocaleDateString()}</strong>
           span 公司：    <strong>#{job._creator.name}</strong>
           span 工作地点：<strong>#{job.address}</strong>
-          span 薪资：    <strong>#{job.salary}</strong>
+          span 薪资：    <strong>#{job.displaySalary}</strong>
           span 申请人数：<strong>#{job._appliersSize}</strong>
         .job-others.flex
           div

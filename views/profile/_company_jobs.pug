@@ -10,7 +10,7 @@
         p.job-basics
           span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
           span 工作地点：<strong>#{job.address}</strong>
-          span 薪资：    <strong>#{job.salary}</strong>
+          span 薪资：    <strong>#{job.displaySalary}</strong>
         .job-others.flex
           div
             p 工作职责：

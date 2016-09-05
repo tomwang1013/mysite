@@ -29,53 +29,51 @@
       background-color:#d2d2d2;
     }
 
-    .job-info {
-      flex: 8;
-      padding-right:6px;
+    .job-title {
+      margin-top:0;
+      padding-bottom:6px;
+      border-bottom:1px solid #bbb;
+      align-items:center;
 
-      .job-title {
+      a {
         font-weight:bold;
         font-size:1.1rem;
         color:blue;
-        margin-top:0;
-        padding-bottom:6px;
-        border-bottom:1px solid #bbb;
+        margin-right:auto;
       }
 
-      .job-basics {
-        margin-top: 6px;
-        margin-bottom: 6px;
-        padding-bottom: 6px;
-        border-bottom:1px dashed #bbb;
+      span.apply-result {
+        color:green;
+        font-weight:bold;
+      }
+    }
 
-        span {
-          padding:0 8px;
-          border-right:1px solid #bbb;
-          &:first-child {
-            padding-left:0;
-          }
-          &:last-child {
-            border-right:none;
-          }
+    .job-basics {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      border-bottom:1px dashed #bbb;
+
+      span {
+        padding:0 8px;
+        border-right:1px solid #bbb;
+        &:first-child {
+          padding-left:0;
         }
-      }
-
-      .job-others {
-        justify-content:space-between;
-        & > div {
-          width:48%;
-          p {
-            font-weight:bold;
-            padding-bottom:6px;
-          }
+        &:last-child {
+          border-right:none;
         }
       }
     }
 
-    .job-op {
-      flex: 1;
-      p {
-        text-align:center;
+    .job-others {
+      justify-content:space-between;
+      & > div {
+        width:48%;
+        p {
+          font-weight:bold;
+          padding-bottom:6px;
+        }
       }
     }
   }

@@ -1,6 +1,13 @@
 function index(req,res, next) {
-  res.locals.title = '学做';
-  res.render('home/index');
+  if (req.currentUser) {
+    if (req.currentUser.type === 0) {
+      res.redirect('/jobs');
+    } else {
+      res.redirect('/students');
+    }
+  } else {
+    res.render('home/index');
+  }
 }
 
 module.exports = {

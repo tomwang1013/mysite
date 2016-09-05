@@ -26,6 +26,10 @@ let jobSchema = new Schema({
   timestamps: true
 });
 
+jobSchema.virtual('displaySalary').get(function() {
+  return salaries[this.salary];
+});
+
 let Job = mongoose.model('Job', jobSchema);
 
 Job.salaries = salaries;

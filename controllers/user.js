@@ -132,12 +132,7 @@ function loginHandler(req, res, next) {
 
     if (match) {
       loginUser(req, user);
-
-      if (user.isStudent()) {
-        res.json({ error: 0, location: '/jobs' });
-      } else {
-        res.json({ error: 0, location: '/jobs/new' });
-      }
+      res.json({ error: 0, location: req.query.return_to || '/' });
     } else {
       res.json({ error: 1, errors: { password: '密码错误' } });
     }

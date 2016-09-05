@@ -51,19 +51,13 @@ $(document).ready(function() {
   });
 
   // apply job
-  $('.job-op p:first-child button').click(function() {
+  $('.job-title button').click(function() {
     var me = $(this);
 
     $.post('/jobs/apply', {
       job_id: me.closest('.job-item').data('jobId')
     }, function(data) {
-      if (data.error) {
-        alert(data.message);
-      } else {
-        me.text('已申请');
-        me.unbind('click');
-        me.css('cursor', 'default');
-      }
+      me.replaceWith("<span class='apply-result'>已申请</span>")
     });
   });
 
