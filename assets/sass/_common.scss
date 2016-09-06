@@ -72,15 +72,12 @@ input[type='radio'] {
 .form-control {
   display: inline-block;
   width: 100%;
-  height: 35px;
-  padding: 6px 12px;
-  background-color: #fff;
-  background-image: none;
+  padding: 0.25em 0.5em;
   border: 1px solid #ccc;
   border-radius: 3px;
   color: #777;
-  line-height: 21px;
-  font-size: 14px;
+  line-height: 1.5;
+  font-size: 0.875em;
   outline:none;
 }
 
@@ -117,20 +114,20 @@ input.input-error {
 /* normal button look*/
 .btn {
   display: inline-block;
-  padding: 4px 8px;
-  font-size: 15px;
+  padding: 0.25em 0.5em;
+  font-size: 0.875em;
   line-height: 1.4;
   color: #eee;
   text-align:center;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #777;
-  border: 1px solid #777;
+  background-color: #53868B;
+  border: 1px solid #53868B;
   border-radius: 3px;
 }
 
 .btn:hover {
-  background-color: #6a6a6a;
+  background-color: #4A777A;
 }
 
 /* primary button look*/
@@ -151,6 +148,16 @@ input.input-error {
 
 .btn-warning:hover {
   background-color: #CD3700;
+}
+
+/* cancel button */
+.btn-cancel {
+  background-color: #B18D92;
+  border: 1px solid #B18D92;
+}
+
+.btn-cancel:hover {
+  background-color: #8D5E64;
 }
 
 /* list */
