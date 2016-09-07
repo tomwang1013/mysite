@@ -9,13 +9,13 @@ block content
       form(method='post', action='/signup')
         .form-group
           input(type='hidden', name='step', value='1')
-          label(for='name' class='label label-input') 用户名
+          label(for='name' class='label label-input') 用户名：
           input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control', required)
         .form-group
-          label(for='email' class='label label-input') Email
+          label(for='email' class='label label-input') Email：
           input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control' required)
         .form-group
-          label(for='password' class='label label-input') 密码
+          label(for='password' class='label label-input') 密码：
           input(type='password', name='password', id='password', class='form-control' required)
         .form-group
           label(class='label label-radio')

@@ -9,25 +9,30 @@ div.user-info
       button(type='button', class='btn btn-cancel', style={display: 'none'}) 取消
 
     .form-group
-      label(for='university' class='label label-input') 学校名称：
+      div
+        label(for='university' class='label label-input') 学校名称：
       input(type='text', name='university', id='university', class='form-control', data-ori-value=user.university, value=user.university, required)
       +buttons
     .form-group
-      label(for='major' class='label label-input') 专业：
+      div
+        label(for='major' class='label label-input') 专业：
       input(type='text', name='major', id='major', class='form-control', data-ori-value=user.major, value=user.major, required)
       +buttons
     .form-group
-      label(for='entryDate' class='label label-input') 入学年份：
+      div
+        label(for='entryDate' class='label label-input') 入学年份：
       select(name='entryDate', id='entryDate', class='form-control', data-ori-value=user.entryDate, value=user.entryDate, required)
         each ed in entryDates
           option(value=ed, selected=ed == user.entryDate)= ed
       +buttons
     .form-group
-      label(for='careerPlan' class='label label-input') 职业规划：
+      div
+        label(for='careerPlan' class='label label-input') 职业规划：
       textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
       +buttons
     .form-group
-      label(for='zuopin' class='label label-input') 课外作品（可选）：
+      div
+        label(for='zuopin' class='label label-input') 课外作品（可选）：
       textarea(name='zuopin', id='zuopin', rows=8, class='form-control', data-ori-value=user.zuopin)= user.zuopin
       +buttons
       .form-control-hint.

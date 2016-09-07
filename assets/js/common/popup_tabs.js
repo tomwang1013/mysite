@@ -28,6 +28,31 @@ $.fn.popupTabs = function(options) {
 
   var dialog;
 
+  function refreshLevelItems(level) {
+    var curData = data;
+
+    for (var i = 0; i <= level; i++) {
+      curData = curData[state.selectedItems[i]];
+    }
+
+    if (curData instanceof Array) {
+      state.items = curData;
+    } else {
+      state.items = Object.keys(curData);
+    }
+  }
+
+  // select the click item
+  function selectClickItem(clickItem) {
+    input.val(clickItem);
+    hideDialog();
+
+    // for jquery-validation plugin
+    input.trigger('focusout.validate');
+    input.trigger('change');
+  }
+
+  // get pos & size of pop dialog
   function getDimensionStyle() {
     var offset    = input.offset();
     var myWidth   = input.outerWidth();
@@ -89,54 +114,42 @@ $.fn.popupTabs = function(options) {
 	function showDialog() {
     dialog = $(createTabs()).css(getDimensionStyle());
 
+    // click on tabs
     $(document).on('click', '.tab-header li', function(e) {
       if ($(this).is('.tab-label-active')) {
         return;
       }
 
+      var level = state.labels.indexOf($(this).text());
+
       state.activeLabel = $(this).text();
-
-      var level = state.labels.indexOf(state.activeLabel);
-      var curData = data;
-
-      for (var i = 0; i < level; i++) {
-        curData = curData[state.selectedItems[i]];
-      }
-
-      if (curData instanceof Array) {
-        state.items = curData;
-      } else {
-        state.items = Object.keys(curData);
-      }
-
+      refreshLevelItems(level - 1);
       state.activeItem  = state.selectedItems[level];
       refreshTabs();
     });
 
+    // click on item
     $(document).on('click', '.tab-content li', function(e) {
       var level = state.labels.indexOf(state.activeLabel);
       var clickItem = $(this).text();
 
       state.selectedItems[level] = clickItem;
 
+      // click in the last tab's items, select it
       if (level == labels.length - 1) {
-        input.val(clickItem);
-        hideDialog();
-        input.trigger('focusout.validate');
-        input.trigger('change');
+        selectClickItem(clickItem);
         return;
       }
 
-      var curData = data;
+      var oldItems = state.items;
 
-      for (var i = 0; i <= level; i++) {
-        curData = curData[state.selectedItems[i]];
-      }
+      refreshLevelItems(level);
 
-      if (curData instanceof Array) {
-        state.items = curData;
-      } else {
-        state.items = Object.keys(curData);
+      // this item has no sub-level items, so just select it
+      if (!state.items.length) {
+        state.items = oldItems;
+        selectClickItem(clickItem);
+        return;
       }
 
       if (!state.labels[level + 1]) {
