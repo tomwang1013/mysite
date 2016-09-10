@@ -17,7 +17,7 @@ $.fn.popupTabs = function(options) {
   var input     = this;
 	var labels    = options.labels;
 	var data      = options.data;
-
+  var dialog    = null;
   var state     = {
 		labels:         labels.slice(0, 1),
 		items:          Object.keys(data),
@@ -26,17 +26,58 @@ $.fn.popupTabs = function(options) {
     selectedItems:  []
 	};
 
-  var dialog;
+  initState();
 
   // initialize state by input's initial value
   function initState() {
     var initItem = input.val();
+    var path = [];
+    var siblings = [];
 
-    if (!initItem) return;
+    function findIt(root) {
+      var finded = false;
+      var keys = Object.keys(root);
 
-    // TODO
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var v = root[k];
+
+        if (typeof(v) === 'string') {
+          if (v === initItem) {
+            path.push(initItem);
+            siblings = keys;
+            finded = true;
+            break;
+          }
+        } else if (v instanceof Array) {
+          if (v.indexOf(initItem) != -1) {
+            path.push(k, initItem);
+            siblings = v;
+            finded = true;
+            break;
+          }
+        } else {
+          path.push(k);
+          finded = findIt(v);
+
+          if (finded) break;
+          else path.pop();
+        }
+      };
+
+      return finded;
+    }
+
+    if (initItem && findIt(data)) {
+      state.items           = siblings;
+      state.labels          = labels.slice(0, path.length);
+      state.activeLabel     = state.labels[path.length - 1];
+      state.activeItem      = initItem;
+      state.selectClickItem = path;
+    }
   }
 
+  // try to get next level's items
   function refreshLevelItems(level) {
     var curData = data;
 
@@ -45,9 +86,11 @@ $.fn.popupTabs = function(options) {
     }
 
     if (curData instanceof Array) {
-      state.items = curData;
+      return curData;
+    } else if (typeof(curData) === 'object') {
+      return Object.keys(curData);
     } else {
-      state.items = Object.keys(curData);
+      return null;
     }
   }
 
@@ -69,7 +112,6 @@ $.fn.popupTabs = function(options) {
 
     return {
       position: 'absolute',
-      left:     offset.left + 'px',
       top:      (offset.top + myHeight) + 'px',
       width:    (options.with || myWidth) + 'px'
     };
@@ -132,7 +174,7 @@ $.fn.popupTabs = function(options) {
       var level = state.labels.indexOf($(this).text());
 
       state.activeLabel = $(this).text();
-      refreshLevelItems(level - 1);
+      state.items = refreshLevelItems(level - 1);
       state.activeItem  = state.selectedItems[level];
       refreshTabs();
     });
@@ -143,6 +185,7 @@ $.fn.popupTabs = function(options) {
       var clickItem = $(this).text();
 
       state.selectedItems[level] = clickItem;
+      state.activeItem = clickItem;
 
       // click in the last tab's items, select it
       if (level == labels.length - 1) {
@@ -150,16 +193,14 @@ $.fn.popupTabs = function(options) {
         return;
       }
 
-      var oldItems = state.items;
+      var nextLevelItems = refreshLevelItems(level);
 
-      refreshLevelItems(level);
-
-      // this item has no sub-level items, so just select it
-      if (!state.items.length) {
-        state.items = oldItems;
+      if (!nextLevelItems) {
         selectClickItem(clickItem);
         return;
       }
+
+      state.items = nextLevelItems;
 
       if (!state.labels[level + 1]) {
         state.labels[level + 1] = labels[level + 1];

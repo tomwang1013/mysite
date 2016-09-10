@@ -208,6 +208,10 @@ ul {
       padding: 8px;
     }
 
+    li.tab-item-active {
+      background-color: #888;
+    }
+
     li:hover {
       background-color: #aaa;
     }
