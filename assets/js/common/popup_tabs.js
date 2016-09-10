@@ -26,7 +26,6 @@ $.fn.popupTabs = function(options) {
     selectedItems:  []
 	};
 
-  initState();
 
   // initialize state by input's initial value
   function initState() {
@@ -73,7 +72,7 @@ $.fn.popupTabs = function(options) {
       state.labels          = labels.slice(0, path.length);
       state.activeLabel     = state.labels[path.length - 1];
       state.activeItem      = initItem;
-      state.selectClickItem = path;
+      state.selectedItems   = path;
     }
   }
 
@@ -107,7 +106,7 @@ $.fn.popupTabs = function(options) {
   // get pos & size of pop dialog
   function getDimensionStyle() {
     var offset    = input.offset();
-    var myWidth   = Math.ceil(parseFloat(window.getComputedStyle(input.get(0)).width));
+    var myWidth   = parseFloat(window.getComputedStyle(input.get(0)).width);
     var myHeight  = input.outerHeight() - 1;
 
     return {
@@ -129,7 +128,6 @@ $.fn.popupTabs = function(options) {
 	this.focus(function(e) {
 		showDialog();
 	});
-
 
   // create dialog for state
 	function createTabs() {
@@ -163,6 +161,7 @@ $.fn.popupTabs = function(options) {
 	}
 
 	function showDialog() {
+    initState();
     dialog = $(createTabs()).css(getDimensionStyle());
 
     // click on tabs
