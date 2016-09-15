@@ -27,7 +27,7 @@
     form(method='post' action='/profile/change_password')
       .form-group
         label(for='old_pwd' class='label label-input') 旧密码：
-        input(type='password', name='old_pwd', id='old_pwd', class='form-control', value=user.password.slice(0,12), readonly)
+        input(type='password', name='old_pwd', id='old_pwd', class='form-control')
       .form-group
         label(for='new_pwd' class='label label-input') 新密码：
         input(type='password', name='new_pwd', id='new_pwd', class='form-control', required)
