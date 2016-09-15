@@ -14,6 +14,10 @@ router.get('/login',                  gControllers.user.loginView);
 router.get('/logout',                 gControllers.user.logout);
 router.get('/signup/is_valid_name',   gControllers.user.isValidName);
 router.get('/signup/is_valid_email',  gControllers.user.isValidEmail);
+router.get('/password_reset',         gControllers.user.passwordReset);
+router.post('/password_reset',        gControllers.user.passwordReset);
+router.get('/password_reset/:token',  gControllers.user.passwordReset);
+router.post('/password_reset/:token', gControllers.user.passwordReset);
 
 // jobs
 router.get('/jobs',                   gControllers.jobs.index);

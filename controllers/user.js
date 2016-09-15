@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const co     = require('co');
 const _      = require('lodash');
 
+const mailer = require('../lib/mailer');
+
 function signupView(req, res, next) {
   let step = req.query.step ? parseInt(req.query.step) : 1;
 
@@ -155,12 +157,60 @@ function loginUser(req, user) {
   };
 }
 
+// 密码重置
+function passwordReset(req, res, next) {
+  if (req.method == 'GET') {
+    if (req.params.token) {
+      // step 3: user come here from reset email link
+      var token = req.params.token;
+
+      res.render('user/passwordReset.pug', {
+        step: 3,
+        token: token
+      });
+    } else {
+      // step 1: get email
+      res.render('user/passwordReset.pug', {
+        email: req.currentUser ? req.currentUser.email : '',
+        step: 1
+      });
+    }
+  } else {
+    if (req.params.token) {
+      // step 4: change password
+    } else {
+      // step 2: send a mail and tell user to see it
+      var email = req.body.email;
+
+      // TODO generate a token & token expires date
+
+      mailer.sendMail({
+        from: app.settings.nodemailer.auth.user,
+        to:   email,
+        subject: '学做网密码重置',
+        html: `<p>点击下面的链接进入重置过程:</p>
+        <p>
+        <a href="http://192.168.1.7/password_reset/${token}"></a>
+        </p>
+        `
+      }, function(err, info) {
+        if (err) return next(err);
+
+        res.render('/password_reset', {
+          step: 2
+        });
+      });
+    }
+  }
+}
+
 exports = module.exports = {
-  signupView: signupView,
-  signup:     signupHandler,
-  loginView:  loginView,
-  login:      loginHandler,
-  logout:     logoutHandler,
-  isValidName:  isValidName,
-  isValidEmail: isValidEmail,
+  signupView:     signupView,
+  signup:         signupHandler,
+  loginView:      loginView,
+  login:          loginHandler,
+  logout:         logoutHandler,
+  isValidName:    isValidName,
+  isValidEmail:   isValidEmail,
+  passwordReset:  passwordReset,
 };

@@ -1,9 +1,9 @@
 function index(req,res, next) {
   if (req.currentUser) {
     if (req.currentUser.type === 0) {
-      res.redirect('/jobs');
+      res.render('home/index');
     } else {
-      res.redirect('/students');
+      res.render('home/index');
     }
   } else {
     res.render('home/index');
