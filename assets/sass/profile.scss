@@ -152,13 +152,24 @@
       .avatar {
         img {
           border-radius: 0.25em;
-          border-style:none;
         }
 
         .upload {
           display:inline-block;
           margin-left:1em;
           vertical-align:top;
+          button {
+            position:relative;
+            input {
+              position:absolute;
+              top:0;
+              left:0;
+              margin-left:-50px;
+              opacity:0.001;
+              cursor:pointer;
+            }
+          }
+
           span {
             font-size:0.8em;
             color:#777;

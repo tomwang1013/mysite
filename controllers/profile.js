@@ -91,10 +91,27 @@ function account(req, res, next) {
   });
 };
 
+function changeAccount(req, res, next) {
+  co(function* () {
+    var user = yield gModels.User.findById(req.currentUser.id).exec();
+
+    _.merge(user, { avatar: req.file.path.slice(6) }, req.body);
+    yield user.save();
+    res.redirect('/profile/account');
+  });
+};
+
+function changePassword(req, res, next) {
+  gModels.User.findOne({ _id: req.currentUser.id }, function(err, user) {
+  });
+};
+
 exports = module.exports = {
   index:          index,
   userInfo:       userInfo,
   account:        account,
   jobs:           jobs,
   changeUserInfo: changeUserInfo,
+  changeAccount:  changeAccount,
+  changePassword: changePassword
 };

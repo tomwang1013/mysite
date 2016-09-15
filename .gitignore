@@ -5,3 +5,4 @@ dest/
 node_modules/
 public/js/
 public/css/
+public/uploads/
