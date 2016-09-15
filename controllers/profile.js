@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const co = require('co');
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
 
 function index(req, res, next) {
   res.redirect(301, '/profile/user_info');
@@ -82,11 +83,15 @@ function changeUserInfo(req, res, next) {
 
 // account and password
 function account(req, res, next) {
-  gModels.User.findOne({ _id: req.currentUser.id }, function(err, user) {
+  gModels.User.findById(req.currentUser.id, function(err, user) {
     res.render('profile/index', {
       pos:         'account',
       user:        user,
-      currentUser: req.currentUser
+      currentUser: req.currentUser,
+      flash:       {
+        success: req.flash('success')[0],
+        error:   req.flash('error')[0]
+      }
     });
   });
 };
@@ -101,9 +106,48 @@ function changeAccount(req, res, next) {
   });
 };
 
+// 修改密码
 function changePassword(req, res, next) {
-  gModels.User.findOne({ _id: req.currentUser.id }, function(err, user) {
-  });
+  var oldPwd = req.body.old_pwd;
+  var newPwd = req.body.new_pwd;
+  var cNewPwd = req.body.c_new_pwd;
+
+  console.log(req.body);
+
+  if (newPwd != cNewPwd) {
+    req.flash('error', '新密码确认错误');
+    return res.redirect('/profile/account');
+  }
+
+  co(function *() {
+    var user = yield gModels.User.findById(req.currentUser.id).exec();
+    let match = yield new Promise(function(resolve, reject) {
+      bcrypt.compare(oldPwd, user.password, function(err, match) {
+        return resolve(match);
+      });
+    });
+
+    console.log('match: ', match);
+
+    if (!match) {
+      req.flash('error', '密码不正确');
+      return res.redirect('/profile/account');
+    }
+
+    let newHashedPwd = yield new Promise(function(resolve) {
+      bcrypt.hash(newPwd, 10, function(err, hash) {
+        return resolve(hash);
+      });
+    });
+
+    console.log('newHashedPwd: ', newHashedPwd);
+
+    user.password = newHashedPwd;
+    yield user.save()
+
+    req.flash('success', '密码修改成功');
+    res.redirect('/profile/account');
+  }).catch(next);
 };
 
 exports = module.exports = {

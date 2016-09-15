@@ -4,6 +4,7 @@ const express       = require('express');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
 const favicon       = require('serve-favicon');
+const flash         = require('connect-flash');
 
 global.app          = express();
 global.gControllers = require('./controllers');
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 
 app.use(gControllers.middlewares.getReq);
 app.use(gControllers.middlewares.session);
+app.use(flash());
 app.use(gControllers.middlewares.currentUser);
 
 app.use(require('./route'));
