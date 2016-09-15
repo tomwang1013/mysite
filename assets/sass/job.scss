@@ -102,26 +102,31 @@
 }
 
 .appliers-container {
-  .applier {
-    padding: 6px 0;
+  .applier-title {
+    padding-bottom: 6px;
+    border-bottom: 2px solid #666;
     margin-bottom: 6px;
 
-    .applier-title {
-      padding-bottom: 6px;
-      border-bottom: 1px solid #ccc;
-
-      .title-link {
-        font-size: 1.1rem;
-        font-weight: bold;
-      }
+    .title-link {
+      font-size: 1.1rem;
+      font-weight: bold;
     }
+  }
+
+  .applier {
+    padding: 6px 0;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 6px;
 
     .applier-info {
-      padding: 6px 0;
+      overflow: hidden;
+
       span {
         display: inline-block;
         padding: 0 6px;
         border-right: 1px solid #ccc;
+        float:left;
+        margin: 6px 0;
       }
       span:first-child {
         padding-left: 0;
@@ -129,11 +134,25 @@
       span:last-child {
         border-right: none;
       }
+
+      .apply-op {
+        float:right;
+        & > button:first-child {
+          margin-right: 0.6em;
+        }
+      }
     }
 
     .apply-result {
+      margin-top: 0.3em;
       .op-message {
-        margin-top: 16px;
+        margin-top: 0.8em;
+        div {
+          margin-bottom: 0.5em;
+        }
+        button:first-child {
+          margin-right:0.6em;
+        }
       }
 
       .apply-refused {

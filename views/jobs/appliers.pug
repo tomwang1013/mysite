@@ -5,31 +5,31 @@ block js
   script(src='/js/job.js')
 block content
   .appliers-container
+    .applier-title
+      a.title-link(href='/job/' + job.id)= job.title
+      |  — 申请者列表
     each applier in appliers
       - var user = applier._user
       .applier(data-user-id=user.id, data-job-id=job.id)
-        .applier-title
-          a.title-link(href='/job/' + job.id)= job.title
-          |  — 申请者列表
         .applier-info
           span= user.name
           span= user.gender
           span= user.university
           span= user.major
           span 申请时间：#{applier.createdAt.toLocaleDateString()}
+          if applier.status == 0
+            .apply-op
+              button.btn.btn-primary 通过
+              button.btn 拒绝
         .apply-result
           case applier.status
             when 0
-              .handle-apply
-                .apply-op
-                  button.btn.btn-primary 通过
-                  button.btn 拒绝
-                .op-message(style={display: 'none'})
-                  .form-group
-                    textarea.form-control(name='op_message')
-                  .form-group
-                    button.btn.btn-primary 确定
-                    button.btn 取消
+              .op-message(style={display: 'none'})
+                div
+                  textarea.form-control(name='op_message')
+                div
+                  button.btn.btn-primary 确定
+                  button.btn 取消
             when 1
               .apply-refused 已拒绝：#{applier.message}
             when 2

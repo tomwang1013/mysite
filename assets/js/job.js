@@ -71,13 +71,11 @@ $(document).ready(function() {
   // pass or refuse applying
   $('.apply-op button').click(function() {
     var me = $(this);
-
-    me.prop('disabled', true);
-    
-    var confirm = me.parent().next();
+    var confirm = me.closest('.applier').find('.op-message');
     var message;
     var status;
 
+    me.parent().hide();
     confirm.show();
 
     if (me.text() == '通过') {
@@ -91,12 +89,12 @@ $(document).ready(function() {
     confirm.find('textarea').data('status', status).val(message).focus();
   });
 
-  $('.op-message form button:first-child').click(function() {
+  $('.op-message button:first-child').click(function() {
+    var me = $(this);
     var c = $(this).closest('.applier');
     var userId = c.data('userId');
     var jobId  = c.data('jobId');
-
-    var t = $(this).parent().prev().children().first();
+    var t = me.closest('.op-message').find('textarea');
     var status = t.data('status');
     var message = t.val();
 
@@ -114,12 +112,12 @@ $(document).ready(function() {
         resultHtml = "<div class='apply-passed'>已通过：" + message + "</div>";
       }
 
-      $(this).closest('.handle-apply').replaceWith(resultHtml);
+      me.closest('.op-message').replaceWith(resultHtml);
     });
   });
 
-  $('.op-message form button:last-child').click(function() {
+  $('.op-message button:last-child').click(function() {
     $(this).closest('.op-message').hide();
-    $(this).closest('.op-message').prev().children().prop('disabled', false);
+    $(this).closest('.applier').find('.apply-op').show();
   });
 });
