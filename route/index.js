@@ -25,6 +25,7 @@ router.post('/job/:id/handle_apply',  gControllers.middlewares.checkCompanyLogin
 
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
+router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
 router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);

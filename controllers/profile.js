@@ -5,18 +5,10 @@ const co = require('co');
 const _ = require('lodash');
 
 function index(req, res, next) {
-  if (!req.currentUser) {
-    res.redirect('/login');
-  } else {
-    res.redirect(301, '/profile/user_info');
-  }
+  res.redirect(301, '/profile/user_info');
 }
 
 function userInfo(req, res, next) {
-  if (!req.currentUser) {
-    return res.redirect('/login');
-  }
-
   Promise.all([
     gModels.User.findOne({ _id: req.currentUser.id }).exec(),
     gModels.University.all(),
@@ -39,10 +31,6 @@ function userInfo(req, res, next) {
 }
 
 function jobs(req, res, next) {
-  if (!req.currentUser) {
-    return res.redirect('/login');
-  }
-
   co(function* () {
     let jobs;
     let appliedJobs;
@@ -70,10 +58,6 @@ function jobs(req, res, next) {
 }
 
 function changeUserInfo(req, res, next) {
-  if (!req.currentUser) {
-    return res.redirect('/login');
-  }
-
   co(function* () {
     let user = yield gModels.User.findOne({
       _id: req.currentUser.id
@@ -96,9 +80,21 @@ function changeUserInfo(req, res, next) {
   });
 }
 
+// account and password
+function account(req, res, next) {
+  gModels.User.findOne({ _id: req.currentUser.id }, function(err, user) {
+    res.render('profile/index', {
+      pos:         'account',
+      user:        user,
+      currentUser: req.currentUser
+    });
+  });
+};
+
 exports = module.exports = {
-  index:    index,
-  userInfo: userInfo,
-  jobs:     jobs,
+  index:          index,
+  userInfo:       userInfo,
+  account:        account,
+  jobs:           jobs,
   changeUserInfo: changeUserInfo,
 };
