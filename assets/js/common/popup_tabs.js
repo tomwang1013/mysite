@@ -111,6 +111,7 @@ $.fn.popupTabs = function(options) {
 
     return {
       position: 'absolute',
+      left:     offset.left + 'px',
       top:      (offset.top + myHeight) + 'px',
       width:    (options.with || myWidth) + 'px'
     };

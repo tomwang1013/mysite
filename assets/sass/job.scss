@@ -36,6 +36,11 @@
 .jobs-container {
   margin-top:1em;
 
+  .no-jobs {
+    color:red;
+    text-align:center;
+  }
+
   .job-item {
     margin-bottom:1em;
     padding:10px;

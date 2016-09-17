@@ -9,56 +9,59 @@ block content
       div.flex
         span.flex
           label(for='title' class='label') 职位名称：
-          input(type='text' id='title' name='title' class='form-control')
+          input(type='text' id='title' name='title' value=req.query.title class='form-control')
 
         span.flex
           label(for='business' class='label') 行业：
           select(name='business' id='business' class='form-control')
             option(value='' selected) 请选择
             each b in businesses
-              option(value=b)= b 
+              option(value=b selected=b == req.query.business)= b 
 
         span.flex
           label(for='type' class='label') 类别：
           select(name='type', id='type' class='form-control')
             option(value='' selected) 请选择
             each t in types
-              option(value=t)= t 
+              option(value=t selected=t == req.query.type)= t 
 
       div.flex
         span.flex
           label(for='address' class='label') 工作地点：
-          input(type='text', name='address', id='address', class='form-control')
+          input(type='text', name='address', id='address', value=req.query.address, class='form-control')
 
         span.flex
           label(for='salary' class='label') 薪资：
           select(name='salary', id='salary' class='form-control')
             option(value='' selected) 请选择
             each s, i in salaries
-              option(value=i)= s 
+              option(value=i selected=i == req.query.salary)= s 
 
         span.flex
           input(type='submit', value='搜索', class='btn btn-primary')
 
   .jobs-container
-    each job in jobs
-      .job-item(data-job-id=job.id)
-        div.flex.job-title
-          a(href='/job/' + job.id)= job.title
-          if req.currentUser && req.currentUser.type === 0
-            if job.applied
-              span.apply-result 已申请
-            else
-              button.btn.btn-primary 申请职位
-        div.job-basics
-          span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-          span 公司：<strong>#{job._creator.name}</strong>
-          span 工作地点：<strong>#{job.address}</strong>
-          span 薪资：<strong>#{job.displaySalary}</strong>
-        div.job-others.flex
-          div
-            p 工作职责：
-            div= job.duty
-          div
-            p 要求：
-            div= job.requirement
+    if !jobs.length
+      .no-jobs 对不起，没有符合条件的职位，请换个搜索条件吧
+    else
+      each job in jobs
+        .job-item(data-job-id=job.id)
+          div.flex.job-title
+            a(href='/job/' + job.id)= job.title
+            if req.currentUser && req.currentUser.type === 0
+              if job.applied
+                span.apply-result 已申请
+              else
+                button.btn.btn-primary 申请职位
+          div.job-basics
+            span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+            span 公司：<strong>#{job._creator.name}</strong>
+            span 工作地点：<strong>#{job.address}</strong>
+            span 薪资：<strong>#{job.displaySalary}</strong>
+          div.job-others.flex
+            div
+              p 工作职责：
+              div= job.duty
+            div
+              p 要求：
+              div= job.requirement
