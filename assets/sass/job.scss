@@ -17,6 +17,26 @@
   }
 }
 
+.jobs-search {
+  margin-top:20px;
+
+  form > div.flex {
+    margin-bottom:0.5em;
+    span {
+      flex:1;
+      align-items:center;
+
+      &:not(:first-child) {
+        margin-left:0.5em;
+      }
+    }
+
+    .form-control, input[type='submit'] {
+      flex: 1;
+    }
+  }
+}
+
 .jobs-container {
   margin-top:20px;
 
@@ -24,9 +44,10 @@
     margin-bottom:20px;
     padding:10px;
     background-color:#eee;
+    border:1px solid #d2d2d2;
 
     &:hover {
-      background-color:#d2d2d2;
+      border:1px solid blue;
     }
 
     .job-title {

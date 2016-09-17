@@ -38,15 +38,7 @@ a {
   text-decoration: none;
 }
 
-/* form and controls */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-transition-delay: 9999s;
-  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
-}
-
+/* ++++++++++++++ form and controls +++++++++++++++++ */
 .label {
   display: inline-block;
 }
@@ -80,6 +72,11 @@ input[type='radio'] {
   outline:none;
 }
 
+/* fix firefox select height thiner problem */
+select.form-control {
+  height:2.143em;
+}
+
 .form-control:focus {
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 }
@@ -94,7 +91,7 @@ label.input-error {
   color: #f00;
 }
 
-input.input-error {
+.input-error {
   border: 1px solid #f00;
 }
 
@@ -109,13 +106,14 @@ input.input-error {
   margin-top:6px;
   line-height:1.4;
 }
+/* ------------------ form and controls ----------------- */
 
 /* normal button look*/
 .btn {
   display: inline-block;
   padding: 0.25em 0.5em;
   font-size: 0.875em;
-  line-height: 1.4;
+  line-height: 1.5;
   color: #eee;
   text-align:center;
   vertical-align: middle;

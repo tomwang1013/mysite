@@ -6,7 +6,29 @@ const co       = require('co');
 
 function index(req, res, next) {
   co(function* () {
-    var jobs = yield gModels.Job.find().populate('_creator').exec();
+    var jobs = gModels.Job.find().populate('_creator');
+
+    if (req.query.title) {
+      jobs = jobs.regex('title', req.query.title);
+    }
+
+    if (req.query.business) {
+      jobs = jobs.where('business', req.query.business);
+    }
+
+    if (req.query.type) {
+      jobs = jobs.where('type', req.query.type);
+    }
+
+    if (req.query.salary) {
+      jobs = jobs.where('salary', parseInt(req.query.salary));
+    }
+
+    if (req.query.address) {
+      jobs = jobs.where('address', parseInt(req.query.address));
+    }
+
+    jobs = yield jobs.exec();
 
     if (req.currentUser && req.currentUser.type === 0) {
       var myAppliedJobs = yield gModels.ApplyJob.find({
@@ -22,11 +44,14 @@ function index(req, res, next) {
           job.applied = true;
         }
       });
-
-      res.render('jobs/index', { jobs: jobs });
-    } else {
-      res.render('jobs/index', { jobs: jobs });
     }
+
+    res.render('jobs/index', {
+      jobs:       jobs,
+      businesses: gModels.Business,
+      types:      gModels.JobType,
+      salaries:   gModels.Job.salaries
+    });
   }).catch(next);
 }
 
