@@ -4,7 +4,7 @@ block css
 block js
   script(src='/js/job.js')
 block content
-  .content.appliers-container
+  .appliers-container
     each applier in appliers
       - var user = applier._user
       .applier(data-user-id=user.id, data-job-id=job.id)

@@ -4,27 +4,26 @@ block js
 block css
   link(href="/css/profile.css", rel="stylesheet")
 block content
-  .content
-    .flex.profile-container
-      ul.left-nav
-        li
-          a(href='/profile/account' class={active: pos == 'account'}) 账号与密码
-          a(href='/profile/user_info' class={active: pos == 'user_info'}) 基本信息
-        li
-          if currentUser.type == 0
-            a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
-          else
-            a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
-      div.right-content
-        if pos == 'account'
-          include _account.pug
-        if pos == 'user_info'
-          if currentUser.type == 0
-            include _student.pug
-          else
-            include _company.pug
-        else if pos == 'jobs'
-          if currentUser.type == 0
-            include _student_jobs.pug
-          else
-            include _company_jobs.pug
+  .flex.profile-container
+    ul.left-nav
+      li
+        a(href='/profile/account' class={active: pos == 'account'}) 账号与密码
+        a(href='/profile/user_info' class={active: pos == 'user_info'}) 基本信息
+      li
+        if currentUser.type == 0
+          a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+        else
+          a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
+    div.right-content
+      if pos == 'account'
+        include _account.pug
+      if pos == 'user_info'
+        if currentUser.type == 0
+          include _student.pug
+        else
+          include _company.pug
+      else if pos == 'jobs'
+        if currentUser.type == 0
+          include _student_jobs.pug
+        else
+          include _company_jobs.pug

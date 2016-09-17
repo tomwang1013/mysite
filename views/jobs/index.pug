@@ -4,7 +4,7 @@ block css
 block js
   script(src='/js/job.js')
 block content
-  .content.jobs-search
+  .jobs-search
     form(action='/jobs' method='get')
       div.flex
         span.flex
@@ -40,7 +40,7 @@ block content
         span.flex
           input(type='submit', value='搜索', class='btn btn-primary')
 
-  .content.jobs-container
+  .jobs-container
     each job in jobs
       .job-item(data-job-id=job.id)
         div.flex.job-title

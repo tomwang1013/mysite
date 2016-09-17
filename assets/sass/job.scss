@@ -1,8 +1,6 @@
 @import 'main';
 
 .new-job, .edit-job {
-  margin-top:20px;
-
   label.input-error {
     margin: 0 0 6px;
   }
@@ -18,8 +16,6 @@
 }
 
 .jobs-search {
-  margin-top:20px;
-
   form > div.flex {
     margin-bottom:0.5em;
     span {
@@ -38,10 +34,10 @@
 }
 
 .jobs-container {
-  margin-top:20px;
+  margin-top:1em;
 
   .job-item {
-    margin-bottom:20px;
+    margin-bottom:1em;
     padding:10px;
     background-color:#eee;
     border:1px solid #d2d2d2;

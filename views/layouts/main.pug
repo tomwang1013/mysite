@@ -7,7 +7,8 @@ html(lang='zh')
     block css
   body
     include ./_head.pug
-    block content
+    main.content
+      block content
     include ./_foot.pug
     script(src='/js/vendor.js')
     block js
