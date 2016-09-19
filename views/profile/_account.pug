@@ -1,1 +1,36 @@
-| 账号与密码
+.account
+  div
+    .header 修改账号信息
+    form
+      .form-group
+        label(class='label label-input') 头像：
+        .avatar
+          img(width=70 height=70 src=user.avatar alt=user.name)
+          span.upload
+            button(class='btn btn-primary') 上传头像
+            span 你也可以将图片从电脑上拖过来
+      .form-group
+        label(for='name' class='label label-input') 用户名：
+        input(type='text', name='name', id='name', class='form-control', value=user.name, required)
+      .form-group
+        label(for='email' class='label label-input') Email：
+        input(type='email', name='email', id='email', class='form-control', value=user.email, required)
+      .form-group
+        label(for='phone' class='label label-input') 电话：
+        input(type='text', name='phone', id='phone', class='form-control', value=user.phone, required)
+      .form-group
+        input(type='submit', value='更新账号信息' class='btn btn-primary')
+  div
+    .header 修改密码
+    form
+      .form-group
+        label(for='old_pwd' class='label label-input') 旧密码：
+        input(type='password', name='old_pwd', id='old_pwd', class='form-control', value=user.password.slice(0,12), readonly)
+      .form-group
+        label(for='new_pwd' class='label label-input') 新密码：
+        input(type='password', name='new_pwd', id='new_pwd', class='form-control', required)
+      .form-group
+        label(for='c_new_pwd' class='label label-input') 确认新密码：
+        input(type='password', name='c_new_pwd', id='c_new_pwd', class='form-control', required)
+      .form-group
+        input(type='submit', value='更新密码' class='btn btn-primary')
