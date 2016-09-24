@@ -170,7 +170,7 @@ function passwordReset(req, res, next) {
 
         if (!user) throw new Error('无效密码重置链接');
 
-        res.render('user/passwordReset.pug', {
+        res.render('user/passwordReset', {
           step:  3,
           token: req.params.token
         });
@@ -178,7 +178,7 @@ function passwordReset(req, res, next) {
     }
 
     // step 1: get email
-    return res.render('user/passwordReset.pug', {
+    return res.render('user/passwordReset', {
       email: req.currentUser ? req.currentUser.email : '',
       step: 1
     });
@@ -190,7 +190,7 @@ function passwordReset(req, res, next) {
     let newPasswordAgain = req.body.new_password_again;
 
     if (newPassword != newPasswordAgain) {
-      return res.render('user/passwordReset.pug', {
+      return res.render('user/passwordReset', {
         step:  3,
         token: req.params.token,
         error: '确认密码错误'
@@ -222,7 +222,7 @@ function passwordReset(req, res, next) {
     let user = yield gModels.User.findOne({ email: req.body.email }).exec();
 
     if (!user) {
-      return res.render('user/passwordReset.pug', {
+      return res.render('user/passwordReset', {
         error:  '该邮箱未注册',
         step:   1
       });
@@ -240,13 +240,15 @@ function passwordReset(req, res, next) {
         html:
           `<p>请在24小时之内点击下面的链接进入重置过程:</p>
           <p>
-          <a href="http://192.168.1.7/password_reset/${user.token}"></a>
+            <a href="http://192.168.1.7:3000/password_reset/${user.token}">
+              http://192.168.1.7:3000/password_reset/${user.token}
+            </a>
           </p>
           `
       })
     }
 
-    res.render('/password_reset', { step: 2 });
+    res.render('user/passwordReset', { step: 2 });
   }).catch(next);
 }
 

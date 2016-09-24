@@ -7,15 +7,15 @@ const cookieParser  = require('cookie-parser');
 const favicon       = require('serve-favicon');
 const flash         = require('connect-flash');
 const _             = require('lodash');
+const app           = express();
 
-global.app          = express();
-global.gControllers = require('./controllers');
-global.gModels      = require('./models');
 global.gRoot        = __dirname;
 global.gConfig      = _.merge({},
   require('./config/settings'),
   require('./config/settings.local')
 );
+global.gControllers = require('./controllers');
+global.gModels      = require('./models');
 
 app.set('views', './views')
 app.set('view engine', 'pug')

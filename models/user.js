@@ -25,8 +25,8 @@ let userSchema = new Schema({
   avatar:   String, // 头像
 
   // for password reset
-  pwd_reset_token:          String,
-  pwd_reset_token_expires:  Date,
+  token:    String,
+  tokenExp: Date,
 
   // 学生属性
   gender:     String, // 性别
