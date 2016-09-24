@@ -1,10 +1,10 @@
 'use strict'
 
-const bcrypt = require('bcrypt');
-const co     = require('co');
-const _      = require('lodash');
-
-const mailer = require('../lib/mailer');
+const bcrypt  = require('bcrypt');
+const co      = require('co');
+const _       = require('lodash');
+const crypto  = require('crypto');
+const mailer  = require('../lib/mailer');
 
 function signupView(req, res, next) {
   let step = req.query.step ? parseInt(req.query.step) : 1;
@@ -162,46 +162,91 @@ function passwordReset(req, res, next) {
   if (req.method == 'GET') {
     if (req.params.token) {
       // step 3: user come here from reset email link
-      var token = req.params.token;
+      return co(function* () {
+        let user = yield gModels.User.findOne({
+          token:    req.params.token,
+          tokenExp: { $gt: new Date() }
+        }).exec();
 
-      res.render('user/passwordReset.pug', {
-        step: 3,
-        token: token
-      });
-    } else {
-      // step 1: get email
-      res.render('user/passwordReset.pug', {
-        email: req.currentUser ? req.currentUser.email : '',
-        step: 1
+        if (!user) throw new Error('无效密码重置链接');
+
+        res.render('user/passwordReset.pug', {
+          step:  3,
+          token: req.params.token
+        });
+      }).catch(next);
+    }
+
+    // step 1: get email
+    return res.render('user/passwordReset.pug', {
+      email: req.currentUser ? req.currentUser.email : '',
+      step: 1
+    });
+  }
+
+  if (req.params.token) {
+    // step 4: change password
+    let newPassword = req.body.new_password;
+    let newPasswordAgain = req.body.new_password_again;
+
+    if (newPassword != newPasswordAgain) {
+      return res.render('user/passwordReset.pug', {
+        step:  3,
+        token: req.params.token,
+        error: '确认密码错误'
       });
     }
-  } else {
-    if (req.params.token) {
-      // step 4: change password
-    } else {
-      // step 2: send a mail and tell user to see it
-      var email = req.body.email;
 
-      // TODO generate a token & token expires date
+    return co(function* () {
+      let user = yield gModels.User.findOne({
+        token:    req.params.token
+      }).exec();
 
-      mailer.sendMail({
-        from: app.settings.nodemailer.auth.user,
-        to:   email,
-        subject: '学做网密码重置',
-        html: `<p>点击下面的链接进入重置过程:</p>
-        <p>
-        <a href="http://192.168.1.7/password_reset/${token}"></a>
-        </p>
-        `
-      }, function(err, info) {
-        if (err) return next(err);
-
-        res.render('/password_reset', {
-          step: 2
+      // set new password
+      let newHashedPwd = yield new Promise(function(resolve) {
+        bcrypt.hash(newPassword, 10, function(err, hash) {
+          return resolve(hash);
         });
       });
-    }
+
+      user.password = newHashedPwd;
+
+      yield user.save();
+
+      res.render('user/passwordReset', {
+        resetSuccess: '密码修改成功'
+      });
+    });
   }
+
+  // step 2: send a mail and tell user to see it
+  co(function* () {
+    let user = yield gModels.User.findOne({ email: req.body.email }).exec();
+
+    if (!user) {
+      return res.render('user/passwordReset.pug', { step: 1 });
+    }
+
+    user.token    = crypto.randomBytes(64).toString('hex');
+    user.tokenExp = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    yield {
+      userSave:     user.save(),
+      sendEmailRes: mailer.sendMail({
+        from:     gConfig.nodemailer.auth.user,
+        to:       req.body.email,
+        subject: '学做网密码重置',
+        html:
+          `<p>请在24小时之内点击下面的链接进入重置过程:</p>
+          <p>
+          <a href="http://192.168.1.7/password_reset/${token}"></a>
+          </p>
+          `
+      });
+    }
+
+    res.render('/password_reset', { step: 2 });
+  }).catch(next);
 }
 
 exports = module.exports = {

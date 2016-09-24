@@ -3,13 +3,19 @@
 const express       = require('express');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
+const cookieParser  = require('cookie-parser');
 const favicon       = require('serve-favicon');
 const flash         = require('connect-flash');
+const _             = require('lodash');
 
 global.app          = express();
 global.gControllers = require('./controllers');
 global.gModels      = require('./models');
-global.root         = __dirname;
+global.gRoot        = __dirname;
+global.gConfig      = _.merge({},
+  require('./config/settings'),
+  require('./config/settings.local')
+);
 
 app.set('views', './views')
 app.set('view engine', 'pug')
@@ -17,6 +23,7 @@ app.set('view engine', 'pug')
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

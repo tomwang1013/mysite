@@ -24,6 +24,10 @@ let userSchema = new Schema({
   phone:    String, // 电话号码
   avatar:   String, // 头像
 
+  // for password reset
+  pwd_reset_token:          String,
+  pwd_reset_token_expires:  Date,
+
   // 学生属性
   gender:     String, // 性别
   university: String, // 学校名称
