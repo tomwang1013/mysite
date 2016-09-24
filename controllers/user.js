@@ -213,9 +213,7 @@ function passwordReset(req, res, next) {
 
       yield user.save();
 
-      res.render('user/passwordReset', {
-        resetSuccess: '密码修改成功'
-      });
+      res.render('user/passwordReset', { step: 4 });
     });
   }
 
@@ -224,7 +222,10 @@ function passwordReset(req, res, next) {
     let user = yield gModels.User.findOne({ email: req.body.email }).exec();
 
     if (!user) {
-      return res.render('user/passwordReset.pug', { step: 1 });
+      return res.render('user/passwordReset.pug', {
+        error:  '该邮箱未注册',
+        step:   1
+      });
     }
 
     user.token    = crypto.randomBytes(64).toString('hex');
@@ -239,10 +240,10 @@ function passwordReset(req, res, next) {
         html:
           `<p>请在24小时之内点击下面的链接进入重置过程:</p>
           <p>
-          <a href="http://192.168.1.7/password_reset/${token}"></a>
+          <a href="http://192.168.1.7/password_reset/${user.token}"></a>
           </p>
           `
-      });
+      })
     }
 
     res.render('/password_reset', { step: 2 });

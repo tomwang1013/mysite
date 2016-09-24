@@ -100,10 +100,14 @@ function changeAccount(req, res, next) {
   co(function* () {
     var user = yield gModels.User.findById(req.currentUser.id).exec();
 
-    _.merge(user, { avatar: req.file.path.slice(6) }, req.body);
+    if (req.file) {
+      _.assign(user, { avatar: req.file.path.slice(6) });
+    }
+
+    _.merge(user, req.body);
     yield user.save();
     res.redirect('/profile/account');
-  });
+  }).catch(next);
 };
 
 // 修改密码
