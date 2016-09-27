@@ -36,7 +36,8 @@ router.get('/profile/account',            gControllers.middlewares.checkLogin, g
 router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);
-router.post('/profile/change_account',    upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAccount);
+router.post('/profile/change_account',    gControllers.middlewares.checkLogin, gControllers.profile.changeAccount);
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
+router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar);
 
 module.exports = router;

@@ -99,11 +99,6 @@ function account(req, res, next) {
 function changeAccount(req, res, next) {
   co(function* () {
     var user = yield gModels.User.findById(req.currentUser.id).exec();
-
-    if (req.file) {
-      _.assign(user, { avatar: req.file.path.slice(6) });
-    }
-
     _.merge(user, req.body);
     yield user.save();
     res.redirect('/profile/account');
@@ -115,8 +110,6 @@ function changePassword(req, res, next) {
   var oldPwd = req.body.old_pwd;
   var newPwd = req.body.new_pwd;
   var cNewPwd = req.body.c_new_pwd;
-
-  console.log(req.body);
 
   if (newPwd != cNewPwd) {
     req.flash('error', '新密码确认错误');
@@ -131,8 +124,6 @@ function changePassword(req, res, next) {
       });
     });
 
-    console.log('match: ', match);
-
     if (!match) {
       req.flash('error', '密码不正确');
       return res.redirect('/profile/account');
@@ -144,8 +135,6 @@ function changePassword(req, res, next) {
       });
     });
 
-    console.log('newHashedPwd: ', newHashedPwd);
-
     user.password = newHashedPwd;
     yield user.save()
 
@@ -154,6 +143,23 @@ function changePassword(req, res, next) {
   }).catch(next);
 };
 
+// 修改头像
+function changeAvatar(req, res, next) {
+  gModels.User.findById(req.currentUser.id, function(err, user) {
+    if (err) return next(err);
+
+    if (req.file) {
+      user.avatar = req.file.path.slice(6);
+    }
+
+    user.save(function(err) {
+      if (err) return next(err);
+
+      res.json({ error: 0, url: user.avatar });
+    });
+  });
+}
+
 exports = module.exports = {
   index:          index,
   userInfo:       userInfo,
@@ -161,5 +167,6 @@ exports = module.exports = {
   jobs:           jobs,
   changeUserInfo: changeUserInfo,
   changeAccount:  changeAccount,
-  changePassword: changePassword
+  changePassword: changePassword,
+  changeAvatar:   changeAvatar,
 };

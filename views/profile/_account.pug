@@ -1,15 +1,15 @@
 .account
   div
     .header 修改账号信息
-    form(method='post' action='/profile/change_account' enctype="multipart/form-data")
+    form(method='post' action='/profile/change_account' enctype="multipart/form-data" class='account-edit')
       .form-group
         label(class='label label-input') 头像：
         .avatar
           img(width=70 height=70 src=user.avatar alt=user.name)
           span.upload
-            button(class='btn')
+            span(class='btn')
               label(for='avatar') 上传头像
-              input(type='file' name='avatar')
+              input(type='file' id='avatar' name='avatar')
             span 你也可以将图片从电脑上拖过来
       .form-group
         label(for='name' class='label label-input') 用户名：

@@ -35,4 +35,27 @@ $(document).ready(function() {
     $(this).hide();
     $(this).prev().hide();
   });
+
+  // avatar upload
+  $('#avatar').change(function() {
+    var file = this.files[0];
+    if (!file) return;
+
+    var formData = new FormData();
+
+    formData.append('avatar', file);
+
+    $.ajax({
+      type:         'POST',
+      url:          '/profile/change_avatar',
+      data:         formData,
+      processData:  false,
+      contentType:  false,
+      success:      function(data) {
+        if (!data.error) {
+          $('.avatar img').attr('src', data.url);
+        }
+      }
+    });
+  });
 });
