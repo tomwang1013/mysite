@@ -7,6 +7,8 @@ const fs = require('fs');
 const path = require('path');
 const mongoose = require( 'mongoose');
 
+mongoose.Promise = global.Promise;
+
 mongoose.connect('mongodb://localhost/mysite', {
   config: {
     autoIndex: false

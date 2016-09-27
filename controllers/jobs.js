@@ -63,6 +63,45 @@ function newJob(req, res, next) {
   });
 }
 
+function show(req, res, next) {
+  co(function* () {
+    let job = yield gModels.Job.findById(req.params.id).populate('_creator').exec();
+
+    if (!job) {
+      err.code = 404;
+      return next(err)
+    }
+
+
+    let applyStatus = '';
+
+    if (req.currentUser) {
+      let applied = false;
+
+      if (req.currentUser.type == 0) {
+        applied = yield gModels.ApplyJob.findOne({
+          _job:  job.id,
+          _user: req.currentUser.id
+        }).exec();
+
+        if (applied) {
+          applyStatus = 'applied';
+        } else {
+          applyStatus = 'apply';
+        }
+      }
+    } else {
+      applyStatus = 'apply';
+    }
+
+    res.render('jobs/show', {
+      job:          job,
+      company:      job._creator,
+      applyStatus:  applyStatus
+    });
+  }).catch(next);
+}
+
 function create(req, res, next) {
   if (!req.currentUser) {
     return res.json({ error: 1, message: 'not login' });
@@ -194,4 +233,5 @@ exports = module.exports = {
   apply:        apply,
   appliers:     appliers,
   handleApply:  handleApply,
+  show:         show
 };

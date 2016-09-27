@@ -1,0 +1,37 @@
+extends ../layouts/main
+block css
+  link(href="/css/job.css", rel="stylesheet")
+block js
+  script(src='/js/job.js')
+block content
+  .show-job
+    h2.text-center= job.title
+    .job-section.job-basic
+      h3 基本信息
+      p
+        span 发布日期：
+        span= job.createdAt.toLocaleDateString()
+      p
+        span 工作地点：
+        span= job.address
+      p
+        span 薪资：
+        span= job.displaySalary
+      p
+        span 行业/职位类别：
+        span= job.business + '/' + job.type
+    .job-section
+      h3 工作职责
+      p= job.duty
+    .job-section
+      h3 工作要求
+      p= job.requirement
+    .job-section
+      h3 公司简介
+      p= company.desc
+    .job-apply.text-center
+      case applyStatus
+        when 'applied'
+          button(class='btn btn-disabled' disabled) 已 申 请
+        when 'apply'
+          button(class='btn btn-primary') 申 请

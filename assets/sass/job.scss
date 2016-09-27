@@ -15,6 +15,38 @@
   }
 }
 
+.show-job {
+  h2 {
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid #777;
+  }
+
+  .job-section {
+    padding-bottom: 0.5em;
+    border-bottom: 1px dashed #777;
+  }
+
+  .job-basic {
+    p:not(:last-child) {
+      margin-bottom: 0.5em;
+    }
+    span {
+      display: inline-block;
+      &:first-child {
+        width: 15%;
+      }
+    }
+  }
+
+  .job-apply {
+    margin-top: 1em;
+    button {
+      font-size: 1.2em;
+      width: 10%;
+    }
+  }
+}
+
 .jobs-search {
   form > div.flex {
     margin-bottom:0.5em;

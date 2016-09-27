@@ -147,6 +147,14 @@ label.input-error {
   background-color: #4A777A;
 }
 
+.btn-disabled {
+  cursor: default;
+}
+
+.btn-disabled:hover {
+  background-color: #53868B;
+}
+
 /* primary button look*/
 .btn-primary {
   background-color: #2E37FE;
