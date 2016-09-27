@@ -43,13 +43,19 @@
     }
 
     /* 申请或创建的职位信息 */
+    .new-job {
+      margin-bottom: 0.8em;
+      font-weight: bold;
+    }
+
     .jobs-container .job-item {
       margin-bottom:20px;
       padding:10px;
       background-color:#eee;
+      border:1px solid #d2d2d2;
 
       &:hover {
-        background-color:#d2d2d2;
+        border:1px solid blue;
       }
 
       .job-info {

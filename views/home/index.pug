@@ -4,39 +4,25 @@ block css
 block js
   script(src='/js/home.js')
 block content
-  .flex.index-container
-    .index-signup
-      form(method='post', action='/signup')
-        .form-group
-          input(type='hidden', name='step', value='1')
-          label(for='name' class='label label-input') 用户名：
-          input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control', required)
-        .form-group
-          label(for='email' class='label label-input') Email：
-          input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control' required)
-        .form-group
-          label(for='password' class='label label-input') 密码：
-          input(type='password', name='password', id='password', class='form-control' required)
-        .form-group
-          label(class='label label-radio')
-            input(type='radio', id='user-type-student', name='userType', value=0, checked)
-            | 学生
-          label(class='label label-radio')
-            input(type='radio', id='user-type-company', name='userType', value=1)
-            | 公司
-        .form-group
-          input(type='submit', value='注 册' class='btn btn-primary')
-    .slogan
-      h1 1000万大学生信赖的实习平台
-      h2 大学，是最好的学习锻炼时光
-      h2 边做边学中，学习不再是为了一张毕业证
-      h2 踏入社会时，别人在迷茫中苦苦摸索，而你已成竹在胸
-  .flex.index-middle.content
-    .guide-student
-      h3 我是学生：
-      h4
-        a(href='/jobs' class='btn btn-primary') 开始找寻实习岗位
-    .guide-company
-      h3 我是公司：
-      h4
-        a(href='/students' class='btn btn-primary') 开始找寻心仪学生
+  .index-container
+    form(method='post', action='/signup' class='index-signup')
+      .form-group
+        input(type='hidden', name='step', value='1')
+        label(for='name' class='label label-input') 用户名：
+        input(type='text', name='name', id='name', class='form-control', required)
+      .form-group
+        label(for='email' class='label label-input') Email：
+        input(type='email', name='email', id='email', class='form-control' required)
+      .form-group
+        label(for='password' class='label label-input') 密码：
+        input(type='password', name='password', id='password', class='form-control' required)
+      .form-group
+        label(class='label label-radio')
+          input(type='radio', id='user-type-student', name='userType', value=0, checked)
+          | 学生
+        label(class='label label-radio')
+          input(type='radio', id='user-type-company', name='userType', value=1)
+          | 公司
+      .form-group
+        input(type='submit', value='注 册' class='btn btn-primary')
+        a(href='/login' class='small-font') 已有账号，直接登录

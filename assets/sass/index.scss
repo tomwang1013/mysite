@@ -1,24 +1,7 @@
 @import 'main';
 
 .index-container {
-  border-bottom: 1px solid #eee;
-  justify-content:space-between;
-
-  .index-signup {
-    flex: 1;
-  }
-
-  .slogan {
-    flex: 2;
-    text-align: center;
-  }
-}
-
-.index-middle {
-  max-width: 720px;
-  margin-top: 1em;
-  text-align: center;
-  & > div {
-    flex: 1;
+  input[type='submit'] {
+    margin-right: 1em;
   }
 }

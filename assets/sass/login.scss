@@ -4,8 +4,5 @@
   max-width: 720px;
   input[type='submit'] {
     margin-right: 1em;
-    & + a {
-      font-size: 0.9em;
-    }
   }
 }
