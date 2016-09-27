@@ -1,18 +1,7 @@
 @import 'main';
 
 .new-job, .edit-job {
-  label.input-error {
-    margin: 0 0 6px;
-  }
-
-  & > div.flex {
-    flex-flow:row wrap;
-    justify-content:space-between;
-
-    & > div {
-      width:48%;
-    }
-  }
+  max-width: 720px;
 }
 
 .show-job {

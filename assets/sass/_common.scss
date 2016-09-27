@@ -62,21 +62,16 @@ a {
   display: inline-block;
 }
 
-.label-input {
-  font-weight: bold;
-  margin-bottom: 6px;
-}
-
 .label-radio {
-  margin-right: 8px;
+  margin-right: 0.5em;
 }
 
 input[type='radio'] {
-  margin-right: 6px;
+  margin-right: 0.5em;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 1em;
 }
 
 .form-control {
@@ -89,6 +84,7 @@ input[type='radio'] {
   line-height: 1.5;
   font-size: 0.875em;
   outline:none;
+  margin-top: 0.5em;
 }
 
 /* fix firefox select height thiner problem */
@@ -108,6 +104,8 @@ label.input-error {
   display: inline-block;
   margin-top: 6px;
   color: #f00;
+  border: none;
+  font-size: 0.8em;
 }
 
 .input-error {
