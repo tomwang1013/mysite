@@ -36,9 +36,11 @@ $(document).ready(function() {
     $(this).prev().hide();
   });
 
-  // avatar upload
-  $('#avatar').change(function() {
-    var file = this.files[0];
+  /*
+   * avatar upload
+   * select through file dialog or drag & drop
+   */
+  function uploadAvatar(file) {
     if (!file) return;
 
     var formData = new FormData();
@@ -54,8 +56,47 @@ $(document).ready(function() {
       success:      function(data) {
         if (!data.error) {
           $('.avatar img').attr('src', data.url);
+          uploadTarget.classList.remove('wantdrop');
+          uploading = false;
         }
       }
     });
+  }
+
+  $('#avatar').change(function() {
+    uploadAvatar(this.files[0]);
   });
+
+  var uploadTarget = document.getElementsByClassName('avatar')[0]; 
+  var uploading = false;
+
+  uploadTarget.ondragenter = function(e) {
+    if (uploading) return;
+
+    var types = e.dataTransfer.types;
+    if (types && ((types.contains && types.contains('files')) ||
+                  (types.indexOf  && types.indexOf('files') !== -1))) {
+      uploadTarget.classList.add('wantdrop');
+      return false;
+    }
+  };
+  uploadTarget.ondragover = function(e) {
+    if (!uploading) {
+      uploadTarget.classList.add('wantdrop');
+      return false;
+    }
+  }
+  uploadTarget.ondragleave = function(e) {
+    uploadTarget.classList.remove('wantdrop');
+  }
+  uploadTarget.ondrop = function(e) {
+    if (uploading) return false;
+
+    var files = e.dataTransfer.files;
+    if (files && files.length) {
+      uploading = true;
+      uploadAvatar(files[0]);
+      return false;
+    }
+  }
 });
