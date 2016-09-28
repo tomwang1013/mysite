@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const co = require('co');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
+const gridfs = require('../lib/gridfs');
 
 function index(req, res, next) {
   res.redirect(301, '/profile/user_info');
@@ -149,13 +150,15 @@ function changeAvatar(req, res, next) {
     if (err) return next(err);
 
     if (req.file) {
-      user.avatar = req.file.path.slice(6);
+      user.avatar = req.file.filename;
     }
+
+    // TODO upload the file to gridfs
 
     user.save(function(err) {
       if (err) return next(err);
 
-      res.json({ error: 0, url: user.avatar });
+      res.json({ error: 0, url: gridfs.getUrlByFileName(user.avatar) });
     });
   });
 }

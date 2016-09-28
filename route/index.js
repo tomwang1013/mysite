@@ -40,4 +40,6 @@ router.post('/profile/change_account',    gControllers.middlewares.checkLogin, g
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
 router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar);
 
+router.get('/uploads/:filename', gControllers.uploads.index );
+
 module.exports = router;
