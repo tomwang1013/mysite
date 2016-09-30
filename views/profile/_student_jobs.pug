@@ -12,13 +12,6 @@
           span 工作地点：<strong>#{job.address}</strong>
           span 薪资：    <strong>#{job.displaySalary}</strong>
           span 申请人数：<strong>#{job._appliersSize}</strong>
-        .job-others.flex
-          div
-            p 工作职责：
-            div= job.duty
-          div
-            p 要求：
-            div= job.requirement
         .job-status
           case appliedJob.status
             when 0

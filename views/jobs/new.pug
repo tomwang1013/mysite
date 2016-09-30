@@ -2,6 +2,7 @@ extends ../layouts/main
 block css
   link(href="/css/job.css", rel="stylesheet")
 block js
+  script(src='/ckeditor/ckeditor.js')
   script(src='/js/job.js')
 block content
   form(method='post', action='/jobs', class='new-job hcenter')

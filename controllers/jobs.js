@@ -132,6 +132,7 @@ function edit(req, res, next) {
 }
 
 function update(req, res, next) {
+  console.log(req.body);
   var jobId = req.params.id;
 
   gModels.Job.findById(jobId, function(err, job) {

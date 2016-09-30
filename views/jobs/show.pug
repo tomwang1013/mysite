@@ -22,10 +22,10 @@ block content
         span= job.business + '/' + job.type
     .job-section
       h3 工作职责
-      p= job.duty
+      p!= job.duty
     .job-section
       h3 工作要求
-      p= job.requirement
+      p!= job.requirement
     .job-section
       h3 公司简介
       p= company.desc

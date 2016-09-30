@@ -100,9 +100,12 @@ textarea.form-control {
   height: auto;
 }
 
+textarea.rich-editor + div {
+  margin-top: 0.5em;
+}
+
 label.input-error {
   display: inline-block;
-  margin-top: 6px;
   color: #f00;
   border: none;
   font-size: 0.8em;

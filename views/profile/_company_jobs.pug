@@ -13,10 +13,3 @@
           span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
           span 工作地点：<strong>#{job.address}</strong>
           span 薪资：    <strong>#{job.displaySalary}</strong>
-        .job-others.flex
-          div
-            p 工作职责：
-            div= job.duty
-          div
-            p 要求：
-            div= job.requirement
