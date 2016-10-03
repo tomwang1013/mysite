@@ -5,7 +5,7 @@
       .form-group
         label(class='label label-input') 头像：
         .avatar
-          img(width=70 height=70 src=user.avatar alt=user.name)
+          img(width=70 height=70 src=user.avatarUrl() alt=user.name)
           span.upload
             span(class='btn')
               label(for='avatar') 上传头像

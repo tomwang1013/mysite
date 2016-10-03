@@ -146,21 +146,22 @@ function changePassword(req, res, next) {
 
 // 修改头像
 function changeAvatar(req, res, next) {
-  gModels.User.findById(req.currentUser.id, function(err, user) {
-    if (err) return next(err);
+  if (!req.file) {
+    return next(new Error('no avatar found'));
+  }
 
-    if (req.file) {
-      user.avatar = req.file.filename;
-    }
+  co(function* () {
+    let user = yield gModels.User.findById(req.currentUser.id);
 
-    // TODO upload the file to gridfs
+    user.avatar = req.file.filename;
 
-    user.save(function(err) {
-      if (err) return next(err);
+    yield {
+      uploadAvatar: gridfs.uploadFile(req.file.path, req.file.filename),
+      saveAvatar: user.save()
+    };
 
-      res.json({ error: 0, url: gridfs.getUrlByFileName(user.avatar) });
-    });
-  });
+    res.json({ error: 0, url: gridfs.getUrlByFileName(user.avatar) });
+  }).catch(next);
 }
 
 exports = module.exports = {
