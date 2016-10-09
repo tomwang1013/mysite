@@ -56,6 +56,7 @@ $(document).ready(function() {
       success:      function(data) {
         if (!data.error) {
           $('.avatar img').attr('src', data.url);
+          // TODO crop the image and save it
           uploadTarget.classList.remove('wantdrop');
           uploading = false;
         }

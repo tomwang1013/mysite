@@ -58,7 +58,11 @@ userSchema.methods.isCompany = function() {
 };
 
 userSchema.methods.avatarUrl = function() {
-  return gridfs.getUrlByFileName(this.avatar);
+  if (this.avatar) {
+    return gridfs.getUrlByFileName(this.avatar);
+  } else {
+    return '';
+  }
 };
 
 let User = mongoose.model('User', userSchema);

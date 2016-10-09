@@ -1,7 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var multer  = require('multer')
-var upload = multer({ dest: 'public/uploads/' })
+var gridfs  = require('../lib/gridfs');
+
+var storage = multer.diskStorage({
+  destination: 'public/uploads',
+  filename: function (req, file, cb) {
+    cb(null, gridfs.addSuffix2Img(file.originalname, Date.now()));
+  }
+});
+
+var upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 }
+});
 
 // home page
 router.get('/', gControllers.home.index);
@@ -39,6 +51,7 @@ router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, g
 router.post('/profile/change_account',    gControllers.middlewares.checkLogin, gControllers.profile.changeAccount);
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
 router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar);
+router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar2);
 
 router.get('/uploads/:filename', gControllers.uploads.index );
 

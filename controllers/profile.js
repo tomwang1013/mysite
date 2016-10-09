@@ -5,6 +5,8 @@ const co = require('co');
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const gridfs = require('../lib/gridfs');
+const gm = require('gm');
+const path = require('path');
 
 function index(req, res, next) {
   res.redirect(301, '/profile/user_info');
@@ -144,21 +146,49 @@ function changePassword(req, res, next) {
   }).catch(next);
 };
 
-// 修改头像
+// 修改头像第一步：
+// 上传原图，缩放得到中间图
 function changeAvatar(req, res, next) {
   if (!req.file) {
     return next(new Error('no avatar found'));
   }
 
+  let resizePath = gridfs.addSuffix2Img(req.file.path, '400x400');
+
+  gm(path.join(gRoot, req.file.path)).resize(400, 400, '>').
+    write(path.join(gRoot, resizePath), function(err) {
+
+    if (err) return next(err);
+
+    res.json({ error: 0, url: resizePath.slice(6) });
+  });
+}
+
+// 修改头像第二步：
+// 根据中间图和裁减参数，得到最终的头像图片，需要的参数如下：
+// file_path: 中间图的本地url
+// x,y,width,height: 裁减参数
+function changeAvatar2(req, res, next) {
+  let sepIdx = req.body.file_path.lastIndexOf('/');
+  let filename = req.body.file_path.slice(sepIdx + 1);
+  let fullFilePath = path.join(gRoot, req.body.file_path);
+
   co(function* () {
     let user = yield gModels.User.findById(req.currentUser.id);
+    let aStream = gm(fullFilePath).crop(width, height, x, y).stream();
 
-    user.avatar = req.file.filename;
+    user.avatar = filename;
 
-    yield {
-      uploadAvatar: gridfs.uploadFile(req.file.path, req.file.filename),
-      saveAvatar: user.save()
-    };
+    yield gridfs.uploadStream(aStream, filename),
+    yield user.save()
+
+    // 删除中间文件
+    yield new Promise(function(resolve, reject) {
+      fs.unlink(fullFilePath, function(err) {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
 
     res.json({ error: 0, url: gridfs.getUrlByFileName(user.avatar) });
   }).catch(next);
@@ -173,4 +203,5 @@ exports = module.exports = {
   changeAccount:  changeAccount,
   changePassword: changePassword,
   changeAvatar:   changeAvatar,
+  changeAvatar2:  changeAvatar2,
 };
