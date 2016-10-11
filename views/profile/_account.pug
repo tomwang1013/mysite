@@ -11,6 +11,15 @@
               label(for='avatar') 上传头像
               input(type='file' id='avatar' name='avatar')
             span 你也可以将图片从电脑上拖过来
+          .overlay(style={display: 'none'})
+          .cropDlg(style={display: 'none'})
+            .head
+              span 裁减并替换新的头像
+              a.close × 
+            .middle
+              img.hcenter
+            .foot
+              button(class='btn btn-primary') 保存
       .form-group
         label(for='name' class='label label-input') 用户名：
         input(type='text', name='name', id='name', class='form-control', value=user.name, required)

@@ -55,19 +55,33 @@ $(document).ready(function() {
       contentType:  false,
       success:      function(data) {
         if (!data.error) {
-          $('.avatar img').attr('src', data.url);
-          // TODO crop the image and save it
           uploadTarget.classList.remove('wantdrop');
           uploading = false;
+          cropImageAndSave(data.url);
         }
       }
     });
   }
 
+  // TODO crop image and save or discard
+  function cropImageAndSave(imgToCrop) {
+    var docHeight = $(document).height();
+    var docWeight = $(document).width();
+    var cropDlgWeight = $('.cropDlg').width();
+
+    $('.cropDlg img').attr('src', imgToCrop);
+    $('.overlay').show();
+    $('.cropDlg').css({
+      left: (docWeight - cropDlgWeight) / 2
+    }).show();
+  }
+
+  // file dialog select upload
   $('#avatar').change(function() {
     uploadAvatar(this.files[0]);
   });
 
+  // drop & drag to upload image
   var uploadTarget = document.getElementsByClassName('avatar')[0]; 
   var uploading = false;
 
