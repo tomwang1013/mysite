@@ -76,6 +76,11 @@ $(document).ready(function() {
     }).show();
   }
 
+  $('.close').click(function() {
+    $('.overlay').hide();
+    $('.cropDlg').hide();
+  });
+
   // file dialog select upload
   $('#avatar').change(function() {
     uploadAvatar(this.files[0]);
