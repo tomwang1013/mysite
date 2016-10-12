@@ -195,7 +195,7 @@
                 }
               }
 
-              .crop-edge, .move-area {
+              .crop-edge {
                 position:absolute;
               }
 
@@ -221,7 +221,6 @@
               }
 
               .move-area {
-                background-color:rgba(255,0,0,0.5);
                 z-index:108;
               }
             }

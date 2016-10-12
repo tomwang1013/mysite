@@ -160,7 +160,13 @@ function changeAvatar(req, res, next) {
 
     if (err) return next(err);
 
-    res.json({ error: 0, url: resizePath.slice(6) });
+    gm(path.join(gRoot, resizePath)).size(function(err, value) {
+      res.json({
+        error: 0,
+        size: value,
+        url: resizePath.slice(6)
+      });
+    });
   });
 }
 

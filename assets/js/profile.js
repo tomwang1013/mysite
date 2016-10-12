@@ -58,26 +58,23 @@ $(document).ready(function() {
         if (!data.error) {
           uploadTarget.classList.remove('wantdrop');
           uploading = false;
-          cropImageAndSave(data.url);
+          cropImageAndSave(data.url, data.size);
         }
       }
     });
   }
 
   // TODO crop image and save or discard
-  function cropImageAndSave(imgToCrop) {
+  function cropImageAndSave(imgToCrop, size) {
     var docHeight = $(document).height();
     var docWeight = $(document).width();
     var cropDlgWeight = $('.cropDlg').width();
-
-    $('.origin-img').attr('src', imgToCrop);
-    $('.crop-img').attr('src', imgToCrop);
-
-    // get the origin image dimension
-    var ow = $('.origin-img')[0].width;
-    var oh = $('.origin-img')[0].height;
+    var ow = size.width;
+    var oh = size.height;
 
     $('.crop-container').css({ width: ow, height: oh });
+    $('.origin-img').attr('src', imgToCrop);
+    $('.crop-img').attr('src', imgToCrop);
 
     // get origin crop area dimension
     var cropArea = { left: 0, top: 0, width: 0, height: 0 };
@@ -99,22 +96,22 @@ $(document).ready(function() {
     $('.left-edge').css(_.omit(cropArea, 'width'));
     $('.top-edge').css(_.omit(cropArea, 'height'));
     $('.right-edge').css({
-      left: cropArea.left + cropArea.width,
+      left: cropArea.left + cropArea.width - 2,
       top:  cropArea.top,
       width: 2,
       height: cropArea.height
     });
     $('.bottom-edge').css({
       left: cropArea.left,
-      top:  cropArea.top + cropArea.height,
+      top:  cropArea.top + cropArea.height - 2,
       width: cropArea.width,
       height: 2
     });
     $('.move-area').css({
       left: cropArea.left + 2,
       top:  cropArea.top + 2,
-      width: cropArea.width,
-      height: cropArea.height
+      width: cropArea.width - 4,
+      height: cropArea.height - 4
     });
 
     // UI
