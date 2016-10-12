@@ -5,7 +5,7 @@
       .form-group
         label(class='label label-input') 头像：
         .avatar
-          img(width=70 height=70 src=user.avatarUrl() alt=user.name)
+          img(class='current-avatar' width=70 height=70 src=user.avatarUrl() alt=user.name)
           span.upload
             span(class='btn')
               label(for='avatar') 上传头像
@@ -13,13 +13,22 @@
             span 你也可以将图片从电脑上拖过来
           .overlay(style={display: 'none'})
           .cropDlg(style={display: 'none'})
-            .head
-              span 裁减并替换新的头像
-              a.close × 
-            .middle
-              img.hcenter
-            .foot
-              button(class='btn btn-primary') 保存
+            form(method='post' action='/profile/change_avatar2')
+              .head
+                span 裁减并替换新的头像
+                a.close × 
+              .middle
+                .crop-container.hcenter
+                  img.origin-img
+                  .cropArea
+                    img.crop-img
+                  .left-edge.crop-edge
+                  .top-edge.crop-edge
+                  .right-edge.crop-edge
+                  .bottom-edge.crop-edge
+                  .move-area
+              .foot
+                input(type='submit' class='btn btn-primary' value='保存')
       .form-group
         label(for='name' class='label label-input') 用户名：
         input(type='text', name='name', id='name', class='form-control', value=user.name, required)

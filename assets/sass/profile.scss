@@ -155,7 +155,7 @@
           height:100%;
           background-color:#000;
           opacity:0.5;
-          z-index:10000;
+          z-index:100;
         }
 
         .cropDlg {
@@ -163,7 +163,7 @@
           width:500px;
           top:100px;
           border:6px solid rgba(0,0,0,0.7);
-          z-index:100001;
+          z-index:101;
           padding:6px;
           background:#fff;
 
@@ -176,6 +176,55 @@
             padding:6px 0;
             border-top:2px solid #777;
             border-bottom:2px solid #777;
+
+            .crop-container {
+              position:relative;
+
+              .origin-img {
+                opacity: 0.5;
+                z-index:102;
+              }
+
+              .cropArea {
+                position:absolute;
+                overflow:hidden;
+                z-index:103;
+
+                .crop-img {
+                  position:absolute;
+                }
+              }
+
+              .crop-edge, .move-area {
+                position:absolute;
+              }
+
+              .left-edge {
+                border-left:2px dashed rgba(0,255,0,0.5);
+                z-index:104;
+                width:2px;
+              }
+              .top-edge {
+                border-top:2px dashed rgba(0,255,0,0.5);
+                z-index:105;
+                height:2px;
+              }
+              .right-edge {
+                border-right:2px dashed rgba(0,255,0,0.5);
+                z-index:106;
+                width:2px;
+              }
+              .bottom-edge {
+                border-bottom:2px dashed rgba(0,255,0,0.5);
+                z-index:107;
+                height:2px;
+              }
+
+              .move-area {
+                background-color:rgba(255,0,0,0.5);
+                z-index:108;
+              }
+            }
           }
 
           .foot {
@@ -183,7 +232,7 @@
           }
         }
 
-        img {
+        img.current-avatar {
           border-radius: 0.25em;
         }
 

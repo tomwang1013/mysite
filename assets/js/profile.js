@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var _ = require('lodash');
 
 $(document).ready(function() {
   $('#university').popupTabs(window.us);
@@ -69,7 +70,54 @@ $(document).ready(function() {
     var docWeight = $(document).width();
     var cropDlgWeight = $('.cropDlg').width();
 
-    $('.cropDlg img').attr('src', imgToCrop);
+    $('.origin-img').attr('src', imgToCrop);
+    $('.crop-img').attr('src', imgToCrop);
+
+    // get the origin image dimension
+    var ow = $('.origin-img')[0].width;
+    var oh = $('.origin-img')[0].height;
+
+    $('.crop-container').css({ width: ow, height: oh });
+
+    // get origin crop area dimension
+    var cropArea = { left: 0, top: 0, width: 0, height: 0 };
+
+    if (ow <= oh) {
+      cropArea.top = (oh - ow) / 2;
+      cropArea.width = cropArea.height = ow;
+    } else {
+      cropArea.left = (ow - oh) / 2;
+      cropArea.width = cropArea.height = oh;
+    }
+
+    $('.cropArea').css(cropArea);
+    $('.crop-img').css({
+      'margin-left': -cropArea.left,
+      'margin-top': -cropArea.top
+    });
+
+    $('.left-edge').css(_.omit(cropArea, 'width'));
+    $('.top-edge').css(_.omit(cropArea, 'height'));
+    $('.right-edge').css({
+      left: cropArea.left + cropArea.width,
+      top:  cropArea.top,
+      width: 2,
+      height: cropArea.height
+    });
+    $('.bottom-edge').css({
+      left: cropArea.left,
+      top:  cropArea.top + cropArea.height,
+      width: cropArea.width,
+      height: 2
+    });
+    $('.move-area').css({
+      left: cropArea.left + 2,
+      top:  cropArea.top + 2,
+      width: cropArea.width,
+      height: cropArea.height
+    });
+
+    // UI
     $('.overlay').show();
     $('.cropDlg').css({
       left: (docWeight - cropDlgWeight) / 2
