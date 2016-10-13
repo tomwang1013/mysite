@@ -64,20 +64,11 @@ $(document).ready(function() {
     });
   }
 
-  // TODO crop image and save or discard
-  function cropImageAndSave(imgToCrop, size) {
-    var docHeight = $(document).height();
-    var docWeight = $(document).width();
-    var cropDlgWeight = $('.cropDlg').width();
-    var ow = size.width;
-    var oh = size.height;
+  // crop image and save or discard
+  var cropArea;
 
-    $('.crop-container').css({ width: ow, height: oh });
-    $('.origin-img').attr('src', imgToCrop);
-    $('.crop-img').attr('src', imgToCrop);
-
-    // get origin crop area dimension
-    var cropArea = { left: 0, top: 0, width: 0, height: 0 };
+  function initCropArea(ow, oh) {
+    cropArea = { left: 0, top: 0, width: 0, height: 0 };
 
     if (ow <= oh) {
       cropArea.top = (oh - ow) / 2;
@@ -86,6 +77,13 @@ $(document).ready(function() {
       cropArea.left = (ow - oh) / 2;
       cropArea.width = cropArea.height = oh;
     }
+  }
+
+  function drawCropArea() {
+    $('input[name="x"]').val(cropArea.left);
+    $('input[name="y"]').val(cropArea.top);
+    $('input[name="width"]').val(cropArea.width);
+    $('input[name="height"]').val(cropArea.height);
 
     $('.cropArea').css(cropArea);
     $('.crop-img').css({
@@ -113,12 +111,67 @@ $(document).ready(function() {
       width: cropArea.width - 4,
       height: cropArea.height - 4
     });
+  }
 
-    // UI
+  // handle mouse event to refresh crop area
+  function handleMouse() {
+    var target = null;
+    var oriPos = { left: 0, top: 0 };
+
+    $('.crop-edge').mousedown(function(e) {
+      target = this;
+      offset.left = e.pageX;
+      offset.top = e.pageY;
+    });
+
+    $('.crop-edge').mousemove(function(e) {
+      if (target) {
+        var offset = {
+          dx: e.pageX - oriPos.left,
+          dy: e.pageY - oriPos.top
+        };
+
+        adjustCropArea(offset);
+      }
+    });
+
+    $('.crop-edge').mouseup(function(e) {
+      target = null;
+    });
+  }
+
+  // adjust the crop area when user drag edge
+  function adjustCropArea(offset) {
+    // TODO recalculate the crop area dimension
+    cropArea.left += offset.dx;
+    cropArea.top  += offset.dy;
+
+
+
+    drawCropArea();
+  }
+
+  function cropImageAndSave(imgToCrop, size) {
+    var docHeight = $(document).height();
+    var docWeight = $(document).width();
+    var cropDlgWeight = $('.cropDlg').width();
+    var ow = size.width;
+    var oh = size.height;
+
+    $('.crop-container').css({ width: ow, height: oh });
+    $('.origin-img').attr('src', imgToCrop);
+    $('.crop-img').attr('src', imgToCrop);
+    $('input[name="origin_img_path"]').val(imgToCrop);
+
+    initCropArea(ow, oh);
+    drawCropArea();
+
     $('.overlay').show();
     $('.cropDlg').css({
       left: (docWeight - cropDlgWeight) / 2
     }).show();
+
+    handleMouse();
   }
 
   $('.close').click(function() {

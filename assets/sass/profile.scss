@@ -203,25 +203,30 @@
                 border-left:2px dashed rgba(0,255,0,0.5);
                 z-index:104;
                 width:2px;
+                cursor:ew-resize;
               }
               .top-edge {
                 border-top:2px dashed rgba(0,255,0,0.5);
                 z-index:105;
                 height:2px;
+                cursor:ns-resize;
               }
               .right-edge {
                 border-right:2px dashed rgba(0,255,0,0.5);
                 z-index:106;
                 width:2px;
+                cursor:ew-resize;
               }
               .bottom-edge {
                 border-bottom:2px dashed rgba(0,255,0,0.5);
                 z-index:107;
                 height:2px;
+                cursor:ns-resize;
               }
 
               .move-area {
                 z-index:108;
+                cursor:move;
               }
             }
           }
