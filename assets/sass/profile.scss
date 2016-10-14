@@ -138,107 +138,107 @@
         padding:0.5em 1.2em;
       }
 
-      form {
+      .account-content {
         border:1px solid #ccc;
         border-top:none;
         padding:0.5em 1.2em;
       }
 
-      .avatar {
-        margin-top: 0.5em;
+      .overlay {
+        position:fixed;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        background-color:#000;
+        opacity:0.5;
+        z-index:100;
+      }
 
-        .overlay {
-          position:fixed;
-          left:0;
-          top:0;
-          width:100%;
-          height:100%;
-          background-color:#000;
-          opacity:0.5;
-          z-index:100;
+      .cropDlg {
+        position:fixed;
+        width:500px;
+        top:100px;
+        border:6px solid rgba(0,0,0,0.7);
+        z-index:101;
+        padding:6px;
+        background:#fff;
+
+        .close {
+          float:right;
         }
 
-        .cropDlg {
-          position:fixed;
-          width:500px;
-          top:100px;
-          border:6px solid rgba(0,0,0,0.7);
-          z-index:101;
-          padding:6px;
-          background:#fff;
+        .middle {
+          margin:6px 0;
+          padding:6px 0;
+          border-top:2px solid #777;
+          border-bottom:2px solid #777;
 
-          .close {
-            float:right;
-          }
+          .crop-container {
+            position:relative;
 
-          .middle {
-            margin:6px 0;
-            padding:6px 0;
-            border-top:2px solid #777;
-            border-bottom:2px solid #777;
-
-            .crop-container {
-              position:relative;
-
-              .origin-img {
-                opacity: 0.5;
-                z-index:1000;
-              }
-
-              .cropArea {
-                position:absolute;
-                overflow:hidden;
-                z-index:1001;
-
-                .crop-img {
-                  position:absolute;
-                }
-              }
-
-              .crop-edge {
-                position:absolute;
-              }
-
-              .move-area {
-                z-index:1002;
-                cursor:move;
-              }
-
-              $edge_border_width: 4px;
-              $crop_edge_border: $edge_border_width dashed rgba(0,255,0,0.5);
-
-              .left-edge {
-                border-left:$crop_edge_border;
-                z-index:1003;
-                width:$edge_border_width;
-                cursor:ew-resize;
-              }
-              .top-edge {
-                border-top:$crop_edge_border;
-                z-index:1004;
-                height:$edge_border_width;
-                cursor:ns-resize;
-              }
-              .right-edge {
-                border-right:$crop_edge_border;
-                z-index:1005;
-                width:$edge_border_width;
-                cursor:ew-resize;
-              }
-              .bottom-edge {
-                border-bottom:$crop_edge_border;
-                z-index:1006;
-                height:$edge_border_width;
-                cursor:ns-resize;
-              }
-
+            .origin-img {
+              opacity: 0.5;
+              z-index:1000;
             }
-          }
 
-          .foot {
-            text-align:right;
+            .cropArea {
+              position:absolute;
+              overflow:hidden;
+              z-index:1001;
+
+              .crop-img {
+                position:absolute;
+              }
+            }
+
+            .crop-edge {
+              position:absolute;
+            }
+
+            .move-area {
+              z-index:1002;
+              cursor:move;
+            }
+
+            $edge_border_width: 8px;
+            $crop_edge_border: $edge_border_width dashed rgba(0,255,0,0.5);
+
+            .left-edge {
+              border-left:$crop_edge_border;
+              z-index:1003;
+              width:$edge_border_width;
+              cursor:ew-resize;
+            }
+            .top-edge {
+              border-top:$crop_edge_border;
+              z-index:1004;
+              height:$edge_border_width;
+              cursor:ns-resize;
+            }
+            .right-edge {
+              border-right:$crop_edge_border;
+              z-index:1005;
+              width:$edge_border_width;
+              cursor:ew-resize;
+            }
+            .bottom-edge {
+              border-bottom:$crop_edge_border;
+              z-index:1006;
+              height:$edge_border_width;
+              cursor:ns-resize;
+            }
+
           }
         }
+
+        .foot {
+          text-align:right;
+        }
+      }
+
+      .avatar {
+        margin-bottom: 1em;
 
         img.current-avatar {
           border-radius: 0.25em;

@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const gridfs = require('../lib/gridfs');
 const gm = require('gm');
 const path = require('path');
+const fs = require('fs');
+const async = require('async');
 
 function index(req, res, next) {
   res.redirect(301, '/profile/user_info');
@@ -160,28 +162,31 @@ function changeAvatar(req, res, next) {
 
     if (err) return next(err);
 
-    gm(path.join(gRoot, resizePath)).size(function(err, value) {
-      res.json({
-        error: 0,
-        size: value,
-        url: resizePath.slice(6)
-      });
+    async.parallel([
+      function(callback) { gm(path.join(gRoot, resizePath)).size(callback); },
+      function(callback) { fs.unlink(path.join(gRoot, req.file.path), callback); }
+    ], function(err, result) {
+      if (err) return next(err);
+      res.json({ error: 0, size: result[0], url: resizePath.slice(6) });
     });
   });
 }
 
 // 修改头像第二步：
 // 根据中间图和裁减参数，得到最终的头像图片，需要的参数如下：
-// file_path: 中间图的本地url
+// origin_img_path: 中间图的本地url
 // x,y,width,height: 裁减参数
 function changeAvatar2(req, res, next) {
-  let sepIdx = req.body.file_path.lastIndexOf('/');
-  let filename = req.body.file_path.slice(sepIdx + 1);
-  let fullFilePath = path.join(gRoot, req.body.file_path);
+  let sepIdx = req.body.origin_img_path.lastIndexOf('/');
+  let filename = req.body.origin_img_path.slice(sepIdx + 1);
+  let fullFilePath = path.join(gRoot, 'public', req.body.origin_img_path);
 
   co(function* () {
     let user = yield gModels.User.findById(req.currentUser.id);
-    let aStream = gm(fullFilePath).crop(width, height, x, y).stream();
+    let aStream = gm(fullFilePath).crop(req.body.width,
+                                        req.body.height,
+                                        req.body.x,
+                                        req.body.y).stream();
 
     user.avatar = filename;
 

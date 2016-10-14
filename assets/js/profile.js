@@ -41,6 +41,16 @@ $(document).ready(function() {
    * avatar upload
    * select through file dialog or drag & drop
    */
+  $('form.cropDlg').submit(function(e) {
+    $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
+      $('.current-avatar').attr('src', data.url);
+      $('.cropDlg').hide();
+      $('.overlay').hide();
+    });
+
+    return false;
+  });
+
   function uploadAvatar(file) {
     if (!file) return;
 
@@ -67,7 +77,7 @@ $(document).ready(function() {
   // crop image and save or discard
   var cropArea;
   var originSize;
-  var edgeWidth = 4;
+  var edgeWidth = 8;
 
   function initCropArea(ow, oh) {
     cropArea = { left: 0, top: 0, width: 0, height: 0 };
@@ -92,27 +102,25 @@ $(document).ready(function() {
     $('.cropArea').css(cropArea);
     $('.crop-img').css({
       'margin-left': -cropArea.left,
-      'margin-top': -cropArea.top
+      'margin-top':  -cropArea.top
     });
 
     $('.left-edge').css(_.omit(cropArea, 'width'));
     $('.top-edge').css(_.omit(cropArea, 'height'));
     $('.right-edge').css({
-      left: cropArea.left + cropArea.width - edgeWidth,
-      top:  cropArea.top,
-      width: edgeWidth,
+      left:   cropArea.left + cropArea.width - edgeWidth,
+      top:    cropArea.top,
       height: cropArea.height
     });
     $('.bottom-edge').css({
-      left: cropArea.left,
-      top:  cropArea.top + cropArea.height - edgeWidth,
-      width: cropArea.width,
-      height: edgeWidth
+      left:   cropArea.left,
+      top:    cropArea.top + cropArea.height - edgeWidth,
+      width:  cropArea.width,
     });
     $('.move-area').css({
-      left: cropArea.left + edgeWidth,
-      top:  cropArea.top + edgeWidth,
-      width: cropArea.width - 2 * edgeWidth,
+      left:   cropArea.left + edgeWidth,
+      top:    cropArea.top + edgeWidth,
+      width:  cropArea.width - 2 * edgeWidth,
       height: cropArea.height - 2 * edgeWidth
     });
   }
