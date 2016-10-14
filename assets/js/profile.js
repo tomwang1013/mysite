@@ -132,7 +132,6 @@ $(document).ready(function() {
       target = $(this);
       oriPos.left = e.pageX;
       oriPos.top = e.pageY;
-      console.log('mousedown happened');
     });
 
     $('.crop-edge').mousemove(function(e) {
@@ -141,8 +140,6 @@ $(document).ready(function() {
           dx: e.pageX - oriPos.left,
           dy: e.pageY - oriPos.top
         };
-
-        console.log('mousemove: ', offset.dx, offset.dy);
 
         if (offset.dx || offset.dy) {
           adjustCropArea(target, offset);
@@ -154,7 +151,6 @@ $(document).ready(function() {
 
     $('.crop-edge').bind('mouseup mouseleave', function(e) {
       if (target && target.is(this)) {
-        console.log(e.type, ' happened');
         target = null;
       }
     });
