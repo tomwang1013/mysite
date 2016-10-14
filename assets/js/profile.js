@@ -67,6 +67,7 @@ $(document).ready(function() {
   // crop image and save or discard
   var cropArea;
   var originSize;
+  var edgeWidth = 4;
 
   function initCropArea(ow, oh) {
     cropArea = { left: 0, top: 0, width: 0, height: 0 };
@@ -97,22 +98,22 @@ $(document).ready(function() {
     $('.left-edge').css(_.omit(cropArea, 'width'));
     $('.top-edge').css(_.omit(cropArea, 'height'));
     $('.right-edge').css({
-      left: cropArea.left + cropArea.width - 2,
+      left: cropArea.left + cropArea.width - edgeWidth,
       top:  cropArea.top,
-      width: 2,
+      width: edgeWidth,
       height: cropArea.height
     });
     $('.bottom-edge').css({
       left: cropArea.left,
-      top:  cropArea.top + cropArea.height - 2,
+      top:  cropArea.top + cropArea.height - edgeWidth,
       width: cropArea.width,
-      height: 2
+      height: edgeWidth
     });
     $('.move-area').css({
-      left: cropArea.left + 2,
-      top:  cropArea.top + 2,
-      width: cropArea.width - 4,
-      height: cropArea.height - 4
+      left: cropArea.left + edgeWidth,
+      top:  cropArea.top + edgeWidth,
+      width: cropArea.width - 2 * edgeWidth,
+      height: cropArea.height - 2 * edgeWidth
     });
   }
 
@@ -136,9 +137,10 @@ $(document).ready(function() {
           dy: e.pageY - oriPos.top
         };
 
-        console.log('mousemove: ', target.attr('class'), offset);
-
-        adjustCropArea(target, offset);
+        if (offset.dx || offset.dy) {
+          console.log('mousemove: ', target.attr('class'), offset);
+          adjustCropArea(target, offset);
+        }
       }
     });
 
@@ -151,12 +153,19 @@ $(document).ready(function() {
   // adjust the crop area when user drag edge
   function adjustCropArea(target, offset) {
     var mindx, maxdx, mindy, maxdy;
+    var lx, rx, th, bh;
+
+    lx = cropArea.left;
+    rx = originSize.width - lx - cropArea.width;
+    th = cropArea.top;
+    bh = originSize.height - th - cropArea.height;
+
 
     console.log('before crop, cropArea: ', cropArea);
 
     if (target.is('.left-edge')) {
-      mindx = -cropArea.left;
-      maxdx = cropArea.width - 4;
+      mindx = -Math.min(lx, bh);
+      maxdx = cropArea.width - 2 * edgeWidth;
 
       if (offset.dx < mindx) offset.dx = mindx;
       if (offset.dx > maxdx) offset.dx = maxdx;
@@ -165,8 +174,8 @@ $(document).ready(function() {
       cropArea.width  -= offset.dx;
       cropArea.height -= offset.dx;
     } else if (target.is('.top-edge')) {
-      mindy = -cropArea.top;
-      maxdy = cropArea.height - 4;
+      mindy = -Math.min(th, rx);
+      maxdy = cropArea.height - 2 * edgeWidth;
 
       if (offset.dy < mindy) offset.dy = mindy;
       if (offset.dy > maxdy) offset.dy = maxdy;
@@ -175,8 +184,8 @@ $(document).ready(function() {
       cropArea.width  -= offset.dy;
       cropArea.height -= offset.dy;
     } else if (target.is('.right-edge')) {
-      mindx = -(cropArea.width - 4);
-      maxdx = originSize.width - cropArea.left - cropArea.width;
+      mindx = -(cropArea.width - 2 * edgeWidth);
+      maxdx = Math.min(th, rx);
 
       if (offset.dx < mindx) offset.dx = mindx;
       if (offset.dx > maxdx) offset.dx = maxdx;
@@ -185,8 +194,8 @@ $(document).ready(function() {
       cropArea.width  += offset.dx;
       cropArea.height += offset.dx;
     } else if (target.is('.bottom-edge')) {
-      mindy = -(cropArea.height - 4);
-      maxdy = originSize.height - cropArea.top - cropArea.height;
+      mindy = -(cropArea.height - 2 * edgeWidth);
+      maxdy = Math.min(lx, bh);
 
       if (offset.dy < mindy) offset.dy = mindy;
       if (offset.dy > maxdy) offset.dy = maxdy;
