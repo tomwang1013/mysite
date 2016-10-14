@@ -66,8 +66,6 @@ $(document).ready(function() {
       contentType:  false,
       success:      function(data) {
         if (!data.error) {
-          uploadTarget.classList.remove('wantdrop');
-          uploading = false;
           cropImageAndSave(data.url, data.size);
         }
       }
@@ -90,7 +88,7 @@ $(document).ready(function() {
       cropArea.width = cropArea.height = oh;
     }
 
-    console.log('initial cropArea: ', cropArea);
+    //console.log('initial cropArea: ', cropArea);
   }
 
   function drawCropArea() {
@@ -134,27 +132,31 @@ $(document).ready(function() {
       target = $(this);
       oriPos.left = e.pageX;
       oriPos.top = e.pageY;
-
-      console.log('mousedown: ', target.attr('class'), oriPos);
+      console.log('mousedown happened');
     });
 
     $('.crop-edge').mousemove(function(e) {
-      if (target) {
+      if (target && target.is(this)) {
         var offset = {
           dx: e.pageX - oriPos.left,
           dy: e.pageY - oriPos.top
         };
 
+        console.log('mousemove: ', offset.dx, offset.dy);
+
         if (offset.dx || offset.dy) {
-          console.log('mousemove: ', target.attr('class'), offset);
           adjustCropArea(target, offset);
+          oriPos.left = e.pageX;
+          oriPos.top  = e.pageY;
         }
       }
     });
 
     $('.crop-edge').bind('mouseup mouseleave', function(e) {
-      console.log('mouseup: ', target && target.attr('class'));
-      target = null;
+      if (target && target.is(this)) {
+        console.log(e.type, ' happened');
+        target = null;
+      }
     });
   }
 
@@ -169,7 +171,7 @@ $(document).ready(function() {
     bh = originSize.height - th - cropArea.height;
 
 
-    console.log('before crop, cropArea: ', cropArea);
+    //console.log('before crop, cropArea: ', cropArea);
 
     if (target.is('.left-edge')) {
       mindx = -Math.min(lx, bh);
@@ -226,9 +228,9 @@ $(document).ready(function() {
       cropArea.top  += offset.dy;
     }
 
-    console.log('mindx: ', mindx, 'maxdx: ', maxdx, 'mindy: ', mindy, 'maxdy: ', maxdy,
-                'dx: ', offset.dx, 'dy: ', offset.dy);
-    console.log('after crop, cropArea: ', cropArea);
+    //console.log('mindx: ', mindx, 'maxdx: ', maxdx, 'mindy: ', mindy, 'maxdy: ', maxdy,
+                //'dx: ', offset.dx, 'dy: ', offset.dy);
+    //console.log('after crop, cropArea: ', cropArea);
 
     drawCropArea();
   }
@@ -267,38 +269,4 @@ $(document).ready(function() {
   $('#avatar').change(function() {
     uploadAvatar(this.files[0]);
   });
-
-  // drop & drag to upload image
-  var uploadTarget = document.getElementsByClassName('avatar')[0]; 
-  var uploading = false;
-
-  uploadTarget.ondragenter = function(e) {
-    if (uploading) return;
-
-    var types = e.dataTransfer.types;
-    if (types && ((types.contains && types.contains('files')) ||
-                  (types.indexOf  && types.indexOf('files') !== -1))) {
-      uploadTarget.classList.add('wantdrop');
-      return false;
-    }
-  };
-  uploadTarget.ondragover = function(e) {
-    if (!uploading) {
-      uploadTarget.classList.add('wantdrop');
-      return false;
-    }
-  }
-  uploadTarget.ondragleave = function(e) {
-    uploadTarget.classList.remove('wantdrop');
-  }
-  uploadTarget.ondrop = function(e) {
-    if (uploading) return false;
-
-    var files = e.dataTransfer.files;
-    if (files && files.length) {
-      uploading = true;
-      uploadAvatar(files[0]);
-      return false;
-    }
-  }
 });

@@ -5,11 +5,9 @@
       .avatar
         .form-group 头像：
         img(class='current-avatar' width=70 height=70 src=user.avatarUrl() alt=user.name)
-        span.upload
-          span(class='btn')
-            label(for='avatar') 上传头像
-            input(type='file' id='avatar' name='avatar')
-          span 你也可以将图片从电脑上拖过来
+        span(class='upload btn')
+          label(for='avatar') 上传头像
+          input(type='file' id='avatar' name='avatar')
       .overlay(style={display: 'none'})
       form(method='post' action='/profile/change_avatar2' class='cropDlg' style={display: 'none'})
         .head

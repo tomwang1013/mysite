@@ -248,29 +248,17 @@
           display:inline-block;
           margin-left:1em;
           vertical-align:top;
-          span:first-child {
-            position:relative;
-            input {
-              position:absolute;
-              top:0;
-              left:0;
-              margin-left:-50px;
-              opacity:0.001;
-              cursor:pointer;
-            }
-          }
+          overflow:hidden;
+          position:relative;
 
-          span:last-child {
-            font-size:0.8em;
-            color:#777;
-            display:block;
-            margin-top:0.5em;
+          input {
+            position:absolute;
+            left:0;
+            top:0;
+            opacity:0.001;
+            cursor:pointer;
           }
         }
-      }
-
-      .wantdrop {
-        outline: 2px dashed blue;
       }
     }
   }
