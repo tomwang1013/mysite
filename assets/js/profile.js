@@ -43,7 +43,7 @@ $(document).ready(function() {
    */
   $('form.cropDlg').submit(function(e) {
     $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
-      $('.current-avatar').attr('src', data.url);
+      $('.current-avatar').attr('src', data.url + '?' + new Date().getTime());
       $('.cropDlg').hide();
       $('.overlay').hide();
     });

@@ -183,14 +183,16 @@ function changeAvatar2(req, res, next) {
 
   co(function* () {
     let user = yield gModels.User.findById(req.currentUser.id);
+
+    // 上传裁剪后的图
     let aStream = gm(fullFilePath).crop(req.body.width,
                                         req.body.height,
                                         req.body.x,
                                         req.body.y).stream();
-
-    user.avatar = filename;
-
     yield gridfs.uploadStream(aStream, filename),
+
+    // 保存文件名
+    user.avatar = filename;
     yield user.save()
 
     // 删除中间文件
@@ -201,7 +203,7 @@ function changeAvatar2(req, res, next) {
       });
     });
 
-    res.json({ error: 0, url: gridfs.getUrlByFileName(user.avatar) });
+    res.json({ error: 0, url: gridfs.getUrlByFileName(filename) });
   }).catch(next);
 }
 
