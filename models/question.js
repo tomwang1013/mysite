@@ -1,0 +1,23 @@
+'use strict'
+
+const mongoose = require('mongoose');
+
+/*
+ * 企业可以为每个职位提前设置一些问题，根据每个学生的回答情况
+ * 评估学生的综合能力；学生可以在一定时间之内留下答案，这些答案
+ * 是自由发挥的，学生可以凭自己的能力学习并解答，也可以直接从
+ * 网上copy，但是企业应该可以通过简单的面试得到实际情况
+ */
+let Schema = mongoose.Schema;
+let questionSchema = new Schema({
+  content:  String, // 问题内容
+  level:    Number, // 期望难度
+
+  _job:     {type: Schema.Types.ObjectId, ref: 'Job' }
+}, {
+  timestamps: true
+});
+
+let Question = mongoose.model('question', questionSchema);
+
+exports = module.exports = Question;
