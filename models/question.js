@@ -12,6 +12,7 @@ let Schema = mongoose.Schema;
 let questionSchema = new Schema({
   content:  String, // 问题内容
   level:    Number, // 期望难度
+  deleted:  Number, // 是否已删除：0：未删除，1：已删除
 
   _job:     {type: Schema.Types.ObjectId, ref: 'Job' }
 }, {
