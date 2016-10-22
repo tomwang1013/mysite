@@ -1,0 +1,30 @@
+@import 'main';
+
+.answer-new-head {
+  margin-bottom: 0.5em;
+  padding-bottom: 6px;
+  border-bottom: 3px solid #aaa;
+
+  .job-title {
+    margin: 0 0.5em;
+  }
+}
+
+.answer-new .question {
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid #aaa;
+
+  .question-content {
+    margin-top: 0.5em;
+    font-size: 0.9em;
+  }
+}
+
+.answer-new-form {
+  margin-top: 0.5em;
+
+  .form-group {
+    margin-top: 0.5em;
+  }
+}

@@ -3,15 +3,15 @@
   each question, idx in questions
     .question
       strong 问题#{idx + 1}：
-      .content!= question.content
-    if req.currentUser && req.currentUser.type == 0
-      .answer
-        - var answer = myAnswers[question.id]
-        if answer
-          strong 我的解答：
-          .content!= answer.content
-          .ops
-            a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修改
-            button.btn.btn-warning(data-url='/question/' + question.id + '/answer/' + answer.id + '/update') 删除
-        else
-          a.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答
+      .small-font.content!= question.content
+      if req.currentUser && req.currentUser.type == 0
+        .answer
+          - var answer = myAnswers[question.id]
+          if answer
+            strong 我的解答：
+            .small-font.content!= answer.content
+            .ops
+              a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
+              button.btn.btn-warning(data-url='/question/' + question.id + '/answer/' + answer.id + '/update') 删 除
+          else
+            a.to-answer.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答

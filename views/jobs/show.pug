@@ -32,8 +32,7 @@ block content
     if questions.length > 0
       include _questions.pug
     .job-apply.text-center
-      case applyStatus
-        when 'applied'
+        if applied
           button(class='btn btn-disabled' disabled) 已 申 请
-        when 'apply'
+        else if !req.currentUser
           button(class='btn btn-primary') 申 请

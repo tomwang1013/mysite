@@ -29,6 +29,14 @@ main.content {
   margin:1em auto;
 }
 
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
 /* horizontal center */
 .hcenter {
   margin-left: auto;
@@ -60,6 +68,10 @@ a {
 }
 
 .small-font {
+  font-size: 0.9em;
+}
+
+.smaller-font {
   font-size: 0.8em;
 }
 

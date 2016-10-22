@@ -1,0 +1,25 @@
+extends ../layouts/main
+block js
+  script(src='/ckeditor/ckeditor.js')
+  script(src='/js/answers.js')
+  CKEDITOR.replace('content')
+block css
+  link(href="/css/answers.css", rel="stylesheet")
+block content
+  .answer-new
+    .answer-new-head.text-bold
+      | 你正在为
+      a.job-title(href='/job/' + question._job.id)= question._job.title
+      | 做面试题解答
+    .question
+      strong 题目：
+      .question-content!= question.content
+    .answer-content
+      strong 你的答案：
+      form.answer-new-form(method='post' action='/question/' + question.id + '/answers/create')
+        input(type='hidden' name='_question' value=question.id)
+        input(type='hidden' name='_user' value=req.currentUser.id)
+        input(type='hidden' name='_job' value=question._job.id)
+        textarea(name='content' id='content')
+        .form-group
+          input.btn.btn-primary(type='submit' value='提 交')

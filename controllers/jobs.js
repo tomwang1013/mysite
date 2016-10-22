@@ -72,50 +72,34 @@ function show(req, res, next) {
       return next(err)
     }
 
-    let questions = yield gModels.Question.find({
-      _job: job.id
-    }).exec();
+    let questions = yield gModels.Question.find({ _job: job.id }).exec();
+    let applied = false;
+    let myAnswers = {};
 
+    if (req.currentUser && req.currentUser.type == 0) {
+      applied = yield gModels.ApplyJob.findOne({
+        _job:  job.id,
+        _user: req.currentUser.id
+      }).exec();
 
-    let applyStatus = '';
-    let myAnswers   = {};
+      // 得到我回答了哪些问题
+      myAnswers = yield gModels.Answer.find({
+        _user: req.currentUser.id,
+        _job:  job.id
+      }).exec();
 
-    if (req.currentUser) {
-      let applied = false;
-
-      if (req.currentUser.type == 0) {
-        applied = yield gModels.ApplyJob.findOne({
-          _job:  job.id,
-          _user: req.currentUser.id
-        }).exec();
-
-        if (applied) {
-          applyStatus = 'applied';
-        } else {
-          applyStatus = 'apply';
-        }
-
-        // 得到我回答了哪些问题
-        myAnswers = yield gModels.Answer.find({
-          _user: req.currentUser.id,
-          _job:  job.id
-        }).exec();
-
-        myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
-          result[answer._question] = answer;
-          return result;
-        }, {});
-      }
-    } else {
-      applyStatus = 'apply';
+      myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
+        result[answer._question] = answer;
+        return result;
+      }, {});
     }
 
     res.render('jobs/show', {
-      job:          job,
-      company:      job._creator,
-      applyStatus:  applyStatus,
-      questions:    questions,
-      myAnswers:    myAnswers
+      job:        job,
+      company:    job._creator,
+      applied:    applied,
+      questions:  questions,
+      myAnswers:  myAnswers
     });
   }).catch(next);
 }
