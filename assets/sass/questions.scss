@@ -23,3 +23,15 @@
     color: #700;
   }
 }
+
+.questions-new-head {
+  line-height: 30px;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #aaa;
+
+  .job-title {
+    margin: 0 0.5em;
+  }
+}

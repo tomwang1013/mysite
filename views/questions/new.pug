@@ -5,3 +5,16 @@ block css
   link(href="/css/questions.css", rel="stylesheet")
 block content
   .question-new
+    .questions-new-head
+      | 您正在为职位
+      a.job-title(href='/job/' + job.id)= job.title
+      | 新增一道试题：
+    form.questions-new-form(method='post' action='/job/' + job.id + '/questions/create')
+      .form-group
+        label(for='level' class='label label-input') 难度：
+        input(type='email', name='email', id='email', class='form-control' autofocus, required)
+      .form-group
+        label(for='content' class='label label-input') 题目内容：
+        textarea(name='content', id='password' class='form-control', required)
+      .form-group
+        input(type='submit', value='保 存' class='btn btn-primary')

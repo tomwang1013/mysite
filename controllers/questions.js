@@ -18,6 +18,15 @@ function index(req, res, next) {
 }
 
 function nnew(req, res, next) {
+  let jobId = req.params.jid;
+
+  gModels.Job.findById(jobId, function(err, job) {
+    if (err) return next(err);
+
+    res.render('questions/new', {
+      job: job
+    });
+  });
 }
 
 function create(req, res, next) {
