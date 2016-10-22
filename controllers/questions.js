@@ -8,7 +8,8 @@ function index(req, res, next) {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
     let questions = yield gModels.Question.find({
-      _job: jobId
+      _job: jobId,
+      deleted: 0
     }).exec();
 
     res.render('questions/index', {
@@ -68,8 +69,7 @@ function update(req, res, next) {
   co(function* () {
     let question = yield gModels.Question.findById(questionId).exec();
 
-    question.level   = req.body.level;
-    question.content = req.body.content;
+    _.assign(question, _.pick(req.body, ['level', 'content', 'deleted']));
 
     yield question.save();
 

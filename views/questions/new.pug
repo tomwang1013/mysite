@@ -2,6 +2,7 @@ extends ../layouts/main
 block js
   script(src='/ckeditor/ckeditor.js')
   script(src='/js/questions.js')
+  CKEDITOR.replace('content');
 block css
   link(href="/css/questions.css", rel="stylesheet")
 block content
