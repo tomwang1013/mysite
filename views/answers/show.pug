@@ -1,0 +1,19 @@
+extends ../layouts/main
+block js
+  script(src='/ckeditor/ckeditor.js')
+  script(src='/js/answers.js')
+  CKEDITOR.replace('content')
+block css
+  link(href="/css/answers.css", rel="stylesheet")
+block content
+  .answer-show
+    .text-bold.answers-head
+      | 职位：
+      a.job-title(href='/job/' + job.id)= job.title
+    .answers-question
+      strong 问题：
+      .question-content!= question.content
+    .answer-content
+      strong 答案：
+      .content.small-font!= answer.content
+      .opts

@@ -14,7 +14,7 @@ let questionSchema = new Schema({
   level:    Number, // 期望难度
   deleted:  Number, // 是否已删除：0：未删除，1：已删除
 
-  _job:     {type: Schema.Types.ObjectId, ref: 'Job' }
+  _job:     { type: Schema.Types.ObjectId, ref: 'Job' }
 }, {
   timestamps: true
 });
@@ -27,7 +27,7 @@ questionSchema.methods.levelDesc = function() {
   return LEVEL_DESCS[this.level];
 };
 
-let Question = mongoose.model('question', questionSchema);
+let Question = mongoose.model('Question', questionSchema);
 
 Question.LEVEL_DESCS = LEVEL_DESCS;
 

@@ -1,5 +1,6 @@
 @import 'main';
 
+/* new answer */
 .answer-new-head {
   margin-bottom: 0.5em;
   padding-bottom: 6px;
@@ -27,4 +28,41 @@
   .form-group {
     margin-top: 0.5em;
   }
+}
+
+/* answsers list */
+.answers-head {
+  padding-bottom: 0.5em;
+  border-bottom: 3px solid #aaa;
+}
+
+.answers-question {
+  margin: 0.5em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #777;
+  .question-content {
+    margin-top: 0.5em;
+  }
+}
+
+.answer {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #777;
+
+  .user-info {
+    padding: 0.5em 0;
+    border-top: 1px dashed #aaa;
+    border-bottom: 1px dashed #aaa;
+    margin: 0.5em 0;
+    span {
+      margin-right: 1em;
+    }
+  }
+}
+
+/* answer show */
+.answer-content .content {
+  margin: 0.5em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #777;
 }

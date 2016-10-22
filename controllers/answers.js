@@ -5,13 +5,13 @@ const _  = require('lodash');
 
 function index(req, res, next) {
   co(function* () {
-    let question = gModels.Question.findById(req.params.qid).populate('_job').exec();
-    let answers  = gModels.Answer.find({
+    let question = yield gModels.Question.findById(req.params.qid).populate('_job').exec();
+    let answers  = yield gModels.Answer.find({
       _question: req.params.qid
     }).populate('_user').exec();
 
     res.render('answers/index', {
-      job:      question._job
+      job:      question._job,
       question: question,
       answers:  answers
     });
@@ -20,14 +20,19 @@ function index(req, res, next) {
 
 function show(req, res, next) {
   gModels.Answer.findById(req.params.aid).
-    populate('_question, _job').exec(function(err, result) {
+    populate({
+      path:     '_question',
+      populate: { path: '_job' }
+    }).exec(function(err, result) {
+
     if (err) return next(err);
 
     let answer = result;
+
     res.render('answers/show', {
-      job: answer._job
+      job:      answer._question._job,
       question: answer._question,
-      answer: answer,
+      answer:   answer,
     });
   });
 }
@@ -50,19 +55,30 @@ function create(req, res, next) {
 
 function edit(req, res, next) {
   gModels.Answer.findById(req.params.aid).
-    populate('_question, _job').exec(function(err, result) {
+    populate({
+      path:     '_question',
+      populate: { path: '_job' }
+    }).exec(function(err, result) {
+
     if (err) return next(err);
 
     let answer = result;
+
     res.render('answers/edit', {
-      job: answer._job
+      job:      answer._question._job,
       question: answer._question,
-      answer: answer,
+      answer:   answer,
     });
   });
 }
 
 function update(req, res, next) {
+  gModels.Answer.findById(req.params.aid, function(err, answer) {
+    answer.content = req.body.content;
+    answer.save(function(err, result) {
+      res.redirect('/question/' + req.params.qid + '/answer/' + req.params.aid);
+    });
+  })
 }
 
 exports = module.exports = {

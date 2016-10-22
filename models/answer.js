@@ -13,12 +13,11 @@ let answerSchema = new Schema({
 
   // relations
   _question:  { type: Schema.Types.ObjectId, ref: 'Question' },
-  _user:      { type: Schema.Types.ObjectId, ref: 'User' },
-  _job:       { type: Schema.Types.ObjectId, ref: 'Job' }
+  _user:      { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
   timestamps: true
 });
 
-let Answer = mongoose.model('answer', answerSchema);
+let Answer = mongoose.model('Answer', answerSchema);
 
 exports = module.exports = Answer;
