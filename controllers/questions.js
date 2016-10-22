@@ -46,9 +46,35 @@ function create(req, res, next) {
 }
 
 function edit(req, res, next) {
+  let jobId = req.params.jid;
+  let questionId = req.params.qid;
+
+  co(function* () {
+    let a = yield {
+      job: gModels.Job.findById(jobId).exec(),
+      question: gModels.Question.findById(questionId).exec()
+    };
+
+    res.render('questions/edit', {
+      job: a.job,
+      question: a.question
+    });
+  }).catch(next);
 }
 
 function update(req, res, next) {
+  let questionId = req.params.qid;
+
+  co(function* () {
+    let question = yield gModels.Question.findById(questionId).exec();
+
+    question.level   = req.body.level;
+    question.content = req.body.content;
+
+    yield question.save();
+
+    res.redirect('/job/' + req.params.jid + '/questions');
+  }).catch(next);
 }
 
 exports = module.exports = {

@@ -6,7 +6,7 @@
   font-weight: bold;
   margin-bottom: 0.5em;
   padding-bottom: 6px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 3px solid #aaa;
 
   .job-title {
     margin: 0 0.5em;
@@ -22,6 +22,37 @@
   .no-questions {
     color: #700;
   }
+
+  .question {
+    padding: 0.4em 0 0.3em;
+    border-bottom: 2px solid #ccc;
+  }
+
+  .question-content {
+    padding-bottom: 0.5em;
+  }
+
+  .question-level {
+    font-size: 0.9em;
+    position: relative;
+    line-height: 27px;
+    padding-top: 6px;
+    border-top: 1px dashed #ccc;
+
+    .level-desc {
+      margin-right: 1em;
+    }
+
+    .del-question {
+      position: absolute;
+      right: 0;
+    }
+
+    .edit-question {
+      position: absolute;
+      right: 56px;
+    }
+  }
 }
 
 .questions-new-head {
@@ -29,14 +60,15 @@
   font-weight: bold;
   margin-bottom: 0.5em;
   padding-bottom: 6px;
-  border-bottom: 1px solid #aaa;
+  border-bottom: 3px solid #aaa;
 
   .job-title {
     margin: 0 0.5em;
   }
 }
 
-.questions-new-form {
+.questions-new-form,
+.questions-edit-form {
   .level {
     margin-top: 0.6em;
   }

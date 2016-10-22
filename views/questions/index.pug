@@ -18,7 +18,11 @@ block content
           .question
             .question-content!= question.content
             .question-level
-              | 难度：
-              strong= question.levelDesc()
-              | 解答大概需要：
-              strong= question.timeLevelDesc()
+              span.level-desc
+                | 难度：
+                strong= question.levelDesc()
+              span.level-time-desc
+                | 解答大概需要：
+                strong= question.timeLevelDesc()
+              a.btn.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
+              button.btn.btn-warning.del-question 删 除
