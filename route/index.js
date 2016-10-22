@@ -49,6 +49,12 @@ router.post('/job/:jid/questions/create',     gControllers.middlewares.checkComp
 router.get('/job/:jid/question/:qid/edit',    gControllers.middlewares.checkCompanyLogin, gControllers.questions.edit);
 router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkCompanyLogin, gControllers.questions.update);
 
+// answers
+router.get('/question/:qid/answers/new',          gControllers.middlewares.checkStudentLogin, gControllers.answers.nnew);
+router.post('/question/:qid/answers/create',      gControllers.middlewares.checkStudentLogin, gControllers.answers.create);
+router.get('/question/:qid/answers/:aid/edit',    gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
+router.post('/question/:qid/answers/:aid/update', gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
+
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);

@@ -1,0 +1,13 @@
+.job-section
+  h3 预备面试题列表
+  each question, idx in questions
+    .question
+      strong 问题#{idx + 1}：
+      .content!= question.content
+    if req.currentUser && req.currentUser.type == 0
+      .answer
+        if myAnswers[question.id]
+          strong 我的解答：
+          .content!= myAnswers[question.id].content
+        else
+          a(href='/question/' + question.id + '/answers/new') 马上解答

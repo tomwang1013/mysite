@@ -29,6 +29,8 @@ block content
     .job-section
       h3 公司简介
       p= company.desc
+    if questions.length > 0
+      include _questions.pug
     .job-apply.text-center
       case applyStatus
         when 'applied'

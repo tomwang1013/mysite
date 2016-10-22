@@ -72,8 +72,13 @@ function show(req, res, next) {
       return next(err)
     }
 
+    let questions = yield gModels.Question.find({
+      _job: job.id
+    }).exec();
+
 
     let applyStatus = '';
+    let myAnswers   = {};
 
     if (req.currentUser) {
       let applied = false;
@@ -89,6 +94,17 @@ function show(req, res, next) {
         } else {
           applyStatus = 'apply';
         }
+
+        // 得到我回答了哪些问题
+        myAnswers = yield gModels.Answer.find({
+          _user: req.currentUser.id,
+          _job:  job.id
+        }).exec();
+
+        myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
+          result[answer._question] = answer;
+          return result;
+        }, {});
       }
     } else {
       applyStatus = 'apply';
@@ -97,7 +113,9 @@ function show(req, res, next) {
     res.render('jobs/show', {
       job:          job,
       company:      job._creator,
-      applyStatus:  applyStatus
+      applyStatus:  applyStatus,
+      questions:    questions,
+      myAnswers:    myAnswers
     });
   }).catch(next);
 }
@@ -132,7 +150,6 @@ function edit(req, res, next) {
 }
 
 function update(req, res, next) {
-  console.log(req.body);
   var jobId = req.params.id;
 
   gModels.Job.findById(jobId, function(err, job) {

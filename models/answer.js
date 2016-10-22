@@ -12,7 +12,10 @@ let answerSchema = new Schema({
   score:    Number, // 评分
   sysScore: Number, // 系统评分：如根据学生提交问题的时间，双方认为的问题的难度偏差等
 
-  _question:     {type: Schema.Types.ObjectId, ref: 'Question' }
+  // relations
+  _question:  { type: Schema.Types.ObjectId, ref: 'Question' },
+  _user:      { type: Schema.Types.ObjectId, ref: 'User' },
+  _job:       { type: Schema.Types.ObjectId, ref: 'Job' }
 }, {
   timestamps: true
 });
