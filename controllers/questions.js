@@ -4,11 +4,16 @@ const co = require('co');
 
 function index(req, res, next) {
   co(function* () {
-    let jobId = req.params.id;
+    let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
     let questions = yield gModels.Question.find({
       _job: jobId
     }).exec();
+
+    res.render('questions/index', {
+      job: job,
+      questions: questions
+    });
   }).catch(next); 
 }
 

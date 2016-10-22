@@ -1,0 +1,24 @@
+extends ../layouts/main
+block js
+  script(src='/js/questions.js')
+block css
+  link(href="/css/questions.css", rel="stylesheet")
+block content
+  .questions
+    .questions-head
+      | 职位
+      a.job-title(href='/job/' + job.id)= job.title
+      | 的题目列表
+      a.btn.btn-primary.new-question(href='/job/' + job.id + 'questions/new') 新建题目
+    .questions-list
+      if questions.length == 0
+        .text-center.no-questions 您还没有为本职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
+      else
+        each question in questions
+          .question
+            .question-content!= question.content
+            .question-level
+              | 难度：
+              strong= question.levelDesc()
+              | 解答大概需要：
+              strong= question.timeLevelDesc()
