@@ -42,4 +42,7 @@ questionSchema.methods.timeLevelDesc = function() {
 
 let Question = mongoose.model('question', questionSchema);
 
+Question.LEVEL_DESCS = LEVEL_DESCS;
+Question.LEVELS_TIME_DESCS = LEVELS_TIME_DESCS;
+
 exports = module.exports = Question;

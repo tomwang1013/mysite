@@ -35,3 +35,13 @@
     margin: 0 0.5em;
   }
 }
+
+.questions-new-form {
+  .level {
+    margin-top: 0.6em;
+  }
+  .level > input[type=radio] {
+    vertical-align: middle;
+    margin-top: -2px;
+  }
+}

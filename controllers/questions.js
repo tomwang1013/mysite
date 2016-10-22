@@ -1,6 +1,7 @@
 'use strict'
 
 const co = require('co');
+const _  = require('lodash');
 
 function index(req, res, next) {
   co(function* () {
@@ -30,6 +31,18 @@ function nnew(req, res, next) {
 }
 
 function create(req, res, next) {
+  co(function* () {
+    let jobId = req.params.jid;
+    let job = yield gModels.Job.findById(jobId).exec();
+    let newQuestion = yield gModels.Question.create({
+      level:   req.body.level,
+      content: req.body.content,
+      deleted: 0,
+      _job:    jobId
+    });
+
+    res.redirect('/job/' + jobId + '/questions');
+  }).catch(next);
 }
 
 function edit(req, res, next) {
