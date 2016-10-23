@@ -4,12 +4,12 @@ block css
 block js
   script(src='/js/home.js')
 block content
-  .index-container
+  .login-box.hcenter
     form(method='post', action='/signup' class='index-signup')
       .form-group
         input(type='hidden', name='step', value='1')
         label(for='name' class='label label-input') 用户名：
-        input(type='text', name='name', id='name', class='form-control', required)
+        input(type='text', name='name', id='name', class='form-control', required, autofocus)
       .form-group
         label(for='email' class='label label-input') Email：
         input(type='email', name='email', id='email', class='form-control' required)
@@ -23,6 +23,6 @@ block content
         label(class='label label-radio')
           input(type='radio', id='user-type-company', name='userType', value=1)
           | 公司
-      .form-group
+      div
         input(type='submit', value='注 册' class='btn btn-primary')
         a(href='/login' class='small-font') 已有账号，直接登录

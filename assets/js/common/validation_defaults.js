@@ -19,5 +19,7 @@ $.validator.setDefaults({
         location = data.location;
       }
     });
+
+    return false;
   }
 });

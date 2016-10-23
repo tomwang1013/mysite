@@ -144,7 +144,7 @@ function loginHandler(req, res, next) {
 // logout
 function logoutHandler(req, res, next) {
   req.session.destroy(function(err) {
-    res.redirect('/');
+    res.redirect('/login');
   });
 }
 
