@@ -31,6 +31,9 @@ router.post('/password_reset',        gControllers.user.passwordReset);
 router.get('/password_reset/:token',  gControllers.user.passwordReset);
 router.post('/password_reset/:token', gControllers.user.passwordReset);
 
+// users
+router.get('/user/:id',               gControllers.middlewares.checkLogin, gControllers.user.show);
+
 // jobs
 router.get('/jobs',                   gControllers.jobs.index);
 router.get('/jobs/new',               gControllers.middlewares.checkCompanyLogin, gControllers.jobs.newJob);

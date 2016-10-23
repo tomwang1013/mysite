@@ -6,6 +6,17 @@ const _       = require('lodash');
 const crypto  = require('crypto');
 const mailer  = require('../lib/mailer');
 
+function show(req, res, next) {
+  gModels.User.findById(req.params.id, function(err, user) {
+    if (req.currentUser.type == user.type && req.currentUser.id != user.id) {
+      res.redirect('/');
+      return;
+    }
+
+    res.render('user/show', { user: user });
+  });
+}
+
 function signupView(req, res, next) {
   let step = req.query.step ? parseInt(req.query.step) : 1;
 
@@ -261,4 +272,5 @@ exports = module.exports = {
   isValidName:    isValidName,
   isValidEmail:   isValidEmail,
   passwordReset:  passwordReset,
+  show:           show
 };

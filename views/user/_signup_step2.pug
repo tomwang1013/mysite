@@ -18,10 +18,10 @@ form(method='post', action='/signup', class='signup', data-step=step)
           option(value=ed)= ed 
     .form-group
       label(for='careerPlan' class='label label-input') 职业规划：
-      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-rule-minlength=64, required)
+      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor', data-rule-minlength=64, required)
     .form-group
       label(for='zuopin' class='label label-input') 课外作品（可选）：
-      textarea(name='zuopin', id='zuopin', rows=8, class='form-control')
+      textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor')
       .form-control-hint.
         可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
         大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
@@ -52,6 +52,6 @@ form(method='post', action='/signup', class='signup', data-step=step)
           option(value=i)= m
     .form-group
       label(for='desc' class='label label-input') 介绍：
-      textarea(name='desc', id='desc', rows=8, class='form-control', data-rule-minlength=64, required)
+      textarea(name='desc', id='desc', rows=8, class='form-control rich-editor', data-rule-minlength=64, required)
   .form-group
     input(type='submit', value='保 存' class='btn btn-primary')

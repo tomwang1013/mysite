@@ -1,0 +1,11 @@
+extends ../layouts/main
+block js
+  script(src='/js/user.js')
+block css
+  link(href="/css/user.css", rel="stylesheet")
+block content
+  .user-show
+    if user.type == 0
+      include ./_student_show.pug
+    else
+      include ./_company_show.pug

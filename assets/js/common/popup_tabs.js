@@ -133,8 +133,8 @@ $.fn.popupTabs = function(options) {
   // create dialog for state
 	function createTabs() {
     var template = ''
-      + '<div class="tab-container">'
-      +   '<div class="tab-header">'
+      + '<div class="tab-container small-font">'
+      +   '<div class="tab-header text-bold">'
       +     '<ul class="nav">'
       +       '<% for (let label of state.labels) { %>'
       +         '<% if (state.activeLabel == label) { %>'
