@@ -54,8 +54,12 @@
     border-top: 1px dashed #aaa;
     border-bottom: 1px dashed #aaa;
     margin: 0.5em 0;
+    overflow: hidden;
     span {
       margin-right: 1em;
+    }
+    .answer-detail {
+      float: right;
     }
   }
 }
@@ -65,4 +69,16 @@
   margin: 0.5em 0;
   padding-bottom: 0.5em;
   border-bottom: 2px solid #777;
+}
+
+.opts {
+  margin-bottom: 1em;
+
+  a.edit-answer {
+    margin-right: 1em;
+  }
+
+  a.re-score {
+    margin-left: 1em;
+  }
 }

@@ -21,4 +21,5 @@ block content
             span #{user.university}/#{user.major}
             span 创建时间：#{answer.createdAt.toLocaleDateString()}
             span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
+            a.answer-detail(href='/question/' + question.id + '/answer/' + answer.id) 查看解答详情>>
           .answer-content!= answer.content

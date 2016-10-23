@@ -75,6 +75,11 @@ function edit(req, res, next) {
 function update(req, res, next) {
   gModels.Answer.findById(req.params.aid, function(err, answer) {
     _.assign(answer, req.body);
+
+    if (req.currentUser.type == 1) {
+      answer.isScored = true;
+    }
+
     answer.save(function(err, result) {
       res.redirect('/question/' + req.params.qid + '/answer/' + req.params.aid);
     });

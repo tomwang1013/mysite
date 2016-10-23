@@ -55,7 +55,7 @@ router.get('/question/:qid/answers/new',          gControllers.middlewares.check
 router.post('/question/:qid/answers/create',      gControllers.middlewares.checkStudentLogin, gControllers.answers.create);
 router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin, gControllers.answers.show);
 router.get('/question/:qid/answer/:aid/edit',     gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
-router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
+router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkLogin, gControllers.answers.update);
 
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);

@@ -1,10 +1,16 @@
 var $ = require('jquery');
 
 $(function() {
-  CKEDITOR.replace('content');
-
   $('.to-score').click(function() {
     $(this).hide();
     $('.score-comment').show();
+    return false;
+  });
+
+  $('.re-score').click(function() {
+    $(this).hide();
+    $('.score-comment').show();
+    $('#score').focus();
+    return false;
   });
 });

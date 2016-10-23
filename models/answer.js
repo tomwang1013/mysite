@@ -12,6 +12,7 @@ let answerSchema = new Schema({
   sysScore: Number, // 系统评分：如根据学生提交问题的时间，双方认为的问题的难度偏差等
   comment:  String, // 评语
   isScored: Boolean,// 是否已评分过 
+  isDeleted:Boolean,// 是否已被作者删除
 
   // relations
   _question:  { type: Schema.Types.ObjectId, ref: 'Question' },

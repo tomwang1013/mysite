@@ -1,8 +1,6 @@
 extends ../layouts/main
 block js
-  script(src='/ckeditor/ckeditor.js')
   script(src='/js/answers.js')
-  CKEDITOR.replace('content')
 block css
   link(href="/css/answers.css", rel="stylesheet")
 block content
@@ -18,20 +16,21 @@ block content
       .content.small-font!= answer.content
       .opts
         if req.currentUser.type == 0
-          a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
+          a.edit-answerbtn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
           button.btn.btn-warning.del-answer 删 除
         else
           if answer.isScored
-            span 你已经为此解答打分：#{answer.score} 分（总分100）
+            strong.text-bold.small-font 你对此解答的当前评分：#{answer.score} 分
+            a.re-score.small-font 重新评分
           else
             button.btn.btn-primary.to-score 为此解答评分
       .score-comment(style={display: 'none'})
         form.set-score(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')
           .form-group
             label.label.label-input(for='score') 分数：
-            input(type='text', name='score', id='score', placeholder='0 ~ 100' class='form-control')
+            input(type='text', name='score', id='score', value=answer.score, placeholder='0 ~ 100' class='form-control')
           .form-group
-            label.label.label-input(for='comment') 分数：
-            textarea(name='comment', id='comment', class='form-control')
+            label.label.label-input(for='comment') 评语：
+            textarea(name='comment', id='comment', class='form-control')= answer.comment
           .form-group
-            input(type='submit' value='提 交')
+            input.btn.btn-primary(type='submit' value='提 交')

@@ -84,8 +84,7 @@ function show(req, res, next) {
 
       // 得到我回答了哪些问题
       myAnswers = yield gModels.Answer.find({
-        _user: req.currentUser.id,
-        _job:  job.id
+        _user: req.currentUser.id
       }).exec();
 
       myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
