@@ -6,8 +6,12 @@
       .content!= question.content
     if req.currentUser && req.currentUser.type == 0
       .answer
-        if myAnswers[question.id]
+        - var answer = myAnswers[question.id]
+        if answer
           strong 我的解答：
-          .content!= myAnswers[question.id].content
+          .content!= answer.content
+          .ops
+            a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修改
+            button.btn.btn-warning(data-url='/question/' + question.id + '/answer/' + answer.id + '/update') 删除
         else
-          a(href='/question/' + question.id + '/answers/new') 马上解答
+          a.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答

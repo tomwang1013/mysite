@@ -22,27 +22,13 @@ let questionSchema = new Schema({
 const LEVEL_DESCS = [
   '非常简单', '简单', '有点难', '中等难度', '很难', '非常难'
 ];
-const LEVEL_TIMES = [
-  3600,
-  3600 * 24,
-  3600 * 24 * 7,
-  3600 * 24 * 30,
-  3600 * 24 * 30 * 3,
-  3600 * 24 * 30 * 3 * 2
-];
-const LEVEL_TIME_DESCS = ['一个小时', '一天', '一周', '一个月', '三个月', '六个月'];
 
 questionSchema.methods.levelDesc = function() {
   return LEVEL_DESCS[this.level];
 };
 
-questionSchema.methods.timeLevelDesc = function() {
-  return LEVEL_TIME_DESCS[this.level];
-};
-
 let Question = mongoose.model('question', questionSchema);
 
 Question.LEVEL_DESCS = LEVEL_DESCS;
-Question.LEVEL_TIME_DESCS = LEVEL_TIME_DESCS;
 
 exports = module.exports = Question;
