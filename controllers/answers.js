@@ -4,9 +4,32 @@ const co = require('co');
 const _  = require('lodash');
 
 function index(req, res, next) {
+  co(function* () {
+    let question = gModels.Question.findById(req.params.qid).populate('_job').exec();
+    let answers  = gModels.Answer.find({
+      _question: req.params.qid
+    }).populate('_user').exec();
+
+    res.render('answers/index', {
+      job:      question._job
+      question: question,
+      answers:  answers
+    });
+  }).catch(next);
 }
 
 function show(req, res, next) {
+  gModels.Answer.findById(req.params.aid).
+    populate('_question, _job').exec(function(err, result) {
+    if (err) return next(err);
+
+    let answer = result;
+    res.render('answers/show', {
+      job: answer._job
+      question: answer._question,
+      answer: answer,
+    });
+  });
 }
 
 function nnew(req, res, next) {
@@ -26,6 +49,17 @@ function create(req, res, next) {
 }
 
 function edit(req, res, next) {
+  gModels.Answer.findById(req.params.aid).
+    populate('_question, _job').exec(function(err, result) {
+    if (err) return next(err);
+
+    let answer = result;
+    res.render('answers/edit', {
+      job: answer._job
+      question: answer._question,
+      answer: answer,
+    });
+  });
 }
 
 function update(req, res, next) {
