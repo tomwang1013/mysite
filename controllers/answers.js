@@ -74,7 +74,7 @@ function edit(req, res, next) {
 
 function update(req, res, next) {
   gModels.Answer.findById(req.params.aid, function(err, answer) {
-    answer.content = req.body.content;
+    _.assign(answer, req.body);
     answer.save(function(err, result) {
       res.redirect('/question/' + req.params.qid + '/answer/' + req.params.aid);
     });

@@ -17,3 +17,21 @@ block content
       strong 答案：
       .content.small-font!= answer.content
       .opts
+        if req.currentUser.type == 0
+          a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
+          button.btn.btn-warning.del-answer 删 除
+        else
+          if answer.isScored
+            span 你已经为此解答打分：#{answer.score} 分（总分100）
+          else
+            button.btn.btn-primary.to-score 为此解答评分
+      .score-comment(style={display: 'none'})
+        form.set-score(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')
+          .form-group
+            label.label.label-input(for='score') 分数：
+            input(type='text', name='score', id='score', placeholder='0 ~ 100' class='form-control')
+          .form-group
+            label.label.label-input(for='comment') 分数：
+            textarea(name='comment', id='comment', class='form-control')
+          .form-group
+            input(type='submit' value='提 交')
