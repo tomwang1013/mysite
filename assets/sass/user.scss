@@ -33,3 +33,21 @@
     margin-bottom: 0.5em;
   }
 }
+
+.company-desc, .jobs {
+  padding: 0.6em;
+  border: 1px solid #aaa;
+  border-top: none;
+}
+
+.jobs .head {
+  margin-bottom: 0.5em;
+}
+
+.jobs .job {
+  padding-top: 0.5em;
+  border-top: 1px dashed #aaa;
+  span {
+    flex: 1;
+  }
+}

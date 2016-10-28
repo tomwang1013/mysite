@@ -55,6 +55,9 @@ block content
                 button.btn.btn-primary 申请职位
           div.job-basics
             span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-            span 公司：<strong>#{job._creator.name}</strong>
+            span
+              | 公司：
+              a(href='/user/' + job._creator.id)
+                strong= job._creator.name
             span 工作地点：<strong>#{job.address}</strong>
             span 薪资：<strong>#{job.displaySalary}</strong>

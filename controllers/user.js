@@ -10,7 +10,6 @@ function show(req, res, next) {
   gModels.User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
 
-    console.log(user);
     if (req.currentUser.type == user.userType && req.currentUser.id != user.id) {
       res.redirect('/');
       return;
