@@ -65,6 +65,14 @@ userSchema.methods.avatarUrl = function() {
   }
 };
 
+userSchema.methods.scaleValue = function() {
+  return User.scales[this.scale];
+};
+
+userSchema.methods.maturityValue = function() {
+  return User.maturities[this.maturity];
+};
+
 let User = mongoose.model('User', userSchema);
 
 User.allEntryDates = allEntryDates;

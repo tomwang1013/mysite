@@ -1,0 +1,12 @@
+.basic-info
+  img(src=user.avatarUrl alt='头像' width='24px' height='24px')
+  span= user.name
+  span= user.business
+  span= user.scaleValue()
+  span= user.maturityValue()
+  span
+    a(href=user.url)= user.url
+.company-desc!= user.desc
+.jobs
+  .text-bold 该公司发布的所有职位：
+  each job in jobs

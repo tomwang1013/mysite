@@ -13,7 +13,16 @@ function show(req, res, next) {
       return;
     }
 
-    res.render('user/show', { user: user });
+    if (user.isCompany()) {
+      gModels.Job.find({ _creator: user.id }, function(err, ret) {
+        res.render('user/show', {
+          user: user,
+          jobs: ret
+        });
+      })
+    } else {
+      res.render('user/show', { user: user });
+    }
   });
 }
 
