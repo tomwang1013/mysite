@@ -1,9 +1,14 @@
 .basic-info
-  img(src=user.avatarUrl alt='头像' width='24px' height='24px')
+  span
+    img(src=user.avatarUrl() alt='头像' width='36px' height='36px')
   span= user.name
   span= user.gender
   span= user.university
   span= user.major
-  span= user.entryDate.toLocalDateString()
-.career-plan!= user.careerPlan
-.zuopin!= user.zuopin
+  span= user.entryDate
+.career-plan
+  .head.text-bold 职业规划：
+  .detail!= user.careerPlan ? user.careerPlan : '暂无'
+.zuopin
+  .head.text-bold 课外作品：
+  .detail!= user.zuopin ? user.zuopin : '暂无'

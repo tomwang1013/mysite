@@ -1,0 +1,35 @@
+@import 'main';
+
+.basic-info {
+  padding: 0.3em 0.6em;
+  border: 1px solid #aaa;
+  border-radius: 4px 4px 0 0;
+  background-color: #eee;
+
+  & > span {
+    padding: 0 0.6em;
+    border-right: 2px solid #aaa;
+  }
+
+  & > span:first-child {
+    padding-left: 0;
+  }
+
+  & > span:last-child {
+    border-right: none;
+  }
+
+  img {
+    vertical-align: middle;
+    border-radius: 3px;
+  }
+}
+
+.career-plan, .zuopin {
+  padding: 0.6em;
+  border: 1px solid #aaa;
+  border-top: none;
+  .head {
+    margin-bottom: 0.5em;
+  }
+}

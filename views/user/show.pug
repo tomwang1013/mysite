@@ -5,7 +5,7 @@ block css
   link(href="/css/user.css", rel="stylesheet")
 block content
   .user-show
-    if user.type == 0
+    if user.isStudent()
       include ./_student_show.pug
     else
       include ./_company_show.pug

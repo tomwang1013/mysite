@@ -17,7 +17,8 @@ block content
         - var user = answer._user
         .answer.small-font
           .user-info
-            span= user.name
+            span
+              a(href='/user/' + user.id)= user.name
             span #{user.university}/#{user.major}
             span 创建时间：#{answer.createdAt.toLocaleDateString()}
             span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}

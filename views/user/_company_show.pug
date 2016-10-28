@@ -10,3 +10,9 @@
 .jobs
   .text-bold 该公司发布的所有职位：
   each job in jobs
+    .job
+      span
+        a(href='/job/' + job.id)= job.title
+      span= job.address
+      span= job.displaySalary
+      span= job.createdAt.toLocaleDateString()
