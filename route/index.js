@@ -72,5 +72,7 @@ router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.
 router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar2);
 
 router.get('/uploads/:filename', gControllers.uploads.index );
+router.get('/universities', gControllers.universities.index );
+router.get('/majors', gControllers.majors.index );
 
 module.exports = router;

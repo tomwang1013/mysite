@@ -22,7 +22,8 @@ $.fn.popupList = function(options) {
   var input     = this;
   var list      = null;
   var allItems  = options.items || [];
-  var items     = [];
+  var items     = options.items || [];
+  var keyword   = '';
 
   input.prop('readonly', true);
 
@@ -34,7 +35,7 @@ $.fn.popupList = function(options) {
 
 	this.focus(function(e) {
     if (!list) {
-      showList();
+      showList('');
     }
 	});
 
@@ -43,29 +44,36 @@ $.fn.popupList = function(options) {
     list = $(createList()).css(getDimensionStyle());
     input.after(list);
 
+    $('.popuplist-searchbar input').val(keyword).focus();
+
     /**
      * interaction events
      */
 
     // click to select an item
     $('.popuplist-items li').on('click.list', function() {
-      input.val($(this).text());
+      input.val($(this).text()).trigger('change');
       hideList();
+      items = allItems;
       return false;
     });
 
     // instant search when keydown
-    $('.popuplist-searchbar input').on('keydown.list', function() {
-      var keyword = $(this).val();
+    $('.popuplist-searchbar input').on('keyup.list', function() {
+      var newKeyword = $(this).val().trim();
 
-      items = _.filter(allItems, function(item, idx) {
-        return item.indexOf(keyword) != -1;
-      });
+      if (newKeyword != keyword) {
+        items = _.filter(allItems, function(item, idx) {
+          return item.toString().indexOf(newKeyword) != -1;
+        });
 
-      list = $(createList()).css(getDimensionStyle()).replaceAll(list);
+        keyword = newKeyword;
+        hideList();
+        showList(keyword);
+      }
     });
 
-		$('document').on('click.list', function(e) {
+		$('html').on('click.list', function(e) {
       if (!$(e.target).closest('.popuplist-container').length && 
           !$(e.target).closest(input).length) {
         hideList();
@@ -79,7 +87,7 @@ $.fn.popupList = function(options) {
     list = null;
     $('.popuplist-items li').off('click.list');
     $('.popuplist-searchbar input').off('keydown.list');
-		$('document').off('click.list');
+		$('html').off('click.list');
   }
 
   // get pos & size of pop list
@@ -100,7 +108,7 @@ $.fn.popupList = function(options) {
   function createList() {
     var template = ''
       + '<div class="popuplist-container small-font">'
-      +   '<% if (items.length > minSearchItemsCount) { %>'
+      +   '<% if (allItems.length > minSearchItemsCount) { %>'
       +     '<div class="popuplist-searchbar">'
       +       '<input type="text">'
       +     '</div>'
@@ -114,8 +122,9 @@ $.fn.popupList = function(options) {
       +   '</div>'
       + '</div>';
 
-      return _.template(template, {
+      return _.template(template)({
         items: items,
+        allItems: allItems,
         minSearchItemsCount: 8
       });
   }

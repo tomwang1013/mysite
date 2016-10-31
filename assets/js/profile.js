@@ -2,7 +2,7 @@ var $ = require('jquery');
 var _ = require('lodash');
 
 $(document).ready(function() {
-  $('#university').popupTabs(window.us);
+  $('#university').popupList({ remoteUrl: '/universities' });
   $('#major').popupTabs(window.ms);
 
   // normal input value change
