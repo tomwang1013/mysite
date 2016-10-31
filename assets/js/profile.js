@@ -68,6 +68,8 @@ $(document).ready(function() {
    * avatar upload
    * select through file dialog or drag & drop
    */
+  // disable default image drag action
+  $('img').on('dragstart', false);
   $('form.cropDlg').submit(function(e) {
     $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
       $('.current-avatar').attr('src', data.url + '?' + new Date().getTime());
@@ -102,7 +104,6 @@ $(document).ready(function() {
   // crop image and save or discard
   var cropArea;
   var originSize;
-  var edgeWidth = 8;
 
   function initCropArea(ow, oh) {
     cropArea = { left: 0, top: 0, width: 0, height: 0 };
@@ -119,6 +120,8 @@ $(document).ready(function() {
   }
 
   function drawCropArea() {
+    var edgeWidth = $('.left-edge').outerWidth();
+
     $('input[name="x"]').val(cropArea.left);
     $('input[name="y"]').val(cropArea.top);
     $('input[name="width"]').val(cropArea.width);
@@ -187,6 +190,7 @@ $(document).ready(function() {
   function adjustCropArea(target, offset) {
     var mindx, maxdx, mindy, maxdy;
     var lx, rx, th, bh;
+    var edgeWidth = $('.left-edge').outerWidth();
 
     lx = cropArea.left;
     rx = originSize.width - lx - cropArea.width;
@@ -273,13 +277,13 @@ $(document).ready(function() {
     $('input[name="origin_img_path"]').val(imgToCrop);
 
     initCropArea(ow, oh);
-    drawCropArea();
 
     $('.overlay').show();
     $('.cropDlg').css({
       left: (docWeight - cropDlgWidth) / 2
     }).show();
 
+    drawCropArea();
     handleMouse();
   }
 
