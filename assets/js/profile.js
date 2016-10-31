@@ -4,6 +4,9 @@ var _ = require('lodash');
 $(document).ready(function() {
   $('#university').popupTabs(window.us);
   $('#major').popupTabs(window.ms);
+  $('.rich-editor').each(function(idx, ele) {
+    CKEDITOR.replace(ele.id);
+  });
 
   function checkEditState() {
     var me = $(this);

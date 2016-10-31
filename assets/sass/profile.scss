@@ -29,7 +29,9 @@
 
     /* 浏览与修改用户信息 */
     .user-info {
-      .form-control, .form-control-hint {
+      .form-control,
+      .form-control-hint,
+      .rich-editor + div {
         width:80%;
         margin-right: 6px;
       }

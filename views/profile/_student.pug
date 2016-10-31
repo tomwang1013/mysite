@@ -28,12 +28,12 @@ div.user-info
     .form-group
       div
         label(for='careerPlan' class='label label-input') 职业规划：
-      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
+      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
       +buttons
     .form-group
       div
         label(for='zuopin' class='label label-input') 课外作品（可选）：
-      textarea(name='zuopin', id='zuopin', rows=8, class='form-control', data-ori-value=user.zuopin)= user.zuopin
+      textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor', data-ori-value=user.zuopin)= user.zuopin
       +buttons
       .form-control-hint.
         可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>

@@ -7,10 +7,12 @@ const mongoose = require('mongoose');
  */
 let Schema = mongoose.Schema;
 let universitySchema = new Schema({
-  name:       String,   // 学校名称
-  province:   String,   // 所在省份或直辖市
-  type:       String,   // 院校分类
-  eduRank:    String,   // 学历层次
+  name:         String,   // 学校名称
+  province:     String,   // 所在省份或直辖市
+  type:         String,   // 院校分类: 综合，理工，etc
+  eduRank:      String,   // 学历层次: 本科，专科，etc
+  ranking:      Number,   // 综合排名
+  typeRanking:  Number,   // 所在分类排名
 });
 
 // 按省份和学校获取所有数据

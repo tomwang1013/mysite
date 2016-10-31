@@ -1,8 +1,6 @@
-div.hcenter
-  p 注册完成，马上去：
-  h4
-    if userType == 0
-      a(href='/jobs' class='btn btn-primary') 找寻实习岗位
-    else
-      a(href='/students' class='btn btn-primary', style={'margin-right': '16px'}) 找寻心仪学生
-      a(href='/jobs/new' class='btn btn-primary') 发布实习岗位
+p.text-center
+  | 注册完成，马上去：
+  if userType == 0
+    a(href='/jobs') 找寻实习岗位
+  else
+    a(href='/jobs/new') 发布实习岗位
