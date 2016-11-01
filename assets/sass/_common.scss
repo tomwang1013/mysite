@@ -207,9 +207,12 @@ ul.nav {
 
 /* pop tab */
 .tab-container {
-  border: 1px solid #ccc;
+  border: 1px solid #00f;
   padding: 6px 8px;
   background-color: #eee;
+  max-height: 400px;
+  overflow: auto;
+  z-index: 10;
 
   li {
     display: inline-block;

@@ -26,6 +26,16 @@ $.fn.popupTabs = function(options) {
     selectedItems:  []
 	};
 
+	// disable manually input, force select from tabs
+	this.keypress(function() {
+		return false;
+	});
+
+	this.focus(function(e) {
+    if (!dialog) {
+      showDialog();
+    }
+	});
 
   // initialize state by input's initial value
   function initState() {
@@ -120,15 +130,6 @@ $.fn.popupTabs = function(options) {
   function refreshTabs() {
     dialog = $(createTabs()).css(getDimensionStyle()).replaceAll(dialog);
   }
-
-	// disable manually input, force select from tabs
-	this.keypress(function() {
-		return false;
-	});
-
-	this.focus(function(e) {
-		showDialog();
-	});
 
   // create dialog for state
 	function createTabs() {
