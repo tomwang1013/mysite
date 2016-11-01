@@ -5,35 +5,35 @@ script.
 div.user-info
   form
     mixin buttons
-      button(type='button', class='btn', style={display: 'none'}) 修改
-      button(type='button', class='btn btn-cancel', style={display: 'none'}) 取消
-
+      span.operations(style={display: 'none'})
+        button(type='button', class='btn') 修改
+        button(type='button', class='btn btn-cancel') 取消
     .form-group
       div
         label(for='university' class='label label-input') 学校名称：
-      input(type='text', name='university', id='university', class='form-control', data-ori-value=user.university, value=user.university, required)
+      input(type='text', name='university', id='university', class='form-control change-field', data-ori-value=user.university, value=user.university, required)
       +buttons
     .form-group
       div
         label(for='major' class='label label-input') 专业：
-      input(type='text', name='major', id='major', class='form-control', data-ori-value=user.major, value=user.major, required)
+      input(type='text', name='major', id='major', class='form-control change-field', data-ori-value=user.major, value=user.major, required)
       +buttons
     .form-group
       div
         label(for='entryDate' class='label label-input') 入学年份：
-      select(name='entryDate', id='entryDate', class='form-control', data-ori-value=user.entryDate, value=user.entryDate, required)
+      select(name='entryDate', id='entryDate', class='form-control change-field', data-ori-value=user.entryDate, value=user.entryDate, required)
         each ed in entryDates
           option(value=ed, selected=ed == user.entryDate)= ed
       +buttons
     .form-group
       div
         label(for='careerPlan' class='label label-input') 职业规划：
-      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
+      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor change-field', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
       +buttons
     .form-group
       div
         label(for='zuopin' class='label label-input') 课外作品（可选）：
-      textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor', data-ori-value=user.zuopin)= user.zuopin
+      textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor change-field', data-ori-value=user.zuopin)= user.zuopin
       +buttons
       .form-control-hint.
         可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>

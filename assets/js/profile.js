@@ -4,40 +4,64 @@ var _ = require('lodash');
 $(document).ready(function() {
   $('#university').popupTabs(window.us);
   $('#major').popupTabs(window.ms);
-  $('.rich-editor').each(function(idx, ele) {
-    CKEDITOR.replace(ele.id);
-  });
 
+  // normal input value change
   function checkEditState() {
-    var me = $(this);
-    if (me.val() != me.data('oriValue')) {
-      me.nextAll().show();
+    handleDataChange($(this).val(), $(this).data('oriValue'), $(this));
+  }
+
+  // rich editor state change
+  function checkRichEditState(evt) {
+    var newData = evt.editor.getData();
+    var oldData = evt.editor.element.getAttribute('data-ori-value');
+    handleDataChange(newData, oldData, $('#' + evt.editor.name));
+  }
+
+  function handleDataChange(newData, oldData, field) {
+    if (newData != oldData) {
+      field.siblings('.operations').show();
     } else {
-      me.nextAll().hide();
+      field.siblings('.operations').hide();
     }
   }
 
-  $('.user-info textarea, #url').keyup(checkEditState);
+  $('#desc, #url').keyup(checkEditState);
   $('#university, #major, select').change(checkEditState);
+  $('.rich-editor').each(function(idx, ele) {
+    CKEDITOR.replace(ele.id).on('change', checkRichEditState);
+  });
 
   $('.user-info .form-group button:first-of-type').click(function() {
-    var me    = $(this);
-    var field = me.prev();
-    var data  = {};
+    var parent  = $(this).parent();
+    var field   = parent.siblings('.change-field');
+    var fname   = field.attr('name');
+    var data    = {};
 
-    data[field.attr('name')] = field.val();
+    if (field.hasClass('rich-editor')) {
+      data[fname] = CKEDITOR.instances[fname].getData()
+    } else {
+      data[fname] = field.val();
+    }
 
     $.post('/profile/change_user_info', data, function() {
-      me.hide();
-      me.next().hide();
+      parent.hide();
+      field.attr('data-ori-value', data[fname]);
+      field.val(data[fname]);
     });
   });
 
   $('.user-info .form-group button:last-of-type').click(function() {
-    var field = $(this).siblings('input, textarea, select');
+    var parent = $(this).parent();
+    var field  = parent.siblings('.change-field');
+    var fname  = field.attr('name');
+
     field.val(field.data('oriValue'));
-    $(this).hide();
-    $(this).prev().hide();
+
+    if (field.hasClass('rich-editor')) {
+      CKEDITOR.instances[fname].setData(field.data('oriValue'))
+    }
+
+    parent.hide();
   });
 
   /*
