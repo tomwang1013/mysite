@@ -157,15 +157,18 @@ $(document).ready(function() {
   function handleMouse() {
     var target = null;
     var oriPos = { left: 0, top: 0 };
+    var mouseShape = 'default';
 
     $('.crop-edge').mousedown(function(e) {
       target = $(this);
       oriPos.left = e.pageX;
       oriPos.top = e.pageY;
+      mouseShape = target.css('cursor');
     });
 
-    $('.crop-edge').mousemove(function(e) {
-      if (target && target.is(this)) {
+    $('.crop-container').mousemove(function(e) {
+      if (target) {
+        $(this).css('cursor', mouseShape);
         var offset = {
           dx: e.pageX - oriPos.left,
           dy: e.pageY - oriPos.top
@@ -179,8 +182,10 @@ $(document).ready(function() {
       }
     });
 
-    $('.crop-edge').bind('mouseup mouseleave', function(e) {
-      if (target && target.is(this)) {
+    $('.crop-container').bind('mouseup mouseleave', function(e) {
+      if (target) {
+        mouseShape = 'default';
+        $(this).css('cursor', 'default');
         target = null;
       }
     });
