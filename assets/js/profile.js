@@ -58,7 +58,7 @@ $(document).ready(function() {
     field.val(field.attr('data-ori-value'));
 
     if (field.hasClass('rich-editor')) {
-      CKEDITOR.instances[fname].setData(field.data('oriValue'))
+      CKEDITOR.instances[fname].setData(field.attr('data-ori-value'))
     }
 
     parent.hide();
