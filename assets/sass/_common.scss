@@ -285,18 +285,12 @@ ul.nav {
     }
   }
 
-  .popuplist-items {
-    min-height: 22px;
-    max-height: 220px;
-    overflow: auto;
-  }
-
   li {
     padding: 0.2em 0.6em;
     cursor: pointer;
   }
 
-  li:hover {
+  li:hover, .popuplist-item-active {
     background-color: #aaa;
   }
 }

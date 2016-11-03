@@ -55,7 +55,7 @@ $(document).ready(function() {
     var field  = parent.siblings('.change-field');
     var fname  = field.attr('name');
 
-    field.val(field.data('oriValue'));
+    field.val(field.attr('data-ori-value'));
 
     if (field.hasClass('rich-editor')) {
       CKEDITOR.instances[fname].setData(field.data('oriValue'))
