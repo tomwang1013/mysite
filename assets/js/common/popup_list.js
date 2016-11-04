@@ -11,6 +11,7 @@ var _ = require('lodash');
  *
  * options:
  * items: items to show in the list
+ * itemsPinyin: chinese pinyin of items
  * remoteUrl: remote url to get the items
  * remoteData: data passed to remoteUrl if it is present
  */
@@ -19,15 +20,15 @@ $.fn.popupList = function(options) {
 		return;
 	}
 
-  var input     = this;
-  var list      = null;
-  var allItems  = options.items || [];
-  var items     = options.items || [];
-  var keyword   = '';
-
-  var hlItemIdx           = -1; // highlight item index select by keyboard
+  var input               = this;
+  var list                = null;
+  var items               = options.items || [];
+  var itemsPinyin         = options.itemsPinyin || {};
   var itemHeight          = 0;  // item height
   var maxVisibleItemsCnt  = 10; // max count of visible items
+
+  var keyword             = ''; // search keyword
+  var hlItemIdx           = -1; // highlight item index select by keyboard
   var visibleIdxRange     = {   // current visible index range
     start: 0,
     end:   maxVisibleItemsCnt - 1
@@ -35,9 +36,10 @@ $.fn.popupList = function(options) {
 
   input.prop('readonly', true);
 
-  if (!allItems.length && options.remoteUrl) {
+  if (!items.length && options.remoteUrl) {
     $.get(options.remoteUrl, options.remoteData || {}, function(data) {
-      items = allItems = data;
+      items = data.items;
+      itemsPinyin = data.itemsPinyin;
     });
   }
 
@@ -50,7 +52,6 @@ $.fn.popupList = function(options) {
   function changeInputValue(nv) {
     input.val(nv).trigger('change');
     hideList();
-    items = allItems;
     visibleIdxRange.start = 0;
     visibleIdxRange.end = maxVisibleItemsCnt - 1
     hlItemIdx = -1;
@@ -89,27 +90,28 @@ $.fn.popupList = function(options) {
       var newKeyword = $(this).val().trim();
 
       if (newKeyword != keyword) {
-        // input text
-        items = _.filter(allItems, function(item, idx) {
-          return item.toString().indexOf(newKeyword) != -1;
-        });
-
         itemsList.filter(function(idx, ele) {
-          return $(this).text().indexOf(newKeyword) == -1;
+          var name = $(this).text();
+          return !_.startsWith(name, newKeyword) && 
+                 !_.startsWith(itemsPinyin[name], newKeyword);
         }).hide();
 
         itemsList.filter(function(idx, ele) {
-          return $(this).text().indexOf(newKeyword) != -1;
+          var name = $(this).text();
+          return _.startsWith(name, newKeyword) ||
+                 _.startsWith(itemsPinyin[name], newKeyword);
         }).show();
 
         keyword = newKeyword;
         hlItemIdx = -1;
       } else {
+        var visibleItemsList = itemsList.filter(':visible');
+
         switch (evt.which) {
           case 38:  // arrow up
             if (hlItemIdx > 0) {
-              itemsList.filter(':visible').eq(hlItemIdx).removeClass('popuplist-item-active');
-              itemsList.filter(':visible').eq(--hlItemIdx).addClass('popuplist-item-active');
+              visibleItemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
+              visibleItemsList.eq(--hlItemIdx).addClass('popuplist-item-active');
 
               if (hlItemIdx < visibleIdxRange.start) {
                 itemsContainer.scrollTop(itemsContainer.scrollTop() - itemHeight);
@@ -119,9 +121,9 @@ $.fn.popupList = function(options) {
             }
             break;
           case 40:  // arrow down
-            if (hlItemIdx < items.length - 1) {
-              itemsList.filter(':visible').eq(hlItemIdx).removeClass('popuplist-item-active');
-              itemsList.filter(':visible').eq(++hlItemIdx).addClass('popuplist-item-active');
+            if (hlItemIdx < visibleItemsList.length - 1) {
+              visibleItemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
+              visibleItemsList.eq(++hlItemIdx).addClass('popuplist-item-active');
 
               if (hlItemIdx > visibleIdxRange.end) {
                 itemsContainer.scrollTop(itemsContainer.scrollTop() + itemHeight);
@@ -131,8 +133,8 @@ $.fn.popupList = function(options) {
             }
             break;
           case 13:  // enter
-            if (0 <= hlItemIdx && hlItemIdx < items.length) {
-              changeInputValue(itemsList.filter(':visible').eq(hlItemIdx).text());
+            if (0 <= hlItemIdx && hlItemIdx < visibleItemsList.length) {
+              changeInputValue(visibleItemsList.eq(hlItemIdx).text());
             }
             break;
         }
@@ -175,7 +177,7 @@ $.fn.popupList = function(options) {
   function createList() {
     var template = ''
       + '<div class="popuplist-container small-font">'
-      +   '<% if (allItems.length > minSearchItemsCount) { %>'
+      +   '<% if (items.length > minSearchItemsCount) { %>'
       +     '<div class="popuplist-searchbar">'
       +       '<input type="text">'
       +     '</div>'
@@ -194,9 +196,8 @@ $.fn.popupList = function(options) {
       + '</div>';
 
       return _.template(template)({
-        items: allItems,
+        items: items,
         hlItemIdx: hlItemIdx,
-        allItems: allItems,
         minSearchItemsCount: 10
       });
   }
