@@ -1,6 +1,7 @@
 'use strict'
 
 var $ = require('jquery');
+var _ = require('lodash');
 
 /**
  * data format:
@@ -26,10 +27,7 @@ $.fn.popupTabs = function(options) {
     selectedItems:  []
 	};
 
-	// disable manually input, force select from tabs
-	this.keypress(function() {
-		return false;
-	});
+  input.prop('readonly', true);
 
 	this.focus(function(e) {
     if (!dialog) {
@@ -135,11 +133,11 @@ $.fn.popupTabs = function(options) {
 	function createTabs() {
     var template = ''
       + '<div class="tab-container small-font">'
-      +   '<div class="tab-header text-bold">'
+      +   '<div class="tab-header">'
       +     '<ul class="nav">'
-      +       '<% for (let label of state.labels) { %>'
-      +         '<% if (state.activeLabel == label) { %>'
-      +           '<li class="tab-label-active"><%= label %></li>'
+      +       '<% for (let label of labels) { %>'
+      +         '<% if (activeLabel == label) { %>'
+      +           '<li class="tab-label-active text-bold"><%= label %></li>'
       +         '<% } else { %>'
       +           '<li><%= label %></li>'
       +         '<% } %>'
@@ -148,8 +146,8 @@ $.fn.popupTabs = function(options) {
       +   '</div>'
       +   '<div class="tab-content">'
       +     '<ul class="nav">'
-      +       '<% for (let item of state.items) { %>'
-      +         '<% if (state.activeItem == item) { %>'
+      +       '<% for (let item of items) { %>'
+      +         '<% if (activeItem == item) { %>'
       +           '<li class="tab-item-active"><%= item %></li>'
       +         '<% } else { %>'
       +           '<li><%= item %></li>'
@@ -159,7 +157,7 @@ $.fn.popupTabs = function(options) {
       +   '</div>'
       + '</div>';
 
-    return (eval(compile(template)))(state);
+    return _.template(template)(state);
 	}
 
 	function showDialog() {
@@ -227,28 +225,5 @@ $.fn.popupTabs = function(options) {
     $(document).off('click', '.tab-header li')
     $(document).off('click', '.tab-content li')
 		$('html').unbind('click.tab');
-	}
-
-	function compile(template) {
-	  var evalExpr = /<%=(.+?)%>/g;
-	  var expr = /<%([\s\S]+?)%>/g;
-
-	  template = template
-      .replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
-      .replace(expr, '`); \n $1 \n  echo(`');
-
-	  template = 'echo(`' + template + '`);';
-
-    var script = ''
-      + '(function parse(state) {'
-      +   'var output = "";'
-      +   'function echo(html){'
-      +     'output += html;'
-      +   '}'
-      +   template
-      +   'return output;'
-      + '});'
-
-    return script;
 	}
 }

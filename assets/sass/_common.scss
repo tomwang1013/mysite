@@ -209,7 +209,7 @@ ul.nav {
 .tab-container {
   border: 1px solid #aaa;
   padding: 6px 8px;
-  background-color: #eee;
+  background-color: #fff;
   max-height: 400px;
   overflow: auto;
   z-index: 10;
@@ -217,26 +217,16 @@ ul.nav {
   li {
     display: inline-block;
     cursor: pointer;
+    padding: 4px 8px;
   }
 
   .tab-header {
     li {
-      padding: 3px 8px;
       border: 1px solid #ccc;
       border-bottom: none;
-      position: relative;
-      background-color: #fff;
-      top: -1px;
-      z-index: 1;
-
-      &:hover:not(.tab-label-active) {
-        background-color: #aaa;
-      }
 
       &.tab-label-active {
-        border: 2px solid blue;
-        border-bottom: none;
-        top: 0;
+        border-color: blue;
       }
     }
   }
@@ -244,18 +234,8 @@ ul.nav {
   .tab-content {
     border-top: 1px solid blue;
     padding-top: 6px;
-    position: relative;
-    margin-top: -1px;
 
-    li {
-      padding: 8px;
-    }
-
-    li.tab-item-active {
-      background-color: #888;
-    }
-
-    li:hover {
+    li.tab-item-active, li:hover {
       background-color: #aaa;
     }
   }
