@@ -261,7 +261,7 @@ $(document).ready(function() {
   function cropImageAndSave(imgToCrop, size) {
     var docHeight = $(document).height();
     var docWeight = $(document).width();
-    var cropDlgWeight = $('.cropDlg').width();
+    var cropDlgWidth = $('.cropDlg').width();
     var ow = size.width;
     var oh = size.height;
 
@@ -277,7 +277,7 @@ $(document).ready(function() {
 
     $('.overlay').show();
     $('.cropDlg').css({
-      left: (docWeight - cropDlgWeight) / 2
+      left: (docWeight - cropDlgWidth) / 2
     }).show();
 
     handleMouse();
