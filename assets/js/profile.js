@@ -218,7 +218,7 @@ $(document).ready(function() {
       }
     });
 
-    $('.crop-container').bind('mouseup mouseleave', function(e) {
+    $('.crop-container').on('mouseup mouseleave', function(e) {
       if (target) {
         $(this).css('cursor', 'default');
         $('.crop-edge').each(function() {
@@ -359,13 +359,12 @@ $(document).ready(function() {
     var oh = size.height;
 
     originSize = size;
+    initCropArea(ow, oh);
 
     $('.crop-container').css({ width: ow, height: oh });
     $('.origin-img').attr('src', imgToCrop);
     $('.crop-img').attr('src', imgToCrop);
     $('input[name="origin_img_path"]').val(imgToCrop);
-
-    initCropArea(ow, oh);
 
     $('.overlay').show();
     $('.cropDlg').css({
@@ -379,6 +378,8 @@ $(document).ready(function() {
   $('.close').click(function() {
     $('.overlay').hide();
     $('.cropDlg').hide();
+    $('.crop-edge').off('mousedown');
+    $('.crop-container').off('mousemove mouseup mouseleave');
   });
 
   // file dialog select upload
