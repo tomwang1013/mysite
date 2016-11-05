@@ -190,6 +190,7 @@
 
           .crop-container {
             position:relative;
+            $edge_border_width: 2px;
 
             .origin-img {
               opacity: 0.5;
@@ -210,82 +211,90 @@
               position:absolute;
             }
 
+            .crop-edge.sep-line {
+              background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
+              opacity: 0.5;
+            }
+
             .move-area {
               z-index:1002;
               cursor:move;
             }
 
-            $edge_border_width: 2px;
-            $edge_padding_width: 6px;
-            $crop_edge_border: $edge_border_width dashed rgba(255,0,0,0.5);
-
             .corner {
-              border: 2px solid rgba(255,0,0,0.5);
+              border: 1px solid #eee;
+              background-color: #333;
+              opacity: 0.7;
               position: absolute;
+              width: 8px;
+              height: 8px;
             }
 
             .tl-corner {
               cursor: nw-resize;
               z-index:1007;
+              margin-left: -4px;
+              margin-top: -4px;
             }
             .tm-corner {
               cursor: n-resize;
               z-index:1008;
+              margin-top: -4px;
             }
             .tr-corner {
               cursor: ne-resize;
               z-index:1009;
+              margin-top: -4px;
+              margin-left: 4px;
             }
             .lm-corner {
               cursor: w-resize;
               z-index:1010;
+              margin-left: -4px;
             }
             .rm-corner {
               cursor: e-resize;
               z-index:1011;
+              margin-left: 4px;
             }
             .bl-corner {
               cursor: sw-resize;
               z-index:1012;
+              margin-left: -4px;
+              margin-top: 4px;
             }
             .bm-corner {
               cursor: s-resize;
               z-index:1013;
+              margin-top: 4px;
             }
             .br-corner {
               cursor: se-resize;
               z-index:1014;
+              margin-left: 4px;
+              margin-top: 4px;
             }
 
             .left-edge {
-              border-left:$crop_edge_border;
-              padding-left:$edge_padding_width;
               z-index:1003;
               width:$edge_border_width;
               cursor:w-resize;
             }
             .top-edge {
-              border-top:$crop_edge_border;
-              padding-top:$edge_padding_width;
               z-index:1004;
               height:$edge_border_width;
               cursor:n-resize;
             }
             .right-edge {
-              border-right:$crop_edge_border;
-              padding-right:$edge_padding_width;
               z-index:1005;
               width:$edge_border_width;
               cursor:e-resize;
             }
             .bottom-edge {
-              border-bottom:$crop_edge_border;
-              padding-bottom:$edge_padding_width;
               z-index:1006;
               height:$edge_border_width;
               cursor:s-resize;
             }
-
           }
         }
 

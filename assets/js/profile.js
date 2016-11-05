@@ -119,6 +119,7 @@ $(document).ready(function() {
 
   function drawCropArea() {
     var edgeWidth = $('.left-edge').outerWidth();
+    var cornerWidth = $('.tl-corner').outerWidth();
 
     $('input[name="x"]').val(cropArea.left);
     $('input[name="y"]').val(cropArea.top);
@@ -149,41 +150,41 @@ $(document).ready(function() {
       width:  cropArea.width - 2 * edgeWidth,
       height: cropArea.height - 2 * edgeWidth
     });
-    $('.corner').css({
-      width:  edgeWidth,
-      height: edgeWidth
-    });
+    //$('.corner').css({
+      //width:  edgeWidth,
+      //height: edgeWidth
+    //});
     $('.tl-corner').css({
       left: cropArea.left,
       top:  cropArea.top,
     });
     $('.tm-corner').css({
-      left: cropArea.left + (cropArea.width - edgeWidth) / 2,
+      left: cropArea.left + (cropArea.width - cornerWidth) / 2,
       top:  cropArea.top,
     });
     $('.tr-corner').css({
-      left: cropArea.left + cropArea.width - edgeWidth,
+      left: cropArea.left + cropArea.width - cornerWidth,
       top:  cropArea.top,
     });
     $('.lm-corner').css({
       left: cropArea.left,
-      top:  cropArea.top + (cropArea.height - edgeWidth) / 2,
+      top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
     });
     $('.rm-corner').css({
-      left: cropArea.left + cropArea.width - edgeWidth,
-      top:  cropArea.top + (cropArea.height - edgeWidth) / 2,
+      left: cropArea.left + cropArea.width - cornerWidth,
+      top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
     });
     $('.bl-corner').css({
       left: cropArea.left,
-      top:  cropArea.top + cropArea.height - edgeWidth,
+      top:  cropArea.top + cropArea.height - cornerWidth,
     });
     $('.bm-corner').css({
-      left: cropArea.left + (cropArea.width - edgeWidth) / 2,
-      top:  cropArea.top + cropArea.height - edgeWidth,
+      left: cropArea.left + (cropArea.width - cornerWidth) / 2,
+      top:  cropArea.top + cropArea.height - cornerWidth,
     });
     $('.br-corner').css({
-      left: cropArea.left + cropArea.width - edgeWidth,
-      top:  cropArea.top + cropArea.height - edgeWidth,
+      left: cropArea.left + cropArea.width - cornerWidth,
+      top:  cropArea.top + cropArea.height - cornerWidth,
     });
   }
 
@@ -196,6 +197,8 @@ $(document).ready(function() {
       target = $(this);
       oriPos.left = e.pageX;
       oriPos.top = e.pageY;
+
+      // keep the cursor shape during the crop process
       $('.crop-container').css('cursor', target.css('cursor'));
       $('.crop-edge').each(function() {
         $(this).data('defCursor', $(this).css('cursor'));
@@ -221,6 +224,8 @@ $(document).ready(function() {
     $('.crop-container').on('mouseup mouseleave', function(e) {
       if (target) {
         $(this).css('cursor', 'default');
+
+        // restore the cursor
         $('.crop-edge').each(function() {
           $(this).css('cursor', $(this).data('defCursor'));
         });
@@ -372,18 +377,17 @@ $(document).ready(function() {
     }).show();
 
     drawCropArea();
-    handleMouse();
   }
 
   $('.close').click(function() {
     $('.overlay').hide();
     $('.cropDlg').hide();
-    $('.crop-edge').off('mousedown');
-    $('.crop-container').off('mousemove mouseup mouseleave');
   });
 
   // file dialog select upload
   $('#avatar').change(function() {
     uploadAvatar(this.files[0]);
   });
+
+  handleMouse();
 });
