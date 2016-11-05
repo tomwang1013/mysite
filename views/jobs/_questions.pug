@@ -1,17 +1,17 @@
-.job-section
-  h3 预备面试题列表
+.job-section.questions
+  h3.text-center 预备面试题列表
   each question, idx in questions
     .question
       strong 问题#{idx + 1}：
-      .small-font.content!= question.content
+      .small-font!= question.content
       if req.currentUser && req.currentUser.type == 0
-        .answer
-          - var answer = myAnswers[question.id]
-          if answer
+        - var answer = myAnswers[question.id]
+        if answer
+          .answer
             strong 我的解答：
-            .small-font.content!= answer.content
+            .small-font.answer-content!= answer.content
             .ops
               a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
               button.btn.btn-warning(data-url='/question/' + question.id + '/answer/' + answer.id + '/update') 删 除
-          else
-            a.to-answer.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答
+        else
+          a.to-answer.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答

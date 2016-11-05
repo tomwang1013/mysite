@@ -142,6 +142,7 @@ $.fn.popupTabs = function(options) {
       +           '<li><%= label %></li>'
       +         '<% } %>'
       +       '<% } %>'
+      +       '<a href="javascript:void(0)" class="tab-clear">清空</a>'
       +     '</ul>'
       +   '</div>'
       +   '<div class="tab-content">'
@@ -216,6 +217,10 @@ $.fn.popupTabs = function(options) {
           !$(e.target).closest(input).length) {
         hideDialog();
       }
+    });
+
+    $('.tab-clear').on('click', function() {
+      input.val('');
     });
 	}
 

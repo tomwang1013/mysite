@@ -202,7 +202,7 @@ ul.nav {
   overflow: auto;
   z-index: 10;
 
-  li {
+  li, {
     display: inline-block;
     cursor: pointer;
     padding: 4px 8px;
@@ -214,13 +214,19 @@ ul.nav {
       border-bottom: none;
 
       &.tab-label-active {
-        border-color: blue;
+        border-color: #00a;
       }
+    }
+
+    .tab-clear {
+      float: right;
+      padding: 4px 0;
+      display: inline-block;
     }
   }
 
   .tab-content {
-    border-top: 1px solid blue;
+    border-top: 1px solid #00a;
     padding-top: 6px;
 
     li.tab-item-active, li:hover {

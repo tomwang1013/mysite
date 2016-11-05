@@ -49,7 +49,7 @@ function create(req, res, next) {
     score: 0,
     sysScore: 0
   }, req.body), function(err, result) {
-    res.redirect('/job/' + result._job);
+    res.redirect('/job/' + req.body._job);
   })
 }
 
