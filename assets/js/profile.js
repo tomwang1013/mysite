@@ -151,6 +151,42 @@ $(document).ready(function() {
       width:  cropArea.width - 2 * edgeWidth,
       height: cropArea.height - 2 * edgeWidth
     });
+    $('.corner').css({
+      width:  edgeWidth,
+      height: edgeWidth
+    });
+    $('.tl-corner').css({
+      left: cropArea.left,
+      top:  cropArea.top,
+    });
+    $('.tm-corner').css({
+      left: cropArea.left + (cropArea.width - edgeWidth) / 2,
+      top:  cropArea.top,
+    });
+    $('.tr-corner').css({
+      left: cropArea.left + cropArea.width - edgeWidth,
+      top:  cropArea.top,
+    });
+    $('.lm-corner').css({
+      left: cropArea.left,
+      top:  cropArea.top + (cropArea.height - edgeWidth) / 2,
+    });
+    $('.rm-corner').css({
+      left: cropArea.left + cropArea.width - edgeWidth,
+      top:  cropArea.top + (cropArea.height - edgeWidth) / 2,
+    });
+    $('.bl-corner').css({
+      left: cropArea.left,
+      top:  cropArea.top + cropArea.height - edgeWidth,
+    });
+    $('.bm-corner').css({
+      left: cropArea.left + (cropArea.width - edgeWidth) / 2,
+      top:  cropArea.top + cropArea.height - edgeWidth,
+    });
+    $('.br-corner').css({
+      left: cropArea.left + cropArea.width - edgeWidth,
+      top:  cropArea.top + cropArea.height - edgeWidth,
+    });
   }
 
   // handle mouse event to refresh crop area
@@ -195,6 +231,7 @@ $(document).ready(function() {
   function adjustCropArea(target, offset) {
     var mindx, maxdx, mindy, maxdy;
     var lx, rx, th, bh;
+    var dd, mindd, maxdd;
     var edgeWidth = $('.left-edge').outerWidth();
 
     lx = cropArea.left;
@@ -205,17 +242,18 @@ $(document).ready(function() {
 
     //console.log('before crop, cropArea: ', cropArea);
 
-    if (target.is('.left-edge')) {
-      mindx = -Math.min(lx, bh);
+    if (target.is('.left-edge,.lm-corner')) {
+      mindx = -Math.min(lx, th);
       maxdx = cropArea.width - 2 * edgeWidth;
 
       if (offset.dx < mindx) offset.dx = mindx;
       if (offset.dx > maxdx) offset.dx = maxdx;
 
       cropArea.left   += offset.dx;
+      cropArea.top    += offset.dx;
       cropArea.width  -= offset.dx;
       cropArea.height -= offset.dx;
-    } else if (target.is('.top-edge')) {
+    } else if (target.is('.top-edge,.tm-corner')) {
       mindy = -Math.min(th, rx);
       maxdy = cropArea.height - 2 * edgeWidth;
 
@@ -225,17 +263,16 @@ $(document).ready(function() {
       cropArea.top    += offset.dy;
       cropArea.width  -= offset.dy;
       cropArea.height -= offset.dy;
-    } else if (target.is('.right-edge')) {
+    } else if (target.is('.right-edge,.rm-corner')) {
       mindx = -(cropArea.width - 2 * edgeWidth);
-      maxdx = Math.min(th, rx);
+      maxdx = Math.min(bh, rx);
 
       if (offset.dx < mindx) offset.dx = mindx;
       if (offset.dx > maxdx) offset.dx = maxdx;
 
-      cropArea.top    -= offset.dx;
       cropArea.width  += offset.dx;
       cropArea.height += offset.dx;
-    } else if (target.is('.bottom-edge')) {
+    } else if (target.is('.bottom-edge,.bm-corner')) {
       mindy = -(cropArea.height - 2 * edgeWidth);
       maxdy = Math.min(lx, bh);
 
@@ -245,11 +282,64 @@ $(document).ready(function() {
       cropArea.left   -= offset.dy;
       cropArea.width  += offset.dy;
       cropArea.height += offset.dy;
+    } else if (target.is('.tl-corner')) {
+      if (offset.dx * offset.dy < 0) return;
+
+      dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
+      mindd = -Math.min(lx, th);
+      maxdd = cropArea.width - 2 * edgeWidth;
+
+      if (dd < mindd) dd = mindd;
+      if (dd > maxdd) dd = maxdd;
+
+      cropArea.left   += dd;
+      cropArea.top    += dd;
+      cropArea.width  -= dd;
+      cropArea.height -= dd;
+    } else if (target.is('.tr-corner')) {
+      if (offset.dx * offset.dy > 0) return;
+
+      dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
+      mindd = -(cropArea.width - 2 * edgeWidth)
+      maxdd = Math.min(th, rx);
+
+      if (dd < mindd) dd = mindd;
+      if (dd > maxdd) dd = maxdd;
+
+      cropArea.top    -= dd;
+      cropArea.width  += dd;
+      cropArea.height += dd;
+    } else if (target.is('.br-corner')) {
+      if (offset.dx * offset.dy < 0) return;
+
+      dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
+      mindd = -(cropArea.width - 2 * edgeWidth)
+      maxdd = Math.min(bh, rx);
+
+      if (dd < mindd) dd = mindd;
+      if (dd > maxdd) dd = maxdd;
+
+      cropArea.width  += dd;
+      cropArea.height += dd;
+    } else if (target.is('.bl-corner')) {
+      if (offset.dx * offset.dy > 0) return;
+
+      dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
+      mindd = -Math.min(lx, bh);
+      maxdd = cropArea.width - 2 * edgeWidth;
+
+      if (dd < mindd) dd = mindd;
+      if (dd > maxdd) dd = maxdd;
+
+      cropArea.left   += dd;
+      cropArea.top    -= dd;
+      cropArea.width  -= dd;
+      cropArea.height -= dd;
     } else {
-      mindx = -cropArea.left;
-      maxdx = originSize.width - cropArea.left - cropArea.width;
-      mindy = -cropArea.top;
-      maxdy = originSize.height - cropArea.top - cropArea.height;
+      mindx = -lx;
+      maxdx = rx;
+      mindy = -th;
+      maxdy = bh;
 
       if (offset.dx < mindx) offset.dx = mindx;
       if (offset.dx > maxdx) offset.dx = maxdx;
