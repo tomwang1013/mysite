@@ -2,7 +2,6 @@ extends ../layouts/main
 block js
   script(src='/ckeditor/ckeditor.js')
   script(src='/js/questions.js')
-  CKEDITOR.replace('content');
 block css
   link(href="/css/questions.css", rel="stylesheet")
 block content
@@ -19,7 +18,7 @@ block content
             .level
               input(type='radio', name='level', id='level' + l, value=l checked=l == question.level)
               label(for='level' + l class='label')
-                | #{gModels.Question.LEVEL_DESCS[l]}（期望#{gModels.Question.LEVEL_TIME_DESCS[l]}能完成解答）
+                | #{gModels.Question.LEVEL_DESCS[l]}
       .form-group
         label(for='content' class='label label-input text-bold') 题目内容：
         textarea(name='content', id='content' class='form-control rich-editor', required)= question.content
