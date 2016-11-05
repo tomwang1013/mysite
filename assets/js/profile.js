@@ -69,7 +69,7 @@ $(document).ready(function() {
    * select through file dialog or drag & drop
    */
   // disable default image drag action
-  $('img').on('dragstart', false);
+  $('img, .crop-edge').on('dragstart', false);
   $('form.cropDlg').submit(function(e) {
     $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
       $('.current-avatar').attr('src', data.url + '?' + new Date().getTime());
@@ -115,8 +115,6 @@ $(document).ready(function() {
       cropArea.left = (ow - oh) / 2;
       cropArea.width = cropArea.height = oh;
     }
-
-    //console.log('initial cropArea: ', cropArea);
   }
 
   function drawCropArea() {
@@ -193,18 +191,20 @@ $(document).ready(function() {
   function handleMouse() {
     var target = null;
     var oriPos = { left: 0, top: 0 };
-    var mouseShape = 'default';
 
     $('.crop-edge').mousedown(function(e) {
       target = $(this);
       oriPos.left = e.pageX;
       oriPos.top = e.pageY;
-      mouseShape = target.css('cursor');
+      $('.crop-container').css('cursor', target.css('cursor'));
+      $('.crop-edge').each(function() {
+        $(this).data('defCursor', $(this).css('cursor'));
+      });
+      $('.crop-edge').css('cursor', target.css('cursor'));
     });
 
     $('.crop-container').mousemove(function(e) {
       if (target) {
-        $(this).css('cursor', mouseShape);
         var offset = {
           dx: e.pageX - oriPos.left,
           dy: e.pageY - oriPos.top
@@ -220,8 +220,10 @@ $(document).ready(function() {
 
     $('.crop-container').bind('mouseup mouseleave', function(e) {
       if (target) {
-        mouseShape = 'default';
         $(this).css('cursor', 'default');
+        $('.crop-edge').each(function() {
+          $(this).css('cursor', $(this).data('defCursor'));
+        });
         target = null;
       }
     });
@@ -238,9 +240,6 @@ $(document).ready(function() {
     rx = originSize.width - lx - cropArea.width;
     th = cropArea.top;
     bh = originSize.height - th - cropArea.height;
-
-
-    //console.log('before crop, cropArea: ', cropArea);
 
     if (target.is('.left-edge,.lm-corner')) {
       mindx = -Math.min(lx, th);
@@ -332,7 +331,6 @@ $(document).ready(function() {
       if (dd > maxdd) dd = maxdd;
 
       cropArea.left   += dd;
-      cropArea.top    -= dd;
       cropArea.width  -= dd;
       cropArea.height -= dd;
     } else {
@@ -349,10 +347,6 @@ $(document).ready(function() {
       cropArea.left += offset.dx;
       cropArea.top  += offset.dy;
     }
-
-    //console.log('mindx: ', mindx, 'maxdx: ', maxdx, 'mindy: ', mindy, 'maxdy: ', maxdy,
-                //'dx: ', offset.dx, 'dy: ', offset.dy);
-    //console.log('after crop, cropArea: ', cropArea);
 
     drawCropArea();
   }
