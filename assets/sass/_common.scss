@@ -92,20 +92,16 @@ input[type='radio'] {
   padding: 0.25em 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
-  color: #777;
+  color: #333;
   line-height: 1.5;
-  font-size: 0.875em;
+  height: 2em;
+  font-size: 0.9em;
   outline:none;
   margin-top: 0.5em;
 }
 
-/* fix firefox select height thiner problem */
-select.form-control {
-  height:2.143em;
-}
-
 .form-control:focus {
-  box-shadow: inset 0 0 2px rgba(0,0,0,.75);
+  border-color: #00a;
 }
 
 textarea.form-control {
@@ -121,10 +117,6 @@ label.input-error {
   color: #f00;
   border: none;
   font-size: 0.8em;
-}
-
-.input-error {
-  border: 1px solid #f00;
 }
 
 .form-control-hint {
