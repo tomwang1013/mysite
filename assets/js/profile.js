@@ -25,10 +25,10 @@ $(document).ready(function() {
     }
   }
 
-  $('#desc, #url').keyup(checkEditState);
+  $('#url').keyup(checkEditState);
   $('#university, #major, select').change(checkEditState);
-  $('.rich-editor').each(function(idx, ele) {
-    CKEDITOR.replace(ele.id).on('change', checkRichEditState);
+  Object.keys(CKEDITOR.instances).forEach(function(editorName) {
+    CKEDITOR.instances[editorName].on('change', checkRichEditState);
   });
 
   $('.user-info .form-group button:first-of-type').click(function() {

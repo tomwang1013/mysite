@@ -2,9 +2,9 @@
 div.user-info
   form
     mixin buttons
-      span.operations
-        button(type='button', class='btn', style={display: 'none'}) 修改
-        button(type='button', class='btn btn-cancel', style={display: 'none'}) 取消
+      span.operations(style={display: 'none'})
+        button(type='button', class='btn') 修改
+        button(type='button', class='btn btn-cancel') 取消
 
     .form-group
       div
@@ -38,5 +38,5 @@ div.user-info
     .form-group
       div
         label(for='desc' class='label label-input') 介绍：
-      textarea(name='desc', id='desc', rows=8, class='form-control change-field', data-rule-minlength=64, data-ori-value=user.desc, required)= user.desc
+      textarea(name='desc', id='desc', rows=8, class='form-control rich-editor change-field', data-rule-minlength=64, data-ori-value=user.desc, data-rule-required='true')= user.desc
       +buttons

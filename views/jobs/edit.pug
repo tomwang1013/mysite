@@ -32,10 +32,10 @@ block content
           option(value=t, selected=t == job.type)= t 
     .form-group
       label(for='duty' class='label label-input') 职责：
-      textarea(name='duty', id='duty', class='form-control rich-editor', rows=12, required, data-rule-minlength=64)= job.duty
+      textarea(name='duty', id='duty', class='form-control rich-editor', rows=12, data-rule-required='true', data-rule-minlength=64)= job.duty
     .form-group
       label(for='requirement' class='label label-input') 要求：
-      textarea(name='requirement', id='requirement', class='form-control rich-editor', rows=12, required, data-rule-minlength=64)= job.requirement
+      textarea(name='requirement', id='requirement', class='form-control rich-editor', rows=12, data-rule-required='true', data-rule-minlength=64)= job.requirement
     .form-group
       label(for='notes' class='label label-input') 备注：
       input(type='text', name='notes', id='notes', class='form-control', value=job.notes)

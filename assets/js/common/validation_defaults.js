@@ -1,8 +1,17 @@
 var $ = require('jquery');
 
+$(function() {
+  // for validation on submit
+  $('.rich-editor').each(function(idx, ele) {
+    CKEDITOR.replace(ele.id).on('change', function(evt) {
+      evt.editor.updateElement();
+    });
+  });
+});
+
 $.validator.setDefaults({
   errorClass: 'input-error',
-  validClass: 'input-valid',
+  ignore:     '.ignore',
   submitHandler: function(form) {
     var validator = this;
     var args = $(form).serializeObject();

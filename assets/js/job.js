@@ -50,9 +50,6 @@ $(document).ready(function() {
     },
   });
 
-  CKEDITOR.replace('duty');
-  CKEDITOR.replace('requirement');
-
   // update job
   $('form.edit-job').validate({
     errorPlacement: function(error, element) {
