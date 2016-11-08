@@ -177,7 +177,8 @@ function loginUser(req, user) {
   req.session.currentUser = {
     id:   user.id,
     name: user.name,
-    type: user.userType
+    type: user.userType,
+    avatar: user.avatarUrl()
   };
 }
 

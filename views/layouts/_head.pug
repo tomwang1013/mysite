@@ -4,8 +4,12 @@ header
     span.user-nav
       - var cu = req.currentUser
       if cu
-        a(href='/profile')= cu.name
-        a(href='/logout' class='btn btn-warning') 退出
+        a.msg-notify(href='')
+          span(class='fa fa-bell vertical-middle')
+          sup 4
+        a.user-center(href='/profile')
+          img.round-border.vertical-middle(src=cu.avatar width='24px' height='24px' alt='avatar')
+          span.vertical-middle(class='fa fa-caret-down menu-show')
       else
         a(href='login' class='btn btn-primary') 登陆
         a(href='signup' class='btn') 注册

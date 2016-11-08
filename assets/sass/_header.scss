@@ -5,17 +5,37 @@ header {
 
   .header-container {
     align-items:center;
+
     .logo {
-      font-size:1.5em;
-      line-height:1.5;
+      font-size:1.2em;
+      line-height:1.2;
       font-weight:bold;
       margin-right:auto;
     }
+  }
 
-    span.user-nav {
-      a, span {
-        margin-left: 6px;
-      }
+  .user-center img {
+    display: inline-block;
+    margin-left: 18px;
+    margin-right: 6px;
+  }
+
+  .user-center .menu-show {
+    color: #555;
+
+    &:hover {
+      color: #0276FD;
+    }
+  }
+
+  .msg-notify {
+    color: #555;
+    &:hover{
+      color: #0276FD;
+    }
+
+    sup {
+      color: #a00;
     }
   }
 }
