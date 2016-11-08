@@ -16,8 +16,42 @@ header {
 
   .msg-notify {
     display: inline-block;
+    position: relative;
     margin-right: 18px;
+    color: #aaa;
+
+    &.has-msg {
+      color: #a00;
+    }
+
+    .msg-tip {
+      display: none;
+      position: absolute;
+      top: 140%;
+      left: -3em;
+      padding: 0.5em;
+      width: 7em;
+      color: #fff;
+      background-color: #666;
+    }
   }
+
+  .msg-notify:hover .msg-tip {
+    display: block;
+    z-index: 10;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: calc(50% - 5px);
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent #666 transparent;
+    }
+  }
+
+
 
   .user-center {
     position: relative;
@@ -33,7 +67,8 @@ header {
     .profile-index + .profile-dropdown {
       position: absolute;
       display: none;
-      top: 180%;
+      top: 120%;
+      right: -40%;
       width: 100px;
       background-color: #fff;
       border: 1px solid #aaa;
