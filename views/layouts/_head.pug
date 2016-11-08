@@ -4,12 +4,22 @@ header
     span.user-nav
       - var cu = req.currentUser
       if cu
-        a.msg-notify(href='')
+        a.msg-notify.has-msg(href='')
           span(class='fa fa-bell vertical-middle')
           sup 4
-        a.user-center(href='/profile')
-          img.round-border.vertical-middle(src=cu.avatar width='24px' height='24px' alt='avatar')
-          span.vertical-middle(class='fa fa-caret-down menu-show')
+        span.user-center
+          a.profile-index(href='/profile')
+            img.round-border.vertical-middle(src=cu.avatar width='24px' height='24px' alt='avatar')
+            span.vertical-middle(class='fa fa-caret-down menu-show')
+          ul.profile-dropdown.nav.small-font.round-border
+            li
+              a(href='/profile/user_info') 基本信息
+            li
+              a(href='/profile/jobs') 职位信息
+            li
+              a(href='/profile/account') 账号与密码
+            li
+              a(href='/logout') 退出
       else
         a(href='login' class='btn btn-primary') 登陆
         a(href='signup' class='btn') 注册
