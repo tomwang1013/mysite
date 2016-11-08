@@ -12,8 +12,8 @@ block content
       - var user = applier._user
       .applier(data-user-id=user.id, data-job-id=job.id)
         .applier-info
-          span= user.name
-          span= user.gender
+          span
+            a(href='/user/' + user.id)= user.name
           span= user.university
           span= user.major
           span 申请时间：#{applier.createdAt.toLocaleDateString()}
