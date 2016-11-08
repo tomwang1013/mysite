@@ -7,10 +7,12 @@ const MongoStore = require('connect-mongo')(session);
 // check if loged in
 function checkLogin(req, res, next) {
   if (!req.currentUser) {
+    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login' });
+      return res.json({ error: 1, message: 'not login', location: loginUrl });
     } else {
-      return res.redirect('/login?return_to=' + (req.get('Referer') || '/'));
+      return res.redirect(loginUrl);
     }
   } else {
     next();
@@ -20,10 +22,12 @@ function checkLogin(req, res, next) {
 // check if loged in and user is company
 function checkCompanyLogin(req, res, next) {
   if (!req.currentUser) {
+    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login' });
+      return res.json({ error: 1, message: 'not login', location: loginUrl });
     } else {
-      return res.redirect('/login?return_to=' + (req.get('Referer') || '/'));
+      return res.redirect(loginUrl);
     }
   } else if (req.currentUser.type !== 1) {
     if (req.xhr) {
@@ -39,10 +43,12 @@ function checkCompanyLogin(req, res, next) {
 // check if loged in and user is company
 function checkStudentLogin(req, res, next) {
   if (!req.currentUser) {
+    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login' });
+      return res.json({ error: 1, message: 'not login', location: loginUrl });
     } else {
-      return res.redirect('/login?return_to=' + (req.get('Referer') || '/'));
+      return res.redirect(loginUrl);
     }
   } else if (req.currentUser.type !== 0) {
     if (req.xhr) {

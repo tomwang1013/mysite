@@ -6,6 +6,7 @@ block css
 block content
   div.login-box.hcenter
     form(method='post', action='/login', class='login')
+      input(type='hidden' name='return_to' value=return_to)
       .form-group
         label(for='email' class='label label-input') Email：
         input(type='email', name='email', id='email', class='form-control' autofocus, required)

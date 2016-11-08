@@ -57,7 +57,7 @@ $(document).ready(function() {
     },
   });
 
-  // apply job
+  // apply job at jobs index
   $('.job-title button').click(function() {
     var me = $(this);
 
@@ -65,6 +65,22 @@ $(document).ready(function() {
       job_id: me.closest('.job-item').data('jobId')
     }, function(data) {
       me.replaceWith("<span class='apply-result'>已申请</span>")
+    });
+  });
+
+  // apply job at job detail
+  $('.job-apply button:not(:disabled)').click(function() {
+    var me = $(this);
+
+    $.post('/jobs/apply', {
+      job_id: me.data('jobId')
+    }, function(data) {
+      if (data.error) {
+        if (data.location) location = data.location;
+        else location = '/';
+      } else {
+        me.removeClass('btn-primary').addClass('btn-disabled').text('已 申 请');
+      }
     });
   });
 

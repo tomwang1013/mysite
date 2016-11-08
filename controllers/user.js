@@ -134,7 +134,9 @@ function isValidEmail(req, res, next) {
 
 function loginView(req, res, next) {
   res.locals.title = '学做-用户登陆';
-  res.render('user/loginView');
+  res.render('user/loginView', {
+    return_to: req.query.return_to || '/'
+  });
 }
 
 function loginHandler(req, res, next) {
@@ -156,7 +158,7 @@ function loginHandler(req, res, next) {
 
     if (match) {
       loginUser(req, user);
-      res.json({ error: 0, location: req.query.return_to || '/' });
+      res.json({ error: 0, location: req.body.return_to || '/' });
     } else {
       res.json({ error: 1, errors: { password: '密码错误' } });
     }

@@ -5,14 +5,14 @@
       .job-info
         p.job-title
           a.title-link(href='/job/' + job.id)= job.title
-        p.job-basics
+        p.job-basics.small-font
           span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
           span 申请日期：<strong>#{appliedJob.createdAt.toLocaleDateString()}</strong>
           span 公司：    <strong>#{job._creator.name}</strong>
-          span 工作地点：<strong>#{job.address}</strong>
-          span 薪资：    <strong>#{job.displaySalary}</strong>
+          span <strong>#{job.address}</strong>
+          span <strong>#{job.displaySalary}</strong>
           span 申请人数：<strong>#{job._appliersSize}</strong>
-        .job-status
+        .job-status.small-font
           case appliedJob.status
             when 0
               .apply-pending 您的申请正在审核中，请耐心等待

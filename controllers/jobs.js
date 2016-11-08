@@ -104,10 +104,6 @@ function show(req, res, next) {
 }
 
 function create(req, res, next) {
-  if (!req.currentUser) {
-    return res.json({ error: 1, message: 'not login' });
-  }
-
   gModels.Job.create(_.merge(req.body, { _creator: req.currentUser.id })).then(function(job) {
     res.json({ error: 0, location: '/jobs' });
   }).catch(function(err) {
@@ -150,11 +146,6 @@ function update(req, res, next) {
 
 // apply for a job
 function apply(req, res, next) {
-  if (!req.currentUser) {
-    res.json({ error: 1, location: '/login', message: '用户未登陆' });
-    return;
-  }
-
   var userId = req.currentUser.id;
   var jobId  = req.body.job_id;
 
@@ -188,11 +179,6 @@ function apply(req, res, next) {
 
 // 管理申请者
 function appliers(req, res, next) {
-  if (!req.currentUser) {
-    res.redirect('/login');
-    return;
-  }
-
   var jobId = req.params.id;
 
   gModels.Job.findById(jobId).populate({
