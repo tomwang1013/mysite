@@ -2,15 +2,14 @@
   a(href='/jobs/new' class='btn btn-primary') 发布新的职位
 .jobs-container
   each job in jobs
-    .job-item.flex(data-job-id=job.id)
-      .job-info
-        p.job-title
-          a.title-link(href='/job/' + job.id)= job.title
-          span 申请人数：
-            a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
-          a.job-edit(href='/job/' + job.id + '/edit') 编辑
-          a.job-questions(href='/job/' + job.id + '/questions') 题目列表
-        p.job-basics.small-font
-          span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-          span 工作地点：<strong>#{job.address}</strong>
-          span 薪资：    <strong>#{job.displaySalary}</strong>
+    .job-item(data-job-id=job.id)
+      .job-title.relative
+        a.title-link.inline-block(href='/job/' + job.id)= job.title
+        span 申请人数：
+          a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
+        a.job-edit.absolute(href='/job/' + job.id + '/edit') 编辑
+        a.job-questions.absolute(href='/job/' + job.id + '/questions') 题目列表
+      .job-basics.small-font
+        span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+        span 工作地点：<strong>#{job.address}</strong>
+        span 薪资：    <strong>#{job.displaySalary}</strong>

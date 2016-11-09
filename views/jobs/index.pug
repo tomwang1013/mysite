@@ -4,41 +4,39 @@ block css
 block js
   script(src='/js/job.js')
 block content
-  .jobs-search
-    form(action='/jobs' method='get')
-      div.flex
-        span.flex
-          label(for='title' class='label') 职位名称：
-          input(type='text' id='title' name='title' value=req.query.title class='form-control')
+  form.jobs-search(action='/jobs' method='get')
+    div.flex
+      span.flex
+        label(for='title' class='label') 职位名称：
+        input(type='text' id='title' name='title' value=req.query.title class='form-control')
 
-        span.flex
-          label(for='business' class='label') 行业：
-          select(name='business' id='business' class='form-control')
-            option(value='' selected) 请选择
-            each b in businesses
-              option(value=b selected=b == req.query.business)= b 
+      span.flex
+        label(for='business' class='label') 行业：
+        select(name='business' id='business' class='form-control')
+          option(value='' selected) 请选择
+          each b in businesses
+            option(value=b selected=b == req.query.business)= b 
 
-        span.flex
-          label(for='type' class='label') 类别：
-          select(name='type', id='type' class='form-control')
-            option(value='' selected) 请选择
-            each t in types
-              option(value=t selected=t == req.query.type)= t 
+      span.flex
+        label(for='type' class='label') 类别：
+        select(name='type', id='type' class='form-control')
+          option(value='' selected) 请选择
+          each t in types
+            option(value=t selected=t == req.query.type)= t 
+    div.flex
+      span.flex
+        label(for='address' class='label') 工作地点：
+        input(type='text', name='address', id='address', value=req.query.address, class='form-control')
 
-      div.flex
-        span.flex
-          label(for='address' class='label') 工作地点：
-          input(type='text', name='address', id='address', value=req.query.address, class='form-control')
+      span.flex
+        label(for='salary' class='label') 薪资：
+        select(name='salary', id='salary' class='form-control')
+          option(value='' selected) 请选择
+          each s, i in salaries
+            option(value=i selected=i == req.query.salary)= s 
 
-        span.flex
-          label(for='salary' class='label') 薪资：
-          select(name='salary', id='salary' class='form-control')
-            option(value='' selected) 请选择
-            each s, i in salaries
-              option(value=i selected=i == req.query.salary)= s 
-
-        span.flex
-          input(type='submit', value='搜索', class='btn btn-primary')
+      span.flex
+        input(type='submit', value='搜索', class='btn btn-primary')
 
   .jobs-container
     if !jobs.length
@@ -53,11 +51,9 @@ block content
                 span.apply-result 已申请
               else
                 button.btn.btn-primary 申请职位
-          div.job-basics
+          div.job-basics.small-font
             span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-            span
-              | 公司：
-              a(href='/user/' + job._creator.id)
-                strong= job._creator.name
+            span 公司：
+              a(href='/user/' + job._creator.id)= job._creator.name
             span 工作地点：<strong>#{job.address}</strong>
             span 薪资：<strong>#{job.displaySalary}</strong>

@@ -74,28 +74,28 @@
   }
 }
 
-.jobs-search {
-  form > div.flex {
-    margin-bottom:0.5em;
-    span {
-      flex:1;
-      align-items:center;
+// job search form
+form.jobs-search > div.flex {
+  margin-bottom:0.5em;
+  span {
+    flex:1;
+    align-items:center;
 
-      &:not(:first-child) {
-        margin-left:0.5em;
-      }
+    &:not(:first-child) {
+      margin-left:0.5em;
     }
+  }
 
-    .form-control, input[type='submit'] {
-      flex: 1;
-    }
+  .form-control, input[type='submit'] {
+    flex: 1;
+  }
 
-    .form-control {
-      margin-top: 0;
-    }
+  .form-control {
+    margin-top: 0;
   }
 }
 
+// job list
 .jobs-container {
   margin-top:1em;
 
@@ -109,109 +109,99 @@
     padding:10px;
     background-color:#eee;
     border:1px solid #d2d2d2;
-
-    &:hover {
-      border:1px solid blue;
-    }
-
-    .job-title {
-      margin-top:0;
-      padding-bottom:6px;
-      border-bottom:1px solid #bbb;
-      align-items:center;
-
-      a {
-        font-weight:bold;
-        color:blue;
-        margin-right:auto;
-      }
-
-      span.apply-result {
-        color:green;
-        font-weight:bold;
-      }
-    }
-
-    .job-basics {
-      margin-top: 6px;
-      margin-bottom: 6px;
-      padding-bottom: 6px;
-      border-bottom:1px dashed #bbb;
-
-      span {
-        padding:0 8px;
-        border-right:1px solid #bbb;
-        &:first-child {
-          padding-left:0;
-        }
-        &:last-child {
-          border-right:none;
-        }
-      }
-    }
   }
 }
 
+.job-title {
+  padding-bottom:6px;
+  margin-bottom: 6px;
+  border-bottom:1px solid #bbb;
+
+  a {
+    margin-right:auto;
+  }
+
+  span.apply-result {
+    color:green;
+  }
+}
+
+.job-basics > span {
+  padding:0 8px;
+  border-right:1px solid #bbb;
+
+  &:first-child {
+    padding-left:0;
+  }
+
+  &:last-child {
+    border-right:none;
+  }
+}
+
+// 企业查看职位申请者列表
 .appliers-container {
   .applier-title {
     padding-bottom: 6px;
     border-bottom: 2px solid #666;
     margin-bottom: 6px;
-
-    .title-link {
-      font-weight: bold;
-    }
   }
 
   .applier {
     padding: 6px 0;
     border-bottom: 1px solid #ccc;
     margin-bottom: 6px;
+  }
+}
 
-    .applier-info {
-      overflow: hidden;
+// 申请者基本信息
+.applier-info {
+  overflow: hidden;
 
-      span {
-        display: inline-block;
-        padding: 0 6px;
-        border-right: 1px solid #ccc;
-        float:left;
-        margin: 6px 0;
-      }
-      span:first-child {
-        padding-left: 0;
-      }
-      span:last-child {
-        border-right: none;
-      }
+  span {
+    display: inline-block;
+    padding: 0 6px;
+    border-right: 1px solid #ccc;
+    float:left;
+    margin: 6px 0;
+  }
 
-      .apply-op {
-        float:right;
-        & > button:first-child {
-          margin-right: 0.6em;
-        }
-      }
+  span:first-child {
+    padding-left: 0;
+  }
+
+  span:last-child {
+    border-right: none;
+  }
+
+  .apply-op {
+    float:right;
+    & > button:first-child {
+      margin-right: 0.6em;
+    }
+  }
+}
+
+// 申请结果
+.apply-result {
+  margin-top: 0.3em;
+  .op-message {
+    margin-top: 0.8em;
+
+    div {
+      margin-bottom: 0.5em;
     }
 
-    .apply-result {
-      margin-top: 0.3em;
-      .op-message {
-        margin-top: 0.8em;
-        div {
-          margin-bottom: 0.5em;
-        }
-        button:first-child {
-          margin-right:0.6em;
-        }
-      }
-
-      .apply-refused {
-        color: red;
-      }
-
-      .apply-passed {
-        color: green;
-      }
+    button:first-child {
+      margin-right:0.6em;
     }
+  }
+
+  .apply-refused {
+    color: red;
+  }
+
+  .apply-passed {
+    color: green;
   }
 }

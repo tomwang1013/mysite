@@ -6,7 +6,7 @@ block js
 block content
   .appliers-container
     .applier-title
-      a.title-link(href='/job/' + job.id)= job.title
+      a.title-link.text-bold(href='/job/' + job.id)= job.title
       |  — 申请者列表
     each applier in appliers
       - var user = applier._user
@@ -21,7 +21,7 @@ block content
             .apply-op
               button.btn.btn-primary 通过
               button.btn 拒绝
-        .apply-result
+        .apply-result.small-font
           case applier.status
             when 0
               .op-message(style={display: 'none'})
