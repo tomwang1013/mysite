@@ -1,0 +1,41 @@
+/* pop tab */
+.tab-container {
+  border: 1px solid #aaa;
+  padding: 6px 8px;
+  background-color: #fff;
+  max-height: 400px;
+  overflow: auto;
+  z-index: 10;
+
+  li, {
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 8px;
+  }
+
+  .tab-header {
+    li {
+      border: 1px solid #ccc;
+      border-bottom: none;
+
+      &.tab-label-active {
+        border-color: #00a;
+      }
+    }
+
+    .tab-clear {
+      float: right;
+      padding: 4px 0;
+      display: inline-block;
+    }
+  }
+
+  .tab-content {
+    border-top: 1px solid #00a;
+    padding-top: 6px;
+
+    li.tab-item-active, li:hover {
+      background-color: #aaa;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+/* +++++++++++ form and controls ++++++++++++ */
+.label {
+  display: inline-block;
+}
+
+.label-radio {
+  margin-right: 0.5em;
+}
+
+input[type='radio'] {
+  margin-right: 0.5em;
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.form-control {
+  display: inline-block;
+  width: 100%;
+  padding: 0.25em 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  line-height: 1.5;
+  height: 2em;
+  font-size: 0.9em;
+  outline:none;
+  margin-top: 0.5em;
+}
+
+.form-control:focus {
+  border-color: #00a;
+}
+
+textarea.form-control {
+  height: auto;
+}
+
+textarea.rich-editor + div {
+  margin-top: 0.5em;
+}
+
+label.input-error {
+  display: inline-block;
+  color: #f00;
+  border: none;
+  font-size: 0.8em;
+}
+
+.form-control-hint {
+  color: #777;
+  font-size: 0.8em;
+  margin-top:6px;
+  line-height:1.4;
+}
+
+/* normal button look*/
+.btn {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  font-size: 0.875em;
+  line-height: 1.5;
+  color: #eee;
+  text-align:center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #53868B;
+  border: 1px solid #53868B;
+  border-radius: 3px;
+  cursor:pointer;
+}
+
+.btn:hover {
+  background-color: #4A777A;
+}
+
+.btn-disabled {
+  cursor: default;
+}
+
+.btn-disabled:hover {
+  background-color: #53868B;
+}
+
+/* primary button look*/
+.btn-primary {
+  background-color: #2E37FE;
+  border: 1px solid #2E37FE;
+}
+
+.btn-primary:hover {
+  background-color: #0000CD;
+}
+
+/* warning button look*/
+.btn-warning {
+  background-color: #B13E0F;
+  border: 1px solid #B13E0F;
+}
+
+.btn-warning:hover {
+  background-color: #8B2500;
+}
+
+/* cancel button */
+.btn-cancel {
+  background-color: #B18D92;
+  border: 1px solid #B18D92;
+}
+
+.btn-cancel:hover {
+  background-color: #8D5E64;
+}
