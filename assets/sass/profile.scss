@@ -54,10 +54,6 @@
       background-color:#eee;
       border:1px solid #d2d2d2;
 
-      &:hover {
-        border:1px solid blue;
-      }
-
       .job-info {
         flex: 8;
         padding-right:6px;
@@ -334,7 +330,7 @@
         padding: 0.5em 1em;
 
         &:hover {
-          background-color: #ccc;
+          background-color: #ddd;
         }
 
         span:first-child {

@@ -5,6 +5,7 @@
 var $ = require('jquery');
 
 $(function() {
+  // header
   var dropdownTimer;
 
   $('.profile-index').on('mouseenter', function() {
@@ -23,5 +24,13 @@ $(function() {
 
   $('.profile-dropdown').on('mouseleave', function() {
     $(this).fadeOut();
+  });
+
+  $.get('/profile/message_status', function(data) {
+    if (data.has_msg) {
+      $('.msg-notify').addClass('has-msg');
+    } else {
+      $('.msg-notify').removeClass('has-msg');
+    }
   });
 });

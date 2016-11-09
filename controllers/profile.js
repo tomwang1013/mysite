@@ -218,12 +218,23 @@ function message(req, res, next) {
   }).catch(next);
 }
 
+function messageStatus(req, res, next) {
+  co(function* () {
+    let messages = yield gModels.Message.find({
+      userId: req.currentUser.id
+    }).exec();
+
+    res.json({ has_msg: messages.length > 0 });
+  }).catch(next);
+}
+
 exports = module.exports = {
   index:          index,
   userInfo:       userInfo,
   account:        account,
   jobs:           jobs,
   message:        message,
+  messageStatus:  messageStatus,
   changeUserInfo: changeUserInfo,
   changeAccount:  changeAccount,
   changePassword: changePassword,

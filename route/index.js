@@ -64,6 +64,7 @@ router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.check
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
 router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
+router.get('/profile/message_status',            gControllers.middlewares.checkLogin, gControllers.profile.messageStatus);
 router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 

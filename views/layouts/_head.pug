@@ -3,7 +3,7 @@ header
     a(href='/' class='logo') 学做网
     - var cu = req.currentUser
     if cu
-      a.msg-notify.has-msg(href='/profile/message')
+      a.msg-notify(href='/profile/message')
         span(class='fa fa-bell vertical-middle')
         span.msg-tip.small-font.round-border 你有未读消息
       span.user-center

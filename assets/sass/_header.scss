@@ -11,6 +11,7 @@ header {
       line-height:1.2;
       font-weight:bold;
       margin-right:auto;
+      text-decoration: none;
     }
   }
 
@@ -18,7 +19,7 @@ header {
     display: inline-block;
     position: relative;
     margin-right: 18px;
-    color: #aaa;
+    color: #777;
 
     &.has-msg {
       color: #a00;
