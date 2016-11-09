@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 $(document).ready(function() {
-  $('#university').popupTabs(window.us);
+  $('#university').popupList({ remoteUrl: '/universities' });
   $('#major').popupTabs(window.ms);
 
   $('form.signup').validate({

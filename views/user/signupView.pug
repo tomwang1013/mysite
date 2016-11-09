@@ -5,13 +5,13 @@ block js
 block css
   link(href="/css/signup.css", rel="stylesheet")
 block content
-  .formal-signup.hcenter
+  .formal-signup
     h3 加入学做网
-    p 提前获得实习机会，在实践中成长
+    p 更快找到实习岗位，更好学习专业知识
     .progress.flex
-      div(class={'signup-active': step == 1}) 创建账号
-      div(class={'signup-active': step == 2}) 完善基本资料
-      div(class={'signup-active': step == 3}) 注册完毕
+      div.text-center(class={'signup-active': step == 1}) 创建账号
+      div.text-center(class={'signup-active': step == 2}) 完善基本资料
+      div.text-center(class={'signup-active': step == 3}) 注册完毕
     .current-step.flex
       case step
         when 1

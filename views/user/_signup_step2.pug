@@ -1,10 +1,10 @@
 script.
-  window.us = !{JSON.stringify(universities)};
   window.ms = !{JSON.stringify(majors)};
 form(method='post', action='/signup', class='signup', data-step=step)
   input(type='hidden', name='step', value=step)
   if userType == 0
     // 学生信息
+    .promotion.form-group.small-font.text-center 完善基本资料是非常有必要的，这能帮助企业更好的了解你，也是对自己学习与职业信息的一个基本记录
     .form-group
       label(for='university' class='label label-input') 学校名称：
       input(type='text', name='university', id='university', class='form-control', required)
@@ -29,6 +29,7 @@ form(method='post', action='/signup', class='signup', data-step=step)
 
   else
     // 公司信息
+    .promotion.form-group.small-font.text-center 请务必完善企业信息，否则发布的职位可能不会被求职者看到
     .form-group
       label(for='url' class='label label-input') 公司主页：
       input(type='url', name='url', id='url', class='form-control', required)

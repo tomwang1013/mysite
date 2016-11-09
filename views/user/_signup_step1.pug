@@ -1,13 +1,13 @@
 form(method='post', action='/signup', class='signup', data-step=step)
   input(type='hidden', name='step', value=step)
   .form-group
-    label(for='name' class='label label-input') 用户名
+    label(for='name' class='label label-input') 用户名：
     input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control')
   .form-group
-    label(for='email' class='label label-input') Email
+    label(for='email' class='label label-input') Email：
     input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')
   .form-group
-    label(for='password' class='label label-input') 密码
+    label(for='password' class='label label-input') 密码：
     input(type='password', name='password', id='password', class='form-control')
   .form-group
     label(class='label label-radio')
@@ -17,11 +17,12 @@ form(method='post', action='/signup', class='signup', data-step=step)
       input(type='radio', id='user-type-company', name='userType', value=1)
       | 公司
   .form-group
-    input(type='submit', value='注 册' class='btn btn-primary')
+    input(type='submit', value='创建账号' class='btn btn-primary')
 .comments
-  .header 在这里，你将：
-  ul.nav
-    li 找到合适的实习机会
-    li 在实践中成长，让实践检验学习
-    li 收获技能与自信，不再迷茫
-    li 每天都过得充实
+  div 在这里，你将：
+  p.small-font
+    strong 更快找到实习机会：
+    | 不同于一般的招聘平台，这里的职位是企业专门为实习生准备的，更注重学生的基本素质及个人潜力；你可以直接根据个人专业和兴趣寻找合适的实习岗位
+  p.small-font
+    strong 更好学习专业知识：
+    | 每个实习岗位都有明确的深入的在线测试，如果你热爱你的专业，通过测试你能知道自己哪些地方有欠缺，哪些地方需要提高；如果你喜欢这个岗位但是专业不对口，通过测试你能知道学习方向，发现不足，从而为未来赢得这类岗位打下坚实基础，毕竟，我们还年轻

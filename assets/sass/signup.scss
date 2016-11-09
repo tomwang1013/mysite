@@ -1,56 +1,46 @@
 @import 'partials/all';
 
 .formal-signup {
-  max-width: 720px;
-
-  & > p {
-    padding-bottom: 6px;
-  }
-
   .progress {
-    & > div {
+    border: 1px solid #aaa;
+
+    div {
       flex: 1;
-      border-left: 1px solid #eee;
+      border-left: 1px solid #aaa;
       padding: 20px 30px;
-      text-align: center;
     }
 
-    & > div:first-child {
+    div:first-child {
       border-left: none;
     }
 
     .signup-active {
-      background-color: #eee;
+      background-color: #ccc;
     }
-
-    border: 1px solid #eee;
-    border-radius: 3px;
   }
 
   .current-step {
     margin-top: 20px;
+  }
+}
 
-    form {
-      flex: 3 1 60%;
-      label.input-error {
-        margin: 0 0 6px;
-      }
+.current-step {
+  form {
+    padding: 0.5em 1em;
+    border: 1px solid #aaa;
+    flex: 1;
+
+    .promotion {
+      color: #008;
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #ddd;
     }
+  }
 
-    .comments {
-      flex: 2 1 40%;
-      margin-left: 30px;
-      padding-left: 30px;
-
-      .header {
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 54px;
-      }
-
-      li {
-        margin-bottom: 16px;
-      }
-    }
+  .comments {
+    padding: 0.5em 1em;
+    border: 1px solid #aaa;
+    flex: 1;
+    margin-left: 30px;
   }
 }
