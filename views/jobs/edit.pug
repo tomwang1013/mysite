@@ -6,6 +6,7 @@ block js
   script(src='/js/job.js')
 block content
   form(method='post', action='/job/' + job.id, class='edit-job hcenter')
+    .header.text-center.text-bold 修改职位信息
     .form-group
       label(for='title' class='label label-input') 职位名称：
       input(type='text', name='title', id='title', class='form-control' value=job.title, autofocus, required)
@@ -39,5 +40,5 @@ block content
     .form-group
       label(for='notes' class='label label-input') 备注：
       input(type='text', name='notes', id='notes', class='form-control', value=job.notes)
-    .form-group
+    .form-group.text-center
       input(type='submit', value='保 存', class='btn btn-primary')

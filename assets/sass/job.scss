@@ -1,7 +1,17 @@
 @import 'partials/all';
 
+// 新建及编辑职位
 .new-job, .edit-job {
+  padding: 1em 1em 0 1em;
+  border: 1px solid #aaa;
   max-width: 720px;
+  border-radius: 4px;
+
+  .header {
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+  }
 }
 
 /**

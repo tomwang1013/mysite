@@ -1,22 +1,21 @@
 @import 'partials/all';
 
 .basic-info {
-  padding: 0.3em 0.6em;
+  padding: 0.5em 1em;
   border: 1px solid #aaa;
   border-radius: 4px 4px 0 0;
-  background-color: #eee;
 
-  & > span {
-    padding: 0 0.6em;
+  span {
+    padding: 0 0.5em;
     border-right: 1px solid #aaa;
-  }
 
-  & > span:first-child {
-    padding-left: 0;
-  }
+    &:first-child {
+      padding-left: 0;
+    }
 
-  & > span:last-child {
-    border-right: none;
+    &:last-child {
+      border-right: none;
+    }
   }
 
   img {
@@ -25,29 +24,27 @@
   }
 }
 
-.career-plan, .zuopin {
-  padding: 0.6em;
+.career-plan,
+.zuopin,
+.company-desc,
+.jobs {
+  padding: 1em;
   border: 1px solid #aaa;
   border-top: none;
+
   .head {
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
   }
 }
 
-.company-desc, .jobs {
-  padding: 0.6em;
-  border: 1px solid #aaa;
-  border-top: none;
-}
-
-.jobs .head {
-  margin-bottom: 0.5em;
-}
-
 .jobs .job {
-  padding-top: 0.5em;
+  padding: 0.5em 0;
   border-top: 1px dashed #aaa;
   span {
     flex: 1;
+  }
+
+  &:last-child {
+    border-bottom: 1px dashed #aaa;
   }
 }

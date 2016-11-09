@@ -1,17 +1,19 @@
-.basic-info
+.basic-info.small-font
   span
-    img(src=user.avatarUrl() alt='头像' width='36px' height='36px')
+    img(src=user.avatarUrl() alt='头像' width='24px' height='24px')
   span= user.name
   span= user.business
   span= user.scaleValue()
   span= user.maturityValue()
   span
     a(href=user.url)= user.url
-.company-desc!= user.desc
+.company-desc
+  .head.text-bold 公司介绍：
+  .detail.small-font!= user.desc
 .jobs
-  .text-bold.head 公司发布的所有职位：
+  .head.text-bold 公司发布的所有职位：
   each job in jobs
-    .job.flex
+    .job.flex.small-font
       span
         a(href='/job/' + job.id)= job.title
       span= job.address
