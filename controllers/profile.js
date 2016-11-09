@@ -31,9 +31,7 @@ function userInfo(req, res, next) {
       user:         result[0],
       currentUser:  req.currentUser
     });
-  }).catch(function(err) {
-    next(err);
-  });
+  }).catch(next);
 }
 
 function jobs(req, res, next) {
@@ -207,11 +205,25 @@ function changeAvatar2(req, res, next) {
   }).catch(next);
 }
 
+function message(req, res, next) {
+  co(function* () {
+    let messages = yield gModels.Message.find({
+      userId: req.currentUser.id
+    }).populate('_job').exec();
+
+    res.render('profile/index', {
+      messages: messages,
+      pos: 'message'
+    });
+  }).catch(next);
+}
+
 exports = module.exports = {
   index:          index,
   userInfo:       userInfo,
   account:        account,
   jobs:           jobs,
+  message:        message,
   changeUserInfo: changeUserInfo,
   changeAccount:  changeAccount,
   changePassword: changePassword,

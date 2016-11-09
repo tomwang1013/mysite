@@ -9,7 +9,6 @@
       display: block;
       line-height: 2;
       border-bottom: 1px solid #ccc;
-      padding-left: 8px;
     }
 
     a.active {
@@ -22,8 +21,8 @@
   }
 
   .right-content {
-    flex:5;
-    padding: 6px 20px;
+    flex:6;
+    padding: 15px 20px;
     border: 1px solid #ccc;
     border-left:none;
 
@@ -48,6 +47,7 @@
       font-weight: bold;
     }
 
+    /* 职位列表 */
     .jobs-container .job-item {
       margin-bottom:20px;
       padding:10px;
@@ -322,6 +322,28 @@
             opacity:0.001;
             cursor:pointer;
           }
+        }
+      }
+    }
+
+    /* 消息中心 */
+    .messages {
+      border: 1px solid #aaa;
+
+      .head, .message {
+        padding: 0.5em 1em;
+
+        &:hover {
+          background-color: #ccc;
+        }
+
+        span:first-child {
+          flex: 5;
+        }
+
+        span:last-child {
+          flex: 1;
+          text-align: right;
         }
       }
     }

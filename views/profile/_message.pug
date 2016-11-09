@@ -1,0 +1,13 @@
+if messages.length
+  .messages
+    each message in messages
+      .message.flex.small-font
+        span.title
+          a(href='/profile/jobs?status=has_msg') 你申请的职位 #{message._job.title} 有回复了 
+        span.operation
+          if !message.read
+            a(href='javascrpt:void(0)') 置为已读
+          else
+            | 已读
+else
+  .no-msg.text-center 暂时没有任何消息！

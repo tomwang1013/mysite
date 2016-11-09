@@ -63,9 +63,10 @@ router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.check
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
-router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.account);
+router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
 router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
+
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);
 router.post('/profile/change_account',    gControllers.middlewares.checkLogin, gControllers.profile.changeAccount);
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);

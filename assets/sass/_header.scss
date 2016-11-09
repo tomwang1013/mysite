@@ -36,7 +36,7 @@ header {
     }
   }
 
-  .msg-notify:hover .msg-tip {
+  .msg-notify.has-msg:hover .msg-tip {
     display: block;
     z-index: 10;
 

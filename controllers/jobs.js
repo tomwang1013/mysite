@@ -200,15 +200,26 @@ function handleApply(req, res, next) {
   var status = req.body.status;
   var message = req.body.message;
 
-  gModels.ApplyJob.update({
-    _user:  userId,
-    _job:   jobId
-  }, {
-    status:   status,
-    message:  message
-  }).exec(function(err, result) {
-    res.json({ error: err });
-  });
+  co(function* () {
+    let dbOps = yield {
+      applyJob: gModels.ApplyJob.update({
+          _user:  userId,
+          _job:   jobId
+        }, {
+          status:   status,
+          message:  message
+        }).exec(),
+
+      createMessage: gModels.Message.create({
+        type:   1,
+        userId: userId,
+        read:   false,
+        _job:   jobId
+      })
+    }
+
+    res.json({ error: null });
+  }).catch(next);
 }
 
 exports = module.exports = {
