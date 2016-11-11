@@ -14,13 +14,20 @@ header {
     }
   }
 
+  .msg-notify {
+    display: inline-block;
+    margin-right: 18px;
+  }
+
   .user-center {
     position: relative;
 
-    img {
+    .profile-index {
       display: inline-block;
-      margin-left: 18px;
-      margin-right: 6px;
+
+      img {
+        margin-right: 6px;
+      }
     }
 
     .profile-index + .profile-dropdown {
@@ -31,19 +38,23 @@ header {
       background-color: #fff;
       border: 1px solid #aaa;
       z-index: 10;
-      padding: 0 0.5em;
+
+      li:not(:first-child):hover {
+        background-color: #bbb;
+      }
 
       li {
-        padding:: 0.6em 0;
-        &:hover {
-          background-color: #007;
-        }
+        padding:: 0.4em;
+      }
+
+      li:first-child {
+        border-bottom: 1px solid #bbb;
       }
 
       &::after {
         content: '';
         position: absolute;
-        z-index: 11;
+        z-index: -1;
         bottom: 100%;
         left: 70%;
         top: -7px;
