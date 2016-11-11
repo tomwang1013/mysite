@@ -27,14 +27,17 @@ header {
       position: absolute;
       display: none;
       top: 180%;
-      width: 108px;
+      width: 100px;
       background-color: #fff;
       border: 1px solid #aaa;
       z-index: 10;
       padding: 0 0.5em;
 
       li {
-        margin: 0.5em 0;
+        padding:: 0.6em 0;
+        &:hover {
+          background-color: #007;
+        }
       }
 
       &::after {
@@ -43,15 +46,21 @@ header {
         z-index: 11;
         bottom: 100%;
         left: 70%;
-        margin-left: -10px;
-        border-width: 10px;
+        top: -7px;
+        background-color: #fff;
+        width: 10px;
+        height: 10px;
+        border-width: 1px;
         border-style: solid;
-        border-color: transparent transparent #aaa transparent;
+        border-color: #aaa #aaa transparent transparent;
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
       }
     }
+  }
 
-    .profile-index:hover + .profile-dropdown {
-      display: block;
-    }
+  .login {
+    margin-right: 1em;
   }
 }
