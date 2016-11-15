@@ -34,15 +34,25 @@ function userInfo(req, res, next) {
   }).catch(next);
 }
 
+/**
+ * 职位信息
+ */
 function jobs(req, res, next) {
   co(function* () {
     let jobs;
     let appliedJobs;
+    let status = req.query.status || 'all';
 
     if (req.currentUser.type == 0) {
-      appliedJobs = yield gModels.ApplyJob.find({
-        _user: req.currentUser.id
-      }).populate({
+      let query  = { _user: req.currentUser.id };
+
+      if (status == 'replied') {
+        query.status = { $ne: 0 };
+      } else if (status == 'unreplied') {
+        query.status = 0;
+      }
+
+      appliedJobs = yield gModels.ApplyJob.find(query).populate({
         path:     '_job',
         populate: { path: '_creator' }
       }).exec();
@@ -54,11 +64,10 @@ function jobs(req, res, next) {
       pos:          'jobs',
       appliedJobs:  appliedJobs,
       jobs:         jobs,
+      status:       status,
       currentUser:  req.currentUser 
     });
-  }).catch(function(err) {
-    next(err);
-  });
+  }).catch(next);
 }
 
 function changeUserInfo(req, res, next) {

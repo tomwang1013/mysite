@@ -1,22 +1,35 @@
 .jobs-container
-  each appliedJob in appliedJobs
-    - var job = appliedJob._job
-    .job-item.flex(data-job-id=job.id)
-      .job-info
-        p.job-title
-          a.title-link(href='/job/' + job.id)= job.title
-        p.job-basics.small-font
-          span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-          span 申请日期：<strong>#{appliedJob.createdAt.toLocaleDateString()}</strong>
-          span 公司：    <strong>#{job._creator.name}</strong>
-          span <strong>#{job.address}</strong>
-          span <strong>#{job.displaySalary}</strong>
-          span 申请人数：<strong>#{job._appliersSize}</strong>
-        .job-status.small-font
-          case appliedJob.status
-            when 0
-              .apply-pending 您的申请正在审核中，请耐心等待
-            when 1
-              .apply-refused= appliedJob.message
-            when 2
-              .apply-passed= appliedJob.message
+  .job-category
+    a(href='/profile/jobs?status=all' class={active: status == 'all'}) 全部职位
+    a(href='/profile/jobs?status=replied' class={active: status == 'replied'}) 已经回复的职位
+    a(href='/profile/jobs?status=unreplied' class={active: status == 'unreplied'}) 还未回复的职位
+  if !appliedJobs.length
+    .no-apply-job.text-center
+      if status == all
+        | 你还没有申请任何职位！
+      else if status == 'replied'
+        | 你还没有任何申请回复！
+      else
+        | 你还没有任何未回复的申请！
+  else
+    each appliedJob in appliedJobs
+      - var job = appliedJob._job
+      .job-item.flex(data-job-id=job.id)
+        .job-info
+          p.job-title
+            a.title-link(href='/job/' + job.id)= job.title
+          p.job-basics.small-font
+            span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
+            span 申请日期：<strong>#{appliedJob.createdAt.toLocaleDateString()}</strong>
+            span 公司：    <strong>#{job._creator.name}</strong>
+            span <strong>#{job.address}</strong>
+            span <strong>#{job.displaySalary}</strong>
+            span 申请人数：<strong>#{job._appliersSize}</strong>
+          .job-status.small-font
+            case appliedJob.status
+              when 0
+                .apply-pending 您的申请正在审核中，请耐心等待
+              when 1
+                .apply-refused= appliedJob.message
+              when 2
+                .apply-passed= appliedJob.message

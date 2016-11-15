@@ -66,7 +66,7 @@ $(document).ready(function() {
 
   /*
    * avatar upload
-   * select through file dialog or drag & drop
+   * select through file dialog
    */
   // disable default image drag action
   $('img, .crop-edge').on('dragstart', false);
@@ -150,10 +150,6 @@ $(document).ready(function() {
       width:  cropArea.width - 2 * edgeWidth,
       height: cropArea.height - 2 * edgeWidth
     });
-    //$('.corner').css({
-      //width:  edgeWidth,
-      //height: edgeWidth
-    //});
     $('.tl-corner').css({
       left: cropArea.left,
       top:  cropArea.top,

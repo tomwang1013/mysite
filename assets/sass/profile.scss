@@ -11,8 +11,15 @@
       border-bottom: 1px solid #ccc;
     }
 
+    li:last-child a {
+      border-bottom: none;
+    }
+
     a.active {
-      background-color: #ddd;
+      color: #000;
+      border-left: 2px solid #a00;
+      font-weight: bold;
+      cursor: default;
     }
 
     a:hover:not(.active) {
@@ -48,6 +55,25 @@
     }
 
     /* 职位列表 */
+    .jobs-container .job-category {
+      margin-bottom: 1em;
+      border-bottom: 1px solid #ddd;
+
+      a {
+        display: inline-block;
+        margin-right: 1em;
+        padding-bottom: 0.5em;
+        text-decoration: none;
+      }
+
+      a.active {
+        border-bottom: 2px solid #a00;
+        color: #000;
+        font-weight: bold;
+        cursor: default;
+      }
+    }
+
     .jobs-container .job-item {
       margin-bottom:20px;
       padding:10px;
