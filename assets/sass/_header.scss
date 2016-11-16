@@ -33,11 +33,11 @@ header {
       padding: 0.5em;
       width: 7em;
       color: #fff;
-      background-color: #666;
+      background-color: #000;
     }
   }
 
-  .msg-notify.has-msg:hover .msg-tip {
+  .msg-notify:hover .msg-tip {
     display: block;
     z-index: 10;
 
@@ -51,8 +51,6 @@ header {
       border-color: transparent transparent #666 transparent;
     }
   }
-
-
 
   .user-center {
     position: relative;
