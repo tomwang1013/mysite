@@ -73,6 +73,7 @@ router.post('/profile/change_account',    gControllers.middlewares.checkLogin, g
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
 router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar);
 router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar2);
+router.post('/profile/message/set_read',    gControllers.middlewares.checkLogin, gControllers.profile.setMsgRead);
 
 router.get('/uploads/:filename', gControllers.uploads.index );
 router.get('/universities', gControllers.universities.index );

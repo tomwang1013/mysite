@@ -230,11 +230,23 @@ function message(req, res, next) {
 function messageStatus(req, res, next) {
   co(function* () {
     let messages = yield gModels.Message.find({
-      userId: req.currentUser.id
+      userId: req.currentUser.id,
+      read:   false
     }).exec();
 
     res.json({ has_msg: messages.length > 0 });
   }).catch(next);
+}
+
+// 将消息标记为已读
+function setMsgRead(req, res, next) {
+  let msgId = req.body.msg_id;
+
+  gModels.Message.update({ _id: msgId }, { read: true }, function(err, response) {
+    if (err) return next(err);
+
+    res.json({ error: 0 });
+  });
 }
 
 exports = module.exports = {
@@ -244,6 +256,7 @@ exports = module.exports = {
   jobs:           jobs,
   message:        message,
   messageStatus:  messageStatus,
+  setMsgRead:     setMsgRead,
   changeUserInfo: changeUserInfo,
   changeAccount:  changeAccount,
   changePassword: changePassword,

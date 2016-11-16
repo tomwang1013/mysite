@@ -368,6 +368,12 @@
           text-align: right;
         }
       }
+
+      .message .title a.read {
+        cursor: default;
+        color: #777;
+        text-decoration:none;
+      }
     }
   }
 }
