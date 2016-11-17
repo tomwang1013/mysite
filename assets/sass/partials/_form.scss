@@ -1,0 +1,56 @@
+/* +++++++++++ form and controls ++++++++++++ */
+.label {
+  display: inline-block;
+}
+
+.label-radio {
+  margin-right: 0.5em;
+}
+
+input[type='radio'] {
+  margin-right: 0.5em;
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.form-control {
+  display: inline-block;
+  width: 100%;
+  padding: 0.25em 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  line-height: 1.5;
+  height: 2em;
+  font-size: 0.9em;
+  outline:none;
+  margin-top: 0.5em;
+}
+
+.form-control:focus {
+  border-color: #00a;
+}
+
+textarea.form-control {
+  height: auto;
+}
+
+textarea.rich-editor + div {
+  margin-top: 0.5em;
+}
+
+label.input-error {
+  display: inline-block;
+  color: #f00;
+  border: none;
+  font-size: 0.8em;
+}
+
+.form-control-hint {
+  color: #777;
+  font-size: 0.8em;
+  margin-top:6px;
+  line-height:1.4;
+}
