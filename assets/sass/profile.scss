@@ -132,12 +132,6 @@
 
 /* 账号与密码 */
 .account {
-  padding:1em 0;
-
-  & > div:first-child {
-    margin-bottom:1em;
-  }
-
   .header {
     border-radius: 0.25em 0.25em 0 0;
     background:#ccc;
@@ -149,184 +143,177 @@
     border:1px solid #ccc;
     border-top:none;
     padding:0.5em 1.2em;
-  }
+    margin-bottom:1em;
 
-  .overlay {
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background-color:#000;
-    opacity:0.5;
-    z-index:100;
-  }
-
-  .cropDlg {
-    position:fixed;
-    width:500px;
-    top:100px;
-    border:6px solid rgba(0,0,0,0.7);
-    z-index:101;
-    padding:6px;
-    background:#fff;
-
-    .close {
-      float:right;
+    .avatar {
+      margin-bottom: 1em;
     }
 
-    .middle {
-      margin:6px 0;
-      padding:6px 0;
-      border-top:2px solid #777;
-      border-bottom:2px solid #777;
-
-      /* disable image be selected*/
-      img {
-        -moz-user-select: -moz-none;
-        -o-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      .crop-container {
-        position:relative;
-        $edge_border_width: 2px;
-
-        .origin-img {
-          opacity: 0.5;
-          z-index:1000;
-        }
-
-        .cropArea {
-          position:absolute;
-          overflow:hidden;
-          z-index:1001;
-
-          .crop-img {
-            position:absolute;
-          }
-        }
-
-        .crop-edge {
-          position:absolute;
-        }
-
-        .crop-edge.sep-line {
-          background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
-          opacity: 0.5;
-        }
-
-        .move-area {
-          z-index:1002;
-          cursor:move;
-        }
-
-        .corner {
-          border: 1px solid #eee;
-          background-color: #333;
-          opacity: 0.7;
-          position: absolute;
-          width: 8px;
-          height: 8px;
-        }
-
-        .tl-corner {
-          cursor: nw-resize;
-          z-index:1007;
-          margin-left: -4px;
-          margin-top: -4px;
-        }
-        .tm-corner {
-          cursor: n-resize;
-          z-index:1008;
-          margin-top: -4px;
-        }
-        .tr-corner {
-          cursor: ne-resize;
-          z-index:1009;
-          margin-top: -4px;
-          margin-left: 4px;
-        }
-        .lm-corner {
-          cursor: w-resize;
-          z-index:1010;
-          margin-left: -4px;
-        }
-        .rm-corner {
-          cursor: e-resize;
-          z-index:1011;
-          margin-left: 4px;
-        }
-        .bl-corner {
-          cursor: sw-resize;
-          z-index:1012;
-          margin-left: -4px;
-          margin-top: 4px;
-        }
-        .bm-corner {
-          cursor: s-resize;
-          z-index:1013;
-          margin-top: 4px;
-        }
-        .br-corner {
-          cursor: se-resize;
-          z-index:1014;
-          margin-left: 4px;
-          margin-top: 4px;
-        }
-
-        .left-edge {
-          z-index:1003;
-          width:$edge_border_width;
-          cursor:w-resize;
-        }
-        .top-edge {
-          z-index:1004;
-          height:$edge_border_width;
-          cursor:n-resize;
-        }
-        .right-edge {
-          z-index:1005;
-          width:$edge_border_width;
-          cursor:e-resize;
-        }
-        .bottom-edge {
-          z-index:1006;
-          height:$edge_border_width;
-          cursor:s-resize;
-        }
-      }
+    .overlay {
+      position:fixed;
+      left:0;
+      top:0;
+      width:100%;
+      height:100%;
+      background-color:#000;
+      opacity:0.5;
+      z-index:100;
     }
 
-    .foot {
-      text-align:right;
+    .cropDlg {
+      position:fixed;
+      width:500px;
+      top:100px;
+      border:6px solid rgba(0,0,0,0.7);
+      z-index:101;
+      padding:6px;
+      background:#fff;
     }
   }
+}
 
-  .avatar {
-    margin-bottom: 1em;
+// 上传头像按钮
+.avatar {
+  .current-avatar {
+    border-radius: 0.25em;
+  }
 
-    img.current-avatar {
-      border-radius: 0.25em;
+  .upload {
+    margin-left:1em;
+    vertical-align:top;
+    overflow:hidden;
+
+    input {
+      left:0;
+      top:0;
+      opacity:0.001;
+      cursor:pointer;
     }
+  }
+}
 
-    .upload {
-      display:inline-block;
-      margin-left:1em;
-      vertical-align:top;
-      overflow:hidden;
-      position:relative;
+// 裁减悬浮框
+.cropDlg {
+  // disable image be selected
+  img {
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 
-      input {
-        position:absolute;
-        left:0;
-        top:0;
-        opacity:0.001;
-        cursor:pointer;
-      }
-    }
+  .close {
+    float:right;
+  }
+
+  .middle {
+    margin:6px 0;
+    padding:6px 0;
+    border-top:2px solid #777;
+    border-bottom:2px solid #777;
+  }
+
+  .foot {
+    text-align:right;
+  }
+}
+
+.crop-container {
+  $edge_border_width: 2px;
+
+  .sep-line {
+    background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
+    opacity: 0.5;
+  }
+
+  .origin-img {
+    opacity: 0.5;
+    z-index:1000;
+  }
+
+  .cropArea {
+    overflow:hidden;
+    z-index:1001;
+  }
+
+  .move-area {
+    z-index:1002;
+    cursor:move;
+  }
+
+  .left-edge {
+    z-index:1003;
+    width:$edge_border_width;
+    cursor:w-resize;
+  }
+  .top-edge {
+    z-index:1004;
+    height:$edge_border_width;
+    cursor:n-resize;
+  }
+  .right-edge {
+    z-index:1005;
+    width:$edge_border_width;
+    cursor:e-resize;
+  }
+  .bottom-edge {
+    z-index:1006;
+    height:$edge_border_width;
+    cursor:s-resize;
+  }
+
+  .corner {
+    border: 1px solid #eee;
+    background-color: #333;
+    opacity: 0.7;
+    width: 8px;
+    height: 8px;
+  }
+
+  .tl-corner {
+    cursor: nw-resize;
+    z-index:1007;
+    margin-left: -4px;
+    margin-top: -4px;
+  }
+  .tm-corner {
+    cursor: n-resize;
+    z-index:1008;
+    margin-top: -4px;
+  }
+  .tr-corner {
+    cursor: ne-resize;
+    z-index:1009;
+    margin-top: -4px;
+    margin-left: 4px;
+  }
+  .lm-corner {
+    cursor: w-resize;
+    z-index:1010;
+    margin-left: -4px;
+  }
+  .rm-corner {
+    cursor: e-resize;
+    z-index:1011;
+    margin-left: 4px;
+  }
+  .bl-corner {
+    cursor: sw-resize;
+    z-index:1012;
+    margin-left: -4px;
+    margin-top: 4px;
+  }
+  .bm-corner {
+    cursor: s-resize;
+    z-index:1013;
+    margin-top: 4px;
+  }
+  .br-corner {
+    cursor: se-resize;
+    z-index:1014;
+    margin-left: 4px;
+    margin-top: 4px;
   }
 }
 
