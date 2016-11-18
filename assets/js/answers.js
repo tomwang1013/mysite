@@ -1,16 +1,10 @@
 var $ = require('jquery');
 
 $(function() {
-  $('.to-score').click(function() {
+  $('.to-score, .re-score').click(function() {
     $(this).hide();
     $('.score-comment').show();
-    return false;
-  });
-
-  $('.re-score').click(function() {
-    $(this).hide();
-    $('.score-comment').show();
-    $('#score').focus();
+    $('#score').focus().val($('#score').val());
     return false;
   });
 });

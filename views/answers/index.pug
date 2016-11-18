@@ -5,22 +5,25 @@ block css
   link(href="/css/answers.css", rel="stylesheet")
 block content
   .answers
-    .text-bold.answers-head
-      | 职位：
+    .text-bold.answers-head 职位：
       a.job-title(href='/job/' + job.id)= job.title
+      | 的所有解答
     .answers-question
       strong 问题：
       .question-content!= question.content
     .answers-list
       strong 解答：
-      each answer in answers
-        - var user = answer._user
-        .answer.small-font
-          .user-info
-            span
-              a(href='/user/' + user.id)= user.name
-            span #{user.university}/#{user.major}
-            span 创建时间：#{answer.createdAt.toLocaleDateString()}
-            span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
-            a.answer-detail(href='/question/' + question.id + '/answer/' + answer.id) 查看解答详情>>
-          .answer-content!= answer.content
+      if !answers.length
+        .no-answer 暂时没有求职者做解答
+      else
+        each answer in answers
+          - var user = answer._user
+          .answer.small-font
+            .user-info
+              span
+                a(href='/user/' + user.id)= user.name
+              span #{user.university}/#{user.major}
+              span 创建时间：#{answer.createdAt.toLocaleDateString()}
+              span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
+              a.answer-detail(href='/question/' + question.id + '/answer/' + answer.id) 查看解答详情>>
+            .answer-content!= answer.content

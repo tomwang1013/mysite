@@ -1,84 +1,112 @@
 @import 'partials/all';
 
-/* new answer */
-.answer-new-head {
-  margin-bottom: 0.5em;
-  padding-bottom: 6px;
+@mixin job-title {
+  padding-bottom: 0.5em;
   border-bottom: 3px solid #aaa;
-
-  .job-title {
-    margin: 0 0.5em;
-  }
 }
 
-.answer-new .question {
+@mixin question {
+  margin: 0.5em 0;
   padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
   border-bottom: 2px solid #aaa;
 
   .question-content {
     margin-top: 0.5em;
-    font-size: 0.9em;
   }
 }
 
-.answer-new-form {
-  margin-top: 0.5em;
+/* new answer */
+.answer-new {
+  .answer-new-head {
+    @include job-title;
+    .job-title {
+      margin: 0 0.5em;
+    }
+  }
 
-  .form-group {
+  .question {
+    @include question;
+  }
+
+  .answer-new-form {
     margin-top: 0.5em;
+
+    .form-group {
+      margin-top: 0.5em;
+    }
   }
 }
+
 
 /* answsers list */
-.answers-head {
-  padding-bottom: 0.5em;
-  border-bottom: 3px solid #aaa;
-}
+.answers {
+  .answers-head {
+    @include job-title;
 
-.answers-question {
-  margin: 0.5em 0;
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid #777;
-  .question-content {
+    .job-title {
+      margin-right: 0.5em;
+    }
+  }
+
+  .answers-question {
+    @include question;
+  }
+
+  .no-answer {
+    color: #a00;
     margin-top: 0.5em;
+  }
+
+  .answer {
+    border-bottom: 1px solid #777;
+    padding: 0.5em 0;
   }
 }
 
-.answer {
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid #777;
 
-  .user-info {
-    padding: 0.5em 0;
-    border-top: 1px dashed #aaa;
-    border-bottom: 1px dashed #aaa;
-    margin: 0.5em 0;
-    overflow: hidden;
-    span {
-      margin-right: 1em;
-    }
-    .answer-detail {
-      float: right;
-    }
+.answer .user-info {
+  padding: 0.5em 0;
+  border-top: 1px dashed #aaa;
+  border-bottom: 1px dashed #aaa;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+
+  span {
+    margin-right: 1em;
+  }
+
+  .answer-detail {
+    float: right;
   }
 }
 
 /* answer show */
-.answer-content .body {
-  margin: 0.5em 0;
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid #777;
-}
-
-.opts {
-  margin-bottom: 1em;
-
-  a.edit-answer {
-    margin-right: 1em;
+.answer-show {
+  .answer-head {
+    @include job-title;
   }
 
-  a.re-score {
-    margin-left: 1em;
+  .answer-question {
+    @include question;
+  }
+
+  .answer-content {
+    .body {
+      margin: 0.5em 0;
+      padding-bottom: 0.5em;
+      border-bottom: 2px solid #aaa;
+    }
+
+    .opts {
+      margin-bottom: 1em;
+    }
+
+    .edit-answer {
+      margin-right: 1em;
+    }
+
+    .re-score {
+      margin-left: 1em;
+    }
   }
 }

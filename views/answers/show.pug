@@ -5,23 +5,23 @@ block css
   link(href="/css/answers.css", rel="stylesheet")
 block content
   .answer-show
-    .text-bold.answers-head
+    .text-bold.answer-head
       | 职位：
       a.job-title(href='/job/' + job.id)= job.title
-    .answers-question
+    .answer-question
       strong 问题：
       .question-content!= question.content
     .answer-content
-      strong 答案：
+      strong 解答：
       .body.small-font!= answer.content
       .opts
         if req.currentUser.type == 0
-          a.edit-answerbtn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
+          a.edit-answer.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
           button.btn.btn-warning.del-answer 删 除
         else
           if answer.isScored
             strong.text-bold.small-font 你对此解答的当前评分：#{answer.score} 分
-            a.re-score.small-font 重新评分
+            button.btn.re-score 重新评分
           else
             button.btn.btn-primary.to-score 为此解答评分
       .score-comment(style={display: 'none'})

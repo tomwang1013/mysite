@@ -13,7 +13,7 @@ block content
       | 做面试题解答
     .question
       strong 题目：
-      .question-content!= question.content
+      .question-content.small-font!= question.content
     .answer-content
       strong 你的答案：
       form.answer-new-form(method='post' action='/question/' + question.id + '/answers/create')
