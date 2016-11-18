@@ -1,19 +1,19 @@
 @import 'partials/all';
 
+/**
+ * 题目列表
+ */
 .questions-head {
-  position: relative;
-  line-height: 30px;
-  font-weight: bold;
+  line-height: 32px;
   margin-bottom: 0.5em;
   padding-bottom: 6px;
   border-bottom: 3px solid #aaa;
 
   .job-title {
-    margin: 0 0.5em;
+    margin-right: 0.5em;
   }
 
   .new-question {
-    position: absolute;
     right: 0;
   }
 }
@@ -33,35 +33,20 @@
   }
 
   .question-level {
-    font-size: 0.9em;
-    position: relative;
-    line-height: 27px;
+    line-height: 32px;
     padding-top: 6px;
     border-top: 1px dashed #ccc;
 
-    .level-desc {
-      margin-right: 1em;
-    }
-
-    .del-question {
-      position: absolute;
-      right: 0;
-    }
-
-    .edit-question {
-      position: absolute;
-      right: 50px;
-    }
-
-    .answers {
-      right: 110px;
-    }
+    .del-question   { right: 0; }
+    .edit-question  { right: 60px; }
+    .answers        { right: 120px; }
   }
 }
 
+/**
+ * 新建及修改题目
+ */
 .questions-new-head {
-  line-height: 30px;
-  font-weight: bold;
   margin-bottom: 0.5em;
   padding-bottom: 6px;
   border-bottom: 3px solid #aaa;

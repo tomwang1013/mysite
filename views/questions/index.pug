@@ -4,11 +4,10 @@ block js
 block css
   link(href="/css/questions.css", rel="stylesheet")
 block content
-  .questions-head
-    | 职位
+  .questions-head.text-bold.relative
     a.job-title(href='/job/' + job.id)= job.title
     | 的题目列表
-    a.btn.btn-primary.new-question(href='/job/' + job.id + '/questions/new') 新建题目
+    a.btn.btn-primary.new-question.absolute(href='/job/' + job.id + '/questions/new') 新建题目
   .questions-list
     if questions.length == 0
       .text-center.no-questions 您还没有为本职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
@@ -16,10 +15,9 @@ block content
       each question in questions
         .question
           .question-content!= question.content
-          .question-level
-            span.level-desc
-              | 难度：
+          .question-level.small-font.relative
+            span 难度：
               strong= question.levelDesc()
             a.absolute.answers(href='/question/' + question.id + '/answers') 查看所有解答
-            a.btn.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
-            button.btn.btn-warning.del-question(data-url='/job/' + job.id + '/question/' + question.id + '/update') 删 除
+            a.btn.edit-question.absolute(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
+            button.btn.btn-warning.del-question.absolute(data-url='/job/' + job.id + '/question/' + question.id + '/update') 删 除
