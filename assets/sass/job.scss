@@ -4,6 +4,9 @@
   max-width: 720px;
 }
 
+/**
+ * 职位详情
+ */
 .show-job {
   padding: 0 1em;
   border: 1px solid #aaa;
@@ -17,18 +20,6 @@
   .job-section {
     padding-bottom: 0.5em;
     border-bottom: 1px solid #aaa;
-  }
-
-  .job-basic {
-    p:not(:last-child) {
-      margin-bottom: 0.5em;
-    }
-    span {
-      display: inline-block;
-      &:first-child {
-        width: 15%;
-      }
-    }
   }
 
   .job-apply {
@@ -50,29 +41,45 @@
       border-bottom: 2px solid #aaa;
     }
   }
+}
 
-  .question {
+// 职位基本信息
+.job-basic {
+  p:not(:last-child) {
+    margin-bottom: 0.5em;
+  }
+
+  span:first-child {
+    width: 15%;
+  }
+}
+
+// 单个问题基本信息
+.question {
+  padding: 1em;
+
+  &:nth-child(even) {
+    background-color: #ccc;
+  }
+
+  &:nth-child(odd) {
+    background-color: #bbb;
+  }
+
+  .answer {
     padding: 1em;
+    background-color: #eee;
+    color: #060;
 
-    &:nth-child(even) {
-      background-color: #ccc;
-    }
-
-    &:nth-child(odd) {
-      background-color: #bbb;
-    }
-
-    .answer {
-      padding: 1em;
-      background-color: #eee;
-      color: #060;
-
-      a {
-        margin-right: 0.5em;
-      }
+    a {
+      margin-right: 0.5em;
     }
   }
 }
+
+/**
+ * 职位列表页
+ */
 
 // job search form
 form.jobs-search > div.flex {
@@ -139,7 +146,9 @@ form.jobs-search > div.flex {
   }
 }
 
-// 企业查看职位申请者列表
+/**
+ * 企业查看职位申请者列表
+ */
 .appliers-container {
   .applier-title {
     padding-bottom: 6px;
