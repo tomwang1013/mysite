@@ -12,9 +12,15 @@ const allEntryDates = [
 const gridfs = require('../lib/gridfs');
 
 let Schema = mongoose.Schema;
+let isStudent = function() { return this.userType === 0; };
+let isCompany = function() { return this.userType === 1; };
 let userSchema = new Schema({
-  name:     { type: String, required: [true, '这是必填字段'], unique: true },
-  email:    {
+  name: {
+    type: String,
+    required: [true, '这是必填字段'],
+    unique: true
+  },
+  email: {
     type:     String,
     required: [true, '这是必填字段'],
     unique:   true,
@@ -31,23 +37,29 @@ let userSchema = new Schema({
 
   // 学生属性
   gender:     String, // 性别
-  university: String, // 学校名称
-  major:      String, // 专业
-  entryDate:  Number, // 入学日期
+  university: { type: String, required: [isStudent, '这是必填字段'] }, // 学校名称
+  major:      { type: String, required: [isStudent, '这是必填字段'] }, // 专业
+  entryDate:  { type: String, required: [isStudent, '这是必填字段'] }, // 入学日期
   careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
 
   // 企业属性
-  url:        String, // 公司主页
-  desc:       String, // 公司介绍
-  business:   String, // 行业
-  scale:      Number, // 规模：0~50,50~100，etc
-  maturity:   Number, // 成熟度：初创，A轮，B轮，C轮，上市，etc
+  url: {
+    type: String,
+    required: [isCompany, '这是必填字段'],
+    match: [/^http:\/\//, '{PATH}必须以http://开头']
+  }, // 公司主页
+  desc: {
+    type: String,
+    required: [isCompany, '这是必填字段'],
+    minlength: [60, '对公司的描述不能少于{MINLEGNTH}个字符']
+  }, // 公司介绍
+  business:   { type: String, required: [isCompany, '这是必填字段'] }, // 行业
+  scale:      { type: String, required: [isCompany, '这是必填字段'] }, // 规模：0~50,50~100，etc
+  maturity:   { type: String, required: [isCompany, '这是必填字段'] }, // 成熟度：初创，A轮，B轮，C轮，上市，etc
 });
 
 userSchema.plugin(uniqueValidator, { message: '{VALUE} 已经存在' });
-userSchema.index({ name: 1 },  { unique: true });
-userSchema.index({ email: 1 }, { unique: true });
 
 userSchema.methods.isStudent = function() {
   return this.userType === 0;

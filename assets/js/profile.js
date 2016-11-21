@@ -44,10 +44,16 @@ $(document).ready(function() {
       data[fname] = field.val();
     }
 
-    $.post('/profile/change_user_info', data, function() {
-      parent.hide();
-      field.attr('data-ori-value', data[fname]);
-      field.val(data[fname]);
+    $.post('/profile/change_user_info', data, function(result) {
+      if (result.error) {
+        // save failed
+        field.before("<label class='input-error'>" + result.errors[field.attr('id')] + "<label>");
+        field.focus().val(data[fname]);
+      } else {
+        parent.hide();
+        field.prev('label.input-error').remove();
+        field.attr('data-ori-value', data[fname]).val(data[fname]);
+      }
     });
   });
 
@@ -64,6 +70,7 @@ $(document).ready(function() {
     }
 
     parent.hide();
+    field.prev('label.input-error').remove();
   });
 
   /*

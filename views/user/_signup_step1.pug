@@ -2,7 +2,7 @@ form(method='post', action='/signup', class='signup', data-step=step)
   input(type='hidden', name='step', value=step)
   .form-group
     label(for='name' class='label label-input') 用户名：
-    input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control')
+    input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control' autofocus)
   .form-group
     label(for='email' class='label label-input') Email：
     input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')

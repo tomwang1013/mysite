@@ -31,17 +31,10 @@
 }
 
 /* 浏览与修改用户信息 */
-.user-info {
-  .form-control,
-  .form-control-hint,
-  .rich-editor + div {
-    width:85%;
+.operations {
+  margin-top:0.5em;
+  button:first-child {
     margin-right: 0.5em;
-  }
-
-  button {
-    vertical-align:top;
-    margin:0.5em 0.5em 0 0;
   }
 }
 
