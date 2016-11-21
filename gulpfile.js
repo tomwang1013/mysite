@@ -11,6 +11,7 @@ var glob        = require('glob');
 var es          = require('event-stream');
 var rev         = require('gulp-rev');
 var cleanCSS    = require('gulp-clean-css');
+var del         = require('del');
 
 var deps = ['jquery', 'lodash'];
 
@@ -61,6 +62,10 @@ gulp.task('font-awesome', function () {
     .pipe(gulp.dest('public/css/'));
 });
 
+gulp.task('clean:js', function () {
+  return del('public/js/**/*');
+});
+
 gulp.task('manifest-js', ['vendor.js', 'bundle.js'], function() {
   gulp.src(['public/js/+([^-]).js'], { base: 'public' })
     .pipe(buffer())
@@ -71,6 +76,10 @@ gulp.task('manifest-js', ['vendor.js', 'bundle.js'], function() {
     .pipe(gulp.dest('public'))
     .pipe(rev.manifest('rev-manifest.json', { merge: true }))
     .pipe(gulp.dest('.'));
+});
+
+gulp.task('clean:css', function () {
+  return del('public/css/**/*');
 });
 
 gulp.task('manifest-css', ['sass', 'font-awesome'], function() {

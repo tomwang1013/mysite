@@ -45,6 +45,7 @@
     "babel-preset-react": "^6.5.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "del": "^2.2.2",
     "event-stream": "^3.3.4",
     "glob": "^7.0.5",
     "gulp": "^3.9.1",
