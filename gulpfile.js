@@ -12,6 +12,7 @@ var es          = require('event-stream');
 var rev         = require('gulp-rev');
 var cleanCSS    = require('gulp-clean-css');
 var del         = require('del');
+var rename      = require('gulp-rename');
 
 var deps = ['jquery', 'lodash'];
 
@@ -59,14 +60,16 @@ gulp.task('sass', function () {
 gulp.task('font-awesome', function () {
   return gulp.src('assets/sass/font-awesome/font-awesome.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(rename('font_awesome.css'))
     .pipe(gulp.dest('public/css/'));
 });
 
+// production
 gulp.task('clean:js', function () {
-  return del('public/js/**/*');
+  return del('public/js/**/*-*');
 });
 
-gulp.task('manifest-js', ['vendor.js', 'bundle.js'], function() {
+gulp.task('manifest:js', ['clean:js', 'vendor.js', 'bundle.js'], function() {
   gulp.src(['public/js/+([^-]).js'], { base: 'public' })
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -79,10 +82,10 @@ gulp.task('manifest-js', ['vendor.js', 'bundle.js'], function() {
 });
 
 gulp.task('clean:css', function () {
-  return del('public/css/**/*');
+  return del('public/css/**/*-*');
 });
 
-gulp.task('manifest-css', ['sass', 'font-awesome'], function() {
+gulp.task('manifest:css', ['clean:css', 'sass', 'font-awesome'], function() {
   gulp.src(['public/css/+([^-]).css'], { base: 'public' })
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
@@ -94,6 +97,9 @@ gulp.task('manifest-css', ['sass', 'font-awesome'], function() {
     .pipe(gulp.dest('.'));
 });
 
+gulp.task('build', ['manifest:js', 'manifest:css']);
+
+// development
 gulp.task('watch', function() {
   gulp.watch('assets/sass/**/*.scss', ['sass']);
   gulp.watch('assets/js/common/*.js', ['vendor.js']);
