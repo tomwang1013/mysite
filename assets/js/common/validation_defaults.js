@@ -30,7 +30,7 @@ $.validator.setDefaults({
       } else {
         location = data.location;
       }
-    });
+    }, 'json');
 
     return false;
   }
