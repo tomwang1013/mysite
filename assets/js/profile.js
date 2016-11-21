@@ -31,6 +31,7 @@ $(document).ready(function() {
     CKEDITOR.instances[editorName].on('change', checkRichEditState);
   });
 
+  // 保存
   $('.user-info .form-group button:first-of-type').click(function() {
     var parent  = $(this).parent();
     var field   = parent.siblings('.change-field');
@@ -50,6 +51,7 @@ $(document).ready(function() {
     });
   });
 
+  // 取消
   $('.user-info .form-group button:last-of-type').click(function() {
     var parent = $(this).parent();
     var field  = parent.siblings('.change-field');

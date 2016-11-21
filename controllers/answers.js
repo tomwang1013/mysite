@@ -94,4 +94,3 @@ exports = module.exports = {
   edit:   edit,
   update: update
 };
-

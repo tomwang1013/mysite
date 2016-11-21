@@ -11,7 +11,10 @@ $(function() {
 
 $.validator.setDefaults({
   errorClass: 'input-error',
-  ignore:     '.ignore',
+  ignore: '.ignore',
+  errorPlacement: function(error, element) {
+    error.insertBefore(element);
+  },
   submitHandler: function(form) {
     var validator = this;
     var args = $(form).serializeObject();

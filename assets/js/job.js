@@ -44,18 +44,10 @@ $(document).ready(function() {
   $('#address').popupTabs(cities);
 
   // create job
-  $('form.new-job').validate({
-    errorPlacement: function(error, element) {
-      error.insertBefore(element);
-    },
-  });
+  $('form.new-job').validate();
 
   // update job
-  $('form.edit-job').validate({
-    errorPlacement: function(error, element) {
-      error.insertBefore(element);
-    },
-  });
+  $('form.edit-job').validate();
 
   // apply job at jobs index
   $('.job-title button').click(function() {

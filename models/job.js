@@ -21,7 +21,7 @@ let jobSchema = new Schema({
   // relations
   _creator:     { type: Schema.Types.ObjectId, ref: 'User' },       // 创建者
   _appliers:    [{ type: Schema.Types.ObjectId, ref: 'apply_job' }], // 申请记录列表
-  _appliersSize:  Number,  // 申请人数
+  _appliersSize:{ type: Number, default: 0 },  // 申请人数
 },  {
   timestamps: true
 });
