@@ -1,8 +1,4 @@
-extends ../layouts/main
-block js
-  script(src='/js/user.js')
-block css
-  link(href="/css/user.css", rel="stylesheet")
+extends _layout.pug
 block content
   .user-show
     if user.isStudent()

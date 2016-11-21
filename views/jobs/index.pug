@@ -1,8 +1,4 @@
-extends ../layouts/main
-block css
-  link(href="/css/job.css", rel="stylesheet")
-block js
-  script(src='/js/job.js')
+extends _layout.pug
 block content
   form.jobs-search(action='/jobs' method='get')
     div.flex

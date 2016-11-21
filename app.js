@@ -35,6 +35,15 @@ app.use(gControllers.middlewares.currentUser);
 app.use(require('./route'));
 app.use(gControllers.error);
 
+app.assetsManifest = require('./rev-manifest.json');
+app.locals.assetHashPath = function(originPath) {
+  if (app.get('env') == 'development') {
+    return '/' + originPath;
+  } else {
+    return '/' + app.assetsManifest[originPath];
+  }
+}
+
 app.listen(3000, function() {
   console.log('server started and listen on 3000...');
 });

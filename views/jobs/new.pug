@@ -1,9 +1,6 @@
-extends ../layouts/main
-block css
-  link(href="/css/job.css", rel="stylesheet")
-block js
+extends _layout.pug
+append js
   script(src='/ckeditor/ckeditor.js')
-  script(src='/js/job.js')
 block content
   form(method='post', action='/jobs', class='new-job hcenter')
     .header.text-center.text-bold 创建职位

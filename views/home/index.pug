@@ -1,8 +1,8 @@
 extends ../layouts/main
-block css
-  link(href="/css/index.css", rel="stylesheet")
-block js
-  script(src='/js/home.js')
+append css
+  link(href=assetHashPath("css/index.css"), rel="stylesheet")
+append js
+  script(src=assetHashPath('js/home.js'))
 block content
   .login-box.hcenter
     form(method='post', action='/signup' class='index-signup')

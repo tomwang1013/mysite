@@ -1,16 +1,12 @@
-extends ../layouts/main
-block js
-  script(src='/js/answers.js')
-block css
-  link(href="/css/answers.css", rel="stylesheet")
+extends _layout.pug
 block content
   .answers
-    .text-bold.answers-head 职位：
+    .answers-head 职位：
       a.job-title(href='/job/' + job.id)= job.title
       | 的所有解答
     .answers-question
       strong 问题：
-      .question-content!= question.content
+      .question-content.small-font!= question.content
     .answers-list
       strong 解答：
       if !answers.length

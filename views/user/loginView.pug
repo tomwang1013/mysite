@@ -1,8 +1,4 @@
-extends ../layouts/main
-block js
-  script(src='/js/login.js')
-block css
-  link(href="/css/login.css", rel="stylesheet")
+extends _layout.pug
 block content
   div.login-box.hcenter
     form(method='post', action='/login', class='login')

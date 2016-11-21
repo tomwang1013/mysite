@@ -1,13 +1,9 @@
-extends ../layouts/main
+extends _layout.pug
 block js
   script(src='/ckeditor/ckeditor.js')
-  script(src='/js/answers.js')
-  script CKEDITOR.replace('content')
-block css
-  link(href="/css/answers.css", rel="stylesheet")
 block content
   .answer-new
-    .answer-new-head.text-bold
+    .answer-new-head
       | 你正在为
       a.job-title(href='/job/' + job.id)= job.title
       | 做面试题解答

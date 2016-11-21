@@ -1,9 +1,6 @@
-extends ../layouts/main
-block js
+extends _layout.pug
+append js
   script(src='/ckeditor/ckeditor.js')
-  script(src='/js/signup.js')
-block css
-  link(href="/css/signup.css", rel="stylesheet")
 block content
   .formal-signup
     h3 加入学做网
