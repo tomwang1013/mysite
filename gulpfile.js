@@ -8,8 +8,8 @@ var buffer      = require('vinyl-buffer');
 var sourcemaps  = require('gulp-sourcemaps');
 var sass        = require('gulp-sass');
 var glob        = require('glob');
-var concat      = require('gulp-concat');
 var es          = require('event-stream');
+var rev         = require('gulp-rev');
 
 var deps = ['jquery', 'lodash'];
 
@@ -23,9 +23,16 @@ gulp.task('vendor.js', function() {
   }).require(deps)
     .bundle()
     .pipe(source('vendor.js'))
-    //.pipe(buffer())
-    //.pipe(uglify())
-    .pipe(gulp.dest('./public/js/'));
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(rev())
+    .pipe(uglify())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./public/js'))
+    .pipe(rev.manifest({
+      base: './public',
+      merge: true
+    }));
 });
 
 gulp.task('bundle.js', function(done) {
@@ -44,7 +51,7 @@ gulp.task('bundle.js', function(done) {
       .pipe(source(entry.slice(entry.lastIndexOf('/') + 1)))
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
-      //.pipe(uglify())
+      .pipe(uglify())
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest('public/js'));
     });
