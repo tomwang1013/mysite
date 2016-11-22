@@ -31,7 +31,5 @@ $.validator.setDefaults({
         location = data.location;
       }
     }, 'json');
-
-    return false;
   }
 });
