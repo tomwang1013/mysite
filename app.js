@@ -4,7 +4,6 @@ const express       = require('express');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
 const cookieParser  = require('cookie-parser');
-const favicon       = require('serve-favicon');
 const flash         = require('connect-flash');
 const _             = require('lodash');
 const app           = express();
@@ -20,9 +19,7 @@ global.gModels      = require('./models');
 app.set('views', './views')
 app.set('view engine', 'pug')
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
