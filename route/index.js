@@ -79,4 +79,7 @@ router.get('/uploads/:filename', gControllers.uploads.index );
 router.get('/universities', gControllers.universities.index );
 router.get('/majors', gControllers.majors.index );
 
+router.get('/about', gControllers.about.index );
+router.get('/about/contact', gControllers.about.contact );
+
 module.exports = router;

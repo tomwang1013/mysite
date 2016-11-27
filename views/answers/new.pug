@@ -16,6 +16,6 @@ block content
         input(type='hidden' name='_question' value=question.id)
         input(type='hidden' name='_user' value=req.currentUser.id)
         input(type='hidden' name='_job' value=question._job.id)
-        textarea(name='content' id='content')
+        textarea(name='content' id='content' class='form-control rich-editor')
         .form-group
           input.btn.btn-primary(type='submit' value='提 交')

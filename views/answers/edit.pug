@@ -1,5 +1,5 @@
 extends _layout.pug
-block js
+append js
   script(src='/ckeditor/ckeditor.js')
 block content
   .answer-new
@@ -13,6 +13,6 @@ block content
     .answer-content
       strong 你的答案：
       form.answer-new-form(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')
-        textarea(name='content' id='content')!= answer.content
+        textarea(name='content' id='content' class='form-control rich-editor')!= answer.content
         .form-group
           input.btn.btn-primary(type='submit' value='保 存')
