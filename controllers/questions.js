@@ -46,6 +46,20 @@ function create(req, res, next) {
   }).catch(next);
 }
 
+function show(req, res, next) {
+  let jobId = req.params.jid;
+  let questionId = req.params.qid;
+
+  co(function* () {
+    let question = yield gModels.Question.findById(questionId).populate('_job').exec();
+
+    res.render('questions/show', {
+      job: question._job,
+      question: question
+    });
+  }).catch(next);
+}
+
 function edit(req, res, next) {
   let jobId = req.params.jid;
   let questionId = req.params.qid;
@@ -82,5 +96,6 @@ exports = module.exports = {
   nnew:   nnew,
   create: create,
   edit:   edit,
-  update: update
+  update: update,
+  show:   show
 };

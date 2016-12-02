@@ -1,50 +1,47 @@
 /* normal button look*/
 .btn {
   @include inline-box;
-  border-color: #53868B;
   color: #eee;
-  background-color: #53868B;
   cursor:pointer;
 }
 
-.btn:hover {
-  background-color: #4A777A;
-}
-
-.btn-disabled {
-  cursor: default;
-}
-
-.btn-disabled:hover {
+.btn-normal {
+  @extend .btn;
+  border-color: #53868B;
   background-color: #53868B;
+  &:hover {
+    background-color: #4A777A;
+  }
 }
+
 
 /* primary button look*/
 .btn-primary {
+  @extend .btn;
   background-color: #2E37FE;
-  border: 1px solid #2E37FE;
+  border-color: #2E37FE;
+  &:hover {
+    background-color: #0000CD;
+  }
 }
 
-.btn-primary:hover {
-  background-color: #0000CD;
-}
 
 /* warning button look*/
 .btn-warning {
+  @extend .btn;
   background-color: #B13E0F;
-  border: 1px solid #B13E0F;
-}
-
-.btn-warning:hover {
-  background-color: #8B2500;
+  border-color: #B13E0F;
+  &:hover {
+    background-color: #8B2500;
+  }
 }
 
 /* cancel button */
 .btn-cancel {
+  @extend .btn;
   background-color: #B18D92;
-  border: 1px solid #B18D92;
-}
-
-.btn-cancel:hover {
-  background-color: #8D5E64;
+  border-color: #B18D92;
+  &:hover {
+    background-color: #8D5E64;
+  }
 }

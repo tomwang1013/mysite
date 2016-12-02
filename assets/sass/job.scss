@@ -35,6 +35,10 @@
   .job-apply {
     padding: 1em 0;
 
+    .applied {
+      color: green;
+    }
+
     button {
       width: 10%;
     }

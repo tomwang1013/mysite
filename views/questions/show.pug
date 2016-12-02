@@ -1,0 +1,9 @@
+extends _layout.pug
+block content
+  .question-new
+    .questions-new-head
+      | 职位：
+      a.job-title(href='/job/' + job.id)= job.title
+    .answer-question
+      strong 问题：
+      .question-content.small-font!= question.content

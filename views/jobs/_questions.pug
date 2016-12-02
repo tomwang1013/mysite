@@ -7,11 +7,6 @@ section.job-section.questions
       if req.currentUser && req.currentUser.type == 0
         - var answer = myAnswers[question.id]
         if answer
-          .answer
-            strong 我的解答：
-            .small-font.answer-content!= answer.content
-            .ops
-              a.btn(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
-              button.btn.btn-warning(data-url='/question/' + question.id + '/answer/' + answer.id + '/update') 删 除
+          a.btn-normal(href='/question/' + question.id + '/answer/' + answer.id) 查看我的解答
         else
-          a.to-answer.btn.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答
+          a.to-answer.btn-primary(href='/question/' + question.id + '/answers/new') 马上解答

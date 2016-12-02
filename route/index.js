@@ -50,6 +50,7 @@ router.get('/job/:jid/questions',             gControllers.middlewares.checkComp
 router.get('/job/:jid/questions/new',         gControllers.middlewares.checkCompanyLogin, gControllers.questions.nnew);
 router.post('/job/:jid/questions/create',     gControllers.middlewares.checkCompanyLogin, gControllers.questions.create);
 router.get('/job/:jid/question/:qid/edit',    gControllers.middlewares.checkCompanyLogin, gControllers.questions.edit);
+router.get('/job/:jid/question/:qid', gControllers.questions.show);
 router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkCompanyLogin, gControllers.questions.update);
 
 // answers
@@ -59,6 +60,7 @@ router.post('/question/:qid/answers/create',      gControllers.middlewares.check
 router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin, gControllers.answers.show);
 router.get('/question/:qid/answer/:aid/edit',     gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
 router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkLogin, gControllers.answers.update);
+router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkLogin, gControllers.answers.remove);
 
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
