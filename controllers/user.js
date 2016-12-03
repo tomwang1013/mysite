@@ -92,7 +92,7 @@ function signup_step2(req, res, next) {
   co(function* () {
     let userFullAttrs = _.assign(req.body, req.session.signupAccount);
     let user = yield gModels.User.create(userFullAttrs);
-    loginUser(user);
+    loginUser(req, user);
     res.json({ error: 0, location: '/signup?step=3' });
   }).catch(function(error) {
     res.json({
