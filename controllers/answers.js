@@ -88,20 +88,20 @@ function update(req, res, next) {
 
 // 用户删除答案
 function remove(req, res, next) {
-  gModels.Answer.findById(req.params.aid, function(err, answer) {
+  co(function* () {
+    let answer = yield gModels.Answer.findById(req.params.aid);
+
     if (req.currentUser.id != answer._user) {
       return next({ code: 403 });
     }
 
-    answer.isDeleted = true;
-
-    answer.save(function(err, result) {
+    answer.remove(function(err, result) {
       res.json({
         error: err,
         location: `/job/${req.body.job_id}/question/${answer._question}`
       });
     });
-  })
+  });
 }
 
 exports = module.exports = {

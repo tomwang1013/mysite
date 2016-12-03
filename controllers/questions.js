@@ -46,17 +46,50 @@ function create(req, res, next) {
   }).catch(next);
 }
 
+// 问题详情页:
+// 用户未登陆：
+//  展示解答按钮，点击后进入登陆页面，登陆后进入问题解答页面
+// 用户已登陆：
+//  学生：
+//    已解答：展示答案，和答案详情页一样
+//    未解答：展示解答按钮，点击后进入解答页面
+//  企业：
+//    如果是当前企业出的问题，展示编辑按钮
+//    如果不是，403
 function show(req, res, next) {
   let jobId = req.params.jid;
   let questionId = req.params.qid;
+  let status;
 
   co(function* () {
     let question = yield gModels.Question.findById(questionId).populate('_job').exec();
+    let job = question._job;
+    let answer;
 
-    res.render('questions/show', {
-      job: question._job,
-      question: question
-    });
+    if (req.currentUser) {
+      if (req.currentUser.type == 0) {
+        answer = yield gModels.Answer.findOne({
+          _question: question.id,
+          _user: req.currentUser.id
+        }).exec();
+
+        if (answer) {
+          status = 'hasAnswer';
+        } else {
+          status = 'toAnswer';
+        }
+      } else {
+        if (job._creator == req.currentUser.id) {
+          status = 'toEdit';
+        } else {
+          return next(new Error('access denied'));
+        }
+      }
+    } else {
+      status = 'toAnswer';
+    }
+
+    res.render('questions/show', { job, question, status, answer });
   }).catch(next);
 }
 

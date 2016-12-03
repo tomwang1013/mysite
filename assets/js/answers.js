@@ -9,10 +9,12 @@ $(function() {
   });
 
   $('.del-answer').click(function() {
-    $.post($(this).data('link'), {
-      job_id: $(this).data('jobId')
-    }, function(data) {
-      location = data.location;
-    });
+    if (confirm('确定要删除此解答吗？')) {
+      $.post($(this).data('link'), {
+        job_id: $(this).data('jobId')
+      }, function(data) {
+        location.replace(data.location);
+      });
+    }
   });
 });

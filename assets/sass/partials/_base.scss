@@ -21,7 +21,10 @@ main {
   margin: auto;
 }
 
-p { line-height: 1.5; }
+p {
+  line-height: 1.2;
+  margin-top: 0;
+}
 
 .inline-block { display: inline-block; }
 .flex         { display: flex; }

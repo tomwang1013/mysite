@@ -50,7 +50,7 @@ router.get('/job/:jid/questions',             gControllers.middlewares.checkComp
 router.get('/job/:jid/questions/new',         gControllers.middlewares.checkCompanyLogin, gControllers.questions.nnew);
 router.post('/job/:jid/questions/create',     gControllers.middlewares.checkCompanyLogin, gControllers.questions.create);
 router.get('/job/:jid/question/:qid/edit',    gControllers.middlewares.checkCompanyLogin, gControllers.questions.edit);
-router.get('/job/:jid/question/:qid', gControllers.questions.show);
+router.get('/job/:jid/question/:qid',         gControllers.questions.show);
 router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkCompanyLogin, gControllers.questions.update);
 
 // answers

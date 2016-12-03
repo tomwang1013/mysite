@@ -66,3 +66,27 @@
     margin-top: -2px;
   }
 }
+
+/**
+ * 问题详情页
+ */
+.question-content {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #aaa;
+  margin-bottom: 0.5em;
+}
+
+.status-content {
+  @extend .question-content;
+
+  .answer-content {
+    padding: 0.5em;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    margin: 0.5em 0;
+  }
+
+  .edit-answer {
+    margin-right: 0.5em;
+  }
+}

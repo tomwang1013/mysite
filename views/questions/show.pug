@@ -4,6 +4,19 @@ block content
     .questions-new-head
       | 职位：
       a.job-title(href='/job/' + job.id)= job.title
-    .answer-question
+    .question-content
       strong 问题：
-      .question-content.small-font!= question.content
+      .small-font!= question.content
+    .status-content
+      case status
+        when 'toAnswer'
+          span.small-font 对这个问题有兴趣？
+          a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
+        when 'hasAnswer'
+          strong.small-font 你已经做过解答，答案如下：
+          .answer-content.small-font.round-border!= answer.content
+          .opts
+            a.edit-answer.btn-normal(href=`/question/${question.id}/answer/${answer.id}/edit`) 修 改
+            button.btn-warning.del-answer(data-link=`/question/${question.id}/answer/${answer.id}/remove` data-job-id=job.id) 删 除
+        when 'toEdit'
+          a.btn-normal(`/job/${job.id}/question/${question.id}/edit`) 编辑
