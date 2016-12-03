@@ -53,3 +53,5 @@ block content
               a(href='/user/' + job._creator.id)= job._creator.name
             span 工作地点：<strong>#{job.address}</strong>
             span 薪资：<strong>#{job.displaySalary}</strong>
+    if pages > 1
+      include ../share/_pager.pug

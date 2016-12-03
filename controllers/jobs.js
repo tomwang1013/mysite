@@ -5,49 +5,54 @@ const mongoose = require('mongoose');
 const co       = require('co');
 
 function index(req, res, next) {
+  let page    = req.query.page ? parseInt(req.query.page) : 1;
+  let perPage = req.query.per_page ? parseInt(req.query.per_page) : 20;
+  let skip    = (page - 1) * perPage;
+
   co(function* () {
-    var jobs = gModels.Job.find().populate('_creator');
+    let cond = {};
 
     if (req.query.title) {
-      jobs = jobs.regex('title', req.query.title);
+      cond['title'] = { $regex: req.query.title };
     }
 
     if (req.query.business) {
-      jobs = jobs.where('business', req.query.business);
+      cond['business'] = req.query.business;
     }
 
     if (req.query.type) {
-      jobs = jobs.where('type', req.query.type);
+      cond['type'] = req.query.type;
     }
 
     if (req.query.salary) {
-      jobs = jobs.where('salary', parseInt(req.query.salary));
+      cond['salary'] = parseInt(req.query.salary);
     }
 
     if (req.query.address) {
-      jobs = jobs.where('address', parseInt(req.query.address));
+      cond['address'] = parseInt(req.query.address);
     }
 
-    jobs = yield jobs.exec();
+    let result = yield {
+      jobs:  gModels.Job.find(cond).populate('_creator').skip(skip).limit(perPage).exec(),
+      total: gModels.Job.find(cond).count().exec()
+    };
 
     if (req.currentUser && req.currentUser.type === 0) {
       var myAppliedJobs = yield gModels.ApplyJob.find({
         _user: req.currentUser.id
-      }).exec()
+      }, '_job').exec();
       
-      myAppliedJobs = myAppliedJobs.map(function(ap) {
-        return ap._job.toString();
-      });
-
-      jobs.forEach(function(job) {
-        if (myAppliedJobs.indexOf(job.id) >= 0) {
+      result.jobs.forEach(function(job) {
+        if (_.find(myAppliedJobs, apply => apply._job == job.id)) {
           job.applied = true;
         }
       });
     }
 
     res.render('jobs/index', {
-      jobs:       jobs,
+      jobs:       result.jobs,
+      page:       page,
+      pages:      Math.ceil(result.total / perPage),
       businesses: gModels.Business,
       types:      gModels.JobType,
       salaries:   gModels.Job.salaries
