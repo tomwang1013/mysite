@@ -41,6 +41,14 @@ app.locals.assetHashPath = function(originPath) {
   }
 }
 
+// 从当前请求得到分页的url
+const querystring = require('querystring');
+app.locals.createPageUrl = function(req, page) {
+  req.query.page = page;
+
+  return `${req.baseUrl}${req.path}?${querystring.stringify(req.query)}`; 
+}
+
 app.listen(3000, function() {
   console.log('server started and listen on 3000...');
 });

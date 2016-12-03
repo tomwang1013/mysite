@@ -1,0 +1,49 @@
+//- pagination: input: page, pages
+//- 最多5个页码
+mixin pageLink(pageNum)
+  li
+    a(href=createPageUrl(req, pageNum) class={active: page == pageNum})= pageNum 
+.pager-container
+  ul.nav
+    - var pageNum = 1
+    if pages <= 5
+      while pageNum <= pages
+        +pageLink(pageNum)
+    else
+      if page > 1
+        li
+          a(href=createPageUrl(req, 1)) 第一页
+        li
+          a(href=createPageUrl(req, page - 1)) 上一页
+
+      // link 1
+      +pageLink(1)
+
+      // link 2
+      if page <= 3 || page >= pages - 1
+        +pageLink(2)
+      else
+        li ...
+
+      // link 3
+      if page == 3
+        +pageLink(3)
+      else if page == pages - 2
+        +pageLink(pages - 2)
+      else
+        li ...
+
+      // link 4
+      if page >= pages - 2 || page <= 2
+        +pageLink(pages - 1)
+      else
+        li ...
+
+      // link 5
+      +pageLink(pages)
+
+      if page < pages 
+        li
+          a(href=createPageUrl(req, page + 1)) 下一页
+        li
+          a(href=createPageUrl(req, pages)) 最后一页
