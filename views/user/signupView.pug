@@ -1,6 +1,8 @@
 extends _layout.pug
 append js
   script(src='/ckeditor/ckeditor.js')
+append css
+  link(href=assetHashPath("css/signup.css"), rel="stylesheet")
 block content
   .formal-signup
     h3 加入学做网

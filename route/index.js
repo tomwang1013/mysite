@@ -19,7 +19,8 @@ var upload = multer({
 router.get('/', gControllers.home.index);
 
 // login/signup/logout
-router.post('/signup',                gControllers.user.signup);
+router.post('/signup_step1',          gControllers.user.signup_step1);
+router.post('/signup_step2',          gControllers.user.signup_step2);
 router.post('/login',                 gControllers.user.login);
 router.get('/signup',                 gControllers.user.signupView);
 router.get('/login',                  gControllers.user.loginView);

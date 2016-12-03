@@ -1,14 +1,13 @@
-form(method='post', action='/signup', class='signup', data-step=step)
-  input(type='hidden', name='step', value=step)
+form(method='post', action='/signup_step1', class='signup', id='signup-step1', data-step=step)
   .form-group
     label(for='name' class='label label-input') 用户名：
-    input(type='text', name='name', id='name', placeholder='字母数字中文等，唯一' class='form-control' autofocus)
+    input(type='text', name='name', id='name', class='form-control', required, autofocus)
   .form-group
     label(for='email' class='label label-input') Email：
-    input(type='email', name='email', id='email', placeholder='xxx@yyy.com' class='form-control')
+    input(type='email', name='email', id='email', class='form-control', required)
   .form-group
     label(for='password' class='label label-input') 密码：
-    input(type='password', name='password', id='password', class='form-control')
+    input(type='password', name='password', id='password', class='form-control', required)
   .form-group
     label(class='label label-radio')
       input(type='radio', id='user-type-student', name='userType', value=0, checked)
@@ -17,7 +16,7 @@ form(method='post', action='/signup', class='signup', data-step=step)
       input(type='radio', id='user-type-company', name='userType', value=1)
       | 公司
   .form-group
-    input(type='submit', value='创建账号' class='btn btn-primary')
+    input(type='submit', value='下一步' class='btn btn-primary')
 .comments
   div 在这里，你将：
   p.small-font

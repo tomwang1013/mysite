@@ -1,58 +1,7 @@
-script.
-  window.ms = !{JSON.stringify(majors)};
-form(method='post', action='/signup', class='signup', data-step=step)
-  input(type='hidden', name='step', value=step)
+form(method='post', action='/signup_step2', class='signup', id='signup-step12', data-step=step)
   if userType == 0
-    // 学生信息
-    .promotion.form-group.small-font.text-center 完善基本资料是非常有必要的，这能帮助企业更好的了解你，也是对自己学习与职业信息的一个基本记录
-    .form-group
-      label(for='university' class='label label-input') 学校名称：
-      input(type='text', name='university', id='university', class='form-control', required)
-    .form-group
-      label(for='major' class='label label-input') 专业：
-      input(type='text', name='major', id='major', class='form-control', required)
-    .form-group
-      label(for='entryDate' class='label label-input') 入学年份：
-      select(name='entryDate', id='entryDate', class='form-control', required)
-        each ed in entryDates
-          option(value=ed)= ed 
-    .form-group
-      label(for='careerPlan' class='label label-input') 职业规划：
-      textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor', data-rule-minlength=64, required)
-    .form-group
-      label(for='zuopin' class='label label-input') 课外作品（可选）：
-      textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor')
-      .form-control-hint.
-        可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
-        大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
-        相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]
-
+    include _student_signup_detail.pug
   else
-    // 公司信息
-    .promotion.form-group.small-font.text-center 请务必完善企业信息，否则发布的职位可能不会被求职者看到
-    .form-group
-      label(for='url' class='label label-input') 公司主页：
-      input(type='url', name='url', id='url', class='form-control', required)
-    .form-group
-      label(for='business' class='label label-input') 所属行业：
-      select(name='business', id='business', class='form-control', required)
-        option(value='') 请选择行业
-        each b in businesses
-          option(value=b)= b
-    .form-group
-      label(for='scale' class='label label-input') 规模：
-      select(name='scale', id='scale', class='form-control', required)
-        option(value='') 请选择企业规模
-        each s,i in scales
-          option(value=i)= s
-    .form-group
-      label(for='maturity' class='label label-input') 成熟度：
-      select(name='maturity', id='maturity', class='form-control', required)
-        option(value='') 请选择企业成熟度
-        each m,i in maturities
-          option(value=i)= m
-    .form-group
-      label(for='desc' class='label label-input') 介绍：
-      textarea(name='desc', id='desc', rows=8, class='form-control rich-editor', data-rule-minlength=64, required)
+    include _company_signup_detail.pug
   .form-group
     input(type='submit', value='保 存' class='btn btn-primary')

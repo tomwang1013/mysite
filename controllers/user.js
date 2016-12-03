@@ -32,16 +32,12 @@ function signupView(req, res, next) {
   let step = req.query.step ? parseInt(req.query.step) : 1;
 
   if (step == 2) {
-    Promise.all([
-      gModels.University.all(),
-      gModels.Major.all()
-    ]).then(function(result) {
+    gModels.Major.all().then(function(result) {
       res.render('user/signupView', {
         step:         step,
         title:        '学做-用户注册',
-        userType:     req.currentUser ? req.currentUser.type : undefined,
-        universities: result[0],
-        majors:       result[1],
+        userType:     req.session.signupAccount.userType,
+        majors:       result,
         entryDates:   gModels.User.allEntryDates,
         businesses:   gModels.Business,
         scales:       gModels.User.scales,
@@ -58,57 +54,51 @@ function signupView(req, res, next) {
 }
 
 /**
- * signup a user
+ * signup a user:
+ * check account info and save it for later creation
  */
-function signupHandler(req, res, next) {
-  let curStep = parseInt(req.body.step);
-  let nextStep = curStep + 1;
-  let user;
+function signup_step1(req, res, next) {
+  let signupAccount;
 
   co(function* () {
-    switch(curStep) {
-      case 1:
-        // create account
-        let hashedPwd = yield new Promise(function(resolve) {
-          bcrypt.hash(req.body.password, 10, function(err, hash) {
-            return resolve(hash);
-          });
-        });
-
-        let attrs = _.pick(req.body, ['name', 'email', 'userType']);
-        user = yield gModels.User.create(_.assign(attrs, { password: hashedPwd }));
-        loginUser(req, user);
-        break;
-
-      case 2:
-        // add other info
-        user = yield gModels.User.findById(req.currentUser.id).exec();
-        let attrsToUpdate;
-
-        if (user.isStudent()) {
-          attrsToUpdate = ['university', 'major', 'entryDate', 'careerPlan', 'zuopin'];
-        } else {
-          attrsToUpdate = ['url', 'business', 'scale', 'maturity', 'desc']
-        }
-
-        user = yield _.assign(user, _.pick(req.body, attrsToUpdate)).save();
-        break;
-
-      case 3:
-        // never be here: signup over
-        break;
-
-      default:
-        break;
-    }
-
-    res.json({ error: 0, location: '/signup?step=' + nextStep });
-  }).catch(function(err) {
-    if (err.errors) {
-      res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
+    let hashedPwd = yield new Promise(function(resolve) {
+      bcrypt.hash(req.body.password, 10, function(err, hash) {
+        return resolve(hash);
+      });
+    });
+    signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'),
+                                 { password: hashedPwd });
+    yield (new gModels.User(signupAccount)).validate();
+    res.json({ error: 0, location: '/signup?step=2' });
+  }).catch(function(error) {
+    if (error && (error.errors['name'] || error.errors['email'])) {
+      error.errors = _.pick(error.errors, 'name', 'email');
+      res.json({
+        error: 1,
+        errors: _.mapValues(error.errors, function(e) { return e.message; })
+      });
     } else {
-      res.json({ error: 1, message: err.message });
+      req.session.signupAccount = signupAccount;
+      res.json({ error: 0, location: '/signup?step=2' });
     }
+  });
+}
+
+/**
+ * signup a user:
+ * create user
+ */
+function signup_step2(req, res, next) {
+  co(function* () {
+    let userFullAttrs = _.assign(req.body, req.session.signupAccount);
+    let user = yield gModels.User.create(userFullAttrs);
+    loginUser(user);
+    res.json({ error: 0, location: '/signup?step=3' });
+  }).catch(function(error) {
+    res.json({
+      error: 1,
+      errors: _.mapValues(error.errors, function(e) { return e.message; })
+    });
   });
 }
 
@@ -278,13 +268,9 @@ function passwordReset(req, res, next) {
 }
 
 exports = module.exports = {
-  signupView:     signupView,
-  signup:         signupHandler,
-  loginView:      loginView,
-  login:          loginHandler,
-  logout:         logoutHandler,
-  isValidName:    isValidName,
-  isValidEmail:   isValidEmail,
-  passwordReset:  passwordReset,
-  show:           show
+  login:  loginHandler,
+  logout: logoutHandler,
+  signupView, signup_step1, signup_step2,
+  loginView, isValidName, isValidEmail,
+  passwordReset, show
 };
