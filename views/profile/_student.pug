@@ -4,8 +4,8 @@ script.
 div.user-info
   mixin buttons
     .operations(style={display: 'none'})
-      button(type='button', class='btn') 修改
-      button(type='button', class='btn btn-cancel') 取消
+      button(type='button', class='btn-normal') 修改
+      button(type='button', class='btn-cancel') 取消
   .form-group
     label(for='university' class='label label-input') 学校名称：
     input(type='text', name='university', id='university', class='form-control change-field', data-ori-value=user.university, value=user.university, required)
