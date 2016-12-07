@@ -4,7 +4,7 @@ var multer  = require('multer')
 var gridfs  = require('../lib/gridfs');
 
 var storage = multer.diskStorage({
-  destination: 'public/uploads',
+  destination: 'public/tmp/uploads',
   filename: function (req, file, cb) {
     cb(null, gridfs.addSuffix2Img(file.originalname, Date.now()));
   }

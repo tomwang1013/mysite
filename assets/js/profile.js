@@ -81,7 +81,9 @@ $(document).ready(function() {
   $('img, .crop-edge').on('dragstart', false);
   $('form.cropDlg').submit(function(e) {
     $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
-      $('.current-avatar').attr('src', data.url + '?' + new Date().getTime());
+      var newUrl = data.url + '?' + new Date().getTime();
+      $('.current-avatar').attr('src', newUrl);
+      $('.profile-index img').attr('src', newUrl);
       $('.cropDlg').hide();
       $('.overlay').hide();
     });

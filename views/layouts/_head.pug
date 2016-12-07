@@ -1,6 +1,6 @@
 header
   .content.header-container.flex
-    a(href='/' class='logo') 学做网
+    a.large-font.text-bold(href='/' class='logo') 学做网
     - var cu = req.currentUser
     if cu
       a.msg-notify(href='/profile/message')
@@ -8,7 +8,7 @@ header
         span.msg-tip.small-font.round-border 你有未读消息
       span.user-center
         a.profile-index(href='/profile')
-          img.round-border.vertical-middle(src=cu.avatar width='24px' height='24px' alt='avatar')
+          img.round-border.vertical-middle(src=cu.avatar)
           span.vertical-middle(class='fa fa-caret-down menu-show')
         ul.profile-dropdown.nav.small-font.round-border
           li.text-center #{cu.name}, 你好

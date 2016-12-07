@@ -200,6 +200,7 @@ function changeAvatar2(req, res, next) {
 
     // 保存文件名
     user.avatar = filename;
+    req.session.currentUser.avatar = user.avatarUrl();
     yield user.save()
 
     // 删除中间文件
