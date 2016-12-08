@@ -24,7 +24,6 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(gControllers.middlewares.getReq);
 app.use(gControllers.middlewares.session);
 app.use(flash());
 app.use(gControllers.middlewares.currentUser);

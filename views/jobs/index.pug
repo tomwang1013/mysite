@@ -4,32 +4,32 @@ block content
     div.flex
       span.flex
         label(for='title' class='label') 职位名称：
-        input(type='text' id='title' name='title' value=req.query.title class='form-control')
+        input(type='text' id='title' name='title' value=title class='form-control')
 
       span.flex
         label(for='business' class='label') 行业：
         select(name='business' id='business' class='form-control')
           option(value='' selected) 请选择
           each b in businesses
-            option(value=b selected=b == req.query.business)= b 
+            option(value=b selected=b == business)= b 
 
       span.flex
         label(for='type' class='label') 类别：
         select(name='type', id='type' class='form-control')
           option(value='' selected) 请选择
           each t in types
-            option(value=t selected=t == req.query.type)= t 
+            option(value=t selected=t == type)= t 
     div.flex
       span.flex
         label(for='address' class='label') 工作地点：
-        input(type='text', name='address', id='address', value=req.query.address, class='form-control')
+        input(type='text', name='address', id='address', value=address, class='form-control')
 
       span.flex
         label(for='salary' class='label') 薪资：
         select(name='salary', id='salary' class='form-control')
           option(value='' selected) 请选择
           each s, i in salaries
-            option(value=i selected=i == req.query.salary)= s 
+            option(value=i selected=i == salary)= s 
 
       span.flex
         input(type='submit', value='搜索', class='btn btn-primary')
@@ -42,7 +42,7 @@ block content
         .job-item(data-job-id=job.id)
           div.flex.job-title
             a(href='/job/' + job.id)= job.title
-            if req.currentUser && req.currentUser.type === 0
+            if currentUser && currentUser.type === 0
               if job.applied
                 span.apply-result 已申请
               else

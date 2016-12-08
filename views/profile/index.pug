@@ -10,7 +10,7 @@ block content
       li
         a(href='/profile/user_info' class={active: pos == 'user_info'}) 基本信息
       li
-        if req.currentUser.type == 0
+        if currentUser.type == 0
           a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
         else
           a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位

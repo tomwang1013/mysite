@@ -11,7 +11,7 @@ block content
       strong 解答：
       .body.small-font!= answer.content
       .opts
-        if req.currentUser.type == 0
+        if currentUser.type == 0
           a.edit-answer.btn-normal(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
           button.btn-warning.del-answer(data-link='/question/' + question.id + '/answer/' + answer.id + '/remove' data-job-id=job.id) 删 除
         else

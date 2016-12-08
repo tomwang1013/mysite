@@ -4,7 +4,7 @@ section.job-section.questions
     .question
       strong 问题#{idx + 1}：
       .small-font!= question.content
-      if req.currentUser && req.currentUser.type == 0
+      if currentUser && currentUser.type == 0
         - var answer = myAnswers[question.id]
         if answer
           a.btn-normal(href='/question/' + question.id + '/answer/' + answer.id) 查看我的解答

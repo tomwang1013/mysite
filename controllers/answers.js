@@ -7,8 +7,8 @@ const _  = require('lodash');
 function index(req, res, next) {
   co(function* () {
     let result = yield {
-      question: gModels.Question.findById(req.params.qid).populate('_job').exec();
-      answers:  gModels.Answer.find({ _question: req.params.qid }).populate('_user').exec();
+      question: gModels.Question.findById(req.params.qid).populate('_job').exec(),
+      answers:  gModels.Answer.find({ _question: req.params.qid }).populate('_user').exec()
     };
 
     // 企业只能查看其发布的职位的答案列表

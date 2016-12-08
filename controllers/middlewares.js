@@ -61,19 +61,13 @@ function checkStudentLogin(req, res, next) {
   }
 }
 
-// store req to use in view
-function getReq(req, res, next) {   
-  res.locals.req = req;
-  res.locals.res = res;
-  next();
-}
-
 /**
  * get the current user if login
  */
 function currentUser(req, res, next) {   
   if (req.session && req.session.currentUser) {
     req.currentUser = req.session.currentUser;
+    res.locals.currentUser = req.session.currentUser;
   }
 
   next();
@@ -91,7 +85,6 @@ let sessionHandler = session({
 })
 
 exports = module.exports = {
-  getReq:             getReq,
   session:            sessionHandler,
   currentUser:        currentUser,
   checkLogin:         checkLogin,

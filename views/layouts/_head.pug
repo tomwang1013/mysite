@@ -1,7 +1,7 @@
 header
   .content.header-container.flex
     a.large-font.text-bold(href='/' class='logo') 学做网
-    - var cu = req.currentUser
+    - var cu = currentUser
     if cu
       a.msg-notify(href='/profile/message')
         span(class='fa fa-bell vertical-middle')
