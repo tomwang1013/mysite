@@ -58,16 +58,16 @@ router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkComp
 router.get('/question/:qid/answers',              gControllers.middlewares.checkCompanyLogin, gControllers.answers.index);
 router.get('/question/:qid/answers/new',          gControllers.middlewares.checkStudentLogin, gControllers.answers.nnew);
 router.post('/question/:qid/answers/create',      gControllers.middlewares.checkStudentLogin, gControllers.answers.create);
-router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin, gControllers.answers.show);
+router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin,        gControllers.answers.show);
 router.get('/question/:qid/answer/:aid/edit',     gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
-router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkLogin, gControllers.answers.update);
-router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkLogin, gControllers.answers.remove);
+router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
+router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
 
 // user center
 router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
 router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
-router.get('/profile/message_status',            gControllers.middlewares.checkLogin, gControllers.profile.messageStatus);
+router.get('/profile/message_status',     gControllers.middlewares.checkLogin, gControllers.profile.messageStatus);
 router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 
@@ -76,13 +76,15 @@ router.post('/profile/change_account',    gControllers.middlewares.checkLogin, g
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
 router.post('/profile/change_avatar',     upload.single('avatar'), gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar);
 router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, gControllers.profile.changeAvatar2);
-router.post('/profile/message/set_read',    gControllers.middlewares.checkLogin, gControllers.profile.setMsgRead);
+router.post('/profile/message/set_read',  gControllers.middlewares.checkLogin, gControllers.profile.setMsgRead);
 
-router.get('/uploads/:filename', gControllers.uploads.index );
-router.get('/universities', gControllers.universities.index );
-router.get('/majors', gControllers.majors.index );
+// misc
+router.get('/uploads/:filename',  gControllers.uploads.index );
+router.get('/universities',       gControllers.universities.index );
+router.get('/majors',             gControllers.majors.index );
 
-router.get('/about', gControllers.about.index );
-router.get('/about/contact', gControllers.about.contact );
+// about
+router.get('/about',          gControllers.about.index );
+router.get('/about/contact',  gControllers.about.contact );
 
 module.exports = router;
