@@ -16,16 +16,17 @@ global.gConfig      = _.merge({},
 global.gControllers = require('./controllers');
 global.gModels      = require('./models');
 
+app.set('etag', false);
+app.set('trust proxy', true);
 app.set('views', './views')
 app.set('view engine', 'pug')
 
 app.use(logger('dev'));
-app.use(cookieParser());
+app.use(cookieParser());  // for req.cookies or signedCookies
+app.use(gControllers.middlewares.session);  // for req.session
+app.use(flash()); // for req.flash(name[, value]), must behind session middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-app.use(gControllers.middlewares.session);
-app.use(flash());
 app.use(gControllers.middlewares.currentUser);
 
 app.use(require('./route'));

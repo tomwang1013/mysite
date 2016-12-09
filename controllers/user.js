@@ -6,14 +6,10 @@ const _       = require('lodash');
 const crypto  = require('crypto');
 const mailer  = require('../lib/mailer');
 
+// 用户详情页: 暂时没有权限限制
 function show(req, res, next) {
   gModels.User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
-
-    if (req.currentUser.type == user.userType && req.currentUser.id != user.id) {
-      res.redirect('/');
-      return;
-    }
 
     if (user.isCompany()) {
       gModels.Job.find({ _creator: user.id }, function(err, ret) {
@@ -28,6 +24,7 @@ function show(req, res, next) {
   });
 }
 
+// 用户注册页面
 function signupView(req, res, next) {
   let step = req.query.step ? parseInt(req.query.step) : 1;
 
@@ -67,7 +64,7 @@ function signup_step1(req, res, next) {
       });
     });
     signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'),
-                                 { password: hashedPwd });
+                             { password: hashedPwd });
     yield (new gModels.User(signupAccount)).validate();
     res.json({ error: 0, location: '/signup?step=2' });
   }).catch(function(error) {
@@ -78,6 +75,7 @@ function signup_step1(req, res, next) {
         errors: _.mapValues(error.errors, function(e) { return e.message; })
       });
     } else {
+      // 临时保存用户账号信息供之后创建账户使用
       req.session.signupAccount = signupAccount;
       res.json({ error: 0, location: '/signup?step=2' });
     }
@@ -90,6 +88,7 @@ function signup_step1(req, res, next) {
  */
 function signup_step2(req, res, next) {
   co(function* () {
+    // 将账号信息和其他信息一起创建账号
     let userFullAttrs = _.assign(req.body, req.session.signupAccount);
     let user = yield gModels.User.create(userFullAttrs);
     loginUser(req, user);
@@ -122,6 +121,7 @@ function isValidEmail(req, res, next) {
   });
 }
 
+// 登录页面
 function loginView(req, res, next) {
   res.locals.title = '学做-用户登陆';
   res.render('user/loginView', {
@@ -165,9 +165,9 @@ function logoutHandler(req, res, next) {
 // make user login
 function loginUser(req, user) {
   req.session.currentUser = {
-    id:   user.id,
-    name: user.name,
-    type: user.userType,
+    id:     user.id,
+    name:   user.name,
+    type:   user.userType,
     avatar: user.avatarUrl()
   };
 }

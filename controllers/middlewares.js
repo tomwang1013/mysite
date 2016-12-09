@@ -73,6 +73,17 @@ function currentUser(req, res, next) {
   next();
 }
 
+// session data stored in mongodb:
+// db.sessions.findOne():
+// {
+//  "_id" : "QHcGyHwjvNKjQUlSyhQS3RUk1rHT06gC",
+//  "session" : "{
+//    \"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},
+//    \"currentUser\":{\"id\":\"58181b41b2450e5e559fdaca\",\"name\":\"wjg\",\"type\":0,\"avatar\":\"/uploads/Lighthouse-1481173852098-400x400.jpg\"},
+//    \"flash\":{}
+//  }",
+//  "expires" : ISODate("2016-12-23T04:43:41.115Z")
+// }
 let sessionStore = new MongoStore({
   mongooseConnection: mongoose.connection
 });
