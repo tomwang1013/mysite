@@ -27,3 +27,33 @@
     width: 100%;
   }
 }
+
+.welcome-other-wrapper {
+  background: #F7EFC6;
+
+  .welcome-other {
+    padding: 32px 0;
+  }
+
+  .welcome-student, .welcome-company {
+    flex: 1;
+    flex-flow: column;
+  }
+
+  .welcome-student {
+    margin-right:1em;
+  }
+
+  .welcome-company {
+    margin-left:1em;
+  }
+
+  .sentence {
+    line-height: 2em;
+    flex: 1;
+  }
+
+  .goto-questions {
+    margin-right: 1em;
+  }
+}
