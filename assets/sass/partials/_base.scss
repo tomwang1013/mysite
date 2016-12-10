@@ -92,3 +92,13 @@ ul.nav {
   border-style: solid;
   border-radius: 4px;
 }
+
+// 2个紧挨在一起的行内元素，第一个元素右边留空
+.fir-span {
+  margin-right: 0.5em;
+}
+
+// 不太重要的字体颜色
+.font-light {
+  color: #666;
+}

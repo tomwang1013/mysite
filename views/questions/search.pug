@@ -1,6 +1,6 @@
 extends _layout.pug
 block content
-  .questions-search
+  .q-common-head
     form(action='/questions')
       .form-group-hr
         label(for='tag' class='label label-input') 分类：
@@ -12,18 +12,20 @@ block content
         label(for='company_id' class='label label-input') 公司：
         input(type='text' name='company_id', id='company_id' class='form-control-hr')
       .form-group-hr
-        input(type='submit', value='搜 索' class='btn btn-primary')
-  .questions-list
+        input(type='submit', value='搜 索' class='btn-primary')
+  .q-list
     if questions.length == 0
-      .text-center.no-questions 没有找到符合条件的问题！
+      .text-center 没有找到符合条件的问题！
     else
       each question in questions
-        .question.small-font
-          .question-head
-            span.title= question.title
-            span.company= question._creator.name
-            span.level 难度：#{question.level}
-          .question-content!= question.content
-          .question-foot
-            span.tag 分类：#{question.tag}
-            span.labels 标签：#{question.labels.join(' ')}
+        .q-single.small-font
+          .flex
+            a(href='/job/' + question._job + '/question/' + question.id)= question.title
+            span.q-level 难度：#{question.level}
+          .q-content!= question.content
+          .q-foot.flex
+            span.smaller-font.font-light
+              span.fir-span 分类：#{question.tag}
+              span 标签：#{question.labels.join(' ')}
+            span.q-opts
+              a.btn-normal(href=`/question/${question.id}/answers/new`) 马上解答

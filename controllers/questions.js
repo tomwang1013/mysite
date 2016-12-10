@@ -7,6 +7,11 @@ function index(req, res, next) {
   co(function* () {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
+
+    if (job._creator != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
     let questions = yield gModels.Question.find({
       _job: jobId,
       deleted: 0

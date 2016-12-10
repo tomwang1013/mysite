@@ -2,12 +2,12 @@ extends _layout.pug
 append js
   script(src='/ckeditor/ckeditor.js')
 block content
-  .question-new
-    .questions-new-head
-      | 您正在为职位
-      a.job-title(href='/job/' + job.id)= job.title
-      | 新增一道试题：
-    form.questions-new-form.small-font(method='post' action='/job/' + job.id + '/questions/create')
+  .q-new-edit
+    .q-common-head
+      span.fir-span 您正在为职位
+      a.fir-span(href='/job/' + job.id)= job.title
+      span 新增一道试题：
+    form.q-new.small-font(method='post' action='/job/' + job.id + '/questions/create')
       .form-group
         label(for='title' class='label label-input') 标题：
         input(type='text' name='title', id='title' class='form-control', required)

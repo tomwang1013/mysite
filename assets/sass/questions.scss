@@ -1,63 +1,65 @@
 @import 'partials/all';
 
-/**
- * 题目列表
- */
-.questions-head {
-  line-height: 32px;
+$hl-color: #79A251;
+$cl-color: #aaa;
+
+.q-common-head {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
   margin-bottom: 0.5em;
-  padding-bottom: 6px;
-  border-bottom: 3px solid #aaa;
 
-  .job-title {
-    margin-right: 0.5em;
-  }
-
-  .new-question {
-    right: 0;
+  .form-control-hr {
+    width: 256px;
   }
 }
 
-.questions-list {
-  .no-questions {
-    color: #700;
+.q-index {
+  .q-common-head {
+    align-items: flex-end;
   }
 
-  .question {
-    padding: 0.4em 0 0.3em;
-    border-bottom: 2px solid #ccc;
+  .new-q {
+    margin-left: auto;
   }
+}
 
-  .question-content {
-    padding-bottom: 0.5em;
-  }
+// 列表中单个问题
+.q-single {
+  padding: 0.5em;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  margin-bottom: 1em;
+}
 
-  .question-level {
-    line-height: 32px;
-    padding-top: 6px;
-    border-top: 1px dashed #ccc;
+.q-content {
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
 
-    .del-question   { right: 0; }
-    .edit-question  { right: 60px; }
-    .answers        { right: 120px; }
+.q-level {
+  margin-left: auto;
+}
+
+.q-foot {
+  align-items: flex-end;
+
+  .q-opts {
+    margin-left: auto;
   }
 }
 
 /**
  * 新建及修改题目
  */
-.questions-new-head {
-  margin-bottom: 0.5em;
-  padding-bottom: 6px;
-  border-bottom: 3px solid #aaa;
-
-  .job-title {
-    margin: 0 0.5em;
-  }
+.q-new-edit {
+  max-width: 720px;
+  margin: auto;
 }
 
-.questions-new-form,
-.questions-edit-form {
+form.q-new,
+form.q-edit {
   .level {
     margin-top: 0.6em;
   }
@@ -70,23 +72,16 @@
 /**
  * 问题详情页
  */
-.question-content {
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid #aaa;
-  margin-bottom: 0.5em;
-}
+.q-show {
+  .q-content {
+    border-top: none;
+    border-bottom: 2px solid #aaa;
+  }
 
-.status-content {
-  @extend .question-content;
-
-  .answer-content {
+  .a-content {
     padding: 0.5em;
     background-color: #eee;
     border: 1px solid #aaa;
     margin: 0.5em 0;
-  }
-
-  .edit-answer {
-    margin-right: 0.5em;
   }
 }
