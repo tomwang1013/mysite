@@ -20,4 +20,8 @@ $(function() {
       });
     }
   });
+
+  $('#labels').labelIt({
+    initLabels: ['ruby', 'python']
+  });
 });

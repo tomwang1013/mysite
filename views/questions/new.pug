@@ -18,6 +18,9 @@ block content
           each t in quesTags
             option(value=t)= t 
       .form-group
+        label(for='labels' class='label label-input') 标签：
+        input(type='text' name='labels', id='labels' class='form-control', required)
+      .form-group
         label(class='label label-input') 难度：
         .levels
           each l in [0,1,2,3,4,5]

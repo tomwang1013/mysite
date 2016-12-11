@@ -1,4 +1,27 @@
-.il-labels-container {
-  @include inline-box;
-  position: absolute;
+.il-labels-input {
+  color: #333;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  line-height: 22px;
+  border: 1px solid #ccc;
+
+  .il-input {
+    flex: 1;
+    font-size: 0.9rem;
+    outline:none;
+    border: none;
+  }
+
+  .il-in-lab {
+    border: 1px solid #888;
+    padding: 2px;
+    padding-right: 6px;
+    margin-right: 6px;
+
+    .fa {
+      top: -6px;
+      cursor: pointer;
+    }
+  }
 }
+

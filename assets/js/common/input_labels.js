@@ -20,13 +20,19 @@ $.fn.labelIt = function(options) {
 		return;
 	}
 
+  options = options || {};
+
+  console.log(this.offset());
+
   var input               = this;
   var inputRect           = getInputRect();
+  console.log(inputRect);
 
   var newInputAttrs = {
-    labels: [],
-    maxCnt: 4
+    labels: options.initLabels || [],
   };
+
+  init();
 
   // get input's rect
   function getInputRect() {
@@ -35,10 +41,10 @@ $.fn.labelIt = function(options) {
     var myHeight  = input.outerHeight();
 
     return {
-      left:     offset.left + 'px',
-      top:      offset.top + 'px',
-      width:    myWidth + 'px'
-      height:   myHeight + 'px';
+      left:     offset.left,
+      top:      offset.top,
+      width:    myWidth,
+      height:   myHeight
     };
   }
 
@@ -47,23 +53,22 @@ $.fn.labelIt = function(options) {
   // 2. create span + input
   // 3. show current labels on left
   function init() {
-    $('<span class="il-labels-container"></span>').
-      css(inputRect).appendTo(input);
+    $(inputNewHtml()).css(_.pick(inputRect, 'width', 'height')).insertAfter(input);
     input.hide();
   }
 
   function inputNewHtml() {
     var template = ''
-      + '<span class="il-labels-input">'
+      + '<span class="il-labels-input flex round-border relative">'
       +   '<span class="il-labels">'
       +     '<% for (let idx in labels) { %>'
-      +       '<span class="li-in-lab">'
+      +       '<span class="il-in-lab round-border relative">'
       +         '<%= labels[idx] %>'
+      +         '<i class="fa fa-times absolute" aria-hidden="true"></i>'
       +       '</span>'
       +     '<% } %>'
       +   '</span>'
-      +   '<input class="il-input">'
-      +   '</input>'
+      +   '<input class="il-input"></input>'
       + '</span>';
 
       return _.template(template)(newInputAttrs);
