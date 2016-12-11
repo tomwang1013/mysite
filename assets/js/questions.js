@@ -22,6 +22,8 @@ $(function() {
   });
 
   $('#labels').labelIt({
-    initLabels: ['ruby', 'python']
+    initLabels: ['ruby', 'python'],
+    searchUrl:  '/qlabels/search',
+    addUrl:     '/qlabels'
   });
 });

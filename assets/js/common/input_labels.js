@@ -22,11 +22,8 @@ $.fn.labelIt = function(options) {
 
   options = options || {};
 
-  console.log(this.offset());
-
   var input               = this;
   var inputRect           = getInputRect();
-  console.log(inputRect);
 
   var newInputAttrs = {
     labels: options.initLabels || [],
@@ -55,6 +52,16 @@ $.fn.labelIt = function(options) {
   function init() {
     $(inputNewHtml()).css(_.pick(inputRect, 'width', 'height')).insertAfter(input);
     input.hide();
+    regEvents();
+  }
+
+  // TODO event register & handle
+  // 1. popup & remove matching labels
+  // 2. select label when click on it
+  // 3. delete selected label when click close icon
+  // 4. keyup & focus
+  function regEvents() {
+
   }
 
   function inputNewHtml() {
