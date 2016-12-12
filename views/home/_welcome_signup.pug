@@ -1,0 +1,25 @@
+.welcome-signup-wrapper
+  .welcome-signup.content.flex
+    .main-slogan.larger-font
+      h2.title 有效的学习和实习方式？
+      .sub-title 通过古老的问答方式，在企业和学生之间建立能力评估模型，这是学生进入企业实习的新途径
+    form(method='post', action='/signup' class='index-signup')
+      .form-group
+        input(type='hidden', name='step', value='1')
+        label(for='name' class='label label-input') 用户名：
+        input(type='text', name='name', id='name', class='form-control', required, autofocus)
+      .form-group
+        label(for='email' class='label label-input') Email：
+        input(type='email', name='email', id='email', class='form-control' required)
+      .form-group
+        label(for='password' class='label label-input') 密码：
+        input(type='password', name='password', id='password', class='form-control' required)
+      .form-group
+        label(class='label label-radio')
+          input(type='radio', id='user-type-student', name='userType', value=0, checked)
+          | 学生
+        label(class='label label-radio')
+          input(type='radio', id='user-type-company', name='userType', value=1)
+          | 公司
+      div
+        input(type='submit', value='加入学做网' class='btn-primary')

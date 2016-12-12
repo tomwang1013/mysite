@@ -1,2 +1,29 @@
 @import 'partials/all';
 @import 'partials/login_box';
+
+.welcome-signup-wrapper {
+  background: #362819;
+  color: #fff;
+
+  .welcome-signup {
+    align-items: center;
+    padding: 64px 0;
+  }
+
+  .main-slogan, .index-signup {
+    flex: 1;
+  }
+
+  .main-slogan {
+    line-height:2em;
+    margin-right:1em;
+  }
+
+  .index-signup {
+    margin-left: 1em;
+  }
+
+  input[type=submit] {
+    width: 100%;
+  }
+}
