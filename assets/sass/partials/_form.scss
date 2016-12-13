@@ -15,6 +15,11 @@ input[type='radio'] {
   margin-bottom: 1em;
 }
 
+.form-group-hr {
+  display: inline-block;
+  margin-right: 1em;
+}
+
 .form-control {
   @include inline-box;
   width: 100%;
@@ -24,7 +29,18 @@ input[type='radio'] {
   margin-top: 0.5em;
 }
 
+.form-control-hr {
+  @include inline-box;
+  border-color: #ccc;
+  color: #333;
+  outline:none;
+}
+
 .form-control:focus {
+  border-color: #00a;
+}
+
+.form-control-hr:focus {
   border-color: #00a;
 }
 

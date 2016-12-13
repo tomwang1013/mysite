@@ -1,15 +1,11 @@
 'use strict'
 
-const mongoose = require('mongoose');
 
 /**
- * 行业：IT，金融，房地产，etc
+ * 问题所属分类
  */
-let Schema = mongoose.Schema;
-let quesTagSchema = new Schema({
-  name: String
-});
 
-let QuesTag = mongoose.model('Ques_tag', quesTagSchema);
 
-exports = module.exports = QuesTag;
+exports = module.exports = [
+  '计算机', '金融', '通信', '电子电路'
+];

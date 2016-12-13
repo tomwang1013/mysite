@@ -9,6 +9,15 @@ block content
       | 修改一道试题：
     form.questions-edit-form.small-font(method='post' action='/job/' + job.id + '/question/' + question.id + '/update')
       .form-group
+        label(for='title' class='label label-input') 标题：
+        input(type='text' name='title', id='title' class='form-control', value=question.title, required)
+      .form-group
+        label(for='tag' class='label label-input') 分类：
+        select(name='tag', id='tag' class='form-control', required)
+          option(value='' selected) 请选择
+          each t in quesTags
+            option(value=t, selected=t == question.tag)= t 
+      .form-group
         label(class='label label-input') 难度：
         .levels
           each l in [0,1,2,3,4,5]

@@ -19,6 +19,7 @@ function index(req, res, next) {
   }).catch(next); 
 }
 
+// 创建为题
 function nnew(req, res, next) {
   let jobId = req.params.jid;
 
@@ -26,7 +27,8 @@ function nnew(req, res, next) {
     if (err) return next(err);
 
     res.render('questions/new', {
-      job: job
+      job:      job,
+      quesTags: gModels.QuesTag
     });
   });
 }
@@ -35,12 +37,10 @@ function create(req, res, next) {
   co(function* () {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
-    let newQuestion = yield gModels.Question.create({
-      level:   req.body.level,
-      content: req.body.content,
-      deleted: 0,
-      _job:    jobId
-    });
+    let newQuestion = yield gModels.Question.create(_.assign({
+      _job:     jobId,
+      _creator: req.currentUser.id
+    }, req.body));
 
     res.redirect('/job/' + jobId + '/questions');
   }).catch(next);
@@ -93,6 +93,7 @@ function show(req, res, next) {
   }).catch(next);
 }
 
+// 编辑问题
 function edit(req, res, next) {
   let jobId = req.params.jid;
   let questionId = req.params.qid;
@@ -103,9 +104,14 @@ function edit(req, res, next) {
       question: gModels.Question.findById(questionId).exec()
     };
 
+    if (a.job._creator != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
     res.render('questions/edit', {
-      job: a.job,
-      question: a.question
+      job:      a.job,
+      question: a.question,
+      quesTags: gModels.QuesTag
     });
   }).catch(next);
 }
@@ -116,7 +122,11 @@ function update(req, res, next) {
   co(function* () {
     let question = yield gModels.Question.findById(questionId).exec();
 
-    _.assign(question, _.pick(req.body, ['level', 'content', 'deleted']));
+    if (question._creator != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
+    _.assign(question, req.body);
 
     yield question.save();
 
@@ -130,14 +140,15 @@ function search(req, res, next) {
   let perPage = req.query.per_page ? parseInt(req.query.per_page) : 20;
   let skip    = (page - 1) * perPage;
 
-  let q = gModels.find().populate([
-    { path: '_tag', select: 'name' },
-    { path: '_creator', select: 'name' }
-  ]);
+  let q = gModels.Question.find().populate({
+    path: '_creator',
+    select: 'name'
+  });
 
   if (req.query.tag_id) {
     q = q.where({ _tag: req.query.tag_id });
   }
+
 
   if (req.query.company_id) {
     q = q.where({ _creator: req.query.company_id });
@@ -146,7 +157,11 @@ function search(req, res, next) {
   q.exec(function(err, questions) {
     if (err) return next(err);
 
-    res.render('questions/search', { questions });
+    res.render('questions/search', {
+      questions,
+      quesTags: gModels.QuesTag,
+      curTag: req.query.tag
+    });
   });
 }
 

@@ -1,0 +1,29 @@
+extends _layout.pug
+block content
+  .questions-search
+    form(action='/questions')
+      .form-group-hr
+        label(for='tag' class='label label-input') 分类：
+        select(name='tag', id='tag' class='form-control-hr', required)
+          option(value='' selected) 请选择
+          each t in quesTags
+            option(value=t, selected=t == curTag)= t 
+      .form-group-hr
+        label(for='company_id' class='label label-input') 公司：
+        input(type='text' name='company_id', id='company_id' class='form-control-hr')
+      .form-group-hr
+        input(type='submit', value='搜 索' class='btn btn-primary')
+  .questions-list
+    if questions.length == 0
+      .text-center.no-questions 没有找到符合条件的问题！
+    else
+      each question in questions
+        .question.small-font
+          .question-head
+            span.title= question.title
+            span.company= question._creator.name
+            span.level 难度：#{question.level}
+          .question-content!= question.content
+          .question-foot
+            span.tag 分类：#{question.tag}
+            span.labels 标签：#{question.labels.join(' ')}
