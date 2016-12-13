@@ -124,11 +124,32 @@ function update(req, res, next) {
   }).catch(next);
 }
 
+// 和job无关的全部question搜索
+function search(req, res, next) {
+  let page    = req.query.page ? parseInt(req.query.page) : 1;
+  let perPage = req.query.per_page ? parseInt(req.query.per_page) : 20;
+  let skip    = (page - 1) * perPage;
+
+  let q = gModels.find().populate([
+    { path: '_tag', select: 'name' },
+    { path: '_creator', select: 'name' }
+  ]);
+
+  if (req.query.tag_id) {
+    q = q.where({ _tag: req.query.tag_id });
+  }
+
+  if (req.query.company_id) {
+    q = q.where({ _creator: req.query.company_id });
+  }
+
+  q.exec(function(err, questions) {
+    if (err) return next(err);
+
+    res.render('questions/search', { questions });
+  });
+}
+
 exports = module.exports = {
-  index:  index,
-  nnew:   nnew,
-  create: create,
-  edit:   edit,
-  update: update,
-  show:   show
+  index, nnew, create, edit, update, show, search
 };

@@ -47,6 +47,7 @@ router.post('/job/:id',               gControllers.middlewares.checkCompanyLogin
 router.post('/job/:id/handle_apply',  gControllers.middlewares.checkCompanyLogin, gControllers.jobs.handleApply);
 
 // questions
+router.get('/questions',                      gControllers.questions.search);
 router.get('/job/:jid/questions',             gControllers.middlewares.checkCompanyLogin, gControllers.questions.index);
 router.get('/job/:jid/questions/new',         gControllers.middlewares.checkCompanyLogin, gControllers.questions.nnew);
 router.post('/job/:jid/questions/create',     gControllers.middlewares.checkCompanyLogin, gControllers.questions.create);
