@@ -169,7 +169,7 @@ $.fn.popupList = function(options) {
       position: 'absolute',
       left:     offset.left + 'px',
       top:      (offset.top + myHeight) + 'px',
-      width:    (options.width || myWidth) + 'px'
+      width:    (options.with || myWidth) + 'px'
     };
   }
 
