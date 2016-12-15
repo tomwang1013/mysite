@@ -40,6 +40,7 @@ function nnew(req, res, next) {
 
 function create(req, res, next) {
   co(function* () {
+    // TODO label的保存及更新
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
     let newQuestion = yield gModels.Question.create(_.assign({

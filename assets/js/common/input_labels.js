@@ -38,6 +38,8 @@ $.fn.labelIt = function(options) {
 
   init();
 
+  // TODO set input's value to curLabels on form submit
+
   // get input's rect
   function getInputRect() {
     var offset    = input.offset();
