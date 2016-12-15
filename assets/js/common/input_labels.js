@@ -58,16 +58,12 @@ $.fn.labelIt = function(options) {
   // 2. create span + input
   // 3. show current labels on left
   function init() {
-    newInput = $(inputNewHtml()).css(_.pick(inputRect, 'width', 'height')).insertAfter(input);
+    newInput = createNewInput().insertAfter(input);
     input.hide();
     regNewInputEvents();
   }
 
   // event register & handle
-  // 1. popup & remove matching labels
-  // 2. select label when click on it
-  // 3. delete selected label when click close icon
-  // 4. keyup & focus
   function regNewInputEvents() {
     $('.il-labels-input').on({
       'focus.il': function() {
@@ -105,6 +101,7 @@ $.fn.labelIt = function(options) {
     });
   }
 
+  // search remote server for matching labels
   function searchMatchingLabels(name) {
     $.get(searchUrl, name, function(data) {
       if (data.error || !data.matchingLabels.length) return;
@@ -122,6 +119,13 @@ $.fn.labelIt = function(options) {
           popupLabDlg.hide();
         });
 
+        $('html').on('click.il', function(e) {
+          if (!$(e.target).closest('.il-pop-labels').length && 
+              !$(e.target).closest('.il-labels-input').length) {
+            hideDialog();
+          }
+        });
+
         input.after(popupLabDlg);
       }
 
@@ -136,11 +140,11 @@ $.fn.labelIt = function(options) {
       _.pull(curLabels, name);
     }
 
-    newInput = newInput.replaceWith($(inputNewHtml()).css(_.pick(inputRect, 'width', 'height')));
+    newInput = newInput.replaceWith(createNewInput());
   }
 
   // new input to replace the default input
-  function inputNewHtml() {
+  function createNewInput() {
     var template = ''
       + '<span class="il-labels-input flex round-border relative">'
       +   '<span class="il-labels">'
@@ -154,9 +158,9 @@ $.fn.labelIt = function(options) {
       +   '<input class="il-input"></input>'
       + '</span>';
 
-      return _.template(template)({
+      return $(_.template(template)({
         labels: curLabels
-      });
+      })).css(_.pick(inputRect, 'width', 'height'));
   }
 
   // popup dlg for matching labels
