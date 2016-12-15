@@ -28,7 +28,6 @@ $.fn.labelIt = function(options) {
   var searchUrl   = options.searchUrl || '';
   var addUrl      = options.addUrl || '';
   var newInput    = null;
-  var popupLabDlg = null;
 
   var popupLabDlgPos = {
     left:     inputRect.left,
@@ -74,6 +73,10 @@ $.fn.labelIt = function(options) {
         $(this).parent().css('border-color', '#ccc');
       },
 
+      'keydown.il': function(evt) {
+        return evt.which != 13;
+      },
+
       'keyup.il': function(evt) {
         var me = $(this);
         var v = $(this).val().trim();
@@ -83,6 +86,7 @@ $.fn.labelIt = function(options) {
           if (v) {
             $.post(addUrl, { name: v }, function(data) {
               changeCurLabels(true, v);
+              $('.il-input').focus();
             });
           }
 
@@ -92,45 +96,42 @@ $.fn.labelIt = function(options) {
         }
 
         // or search matching labels for select
-        searchMatchingLabels(m.val());
+        if (v) {
+          searchMatchingLabels(me.val());
+        }
       }
-    }, '#il-input');
+    }, '.il-input');
 
     $('.il-labels-input').on('click.il', '.il-rm-lab', function() {
-      changeCurLabels(false, curLabels, $(this).prev().text());
+      changeCurLabels(false, $(this).prev().text());
+      $('.il-input').focus();
     });
   }
 
   // search remote server for matching labels
   function searchMatchingLabels(name) {
-    $.get(searchUrl, name, function(data) {
-      if (data.error || !data.matchingLabels.length) return;
+    $.get(searchUrl, { name: name }, function(data) {
+      $('.il-pop-labels').remove();
 
-      var newDlg = $(popupLabelsHtml(data.matchingLabels)).css(popupLabDlgPos);
+      if (data.error || !data.labels.length) return;
 
-      if (popupLabDlg) {
-        popupLabDlg = popupLabDlg.replaceWith(newDlg);
-      } else {
-        popupLabDlg = newDlg;
+      input.after($(popupLabelsHtml(data.labels)).css(popupLabDlgPos));
 
-        // click on matched label and select it
-        $('.il-pop-labels').on('click.il', '.il-pop-lab', function() {
-          changeCurLabels(true, $(this).children().first().text());
-          popupLabDlg.hide();
-        });
+      // click on matched label and select it
+      $('.il-pop-labels').on('click.il', '.il-pop-lab', function() {
+        changeCurLabels(true, $(this).children().first().text());
+        $('.il-pop-labels').remove();
+        $('.il-input').val('').focus();
+      });
 
-        $('html').on('click.il', function(e) {
-          if (!$(e.target).closest('.il-pop-labels').length && 
-              !$(e.target).closest('.il-labels-input').length) {
-            hideDialog();
-          }
-        });
-
-        input.after(popupLabDlg);
-      }
-
-      popupLabDlg.show();
-    }
+      $('html').on('click.il', function(e) {
+        if (!$(e.target).closest('.il-pop-labels').length && 
+            !$(e.target).closest('.il-labels-input').length) {
+          $('.il-pop-labels').remove();
+          $('.il-input').val('');
+        }
+      });
+    });
   }
 
   function changeCurLabels(isAdd, name) {
@@ -140,7 +141,8 @@ $.fn.labelIt = function(options) {
       _.pull(curLabels, name);
     }
 
-    newInput = newInput.replaceWith(createNewInput());
+    newInput = createNewInput().replaceAll(newInput);
+    regNewInputEvents();
   }
 
   // new input to replace the default input
@@ -169,7 +171,7 @@ $.fn.labelIt = function(options) {
       + '<div class="il-pop-labels small-font">'
       +   '<ul class="nav">'
       +     '<% for (let lab of labels) { %>'
-      +       '<li class="il-pop-lab">'
+      +       '<li class="il-pop-lab round-border">'
       +         '<span><%= lab.name %></span>'
       +         '<span><%= lab.ques_cnt %></span>'
       +       '</li>'

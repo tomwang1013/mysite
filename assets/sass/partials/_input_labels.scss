@@ -25,3 +25,28 @@
   }
 }
 
+.il-pop-labels {
+  border: 1px solid #00a;
+  border-top: none;
+  padding: 0.5em;
+  background-color: #eee;
+
+  li {
+    display: inline-block;
+    border: 1px solid #888;
+    cursor: pointer;
+  }
+
+  li:hover {
+    background-color: #aaa;
+  }
+
+  span {
+    display: inline-block;
+    padding: 0.25em;
+  }
+
+  span:first-child {
+    border-right: 1px solid #888;
+  }
+}

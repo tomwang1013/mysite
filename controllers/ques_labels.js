@@ -1,13 +1,12 @@
 // 根据名称前缀查找标签
 function search(req, res, next) {
-  let lab = req.query.lab;
-
-  gModels.QuesLabel.find().
-    regex('name', lab).
+  gModels.QuesLabel.
+    find({ name: { $regex: req.query.name } }).
     lean().
+    select('name ques_cnt').
     sort({ ques_cnt: -1 }).
     exec(function(err, labels) {
-      res.json({ error: 0, labels });
+      res.json({ error: 0, labels: labels || [] });
     });
 }
 
