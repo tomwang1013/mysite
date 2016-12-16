@@ -1,0 +1,16 @@
+.pl-no-sb {
+  background-color: #fff;
+  border: 1px solid #00a;
+  border-top: none;
+  overflow:   auto;
+  z-index: 88;
+
+  li {
+    padding: 0.2em 0.6em;
+    cursor: pointer;
+  }
+
+  li:hover, .popuplist-item-active {
+    background-color: #aaa;
+  }
+}
