@@ -1,7 +1,8 @@
 extends _layout.pug
 block content
   article.show-job
-    h2.text-center= job.title
+    h2.text-center.relative= job.title
+      a.absolute(href=`/job/${job.id}/questions` class='questions-link btn-primary') 问题列表
     section.job-section.job-basic
       h3 基本信息
       p
