@@ -78,7 +78,7 @@ function create(req, res, next) {
       // create question
       gModels.Question.create(_.assign({
           _job:         jobId,
-          _creator:     req.currentUser.id
+          _creator:     req.currentUser.id,
           creator_name: req.currentUser.name
       }, req.body)),
 
@@ -215,8 +215,8 @@ function search(req, res, next) {
     select: 'name'
   });
 
-  if (req.query.tag_id) {
-    q = q.where({ _tag: req.query.tag_id });
+  if (req.query.tag) {
+    q = q.where({ tag: req.query.tag });
   }
 
 

@@ -18,7 +18,7 @@ let questionSchema = new Schema({
   tag:          String,   // 分类
 
   _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
-  _creator:     { type: Schema.Types.ObjectId, ref: 'User' }
+  _creator:     { type: Schema.Types.ObjectId, ref: 'User' },
   creator_name: String,   // 所属公司名称
 }, {
   timestamps: true
