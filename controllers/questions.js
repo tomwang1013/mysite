@@ -22,22 +22,28 @@ function index(req, res, next) {
       _job: jobId,
       deleted: 0
     }).exec();
-
-    // 得到我回答了哪些问题
-    //myAnswers = yield gModels.Answer.find({
-      //_user: req.currentUser.id
-    //}).exec();
-
-    //myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
-      //result[answer._question] = answer;
-      //return result;
-    //}, {});
-
-    res.render('questions/index', {
+    let locals = {
       job: job,
-      questions: questions,
-      isMyJob: req.currentUser && req.currentUser.id == job._creator
-    });
+      questions: questions
+    }
+
+    if (req.currentUser) {
+      if (req.currentUser.type == 0) {
+        // 得到我回答了哪些问题
+        let myAnswers = yield gModels.Answer.find({
+          _user: req.currentUser.id
+        }, '_id _question', { lean: true }).exec();
+
+        locals.myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
+          result[answer._question] = answer._id;
+          return result;
+        }, {});
+      } else if (req.currentUser.id == job._creator) {
+        locals.isMyJob = true;
+      }
+    }
+
+    res.render('questions/index', locals);
   }).catch(next); 
 }
 
