@@ -68,43 +68,42 @@ function newJob(req, res, next) {
   });
 }
 
+/**
+ * 职位详情页：
+ * 当前用户：
+ *  企业：
+ *    自己创建的：编辑，删除，统计信息(多少人已申请)
+ *    其他企业创建的：no op
+ *  学生：
+ *    已申请：申请状态(是否已申请及申请结果)
+ *    未申请：立即申请
+ *  未登陆：立即申请
+ */
 function show(req, res, next) {
   co(function* () {
     let job = yield gModels.Job.findById(req.params.id).populate('_creator').exec();
 
     if (!job) {
-      err.code = 404;
-      return next(err)
+      throw new Error({ code: 404 });
     }
 
-    let questions = yield gModels.Question.find({ _job: job.id }).exec();
-    let applied = false;
-    let myAnswers = {};
-
-    if (req.currentUser && req.currentUser.type == 0) {
-      applied = yield gModels.ApplyJob.findOne({
-        _job:  job.id,
-        _user: req.currentUser.id
-      }).exec();
-
-      // 得到我回答了哪些问题
-      myAnswers = yield gModels.Answer.find({
-        _user: req.currentUser.id
-      }).exec();
-
-      myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
-        result[answer._question] = answer;
-        return result;
-      }, {});
-    }
-
-    res.render('jobs/show', {
+    let locals = {
       job:        job,
-      company:    job._creator,
-      applied:    applied,
-      questions:  questions,
-      myAnswers:  myAnswers
-    });
+      company:    job._creator
+    };
+
+    if (req.currentUser) {
+      if (req.currentUser.type == 0) {
+        locals.applyStatus = yield gModels.ApplyJob.findOne({
+          _job:  job.id,
+          _user: req.currentUser.id
+        }).exec();
+      } else if (req.currentUser.id == job._creator.id) {
+        locals.isMyJob = true;
+      }
+    }
+
+    res.render('jobs/show', locals);
   }).catch(next);
 }
 
@@ -176,10 +175,7 @@ function apply(req, res, next) {
     }).exec();
 
     res.json({ error: 0, message: '申请成功' });
-  }).catch(function(err) {
-    console.error(err);
-    res.json({ error: 1, message: '申请失败' });
-  });
+  }).catch(next);
 }
 
 // 管理申请者

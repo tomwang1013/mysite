@@ -25,10 +25,25 @@ block content
     section.job-section
       h3 公司简介
       p!= company.desc
-    if questions.length > 0
-      include _questions.pug
-    section.job-apply.text-center
-        if applied
-          span(class='applied larger-font') 已 申 请
-        else if !currentUser || currentUser.type == 0
-          button(class='btn btn-primary' data-job-id=job.id) 申 请
+    section.sj-foot
+      if currentUser
+        if currentUser.type == 0
+          if applyStatus
+            .applied.text-bold
+              if applyStatus.status == 0
+                span.waiting 已申请，审核中...
+              else if applyStatus.status == 1
+                span.refused 企业已拒绝你的申请：#{applyStatus.message}
+              else
+                span.passed 申请已通过：#{applyStatus.message}
+          else
+            .text-center
+              button(class='btn-primary to-apply' data-job-id=job.id) 申 请
+        else if isMyJob
+          .my-job.flex
+            span.appliers-size 当前申请人数：#{job._appliersSize}
+            a(href=`/job/${job.id}/edit` class='btn-normal edit-job fir-span') 编 辑
+            button(class='btn-warning del-job' data-job-id=job.id) 删 除
+      else
+        .text-center
+          button(class='btn-primary to-apply' data-job-id=job.id) 申 请

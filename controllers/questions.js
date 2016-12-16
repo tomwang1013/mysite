@@ -5,8 +5,15 @@ const _  = require('lodash');
 
 // 查看某个职位下的所有问题列表
 // 区分用户类型：
-// 企业：可以编辑或删除问题
-// 学生或未登陆用户：去解答
+// 企业：
+//  自己创建的：可以编辑或删除问题
+//  其他企业创建的：no op
+//
+// 单个问题：
+// 学生：
+//  已解答：查看答案 TODO
+//  未解答：去解答
+// 未登陆用户：去解答
 function index(req, res, next) {
   co(function* () {
     let jobId = req.params.jid;
@@ -15,6 +22,16 @@ function index(req, res, next) {
       _job: jobId,
       deleted: 0
     }).exec();
+
+    // 得到我回答了哪些问题
+    //myAnswers = yield gModels.Answer.find({
+      //_user: req.currentUser.id
+    //}).exec();
+
+    //myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
+      //result[answer._question] = answer;
+      //return result;
+    //}, {});
 
     res.render('questions/index', {
       job: job,

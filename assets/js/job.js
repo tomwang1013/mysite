@@ -44,10 +44,10 @@ $(document).ready(function() {
   $('#address').popupTabs(cities);
 
   // create job
-  $('form.new-job').validate();
+  $('form.new-job-fm').validate();
 
   // update job
-  $('form.edit-job').validate();
+  $('form.edit-job-fm').validate();
 
   // apply job at jobs index
   $('.job-title button').click(function() {
@@ -61,17 +61,19 @@ $(document).ready(function() {
   });
 
   // apply job at job detail
-  $('.job-apply button:not(:disabled)').click(function() {
+  $('.to-apply').click(function() {
     var me = $(this);
 
     $.post('/jobs/apply', {
       job_id: me.data('jobId')
     }, function(data) {
-      if (data.error) {
-        if (data.location) location = data.location;
-        else location = '/';
+      if (!data.error) {
+        me.parent().replaceWith(
+          "<div class='applied text-bold'>" +
+            "<span class='waiting'>已申请，审核中...</span>" +
+          "</div>");
       } else {
-        me.removeClass('btn-primary').addClass('btn-disabled').text('已 申 请');
+        location = data.location || '/';
       }
     });
   });

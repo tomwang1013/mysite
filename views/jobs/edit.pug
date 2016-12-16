@@ -2,7 +2,7 @@ extends _layout.pug
 append js
   script(src='/ckeditor/ckeditor.js')
 block content
-  form(method='post', action='/job/' + job.id, class='edit-job hcenter')
+  form(method='post', action='/job/' + job.id, class='edit-job-fm hcenter')
     .header.text-center.text-bold 修改职位信息
     .form-group
       label(for='title' class='label label-input') 职位名称：

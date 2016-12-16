@@ -1,8 +1,10 @@
 @import 'partials/all';
 @import 'partials/pager';
 
-// 新建及编辑职位
-.new-job, .edit-job {
+/**
+ * 新建及编辑职位
+ */
+.new-job-fm, edit-job-fm {
   padding: 1em 1em 0 1em;
   border: 1px solid #aaa;
   max-width: 720px;
@@ -33,27 +35,29 @@
     border-bottom: 1px solid #aaa;
   }
 
-  .job-apply {
+  .sj-foot {
     padding: 1em 0;
+  }
 
-    .applied {
+  .my-job {
+    align-items: center;
+  }
+
+  .appliers-size {
+    margin-right: auto;
+  }
+
+  .applied {
+    .waiting {
+      color: #603311;
+    }
+
+    .passed {
       color: green;
     }
 
-    button {
-      width: 10%;
-    }
-  }
-
-  .questions {
-    padding: 1em;
-    border: 1px solid #bbb;
-    background-color: #eee;
-
-    h3 {
-      margin-top: 0;
-      padding-bottom: 1em;
-      border-bottom: 2px solid #aaa;
+    .refused {
+      color: red;
     }
   }
 }
@@ -66,29 +70,6 @@
 
   span:first-child {
     width: 15%;
-  }
-}
-
-// 单个问题基本信息
-.question {
-  padding: 1em;
-
-  &:nth-child(even) {
-    background-color: #ccc;
-  }
-
-  &:nth-child(odd) {
-    background-color: #bbb;
-  }
-
-  .answer {
-    padding: 1em;
-    background-color: #eee;
-    color: #060;
-
-    a {
-      margin-right: 0.5em;
-    }
   }
 }
 
