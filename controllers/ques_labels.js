@@ -11,13 +11,14 @@ function search(req, res, next) {
 }
 
 // 当输入的标签不存在时创建标签
-// TODO 标签的唯一性：如果存在标签，不创建，直接返回
+// 标签的唯一性：如果存在标签，不创建，直接返回
 function create(req, res, next) {
   gModels.QuesLabel.create({
-    name: req.body.name,
-    ques_cnt: 1
-  }).then(function(error, result) {
+    name: req.body.name
+  }).then(function(result) {
     res.json({ error: 0 });
+  }).catch(function(error) {
+    res.json({ error: 1 });
   });
 }
 

@@ -23,11 +23,11 @@ $.fn.labelIt = function(options) {
   options = options || {};
 
   var input       = this;
+  var form        = input.closest('form');
   var inputRect   = getInputRect();
   var curLabels   = options.initLabels || [];
   var searchUrl   = options.searchUrl || '';
   var addUrl      = options.addUrl || '';
-  var newInput    = null;
 
   var popupLabDlgPos = {
     left:     inputRect.left,
@@ -38,7 +38,10 @@ $.fn.labelIt = function(options) {
 
   init();
 
-  // TODO set input's value to curLabels on form submit
+  // set input's value to curLabels on form submit
+  form.on('submit', function() {
+    input.val(curLabels.join(','));
+  });
 
   // get input's rect
   function getInputRect() {
@@ -59,14 +62,14 @@ $.fn.labelIt = function(options) {
   // 2. create span + input
   // 3. show current labels on left
   function init() {
-    newInput = createNewInput().insertAfter(input);
+    createNewInput().insertAfter(input);
     input.hide();
     regNewInputEvents();
   }
 
   // event register & handle
   function regNewInputEvents() {
-    $('.il-labels-input').on({
+    form.on({
       'focus.il': function() {
         $(this).parent().css('border-color', '#00a');
       },
@@ -75,6 +78,7 @@ $.fn.labelIt = function(options) {
         $(this).parent().css('border-color', '#ccc');
       },
 
+      // prevent default form submit
       'keydown.il': function(evt) {
         return evt.which != 13;
       },
@@ -85,7 +89,7 @@ $.fn.labelIt = function(options) {
 
         // press enter to add this label
         if (evt.which == 13) {
-          if (v) {
+          if (v && !_.includes(curLabels, v)) {
             $.post(addUrl, { name: v }, function(data) {
               changeCurLabels(true, v);
               $('.il-input').focus();
@@ -93,58 +97,70 @@ $.fn.labelIt = function(options) {
           }
 
           me.val('');
-          if (popupLabDlg) popupLabDlg.hide();
+          $('.il-pop-labels').remove();
           return;
         }
 
         // or search matching labels for select
         if (v) {
-          searchMatchingLabels(me.val());
+          searchMatchingLabels(v);
         }
       }
     }, '.il-input');
 
-    $('.il-labels-input').on('click.il', '.il-rm-lab', function() {
+    // remove current label
+    form.on('click.il', '.il-rm-lab', function() {
       changeCurLabels(false, $(this).prev().text());
       $('.il-input').focus();
+    });
+
+    // click on matched label and select it
+    form.on('click.il', '.il-pop-lab', function() {
+      var newLab = $(this).children().first().text();
+
+      if (!_.includes(curLabels, newLab)) {
+        changeCurLabels(true, newLab);
+      }
+
+      $('.il-input').val('').focus();
+    });
+
+    // close the popup labels when clicking outside
+    $('html').on('click.il', function(e) {
+      if (!$(e.target).closest('.il-pop-labels').length && 
+          !$(e.target).closest('.il-labels-input').length) {
+        $('.il-pop-labels').remove();
+        $('.il-input').val('');
+      }
     });
   }
 
   // search remote server for matching labels
   function searchMatchingLabels(name) {
     $.get(searchUrl, { name: name }, function(data) {
+      if (data.error || !data.labels.length) {
+        return;
+      }
+
       $('.il-pop-labels').remove();
-
-      if (data.error || !data.labels.length) return;
-
-      input.after($(popupLabelsHtml(data.labels)).css(popupLabDlgPos));
-
-      // click on matched label and select it
-      $('.il-pop-labels').on('click.il', '.il-pop-lab', function() {
-        changeCurLabels(true, $(this).children().first().text());
-        $('.il-pop-labels').remove();
-        $('.il-input').val('').focus();
-      });
-
-      $('html').on('click.il', function(e) {
-        if (!$(e.target).closest('.il-pop-labels').length && 
-            !$(e.target).closest('.il-labels-input').length) {
-          $('.il-pop-labels').remove();
-          $('.il-input').val('');
-        }
-      });
+      input.after(popupLabels(data.labels));
     });
   }
 
+  // add or remove label from curLabels
   function changeCurLabels(isAdd, name) {
     if (isAdd) {
       curLabels.push(name);
+      $('.il-labels').append(
+        '<span class="il-in-lab round-border relative">' +
+          '<span>' + name + '</span>' +
+          '<span class="fa fa-times il-rm-lab absolute" aria-hidden="true"></span>' +
+        '</span>'
+      );
     } else {
       _.pull(curLabels, name);
+      $('.il-lab-name:contains(' + name + ')').parent().remove();
     }
-
-    newInput = createNewInput().replaceAll(newInput);
-    regNewInputEvents();
   }
 
   // new input to replace the default input
@@ -154,7 +170,7 @@ $.fn.labelIt = function(options) {
       +   '<span class="il-labels">'
       +     '<% for (let idx in labels) { %>'
       +       '<span class="il-in-lab round-border relative">'
-      +         '<span><%= labels[idx] %></span>'
+      +         '<span class="il-lab-name"><%= labels[idx] %></span>'
       +         '<span class="fa fa-times il-rm-lab absolute" aria-hidden="true"></span>'
       +       '</span>'
       +     '<% } %>'
@@ -162,13 +178,13 @@ $.fn.labelIt = function(options) {
       +   '<input class="il-input"></input>'
       + '</span>';
 
-      return $(_.template(template)({
-        labels: curLabels
-      })).css(_.pick(inputRect, 'width', 'height'));
+    return $(_.template(template)({
+      labels: curLabels
+    })).css(_.pick(inputRect, 'width', 'height'));
   }
 
   // popup dlg for matching labels
-  function popupLabelsHtml(matchingLabels) {
+  function popupLabels(matchingLabels) {
     var template = ''
       + '<div class="il-pop-labels small-font">'
       +   '<ul class="nav">'
@@ -181,8 +197,8 @@ $.fn.labelIt = function(options) {
       +   '</ul>'
       + '</div>';
 
-      return _.template(template)({
-        labels: matchingLabels
-      });
+    return $(_.template(template)({
+      labels: matchingLabels
+    })).css(popupLabDlgPos);
   }
 }

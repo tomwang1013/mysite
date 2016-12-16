@@ -22,7 +22,7 @@ $(function() {
   });
 
   $('#labels').labelIt({
-    initLabels: ['ruby', 'python'],
+    initLabels: [],
     searchUrl:  '/qlabels/search',
     addUrl:     '/qlabels'
   });

@@ -9,7 +9,7 @@ const _ = require('lodash');
 let Schema = mongoose.Schema;
 let quesLabelSchema = new Schema({
   name:     String, // 标签名称
-  ques_cnt: Number  // 此标签下问题总数
+  ques_cnt: { type: Number, default: 0 }  // 此标签下问题总数
 });
 
 
