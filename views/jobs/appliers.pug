@@ -15,8 +15,8 @@ block content
           span 申请时间：#{applier.createdAt.toLocaleDateString()}
           if applier.status == 0
             .apply-op
-              button.btn.btn-primary 通过
-              button.btn 拒绝
+              button.btn-primary 通过
+              button.btn-warning 拒绝
         .apply-result.small-font
           case applier.status
             when 0
@@ -24,8 +24,8 @@ block content
                 div
                   textarea.form-control(name='op_message')
                 div
-                  button.btn.btn-primary 确定
-                  button.btn 取消
+                  button.btn-primary 确定
+                  button.btn-normal 取消
             when 1
               .apply-refused 已拒绝：#{applier.message}
             when 2

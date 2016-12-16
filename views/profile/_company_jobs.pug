@@ -6,7 +6,10 @@
       .job-title.relative
         a.title-link.inline-block(href='/job/' + job.id)= job.title
         span 申请人数：
-          a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
+          if job._appliersSize > 0
+            a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
+          else
+            | 0
         a.job-edit.absolute(href='/job/' + job.id + '/edit') 编辑
         a.job-questions.absolute(href='/job/' + job.id + '/questions') 题目列表
       .job-basics.small-font

@@ -47,7 +47,7 @@ function index(req, res, next) {
   }).catch(next); 
 }
 
-// 创建为题
+// 创建问题
 function nnew(req, res, next) {
   let jobId = req.params.jid;
 

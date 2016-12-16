@@ -39,7 +39,7 @@ function show(req, res, next) {
     // 学生只能查看自己的答案
     // 企业只能查看其发布的职位的答案
     if (req.currentUser.type == 0 && answer._user != req.currentUser.id ||
-        req.currentUser.type == 1 && answer.question._job._creator != req.currentUser.id) {
+        req.currentUser.type == 1 && answer._question._job._creator != req.currentUser.id) {
       return next({ code: 403 });
     }
 

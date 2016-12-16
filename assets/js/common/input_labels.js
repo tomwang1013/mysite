@@ -24,7 +24,7 @@ $.fn.labelIt = function(options) {
   var input       = this;
   var form        = input.closest('form');
   var inputRect   = getInputRect();
-  var curLabels   = input.val().split(',');
+  var curLabels   = input.val() ? input.val().split(',') : [];
   var searchUrl   = options.searchUrl || '';
   var addUrl      = options.addUrl || '';
 
@@ -39,7 +39,9 @@ $.fn.labelIt = function(options) {
 
   // set input's value to curLabels on form submit
   form.on('submit', function() {
-    input.val(curLabels.join(','));
+    if (curLabels.length) {
+      input.val(curLabels.join(','));
+    }
   });
 
   // get input's rect
