@@ -22,7 +22,6 @@ $(function() {
   });
 
   $('#labels').labelIt({
-    initLabels: [],
     searchUrl:  '/qlabels/search',
     addUrl:     '/qlabels'
   });

@@ -1,0 +1,14 @@
+.q-single.small-font
+  .flex
+    a.text-bold(href='/job/' + question._job + '/question/' + question.id)= question.title
+    span.q-tag #{question.tag}
+    span.q-lab #{question.labels.join(' ')}
+    span.q-level 难度：#{question.level}
+  .q-content!= question.content
+  .q-foot
+    if isMyJob
+      a.fir-span.btn-normal.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
+      button.fir-span.btn-warning.del-question(data-url='/job/' + job.id + '/question/' + question.id + '/update') 删 除
+      a.fir-span.answers(href='/question/' + question.id + '/answers') 查看所有解答
+    else
+      a.btn-normal(href=`/question/${question.id}/answers/new`) 马上解答

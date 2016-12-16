@@ -4,22 +4,15 @@ block content
     .q-common-head.flex
       a.fir-span(href='/job/' + job.id)= job.title
       span 的题目列表
-      a.btn-primary.new-q(href='/job/' + job.id + '/questions/new') 新建题目
+      if isMyJob
+        a.btn-primary.new-q(href='/job/' + job.id + '/questions/new') 创建题目
     .q-list
       if questions.length == 0
-        .text-center 您还没有为本职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
+        .text-center
+          if isMyJob
+            | 您暂时没有为此职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
+          else
+            | 此职位暂时没有创建任何题目
       else
         each question in questions
-          .q-single.small-font
-            .flex
-              a(href='/job/' + question._job + '/question/' + question.id)= question.title
-              span.q-level.small-font 难度：#{question.level}
-            .q-content!= question.content
-            .q-foot.flex
-              span.smaller-font.font-light
-                span.fir-span 分类：#{question.tag}
-                span 标签：#{question.labels.join(' ')}
-              span.q-opts
-                a.fir-span.answers(href='/question/' + question.id + '/answers') 查看所有解答
-                a.fir-span.btn-normal.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
-                button.btn-warning.del-question(data-url='/job/' + job.id + '/question/' + question.id + '/update') 删 除
+          include _list_question.pug

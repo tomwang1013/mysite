@@ -38,16 +38,15 @@ $cl-color: #aaa;
   border-bottom: 1px dashed #ccc;
 }
 
-.q-level {
+.q-tag {
   margin-left: auto;
 }
 
-.q-foot {
-  align-items: flex-end;
-
-  .q-opts {
-    margin-left: auto;
-  }
+.q-lab {
+  padding: 0 0.5em;
+  border-left: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  margin: 0 0.5em;
 }
 
 /**

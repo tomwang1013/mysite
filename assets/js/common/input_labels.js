@@ -11,7 +11,6 @@ var _ = require('lodash');
  * 4. when typing return create this label if not exist or just add it
  *
  * options:
- * initLabels:  initial labels
  * searchUrl:   instant search url
  * addUrl:      ajax url to create label
  */
@@ -25,7 +24,7 @@ $.fn.labelIt = function(options) {
   var input       = this;
   var form        = input.closest('form');
   var inputRect   = getInputRect();
-  var curLabels   = options.initLabels || [];
+  var curLabels   = input.val().split(',');
   var searchUrl   = options.searchUrl || '';
   var addUrl      = options.addUrl || '';
 

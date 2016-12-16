@@ -3,15 +3,14 @@
 const co = require('co');
 const _  = require('lodash');
 
+// 查看某个职位下的所有问题列表
+// 区分用户类型：
+// 企业：可以编辑或删除问题
+// 学生或未登陆用户：去解答
 function index(req, res, next) {
   co(function* () {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
-
-    if (job._creator != req.currentUser.id) {
-      throw new Error({ code: 403 });
-    }
-
     let questions = yield gModels.Question.find({
       _job: jobId,
       deleted: 0
@@ -19,7 +18,8 @@ function index(req, res, next) {
 
     res.render('questions/index', {
       job: job,
-      questions: questions
+      questions: questions,
+      isMyJob: req.currentUser && req.currentUser.id == job._creator
     });
   }).catch(next); 
 }
@@ -166,7 +166,7 @@ function update(req, res, next) {
         name: { $in: deletedLabels },
       }, {
         $inc: { ques_cnt: -1 }
-      }).exec()
+      }).exec(),
 
       // update question count of each label
       gModels.QuesLabel.update({
@@ -180,7 +180,7 @@ function update(req, res, next) {
   }).catch(next);
 }
 
-// 和job无关的全部question搜索
+// 普通用户的问题搜索
 function search(req, res, next) {
   let page    = req.query.page ? parseInt(req.query.page) : 1;
   let perPage = req.query.per_page ? parseInt(req.query.per_page) : 20;

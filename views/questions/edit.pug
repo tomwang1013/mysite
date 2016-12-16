@@ -10,13 +10,16 @@ block content
     form.q-edit.small-font(method='post' action='/job/' + job.id + '/question/' + question.id + '/update')
       .form-group
         label(for='title' class='label label-input') 标题：
-        input(type='text' name='title', id='title' class='form-control', value=question.title, required)
+        input(type='text' name='title', id='title' class='form-control', value=question.title, required, autofocus)
       .form-group
         label(for='tag' class='label label-input') 分类：
         select(name='tag', id='tag' class='form-control', required)
           option(value='' selected) 请选择
           each t in quesTags
             option(value=t, selected=t == question.tag)= t 
+      .form-group
+        label(for='labels' class='label label-input') 标签：
+        input(type='text' name='labels', id='labels' class='form-control' value=question.labels.join(','))
       .form-group
         label(class='label label-input') 难度：
         .levels
