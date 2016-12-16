@@ -46,10 +46,25 @@ function create(req, res, next) {
   co(function* () {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
-    let newQuestion = yield gModels.Question.create(_.assign({
-      _job:     jobId,
-      _creator: req.currentUser.id
-    }, req.body));
+
+    if (job._creator != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
+    yield [
+      // create question
+      gModels.Question.create(_.assign({
+          _job:     jobId,
+          _creator: req.currentUser.id
+      }, req.body)),
+
+      // update question count of each label
+      gModels.QuesLabel.update({
+        name: { $in: req.body.labels },
+      }, {
+        $inc: { ques_cnt: 1 }
+      }).exec()
+    ];
 
     res.redirect('/job/' + jobId + '/questions');
   }).catch(next);
@@ -128,6 +143,10 @@ function edit(req, res, next) {
 function update(req, res, next) {
   let questionId = req.params.qid;
 
+  if (req.body.labels) {
+    req.body.labels = req.body.labels.split(',');
+  }
+
   co(function* () {
     let question = yield gModels.Question.findById(questionId).exec();
 
@@ -137,7 +156,25 @@ function update(req, res, next) {
 
     _.assign(question, req.body);
 
-    yield question.save();
+    let deletedLabels = _.difference(question.labels, req.body.labels);
+
+    yield [
+      question.save(),
+
+      // update question count of each deleted label
+      gModels.QuesLabel.update({
+        name: { $in: deletedLabels },
+      }, {
+        $inc: { ques_cnt: -1 }
+      }).exec()
+
+      // update question count of each label
+      gModels.QuesLabel.update({
+        name: { $in: req.body.labels },
+      }, {
+        $inc: { ques_cnt: 1 }
+      }).exec()
+    ];
 
     res.redirect('/job/' + req.params.jid + '/questions');
   }).catch(next);
