@@ -3,7 +3,11 @@
     a.text-bold(href='/job/' + question._job + '/question/' + question.id)= question.title
     span.q-tag #{question.tag}
     span.q-lab #{question.labels.join(' ')}
-    span.q-level 难度：#{question.level}
+    span.q-level 难度：
+      span.br-theme-fontawesome-stars
+        span.br-widget.br-readonly
+          each l in [0, 1, 2, 3, 4]
+            a(href='#' class={'br-selected': l <= question.level})
   .q-content!= question.content
   .q-foot
     if currentUser

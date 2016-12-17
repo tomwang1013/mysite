@@ -25,7 +25,7 @@ let questionSchema = new Schema({
 });
 
 const LEVEL_DESCS = [
-  '非常简单', '简单', '有点难', '中等难度', '很难', '非常难'
+  '很简单', '简单', '一般', '难', '很难'
 ];
 
 questionSchema.methods.levelDesc = function() {

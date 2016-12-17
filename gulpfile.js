@@ -20,6 +20,7 @@ gulp.task('vendor.js', function() {
   return browserify({
     entries: [
     'node_modules/jquery-validation/dist/jquery.validate.js',
+    'node_modules/jquery-bar-rating/dist/jquery.barrating.min.js',
     'node_modules/jquery-validation/dist/additional-methods.js',
     'node_modules/jquery-validation/dist/localization/messages_zh.js',
     'assets/js/common'],
@@ -102,6 +103,7 @@ gulp.task('build', ['manifest:js', 'manifest:css']);
 // development
 gulp.task('watch', function() {
   gulp.watch('assets/sass/**/*.scss', ['sass']);
+  gulp.watch('assets/sass/vendor/**/*.scss', ['vendor.css']);
   gulp.watch('assets/js/common/*.js', ['vendor.js']);
   gulp.watch('assets/js/*.js', ['bundle.js']);
 });

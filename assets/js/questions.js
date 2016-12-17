@@ -29,4 +29,9 @@ $(function() {
   $('#company_name').popupListNoSb({
     remoteUrl: '/users/queryByCompanyName'
   });
+
+  $('#level').barrating({
+    theme: 'fontawesome-stars',
+    showSelectedRating: false
+  });
 });

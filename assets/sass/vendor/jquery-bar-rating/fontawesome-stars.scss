@@ -4,17 +4,14 @@ $star-active: #EDB867;
 $star-selected: #EDB867;
 
 .br-theme-fontawesome-stars {
-
   .br-widget {
-    height: 28px;
-    white-space: nowrap;
-  
     a {
       font: normal normal normal 20px/1 FontAwesome;
       text-rendering: auto;
       -webkit-font-smoothing: antialiased;
       text-decoration: none;
       margin-right: 2px;
+      font-size: 1em;
     }
 
     a:after {
@@ -29,10 +26,6 @@ $star-selected: #EDB867;
     a.br-selected:after {
       color: $star-selected;
     }
-
-    .br-current-rating {
-      display: none;
-    }
   }
 
   .br-readonly {
@@ -40,5 +33,4 @@ $star-selected: #EDB867;
       cursor: default;
     }
   }
-
 }

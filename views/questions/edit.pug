@@ -22,12 +22,9 @@ block content
         input(type='text' name='labels', id='labels' class='form-control' value=question.labels.join(','))
       .form-group
         label(class='label label-input') 难度：
-        .levels
-          each l in [0,1,2,3,4,5]
-            .level
-              input(type='radio', name='level', id='level' + l, value=l checked=l == question.level)
-              label(for='level' + l class='label')
-                | #{gModels.Question.LEVEL_DESCS[l]}
+        select(name='level', id='level' class='form-control', required)
+          each l in [0,1,2,3,4]
+            option(value=l, selected=l == question.level)= l
       .form-group
         label(for='content' class='label label-input') 题目内容：
         textarea(name='content', id='content' class='form-control rich-editor', required)= question.content
