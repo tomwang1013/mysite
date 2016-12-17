@@ -87,7 +87,6 @@ router.get('/majors',             gControllers.majors.index );
 
 // about
 router.get('/about',          gControllers.about.index );
-router.get('/about/contact',  gControllers.about.contact );
 
 // question labels
 router.get('/qlabels/search', gControllers.ques_labels.search );
