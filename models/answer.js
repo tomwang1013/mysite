@@ -15,6 +15,7 @@ let answerSchema = new Schema({
 
   // relations
   _question:  { type: Schema.Types.ObjectId, ref: 'Question' },
+  _job:       { type: Schema.Types.ObjectId, ref: 'Job' },
   _user:      { type: Schema.Types.ObjectId, ref: 'User' }
 }, {
   timestamps: true
