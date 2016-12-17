@@ -1,16 +1,17 @@
 /* normal button look*/
 .btn {
   @include inline-box;
-  color: #eee;
   cursor:pointer;
 }
 
 .btn-normal {
   @extend .btn;
-  border-color: #53868B;
-  background-color: #53868B;
+  color: $btn-nor-color;
+  border-color: $btn-nor-bd-color;
+  background-color: $btn-nor-bk-color;
+
   &:hover {
-    background-color: #4A777A;
+    background-color: $btn-nor-hv-bk-color;
   }
 }
 
@@ -18,10 +19,12 @@
 /* primary button look*/
 .btn-primary {
   @extend .btn;
-  background-color: #2E37FE;
-  border-color: #2E37FE;
+  color: $btn-pri-color;
+  border-color: $btn-pri-bd-color;
+  background-color: $btn-pri-bk-color;
+
   &:hover {
-    background-color: #0000CD;
+    background-color: $btn-pri-hv-bk-color;
   }
 }
 
@@ -29,19 +32,10 @@
 /* warning button look*/
 .btn-warning {
   @extend .btn;
-  background-color: #B13E0F;
-  border-color: #B13E0F;
+  color: $btn-warn-color;
+  border-color: $btn-warn-bd-color;
+  background-color: $btn-warn-bk-color;
   &:hover {
-    background-color: #8B2500;
-  }
-}
-
-/* cancel button */
-.btn-cancel {
-  @extend .btn;
-  background-color: #B18D92;
-  border-color: #B18D92;
-  &:hover {
-    background-color: #8D5E64;
+    background-color: $btn-warn-hv-bk-color;
   }
 }

@@ -29,6 +29,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(gControllers.middlewares.currentUser);
 
+app.use(function(req, res, next) {
+  res.locals.req = req;
+  next();
+});
+
 app.use(require('./route'));
 app.use(gControllers.error);
 

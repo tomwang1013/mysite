@@ -29,7 +29,7 @@ block content
         select(name='salary', id='salary' class='form-control')
           option(value='' selected) 请选择
           each s, i in salaries
-            option(value=i selected=i == salary)= s 
+            option(value=i selected=!isNaN(parseInt(salary)) && i == salary)= s 
 
       span.flex
         input(type='submit', value='搜索', class='btn btn-primary')

@@ -26,8 +26,8 @@ p {
   margin-top: 0;
 }
 
-.inline-block { display: inline-block; }
 .flex         { display: flex; }
+.inline-block { display: inline-block; }
 .relative     { position: relative; }
 .absolute     { position: absolute; }
 .round-border { border-radius: 4px; }
@@ -42,23 +42,19 @@ p {
 /* text */
 .text-center      { text-align: center; }
 .text-bold        { font-weight: bold; }
-.large-font       { font-size: 1.2em; }
-.larger-font      { font-size: 1.4em; }
-.small-font       { font-size: 0.9em; }
-.smaller-font     { font-size: 0.8em; }
+.large-font       { font-size: 1.5em; }
+.larger-font      { font-size: 1.25em; }
+.small-font       { font-size: 0.75em; }
+.smaller-font     { font-size: 0.5em; }
 .vertical-middle  { vertical-align: middle; }
 
 /* link */
 a {
-  color:            #0276FD;
+  color:            $link-color;
   text-decoration:  none;
   cursor:           pointer;
 
-  &:hover { text-decoration: underline; }
-}
-
-.nav a, a.btn {
-  text-decoration: none;
+  &.hover-ul:hover { text-decoration: underline; }
 }
 
 /* list */
@@ -71,23 +67,22 @@ ul.nav {
 /* flash */
 .flash-success {
   padding: 0.5em 0;
-  color: green;
+  color: $flash-success-color;
   margin-bottom: 0.5em;
 }
 
 .flash-error {
   padding: 0.5em 0;
-  color: red;
+  color: $flash-error-color;
   margin-bottom: 0.5em;
 }
 
 // button & input & select
 @mixin inline-box {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.9rem;
-  height: 2rem;
-  line-height: 22px;
+  padding: 0.25em 0.5em;
+  // 设置为字体的高度一样可以使文字居中
+  line-height: 1.3125;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
@@ -100,5 +95,5 @@ ul.nav {
 
 // 不太重要的字体颜色
 .font-light {
-  color: #666;
+  color: $less-imp;
 }

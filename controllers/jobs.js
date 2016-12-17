@@ -49,14 +49,14 @@ function index(req, res, next) {
       });
     }
 
-    res.render('jobs/index', _.assign(req.query, {
+    res.render('jobs/index', _.assign({
       jobs:       result.jobs,
       page:       page,
       pages:      Math.ceil(result.total / perPage),
       businesses: gModels.Business,
       types:      gModels.JobType,
       salaries:   gModels.Job.salaries
-    }));
+    }, req.query));
   }).catch(next);
 }
 

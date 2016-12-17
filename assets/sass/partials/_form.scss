@@ -22,11 +22,17 @@ input[type='radio'] {
 
 .form-control {
   @include inline-box;
+  height: 2.4375em;
+  padding: 0.5em;
   width: 100%;
   border-color: #ccc;
   color: #333;
   outline:none;
   margin-top: 0.5em;
+}
+
+input[type=submit] {
+  padding: 0.5em;
 }
 
 .form-control-hr {
