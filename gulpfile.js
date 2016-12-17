@@ -13,6 +13,7 @@ var rev         = require('gulp-rev');
 var cleanCSS    = require('gulp-clean-css');
 var del         = require('del');
 var concat      = require('gulp-concat');
+var revdel      = require('gulp-rev-delete-original');
 
 var deps = ['jquery', 'lodash'];
 
@@ -23,8 +24,7 @@ gulp.task('vendor.js', function() {
     'node_modules/jquery-bar-rating/dist/jquery.barrating.min.js',
     'node_modules/jquery-validation/dist/additional-methods.js',
     'node_modules/jquery-validation/dist/localization/messages_zh.js',
-    'assets/js/common'],
-    debug: true
+    'assets/js/common']
   }).require(deps)
     .bundle()
     .pipe(source('vendor.js'))
@@ -40,6 +40,8 @@ gulp.task('bundle.js', function(done) {
     const tasks = files.map(entry => {
       const b = browserify({
         entries:    entry,
+
+        // debug让browser能找到browserify转换之前的原始文件
         debug:      true
       });
 
@@ -52,7 +54,7 @@ gulp.task('bundle.js', function(done) {
   });
 });
 
-gulp.task('sass', function () {
+gulp.task('bundle.css', function () {
   return gulp.src(['assets/sass/**/[^_]*.scss', '!assets/sass/vendor/**/*'])
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public/css/'));
@@ -73,10 +75,9 @@ gulp.task('clean:js', function () {
 gulp.task('manifest:js', ['clean:js', 'vendor.js', 'bundle.js'], function() {
   gulp.src(['public/js/+([^-]).js'], { base: 'public' })
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
     .pipe(rev())
-    .pipe(sourcemaps.write('.'))
+    .pipe(revdel())
     .pipe(gulp.dest('public'))
     .pipe(rev.manifest('rev-manifest.json', { merge: true }))
     .pipe(gulp.dest('.'));
@@ -86,13 +87,12 @@ gulp.task('clean:css', function () {
   return del('public/css/**/*-*');
 });
 
-gulp.task('manifest:css', ['clean:css', 'sass', 'font-awesome'], function() {
+gulp.task('manifest:css', ['clean:css', 'vendor.css', 'bundle.css'], function() {
   gulp.src(['public/css/+([^-]).css'], { base: 'public' })
     .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(cleanCSS())
     .pipe(rev())
-    .pipe(sourcemaps.write('.'))
+    .pipe(revdel())
     .pipe(gulp.dest('public'))
     .pipe(rev.manifest('rev-manifest.json', { merge: true }))
     .pipe(gulp.dest('.'));
@@ -102,8 +102,8 @@ gulp.task('build', ['manifest:js', 'manifest:css']);
 
 // development
 gulp.task('watch', function() {
-  gulp.watch('assets/sass/**/*.scss', ['sass']);
   gulp.watch('assets/sass/vendor/**/*.scss', ['vendor.css']);
+  gulp.watch('assets/sass/**/*.scss', ['bundle.css']);
   gulp.watch('assets/js/common/*.js', ['vendor.js']);
   gulp.watch('assets/js/*.js', ['bundle.js']);
 });
