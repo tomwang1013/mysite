@@ -10,15 +10,16 @@ const mongoose = require('mongoose');
  */
 let Schema = mongoose.Schema;
 let questionSchema = new Schema({
-  title:    String,   // 标题
-  content:  String,   // 问题内容
-  level:    Number,   // 期望难度
-  deleted:  { type: Number, default: 0 }, // 是否已删除：0：未删除，1：已删除
-  labels:   [String], // 标签
-  tag:      String,   // 分类
+  title:        String,   // 标题
+  content:      String,   // 问题内容
+  level:        Number,   // 期望难度
+  deleted:      { type: Number, default: 0 }, // 是否已删除：0：未删除，1：已删除
+  labels:       [String], // 标签
+  tag:          String,   // 分类
 
-  _job:     { type: Schema.Types.ObjectId, ref: 'Job' },
-  _creator: { type: Schema.Types.ObjectId, ref: 'User' }
+  _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
+  _creator:     { type: Schema.Types.ObjectId, ref: 'User' }
+  creator_name: String,   // 所属公司名称
 }, {
   timestamps: true
 });

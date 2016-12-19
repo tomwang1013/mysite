@@ -77,8 +77,9 @@ function create(req, res, next) {
     yield [
       // create question
       gModels.Question.create(_.assign({
-          _job:     jobId,
-          _creator: req.currentUser.id
+          _job:         jobId,
+          _creator:     req.currentUser.id
+          creator_name: req.currentUser.name
       }, req.body)),
 
       // update question count of each label

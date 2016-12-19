@@ -10,10 +10,7 @@ var _ = require('lodash');
  * select
  *
  * options:
- * items: items to show in the list
- * itemsPinyin: chinese pinyin of items
  * remoteUrl: remote url to get the items
- * remoteData: data passed to remoteUrl if it is present
  */
 $.fn.popupList = function(options) {
 	if (!this.is("input[type='text']")) {
@@ -21,9 +18,7 @@ $.fn.popupList = function(options) {
 	}
 
   var input               = this;
-  var list                = null;
-  var items               = options.items || [];
-  var itemsPinyin         = options.itemsPinyin || {};
+  var items               = [];
   var itemHeight          = 0;  // item height
   var maxVisibleItemsCnt  = 10; // max count of visible items
 
@@ -34,129 +29,89 @@ $.fn.popupList = function(options) {
     end:   maxVisibleItemsCnt - 1
   };
 
-  input.prop('readonly', true);
+  // instant search when keydown
+  input.on('keyup.list', function(evt) {
+    var newKeyword = $(this).val().trim();
 
-  if (!items.length && options.remoteUrl) {
-    $.get(options.remoteUrl, options.remoteData || {}, function(data) {
-      items = data.items;
-      itemsPinyin = data.itemsPinyin;
-    });
-  }
+    if (newKeyword != keyword) {
+      // get matched words from server and popup list
+      $.get(remoteUrl, { kw: newKeyword }, function(data) {
+        items = data.items;
+        keyword = newKeyword;
+        showList();
+      });
+    } else {
+      var itemsContainer = $('.popuplist-items');
+      var itemsList      = $('.popuplist-items li');
 
-	input.focus(function(e) {
-    if (!list) {
-      showList();
+      switch (evt.which) {
+        case 38:  // arrow up
+          if (hlItemIdx > 0) {
+          itemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
+          itemsList.eq(--hlItemIdx).addClass('popuplist-item-active');
+
+          if (hlItemIdx < visibleIdxRange.start) {
+            itemsContainer.scrollTop(itemsContainer.scrollTop() - itemHeight);
+            visibleIdxRange.start--;
+            visibleIdxRange.end--;
+          }
+        }
+        break;
+        case 40:  // arrow down
+          if (hlItemIdx < itemsList.length - 1) {
+          itemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
+          itemsList.eq(++hlItemIdx).addClass('popuplist-item-active');
+
+          if (hlItemIdx > visibleIdxRange.end) {
+            itemsContainer.scrollTop(itemsContainer.scrollTop() + itemHeight);
+            visibleIdxRange.start++;
+            visibleIdxRange.end++;
+          }
+        }
+        break;
+        case 13:  // enter
+          if (0 <= hlItemIdx && hlItemIdx < itemsList.length) {
+          input.val(itemsList.eq(hlItemIdx).text());
+          hideList();
+        }
+        break;
+      }
     }
-	});
+  });
 
-  function changeInputValue(nv) {
-    input.val(nv).trigger('change');
+  // close popuplist when clicking outside
+  $('html').on('click.list', function(e) {
+    if (!$(e.target).closest('.popuplist-container').length && 
+        !$(e.target).closest(input).length) {
+      hideList();
+    }
+  });
+
+  // click to select an item
+  input.closest('form').on('click.list', '.popuplist-items li', function() {
+    input.val($(this).text());
     hideList();
-    visibleIdxRange.start = 0;
-    visibleIdxRange.end = maxVisibleItemsCnt - 1
-    hlItemIdx = -1;
-    keyword = '';
-  }
+    return false;
+  });
 
   // show the list: popup it
   function showList() {
-    list = $(createList()).css(getDimensionStyle());
-    input.after(list);
+    input.after($(createList()).css(getDimensionStyle()));
     itemHeight = $('.popuplist-items li').outerHeight();
     $('.popuplist-items').css({
       'max-height': itemHeight * maxVisibleItemsCnt,
       'min-height': itemHeight,
       'overflow':   'auto'
     });
-
-    var searchbarInput = $('.popuplist-searchbar input');
-    var itemsContainer = $('.popuplist-items');
-    var itemsList      = $('.popuplist-items li');
-
-    searchbarInput.focus().val(keyword);
-
-    /**
-     * interaction events
-     */
-
-    // click to select an item
-    itemsList.on('click.list', function() {
-      changeInputValue($(this).text());
-      return false;
-    });
-
-    // instant search when keydown
-    searchbarInput.on('keyup.list', function(evt) {
-      var newKeyword = $(this).val().trim();
-
-      if (newKeyword != keyword) {
-        itemsList.filter(function(idx, ele) {
-          var name = $(this).text();
-          return !_.startsWith(name, newKeyword) && 
-                 !_.startsWith(itemsPinyin[name], newKeyword);
-        }).hide();
-
-        itemsList.filter(function(idx, ele) {
-          var name = $(this).text();
-          return _.startsWith(name, newKeyword) ||
-                 _.startsWith(itemsPinyin[name], newKeyword);
-        }).show();
-
-        keyword = newKeyword;
-        hlItemIdx = -1;
-      } else {
-        var visibleItemsList = itemsList.filter(':visible');
-
-        switch (evt.which) {
-          case 38:  // arrow up
-            if (hlItemIdx > 0) {
-              visibleItemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
-              visibleItemsList.eq(--hlItemIdx).addClass('popuplist-item-active');
-
-              if (hlItemIdx < visibleIdxRange.start) {
-                itemsContainer.scrollTop(itemsContainer.scrollTop() - itemHeight);
-                visibleIdxRange.start--;
-                visibleIdxRange.end--;
-              }
-            }
-            break;
-          case 40:  // arrow down
-            if (hlItemIdx < visibleItemsList.length - 1) {
-              visibleItemsList.eq(hlItemIdx).removeClass('popuplist-item-active');
-              visibleItemsList.eq(++hlItemIdx).addClass('popuplist-item-active');
-
-              if (hlItemIdx > visibleIdxRange.end) {
-                itemsContainer.scrollTop(itemsContainer.scrollTop() + itemHeight);
-                visibleIdxRange.start++;
-                visibleIdxRange.end++;
-              }
-            }
-            break;
-          case 13:  // enter
-            if (0 <= hlItemIdx && hlItemIdx < visibleItemsList.length) {
-              changeInputValue(visibleItemsList.eq(hlItemIdx).text());
-            }
-            break;
-        }
-      }
-    });
-
-		$('html').on('click.list', function(e) {
-      if (!$(e.target).closest('.popuplist-container').length && 
-          !$(e.target).closest(input).length) {
-        hideList();
-      }
-    });
   }
 
   // hide the list
   function hideList() {
-    list.remove();
-    list = null;
-
-    $('.popuplist-items li').off('click.list');
-    $('.popuplist-searchbar input').off('keydown.list');
-		$('html').off('click.list');
+    $('.popuplist-container').remove();
+    visibleIdxRange.start = 0;
+    visibleIdxRange.end = maxVisibleItemsCnt - 1
+    hlItemIdx = -1;
+    keyword = '';
   }
 
   // get pos & size of pop list
@@ -167,9 +122,9 @@ $.fn.popupList = function(options) {
 
     return {
       position: 'absolute',
-      left:     offset.left + 'px',
-      top:      (offset.top + myHeight) + 'px',
-      width:    (options.with || myWidth) + 'px'
+      left:     offset.left,
+      top:      offset.top + myHeight,
+      width:    options.with || myWidth
     };
   }
 
@@ -177,11 +132,6 @@ $.fn.popupList = function(options) {
   function createList() {
     var template = ''
       + '<div class="popuplist-container small-font">'
-      +   '<% if (items.length > minSearchItemsCount) { %>'
-      +     '<div class="popuplist-searchbar">'
-      +       '<input type="text">'
-      +     '</div>'
-      +   '<% } %>'
       +   '<div class="popuplist-items">'
       +     '<ul class="nav">'
       +       '<% for (let idx in items) { %>'
@@ -195,10 +145,9 @@ $.fn.popupList = function(options) {
       +   '</div>'
       + '</div>';
 
-      return _.template(template)({
-        items: items,
-        hlItemIdx: hlItemIdx,
-        minSearchItemsCount: 10
-      });
+    return _.template(template)({
+      items: items,
+      hlItemIdx: hlItemIdx
+    });
   }
 };
