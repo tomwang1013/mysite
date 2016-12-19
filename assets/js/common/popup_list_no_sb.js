@@ -12,7 +12,7 @@ var _ = require('lodash');
  * options:
  * remoteUrl: remote url to get the items
  */
-$.fn.popupList = function(options) {
+$.fn.popupListNoSb = function(options) {
 	if (!this.is("input[type='text']")) {
 		return;
 	}

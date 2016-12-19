@@ -267,10 +267,22 @@ function passwordReset(req, res, next) {
   }).catch(next);
 }
 
+// search company by name
+function queryByCompanyName(req, res, next) {
+  let companyName = req.query.kw;
+
+  gModels.find({
+    userType: 1,
+    name:     companyName
+  }, 'name', { lean: true }, function(err, users) {
+    res.json({ error: 0, items: users.map(u => u.name) });
+  });
+}
+
 exports = module.exports = {
   login:  loginHandler,
   logout: logoutHandler,
   signupView, signup_step1, signup_step2,
   loginView, isValidName, isValidEmail,
-  passwordReset, show
+  passwordReset, show, queryByCompanyName
 };

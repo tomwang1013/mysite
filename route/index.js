@@ -33,7 +33,8 @@ router.get('/password_reset/:token',  gControllers.user.passwordReset);
 router.post('/password_reset/:token', gControllers.user.passwordReset);
 
 // users
-router.get('/user/:id',               gControllers.middlewares.checkLogin, gControllers.user.show);
+router.get('/user/:id',                 gControllers.middlewares.checkLogin, gControllers.user.show);
+router.get('/users/queryByCompanyName', gControllers.user.queryByCompanyName);
 
 // jobs
 router.get('/jobs',                   gControllers.jobs.index);

@@ -220,8 +220,8 @@ function search(req, res, next) {
   }
 
 
-  if (req.query.company_id) {
-    q = q.where({ _creator: req.query.company_id });
+  if (req.query.company_name) {
+    q = q.where({ creator_name: req.query.company_name });
   }
 
   q.exec(function(err, questions) {

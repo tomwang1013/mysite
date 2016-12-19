@@ -25,4 +25,8 @@ $(function() {
     searchUrl:  '/qlabels/search',
     addUrl:     '/qlabels'
   });
+
+  $('#company_name').popupListNoSb({
+    remoteUrl: '/users/queryByCompanyName'
+  });
 });
