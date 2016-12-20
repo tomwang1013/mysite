@@ -12,7 +12,7 @@ var es          = require('event-stream');
 var rev         = require('gulp-rev');
 var cleanCSS    = require('gulp-clean-css');
 var del         = require('del');
-var rename      = require('gulp-rename');
+var concat      = require('gulp-concat');
 
 var deps = ['jquery', 'lodash'];
 
@@ -52,15 +52,15 @@ gulp.task('bundle.js', function(done) {
 });
 
 gulp.task('sass', function () {
-  return gulp.src(['assets/sass/**/[^_]*.scss', '!assets/sass/font-awesome/font-awesome.scss'])
+  return gulp.src(['assets/sass/**/[^_]*.scss', '!assets/sass/vendor/**/*'])
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public/css/'));
 });
 
-gulp.task('font-awesome', function () {
-  return gulp.src('assets/sass/font-awesome/font-awesome.scss')
+gulp.task('vendor.css', function () {
+  return gulp.src('assets/sass/vendor/{font-awesome/font-awesome.scss,jquery-bar-rating/fontawesome-stars.scss}')
     .pipe(sass().on('error', sass.logError))
-    .pipe(rename('font_awesome.css'))
+    .pipe(concat('vendor.css'))
     .pipe(gulp.dest('public/css/'));
 });
 
