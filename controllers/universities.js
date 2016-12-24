@@ -7,6 +7,7 @@ exports.index = function(req, res, next) {
   gModels.University
     .find({})
     .select('name')
+    .lean()
     .sort({ ranking: 1 })
     .exec(function(err, result) {
       let itemsPinyin = {};
@@ -18,9 +19,6 @@ exports.index = function(req, res, next) {
         return v.name;
       })
 
-      res.json({
-        items: items,
-        itemsPinyin: itemsPinyin
-      });
+      res.json({ items, itemsPinyin });
     })
 };
