@@ -72,7 +72,7 @@ gulp.task('clean:js', function () {
   return del('public/js/**/*-*');
 });
 
-gulp.task('manifest:js', ['clean:js', 'vendor.js', 'bundle.js'], function() {
+gulp.task('manifest:js', ['vendor.js', 'bundle.js'], function() {
   gulp.src(['public/js/+([^-]).js'], { base: 'public' })
     .pipe(buffer())
     .pipe(uglify())
@@ -87,7 +87,7 @@ gulp.task('clean:css', function () {
   return del('public/css/**/*-*');
 });
 
-gulp.task('manifest:css', ['clean:css', 'vendor.css', 'bundle.css'], function() {
+gulp.task('manifest:css', ['vendor.css', 'bundle.css'], function() {
   gulp.src(['public/css/+([^-]).css'], { base: 'public' })
     .pipe(buffer())
     .pipe(cleanCSS())
