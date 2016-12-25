@@ -17,4 +17,14 @@ $(function() {
       });
     }
   });
+
+  $('.set-score').submit(function() {
+    var form = $(this);
+
+    $.post(form.attr('action'), form.serializeObject(), function(data) {
+      location.reload();
+    });
+
+    return false;
+  });
 });

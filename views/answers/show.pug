@@ -21,10 +21,11 @@ block content
           else
             button.btn-primary.to-score 为此解答评分
       .score-comment(style={display: 'none'})
-        form.set-score(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')
+        form.set-score(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update_score')
           .form-group
             label.label.label-input(for='score') 分数：
             input(type='text', name='score', id='score', value=answer.score, placeholder='0 ~ 100' class='form-control')
+            .form-control-hint 取值范围：0 ~ 100
           .form-group
             label.label.label-input(for='comment') 评语：
             textarea(name='comment', id='comment', class='form-control')= answer.comment

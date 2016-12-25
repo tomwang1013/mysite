@@ -93,7 +93,6 @@ function edit(req, res, next) {
 }
 
 // 学生能改自己的答案
-// 企业能给答案评分
 function update(req, res, next) {
   gModels.Answer.findById(req.params.aid).
     populate({
@@ -102,20 +101,31 @@ function update(req, res, next) {
     }).exec(function(err, answer) {
 
     // 学生只能查看自己的答案
-    // 企业只能查看其发布的职位的答案
-    if (req.currentUser.type == 0 && answer._user != req.currentUser.id ||
-        req.currentUser.type == 1 && answer.question._job._creator != req.currentUser.id) {
+    if (answer._user != req.currentUser.id) {
       return next({ code: 403 });
     }
 
     _.assign(answer, req.body);
 
-    if (req.currentUser.type == 1) {
-      answer.isScored = true;
-    }
-
     answer.save(function(err, result) {
       res.redirect('/question/' + req.params.qid + '/answer/' + req.params.aid);
+    });
+  })
+}
+
+// 企业能给答案评分
+function updateScore(req, res, next) {
+  gModels.Answer.findById(req.params.aid).populate('_job').exec(function(err, answer) {
+
+    // 企业只能查看其发布的职位的答案
+    if (answer._job._creator != req.currentUser.id) {
+      return next({ code: 403 });
+    }
+
+    _.assign(answer, req.body, { isScored: true });
+
+    answer.save(function(err, result) {
+      res.json({ error: err });
     });
   })
 }
@@ -139,11 +149,6 @@ function remove(req, res, next) {
 }
 
 exports = module.exports = {
-  index:  index,
-  show:   show,
-  nnew:   nnew,
-  create: create,
-  edit:   edit,
-  update: update,
-  remove: remove,
+  index, show, nnew, create, edit,
+  update, remove, updateScore
 };

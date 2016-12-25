@@ -63,6 +63,7 @@ router.post('/question/:qid/answers/create',      gControllers.middlewares.check
 router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin,        gControllers.answers.show);
 router.get('/question/:qid/answer/:aid/edit',     gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
 router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
+router.post('/question/:qid/answer/:aid/update_score',  gControllers.middlewares.checkCompanyLogin, gControllers.answers.updateScore);
 router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
 
 // user center
