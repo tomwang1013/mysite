@@ -1,11 +1,16 @@
 var $ = require('jquery');
 
 $(function() {
-  $('.to-score, .re-score').click(function() {
-    $(this).hide();
-    $('.score-comment').show();
+  $('.a-to-score, .a-re-score').click(function() {
+    $('.overlay').show();
+    $('.overlay-content').show();
     $('#score').focus().val($('#score').val());
     return false;
+  });
+
+  $('.set-score .cancel').click(function() {
+    $('.overlay').hide();
+    $('.overlay-content').hide();
   });
 
   $('.del-answer').click(function() {

@@ -37,3 +37,15 @@ block content
                 button.btn-normal.a-re-score 重新评分
               else
                 button.btn-primary.a-to-score 为此解答评分
+  .overlay(style={display: 'none'})
+  form.overlay-content.set-score(style={display: 'none'} method='post')
+    .form-group
+      label.label.label-input(for='score') 分数：
+      input(type='text', name='score' id='score' placeholder='0 ~ 100' class='form-control')
+      .form-control-hint 取值范围：0 ~ 100
+    .form-group
+      label.label.label-input(for='comment') 评语：
+      textarea(name='comment', id='comment', class='form-control')
+    .form-group
+      input.fir-span.btn-primary(type='submit' value='提 交')
+      input.cancel.btn-normal(type='button' value='取消')

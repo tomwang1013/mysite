@@ -103,6 +103,12 @@
   margin-left: 1em;
 }
 
+.set-score {
+  width: 500px;
+  top: 100px;
+  left: calc(50vw - 250px);
+}
+
 /* answer show */
 .answer-show {
   .answer-head {
@@ -123,6 +129,5 @@
     .edit-answer {
       margin-right: 1em;
     }
-
   }
 }

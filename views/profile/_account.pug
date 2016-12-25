@@ -8,7 +8,7 @@
         label(for='avatar') 上传头像
         input.absolute(type='file' id='avatar' name='avatar')
     .overlay(style={display: 'none'})
-    form(method='post' action='/profile/change_avatar2' class='cropDlg' style={display: 'none'})
+    form(method='post' action='/profile/change_avatar2' class='cropDlg overlay-content' style={display: 'none'})
       .head
         span 裁减并替换新的头像
         a.close × 
