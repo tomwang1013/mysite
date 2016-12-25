@@ -2,16 +2,32 @@
 
 @mixin job-title {
   padding-bottom: 0.5em;
-  border-bottom: 3px solid #aaa;
+  border-bottom: 3px solid $bd-dark;
 }
 
-@mixin question {
-  margin: 0.5em 0;
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid #aaa;
+.as-q {
+  margin: 1em 0;
+  border: 1px solid $bd-light;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
 
-  .question-content {
-    margin-top: 0.5em;
+.as-q-title, .as-q-content, .as-q-foot {
+  border-bottom: 1px solid $bd-light;
+  padding: 0.5rem;
+}
+
+.as-q-foot > span {
+  padding: 0 0.5em;
+  border-right: 2px solid $bd-normal;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+    border-right: none;
   }
 }
 
@@ -22,10 +38,6 @@
     .job-title {
       margin: 0 0.5em;
     }
-  }
-
-  .question {
-    @include question;
   }
 
   .answer-new-form {
@@ -40,7 +52,7 @@
 
 /* answsers list */
 .answers {
-  .answers-head {
+  .as-head {
     @include job-title;
 
     .job-title {
@@ -48,46 +60,53 @@
     }
   }
 
-  .answers-question {
-    @include question;
-  }
-
   .no-answer {
-    color: #a00;
     margin-top: 0.5em;
   }
 
   .answer {
-    border-bottom: 1px solid #777;
-    padding: 0.5em 0;
+    border: 1px solid $bd-dark;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+    margin: 1em 0;
   }
 }
 
 
-.answer .user-info {
-  padding: 0.5em 0;
-  border-top: 1px dashed #aaa;
-  border-bottom: 1px dashed #aaa;
-  margin-bottom: 0.5em;
-  overflow: hidden;
+.a-title, .a-content, .a-foot {
+  padding: 0.5rem;
+  border-bottom: 1px solid $bd-dark;
+}
 
-  span {
-    margin-right: 1em;
+.a-user-info > span {
+  margin-right: 0.5em; 
+  &:last-child {
+    margin-right: 0; 
+  }
+}
+
+.a-title > span {
+  padding: 0 0.5em;
+  border-right: 2px solid $bd-dark;
+
+  &:first-child {
+    padding-left: 0;
   }
 
-  .answer-detail {
-    float: right;
+  &:last-child {
+    padding-right: 0;
+    border-right: none;
   }
+}
+
+.a-re-score {
+  margin-left: 1em;
 }
 
 /* answer show */
 .answer-show {
   .answer-head {
     @include job-title;
-  }
-
-  .answer-question {
-    @include question;
   }
 
   .answer-content {
@@ -105,8 +124,5 @@
       margin-right: 1em;
     }
 
-    .re-score {
-      margin-left: 1em;
-    }
   }
 }

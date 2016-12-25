@@ -1,25 +1,39 @@
 extends _layout.pug
 block content
   .answers
-    .answers-head 职位：
+    .as-head.text-center.large-font
       a.job-title(href='/job/' + job.id)= job.title
-      | 的所有解答
-    .answers-question
-      strong 问题：
-      .question-content.small-font!= question.content
-    .answers-list
-      strong 解答：
+      span 问题解答列表
+    .as-q
+      .as-q-title.text-bold 问题：#{question.title}
+      .as-q-content.small-font!= question.content
+      .as-q-foot.smaller-font.less-imp
+        span.q-tag= question.tag
+        span.q-lab= question.labels.join(' ')
+        span.q-level 难度：
+          span.br-theme-fontawesome-stars
+            span.br-widget.br-readonly
+              each l in [0, 1, 2, 3, 4]
+                a(href='#' class={'br-selected': l <= question.level})
+    .as-list
       if !answers.length
-        .no-answer 暂时没有求职者做解答
+        .no-answer.error-result 暂时没有求职者做解答
       else
         each answer in answers
           - var user = answer._user
-          .answer.small-font
-            .user-info
-              span
-                a(href='/user/' + user.id)= user.name
-              span #{user.university}/#{user.major}
+          .answer
+            .a-title.smaller-font.less-imp
+              span.a-user-info
+                span
+                  a.text-bold(href='/user/' + user.id)= user.name
+                span= user.university
+                span= user.major
               span 创建时间：#{answer.createdAt.toLocaleDateString()}
               span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
-              a.answer-detail(href='/question/' + question.id + '/answer/' + answer.id) 查看解答详情>>
-            .answer-content!= answer.content
+            .a-content.small-font!= answer.content
+            .a-foot
+              if answer.isScored
+                span.success-result 你对此解答的当前评分：#{answer.score} 分
+                button.btn-normal.a-re-score 重新评分
+              else
+                button.btn-primary.a-to-score 为此解答评分

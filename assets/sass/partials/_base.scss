@@ -42,10 +42,11 @@ p {
 /* text */
 .text-center      { text-align: center; }
 .text-bold        { font-weight: bold; }
-.large-font       { font-size: 1.5em; }
-.larger-font      { font-size: 1.25em; }
-.small-font       { font-size: 0.9em; }
-.smaller-font     { font-size: 0.8em; }
+.large-font       { font-size: 1.5rem; }
+.larger-font      { font-size: 1.25rem; }
+.normal-font      { font-size: 1rem; }
+.small-font       { font-size: 0.9rem; }
+.smaller-font     { font-size: 0.8rem; }
 .vertical-middle  { vertical-align: middle; }
 
 /* link */
@@ -67,13 +68,13 @@ ul.nav {
 /* flash */
 .flash-success {
   padding: 0.5em 0;
-  color: $flash-success-color;
+  color: $success-color;
   margin-bottom: 0.5em;
 }
 
 .flash-error {
   padding: 0.5em 0;
-  color: $flash-error-color;
+  color: $error-color;
   margin-bottom: 0.5em;
 }
 
@@ -91,4 +92,16 @@ ul.nav {
 // 2个紧挨在一起的行内元素，第一个元素右边留空
 .fir-span {
   margin-right: 0.5em;
+}
+
+.success-result {
+  color: $success-color;
+}
+
+.error-result {
+  color: $error-color;
+}
+
+.less-imp {
+  color: $less-imp;
 }

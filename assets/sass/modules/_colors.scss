@@ -1,17 +1,18 @@
 // 颜色定义
 
 /* text */
-$flash-success-color: #090;
-$flash-error-color: #900;
+$success-color: #090;
+$error-color: #900;
+$less-imp: #888;
 
 // link
 $link-color: #00a;
 
 /* button */
 $btn-nor-color: #000;
-$btn-nor-bd-color: #777;
-$btn-nor-bk-color: #999;
-$btn-nor-hv-bk-color: #888;
+$btn-nor-bd-color: #aaa;
+$btn-nor-bk-color: #ddd;
+$btn-nor-hv-bk-color: #bbb;
 
 $btn-pri-color: #fff;
 $btn-pri-bd-color: #070;
@@ -22,3 +23,8 @@ $btn-warn-color: #fff;
 $btn-warn-bd-color: #700;
 $btn-warn-bk-color: #900;
 $btn-warn-hv-bk-color: #800;
+
+/* text & border & background */
+$bd-light: #ccc;
+$bd-normal: #aaa;
+$bd-dark: #888;
