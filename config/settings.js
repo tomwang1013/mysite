@@ -1,4 +1,5 @@
 module.exports = {
+  site: 'www.mysite.com',
   nodemailer: {
     host:   'smtp.qq.com',
     port:   465,

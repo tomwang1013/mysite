@@ -255,8 +255,8 @@ function passwordReset(req, res, next) {
         html:
           `<p>请在24小时之内点击下面的链接进入重置过程:</p>
           <p>
-            <a href="http://192.168.1.7:3000/password_reset/${user.token}">
-              http://192.168.1.7:3000/password_reset/${user.token}
+            <a href="http://${gConfig.site}/password_reset/${user.token}">
+              http://${gConfig.site}/password_reset/${user.token}
             </a>
           </p>
           `

@@ -3,11 +3,11 @@ append js
   script(src='/ckeditor/ckeditor.js')
 block content
   .q-new-edit
-    .q-common-head
+    .q-common-head.large-font
       span.fir-span 您正在为职位
       a.fir-span(href='/job/' + job.id)= job.title
       span 修改一道试题：
-    form.q-edit.small-font(method='post' action='/job/' + job.id + '/question/' + question.id + '/update')
+    form.q-edit(method='post' action='/job/' + job.id + '/question/' + question.id + '/update')
       .form-group
         label(for='title' class='label label-input') 标题：
         input(type='text' name='title', id='title' class='form-control', value=question.title, required, autofocus)

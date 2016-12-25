@@ -27,7 +27,6 @@ input[type='radio'] {
   width: 100%;
   border-color: #ccc;
   color: #333;
-  outline:none;
   margin-top: 0.5em;
 }
 
@@ -37,9 +36,10 @@ input.like-fm-ctl[type=submit] {
 
 .form-control-hr {
   @include inline-box;
+  height: 1.9375em;
   border-color: #ccc;
   color: #333;
-  outline:none;
+  vertical-align: middle;
 }
 
 .form-control:focus {

@@ -1,7 +1,6 @@
 @import 'partials/all';
 
 $hl-color: #79A251;
-$cl-color: #aaa;
 
 .q-common-head {
   padding-bottom: 0.5em;
@@ -26,16 +25,20 @@ $cl-color: #aaa;
 // 列表中单个问题
 .q-single {
   padding: 0.5em;
-  border: 1px solid #aaa;
+  border: 1px solid $bd-normal;
   border-radius: 4px;
   margin-bottom: 1em;
+
+  .q-head {
+    align-items: flex-end;
+  }
 }
 
 .q-content {
   padding: 0.5em 0;
   margin: 0.5em 0;
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
+  border-top: 1px dashed $bd-light;
+  border-bottom: 1px dashed $bd-light;
 }
 
 .q-tag {
@@ -44,19 +47,14 @@ $cl-color: #aaa;
 
 .q-lab {
   padding: 0 0.5em;
-  border-left: 2px solid #aaa;
-  border-right: 2px solid #aaa;
+  border-left: 2px solid $bd-normal;
+  border-right: 2px solid $bd-normal;
   margin: 0 0.5em;
 }
 
 /**
  * 新建及修改题目
  */
-.q-new-edit {
-  max-width: 720px;
-  margin: auto;
-}
-
 form.q-new,
 form.q-edit {
   .br-theme-fontawesome-stars {
@@ -76,13 +74,13 @@ form.q-edit {
 .q-show {
   .q-content {
     border-top: none;
-    border-bottom: 2px solid #aaa;
+    border-bottom: 2px solid $bd-normal;
   }
 
   .a-content {
     padding: 0.5em;
-    background-color: #eee;
-    border: 1px solid #aaa;
+    background-color: $bd-light;
+    border: 1px solid $bd-normal;
     margin: 0.5em 0;
   }
 }
