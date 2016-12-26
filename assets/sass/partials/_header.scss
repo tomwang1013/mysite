@@ -19,6 +19,13 @@ header {
       color: $link-color;
     }
 
+    .division {
+      margin-right: 1em;
+      background-color: $bd-light;
+      width: 2px;
+      height: 1.125em;
+    }
+
     .right-btns {
       margin-left: auto;
     }
