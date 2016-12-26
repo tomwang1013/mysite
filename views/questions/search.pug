@@ -5,13 +5,13 @@ block content
   .q-common-head
     form(action='/questions')
       .form-group-hr
-        label(for='tag' class='label label-input') 分类：
+        label(for='tag') 分类：
         select(name='tag', id='tag' class='form-control-hr')
           option(value='' selected) 请选择
           each t in quesTags
             option(value=t, selected=t == curTag)= t 
       .form-group-hr
-        label(for='company_name' class='label label-input') 公司：
+        label(for='company_name') 公司：
         input(type='text' name='company_name', id='company_name' class='form-control-hr' autocomplete='off')
       .form-group-hr
         input(type='submit', value='搜 索' class='btn-primary')

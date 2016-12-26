@@ -1,7 +1,7 @@
 extends _layout.pug
 block content
   .login-box.hcenter
-    if flashErrors
+    if flashErrors && flashErrors.length
       .text-center.flash-error= flashErrors[0]
     form(method='post', action='/login', class='login')
       input(type='hidden' name='return_to' value=return_to)

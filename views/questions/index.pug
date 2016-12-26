@@ -5,7 +5,7 @@ block content
       a.fir-span(href='/job/' + job.id)= job.title
       span 的题目列表
       if isMyJob
-        a.btn-primary.new-q(href='/job/' + job.id + '/questions/new') 创建题目
+        a.btn-primary.new-q.normal-font(href='/job/' + job.id + '/questions/new') 创建题目
     .q-list
       if questions.length == 0
         .text-center

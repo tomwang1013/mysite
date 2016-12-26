@@ -11,15 +11,13 @@
   }
 
   input[type='radio'] + label {
-    background-color: $bd-light;
-    border-color: $bd-light;
-    color: $less-imp;
+    background-color: $bd-normal;
+    border-color: $bd-dark;
   }
 
   input[type='radio']:checked + label {
-    background-color: $bd-darker;
-    border-color: $bd-darker;
-    box-shadow: inset 0 0 4px $bd-normal;
+    background-color: $btn-pri-bk-color;
+    border-color: $btn-pri-bd-color;
     color: #fff;
   }
 

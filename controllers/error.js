@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('lodash');
+
 function errorHandler(err, req, res, next) {
   // 统一处理model验证错误
   if (err.name == 'ValidationError' && err.errors) {

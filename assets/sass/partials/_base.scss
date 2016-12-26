@@ -82,12 +82,14 @@ ul.nav {
 // button & input & select
 @mixin inline-box {
   display: inline-block;
-  padding: 0.25em 0.5em;
-  line-height: 1.125;
+  padding: 0 0.5em;
+  height: 2.125em;
+  line-height: 2;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;
   outline:none;
+  border-color: $bd-light;
 }
 
 // 2个紧挨在一起的行内元素，第一个元素右边留空

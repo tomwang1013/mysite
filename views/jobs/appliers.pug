@@ -2,7 +2,7 @@ extends _layout.pug
 block content
   .appliers-container
     .applier-title.text-center.large-font
-      a.title-link.text-bold(href='/job/' + job.id)= job.title
+      a.title-link(href='/job/' + job.id)= job.title
       |  — 申请者列表
     .appliers-list
       each applier in appliers

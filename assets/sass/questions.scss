@@ -1,11 +1,9 @@
 @import 'partials/all';
 
-$hl-color: #79A251;
-
 .q-common-head {
   padding-bottom: 0.5em;
   border-bottom: 2px solid $hl-color;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.8em;
 
   .form-control-hr {
     width: 256px;
@@ -66,6 +64,14 @@ form.q-edit {
       }
     }
   }
+}
+
+.q-new-edit {
+  width: 720px;
+  margin: auto;
+  padding: 1em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
 }
 
 /**

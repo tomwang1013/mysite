@@ -9,8 +9,7 @@ label {
 
 input[type='radio'] {
   position: absolute;
-  top: -9999px;
-  left: -9999px;
+  visibility: hidden;
 }
 
 input[type='radio'] + label {
@@ -51,21 +50,16 @@ label.input-error {
 
 .form-control {
   @include inline-box;
-  padding: 0.5em;
   width: 100%;
-  border-color: $bd-light;
   margin-top: 0.5em;
 }
 
 input.like-fm-ctl[type=submit] {
-  padding: 0.5em;
   width: 100%;
 }
 
 .form-control-hr {
   @include inline-box;
-  border-color: $bd-light;
-  vertical-align: middle;
 }
 
 .form-control:focus {

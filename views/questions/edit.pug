@@ -4,7 +4,7 @@ append js
   script(src='/ckeditor/ckeditor.js')
 block content
   .q-new-edit
-    .q-common-head.large-font
+    .q-common-head.large-font.text-center
       span.fir-span 您正在为职位
       a.fir-span(href='/job/' + job.id)= job.title
       span 修改一道试题：
@@ -29,5 +29,5 @@ block content
       .form-group
         label(for='content' class='label label-input') 题目内容：
         textarea(name='content', id='content' class='form-control rich-editor', required)= question.content
-      .form-group
+      .form-group.text-center
         input(type='submit', value='保 存' class='btn btn-primary')
