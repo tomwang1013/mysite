@@ -12,8 +12,16 @@ input[type='radio'] {
 input[type='radio'] + label {
   text-align: center;
   width: 50%;
-  border-radius: 0;
   background-color: #fff;
+  cursor: pointer;
+
+  &:first-of-type {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-of-type {
+    border-radius: 0 4px 4px 0;
+  }
 }
 
 input[type='radio']:checked + label {

@@ -83,7 +83,7 @@ ul.nav {
 @mixin inline-box {
   display: inline-block;
   padding: 0.25em 0.5em;
-  line-height: normal;
+  line-height: 1.125;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;

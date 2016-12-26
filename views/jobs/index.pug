@@ -4,35 +4,35 @@ block content
     div.flex
       span.flex
         label(for='title' class='label') 职位名称：
-        input(type='text' id='title' name='title' value=title class='form-control')
+        input(type='text' id='title' name='title' value=title class='form-control-hr')
 
       span.flex
         label(for='business' class='label') 行业：
-        select(name='business' id='business' class='form-control')
+        select(name='business' id='business' class='form-control-hr')
           option(value='' selected) 请选择
           each b in businesses
             option(value=b selected=b == business)= b 
 
       span.flex
         label(for='type' class='label') 类别：
-        select(name='type', id='type' class='form-control')
+        select(name='type', id='type' class='form-control-hr')
           option(value='' selected) 请选择
           each t in types
             option(value=t selected=t == type)= t 
     div.flex
       span.flex
         label(for='address' class='label') 工作地点：
-        input(type='text', name='address', id='address', value=address, class='form-control')
+        input(type='text', name='address', id='address', value=address, class='form-control-hr')
 
       span.flex
         label(for='salary' class='label') 薪资：
-        select(name='salary', id='salary' class='form-control')
+        select(name='salary', id='salary' class='form-control-hr')
           option(value='' selected) 请选择
           each s, i in salaries
             option(value=i selected=!isNaN(parseInt(salary)) && i == salary)= s 
 
       span.flex
-        input(type='submit', value='搜索', class='btn-primary like-fm-ctl')
+        input(type='submit', value='搜索', class='btn-primary')
 
   .jobs-container
     if !jobs.length

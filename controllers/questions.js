@@ -224,15 +224,29 @@ function search(req, res, next) {
     q = q.where({ creator_name: req.query.company_name });
   }
 
-  q.exec(function(err, questions) {
-    if (err) return next(err);
-
-    res.render('questions/search', {
+  co(function* () {
+    let questions = yield q.exec();
+    let locals = {
       questions,
       quesTags: gModels.QuesTag,
       curTag: req.query.tag
-    });
-  });
+    };
+
+    if (req.currentUser && req.currentUser.type == 0) {
+      // 得到我回答了哪些问题
+      let myAnswers = yield gModels.Answer.find({
+        _user: req.currentUser.id
+      }, '_id _question', { lean: true }).exec();
+
+      locals.myAnswers = _.reduce(myAnswers, function(result, answer, idx) {
+        result[answer._question] = answer._id;
+        return result;
+      }, {});
+    }
+
+    res.render('questions/search', locals);
+  }).catch(next);
+
 }
 
 exports = module.exports = {

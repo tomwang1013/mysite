@@ -1,29 +1,42 @@
 /* header */
 header {
-  background-color: #ddd;
-  padding: 6px 0;
+  padding: 0.5em 0;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
 
   .header-container {
     align-items:center;
 
-    .logo {
-      margin-right:auto;
-      text-decoration: none;
+    & > a {
+      margin-right: 1em;
+    }
+
+    & > a:not(.logo) {
+      color: $less-imp;
+    }
+
+    & > a:not(.logo):hover {
+      color: $link-color;
+    }
+
+    .right-btns {
+      margin-left: auto;
     }
   }
 
+  // 消息通知
   .msg-notify {
     display: inline-block;
     position: relative;
     margin-right: 18px;
-    color: #777;
+    color: $less-imp;
 
     .fa {
       font-size: 22px;
     }
 
     &.has-msg {
-      color: #a00;
+      color: $error-color;
     }
 
     .msg-tip {
@@ -53,6 +66,7 @@ header {
     }
   }
 
+  // 登陆菜单
   .user-center {
     position: relative;
 
@@ -66,18 +80,18 @@ header {
       }
     }
 
-    .profile-index + .profile-dropdown {
+    .profile-dropdown {
       position: absolute;
       display: none;
       top: 120%;
       right: -53%;
       width: 100px;
       background-color: #fff;
-      border: 1px solid #aaa;
+      border: 1px solid $bd-normal;
       z-index: 10;
 
       li:not(:first-child):hover {
-        background-color: #bbb;
+        background-color: $bd-light;
       }
 
       li {
@@ -85,10 +99,10 @@ header {
       }
 
       li:first-child {
-        border-bottom: 1px solid #bbb;
+        border-bottom: 1px solid $bd-light;
       }
 
-      &::after {
+      &::before {
         content: '';
         position: absolute;
         z-index: -1;
@@ -100,15 +114,11 @@ header {
         height: 10px;
         border-width: 1px;
         border-style: solid;
-        border-color: #aaa #aaa transparent transparent;
+        border-color: $bd-normal $bd-normal transparent transparent;
         -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
         transform: rotate(-45deg);
       }
     }
-  }
-
-  .login {
-    margin-right: 1em;
   }
 }

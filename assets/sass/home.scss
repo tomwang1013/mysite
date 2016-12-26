@@ -10,6 +10,18 @@
     padding: 64px 0;
   }
 
+  input[type='radio'] + label {
+    background-color: $bd-light;
+    border-color: $bd-light;
+    color: $less-imp;
+  }
+
+  input[type='radio']:checked + label {
+    background-color: $bd-darker;
+    border-color: $bd-darker;
+    color: #fff;
+  }
+
   .main-slogan, .index-signup {
     flex: 1;
   }

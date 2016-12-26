@@ -27,8 +27,8 @@
         .job-status.small-font
           case appliedJob.status
             when 0
-              .apply-pending 您的申请正在审核中，请耐心等待
+              .unknown-result 您的申请正在审核中，请耐心等待
             when 1
-              .apply-refused= appliedJob.message
+              .error-result= appliedJob.message
             when 2
-              .apply-passed= appliedJob.message
+              .success-result= appliedJob.message

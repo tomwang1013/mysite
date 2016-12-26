@@ -94,12 +94,8 @@ form.jobs-search > div.flex {
     }
   }
 
-  .form-control, input[type='submit'] {
+  .form-control-hr, input[type='submit'] {
     flex: 1;
-  }
-
-  .form-control {
-    margin-top: 0;
   }
 }
 
