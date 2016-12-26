@@ -7,7 +7,7 @@
 
   .welcome-signup {
     align-items: center;
-    padding: 64px 0;
+    padding: 32px 0;
   }
 
   input[type='radio'] + label {
@@ -45,27 +45,23 @@
 
   .welcome-other {
     padding: 32px 0;
+    justify-content: space-around;
   }
 
-  .welcome-student, .welcome-company {
+  .welcome-sec {
     flex: 1;
     flex-flow: column;
+    padding: 0 1em;
+
+    &:nth-child(2) {
+      border-left: 1px solid $bd-normal;
+      border-right: 1px solid $bd-normal;
+    }
   }
 
-  .welcome-student {
-    margin-right:1em;
-  }
-
-  .welcome-company {
-    margin-left:1em;
-  }
-
-  .sentence {
-    line-height: 2em;
+  .wl-content {
+    margin: 0.5em 0;
+    text-align: justify;
     flex: 1;
-  }
-
-  .goto-questions {
-    margin-right: 1em;
   }
 }

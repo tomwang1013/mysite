@@ -1,19 +1,19 @@
 .welcome-other-wrapper
   .welcome-other.content.flex
-    .welcome-student.flex
-      h3 我是一个名大学生：
-      .sentence
-        | 明年就毕业了，大学生活没什么惊喜，教材陈旧，老师照样照本宣科，浑浑噩噩四年就快过去了，感觉自己什么都没学到，此刻内心有些迷茫...
-        br
-        | 也许你应该和企业提前互动一下，认真解决一些问题，重试学习的热情，并获得实习的机会，马上：
-      .student-goto
-        a(href='/questions' class='btn-primary goto-questions') 解决问题
+    .welcome-sec.flex
+      .wl-head.text-bold 我是大学生：
+      .wl-content 和企业提前互动认真解决问题重拾学习热情获得实习机会
+      .wl-foot
+        a(href='/questions' class='btn-primary goto-questions fir-span') 解决问题
         a(href='/jobs' class='btn-primary') 找实习岗位
-    .welcome-company.flex
-      h3 作为一个公司：
-      .sentence
-        | 招收到优秀的毕业生是公司人才战略中很重要的一环。怎么判断优秀？提前发布问题收集学生解答 + 实习考核
-        br
-        | 我们希望大学生能够在好好享受大学生活的同时，好好利用人生中这宝贵的四年，能够学有所成。如果你没地方锻炼，我们愿意提供机会
-      .company-goto
+    .welcome-sec.flex
+      .wl-head.text-bold 我是公司：
+      .wl-content 发布实习岗位辅以配套问题锁定优秀毕业生
+      .wl-foot
         a(href='/jobs/new' class='btn-primary') 发布实习岗位
+    .welcome-sec.flex
+      .wl-head.text-bold 我是师兄/师姐：
+      .wl-content 想对学弟学妹们一些忠告也乐意解答一下你们的疑惑
+      .wl-foot
+        a(href='/seniors/says/new' class='btn-primary fir-span') 忠告
+        a(href='/seniors/doubts' class='btn-primary') 解惑
