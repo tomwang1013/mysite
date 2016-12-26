@@ -9,8 +9,10 @@ function checkLogin(req, res, next) {
   if (!req.currentUser) {
     var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
+    req.flash('error', '请先登录：');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login', location: loginUrl });
+      return res.json({ error: 1, location: loginUrl });
     } else {
       return res.redirect(loginUrl);
     }
@@ -24,14 +26,18 @@ function checkCompanyLogin(req, res, next) {
   if (!req.currentUser) {
     var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
+    req.flash('error', '请先登录：');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login', location: loginUrl });
+      return res.json({ error: 1, location: loginUrl });
     } else {
       return res.redirect(loginUrl);
     }
   } else if (req.currentUser.type !== 1) {
+    req.flash('error', '请先以公司身份登录：');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'please login as a company' });
+      return res.json({ error: 1 });
     } else {
       return res.redirect('/');
     }
@@ -45,14 +51,18 @@ function checkStudentLogin(req, res, next) {
   if (!req.currentUser) {
     var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
+    req.flash('error', '请先登录：');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'not login', location: loginUrl });
+      return res.json({ error: 1, location: loginUrl });
     } else {
       return res.redirect(loginUrl);
     }
   } else if (req.currentUser.type !== 0) {
+    req.flash('error', '请先以学生身份登录：');
+
     if (req.xhr) {
-      return res.json({ error: 1, message: 'please login as a student' });
+      return res.json({ error: 1 });
     } else {
       return res.redirect('/');
     }

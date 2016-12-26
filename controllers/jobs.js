@@ -4,6 +4,7 @@ const _        = require('lodash');
 const mongoose = require('mongoose');
 const co       = require('co');
 
+// 职位列表搜索
 function index(req, res, next) {
   let page    = req.query.page ? parseInt(req.query.page) : 1;
   let perPage = req.query.per_page ? parseInt(req.query.per_page) : 20;
@@ -29,7 +30,7 @@ function index(req, res, next) {
     }
 
     if (req.query.address) {
-      cond['address'] = parseInt(req.query.address);
+      cond['address'] = req.query.address;
     }
 
     let result = yield {
@@ -55,7 +56,12 @@ function index(req, res, next) {
       pages:      Math.ceil(result.total / perPage),
       businesses: gModels.Business,
       types:      gModels.JobType,
-      salaries:   gModels.Job.salaries
+      salaries:   gModels.Job.salaries,
+      seo:        {
+        title:        '搜索实习岗位',
+        keywords:     '实习,实习岗位,大学生',
+        description:  '学做网专注于大学在校及毕业生学习及实习岗位'
+      }
     }, req.query));
   }).catch(next);
 }

@@ -3,7 +3,10 @@ html(lang='zh')
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    title= title
+    title= seo && seo.title
+    meta(name="keywords" content=seo && seo.keywords)
+    meta(name="description" content=seo && seo.description)
+
     block css
       link(href=assetHashPath("css/vendor.css"), rel="stylesheet")
   body.flex
