@@ -47,11 +47,11 @@ block content
             a(href=`/job/${job.id}/edit` class='btn-normal edit-job fir-span') 编 辑
             button(class='btn-warning del-job' data-job-id=job.id) 删 除
             .overlay(style={display: 'none'})
-            .overlay-content.del-job-dlg(style={display: 'none'})
+            .overlay-content(style={display: 'none'})
               .ol-main 删除后无法恢复，确定要删除职位：#{job.title}吗？
               .ol-foot
-                button.fir-span.btn-normal.ol-cancel 取消
-                button.btn-warning.ol-ok 确定
+                button.fir-span.btn-warning.ol-ok 确定
+                button.btn-normal.ol-cancel 取消
       else
         .text-center
           button(class='btn-primary to-apply' data-job-id=job.id) 申 请

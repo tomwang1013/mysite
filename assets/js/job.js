@@ -132,28 +132,12 @@ $(document).ready(function() {
   });
 
   // 删除职位
-  $('.del-job').click(function() {
-    var vw = $(window).width();
-    var vh = $(window).height();
-    var dlgWidth = $('.del-job-dlg').outerWidth();
-    var dlgHeight = $('.del-job-dlg').outerHeight();
-
-    $('.del-job-dlg').css({
-      top:  (vh - dlgHeight) / 2,
-      left: (vw - dlgWidth) / 2
-    });
-
-    $(this).siblings('.overlay, .overlay-content').show();
-  });
-
-  $('.ol-cancel').click(function() {
-    $('.del-job').siblings('.overlay, .overlay-content').hide();
-  });
-
-  $('.ol-ok').click(function() {
-    var remJobUrl = '/job/' + $('.del-job').data('jobId') + '/remove';
-    $.post(remJobUrl, function(data) {
-      location = data.location;
-    });
+  $('.del-job').popupOverlay({
+    okCallback: function() {
+      var remJobUrl = '/job/' + $('.del-job').data('jobId') + '/remove';
+      $.post(remJobUrl, function(data) {
+        location = data.location;
+      });
+    }
   });
 });

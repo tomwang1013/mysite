@@ -2,33 +2,24 @@ var $ = require('jquery');
 
 $(function() {
   // 企业给解答评分
-  $('.a-to-score, .a-re-score').click(function() {
-    var a = $(this).closest('.answer');
+  var updScoreUrl;
+  $('.a-to-score, .a-re-score').popupOverlay({
+    beforePopup: function(me) {
+      var a = this.closest('.answer');
+      updScoreUrl = '/question/' + a.data('qid') + '/answer/' + a.data('aid') + '/update_score'
+    },
 
-    $('.overlay').show();
-    $('.overlay-content').show();
+    okCallback: function() {
+      $.post(updScoreUrl, $('#score, #comment').serializeObject(), function(data) {
+        location.reload();
+      });
+    },
 
-    $('.set-score').attr('action',
-                         '/question/' + a.data('qid') +
-                           '/answer/' + a.data('aid') + '/update_score');
-    $('#score').focus().val(a.data('score'));
-    $('#comment').val(a.data('comment'));
-    return false;
-  });
-
-  $('.set-score .cancel').click(function() {
-    $('.overlay').hide();
-    $('.overlay-content').hide();
-  });
-
-  $('.set-score').submit(function() {
-    var form = $(this);
-
-    $.post(form.attr('action'), form.serializeObject(), function(data) {
-      location.reload();
-    });
-
-    return false;
+    afterPopup: function() {
+      var a = this.closest('.answer');
+      $('#score').focus().val(a.data('score'));
+      $('#comment').val(a.data('comment'));
+    }
   });
 
   // 学生删除解答

@@ -132,4 +132,10 @@ ul.nav {
   z-index:101;
   padding:0.5em;
   background:#fff;
+
+  .ol-foot {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    border-top: 1px solid $bd-normal;
+  }
 }
