@@ -27,6 +27,7 @@ p {
 }
 
 .flex         { display: flex; }
+.fl-align-cen { align-items: center}
 .inline-block { display: inline-block; }
 .relative     { position: relative; }
 .absolute     { position: absolute; }
@@ -94,6 +95,7 @@ ul.nav {
   margin-right: 0.5em;
 }
 
+// color change
 .success-result {
   color: $success-color;
 }
@@ -104,6 +106,10 @@ ul.nav {
 
 .less-imp {
   color: $less-imp;
+}
+
+.unknown-result {
+  color: $unknown-color;
 }
 
 // 悬浮框

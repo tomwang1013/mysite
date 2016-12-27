@@ -32,46 +32,41 @@
 }
 
 /* new answer */
-.answer-new {
-  .answer-new-head {
-    @include job-title;
-    .job-title {
-      margin: 0 0.5em;
-    }
-  }
-
-  .answer-new-form {
-    margin-top: 0.5em;
-
-    .form-group {
-      margin-top: 0.5em;
-    }
-  }
+.answer-new .a-title {
+  border: 1px solid $bd-normal;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
 }
 
+#content + div {
+  margin-top: 0;
+}
+
+.a-new-submit {
+  border: 1px solid $bd-normal;
+  border-top: none;
+  padding: 0.5rem;
+}
 
 /* answsers list */
-.answers {
-  .as-head {
-    @include job-title;
+.as-head {
+  @include job-title;
 
-    .job-title {
-      margin-right: 0.5em;
-    }
-  }
-
-  .no-answer {
-    margin-top: 0.5em;
-  }
-
-  .answer {
-    border: 1px solid $bd-dark;
-    border-radius: 4px 4px 0 0;
-    border-bottom: none;
-    margin: 1em 0;
+  .job-title {
+    margin-right: 0.5em;
   }
 }
 
+.no-answer {
+  margin-top: 0.5em;
+}
+
+.answer {
+  border: 1px solid $bd-dark;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  margin: 1em 0;
+}
 
 .a-title, .a-content, .a-foot {
   padding: 0.5rem;
@@ -83,6 +78,10 @@
   &:last-child {
     margin-right: 0; 
   }
+}
+
+.a-edit-opt {
+  margin-left: auto;
 }
 
 .a-title > span {
@@ -107,27 +106,4 @@
   width: 500px;
   top: 100px;
   left: calc(50vw - 250px);
-}
-
-/* answer show */
-.answer-show {
-  .answer-head {
-    @include job-title;
-  }
-
-  .answer-content {
-    .body {
-      margin: 0.5em 0;
-      padding-bottom: 0.5em;
-      border-bottom: 2px solid #aaa;
-    }
-
-    .opts {
-      margin-bottom: 1em;
-    }
-
-    .edit-answer {
-      margin-right: 1em;
-    }
-  }
 }

@@ -3,19 +3,16 @@ append js
   script(src='/ckeditor/ckeditor.js')
 block content
   .answer-new
-    .answer-new-head
-      | 你正在为
-      a.job-title(href='/job/' + question._job.id)= question._job.title
-      | 做面试题解答
-    .question
-      strong 题目：
-      .question-content.small-font!= question.content
-    .answer-content
-      strong 你的答案：
+    .as-head.text-center.large-font
+      a.job-title(href='/job/' + job.id)= job.title
+      span 解答问题
+    include _question.pug
+    div
+      .a-title.text-bold 你的答案：
       form.answer-new-form(method='post' action='/question/' + question.id + '/answers/create')
         input(type='hidden' name='_question' value=question.id)
         input(type='hidden' name='_user' value=currentUser.id)
         input(type='hidden' name='_job' value=question._job.id)
         textarea(name='content' id='content' class='form-control rich-editor')
-        .form-group
+        .a-new-submit
           input.btn.btn-primary(type='submit' value='提 交')

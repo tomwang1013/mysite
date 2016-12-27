@@ -55,7 +55,10 @@ function show(req, res, next) {
 function nnew(req, res, next) {
   gModels.Question.findById(req.params.qid).
     populate('_job').exec(function(err, result) {
-      res.render('answers/new', { question: result });
+    res.render('answers/new', {
+      job:      result._job,
+      question: result
+    });
   });
 }
 

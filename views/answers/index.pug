@@ -4,17 +4,7 @@ block content
     .as-head.text-center.large-font
       a.job-title(href='/job/' + job.id)= job.title
       span 问题解答列表
-    .as-q
-      .as-q-title.text-bold 问题：#{question.title}
-      .as-q-content.small-font!= question.content
-      .as-q-foot.smaller-font.less-imp
-        span.q-tag= question.tag
-        span.q-lab= question.labels.join(' ')
-        span.q-level 难度：
-          span.br-theme-fontawesome-stars
-            span.br-widget.br-readonly
-              each l in [0, 1, 2, 3, 4]
-                a(href='#' class={'br-selected': l <= question.level})
+    include _question.pug
     .as-list
       if !answers.length
         .no-answer.error-result 暂时没有求职者做解答

@@ -1,0 +1,11 @@
+.as-q
+  .as-q-title.text-bold 问题：#{question.title}
+  .as-q-content.small-font!= question.content
+  .as-q-foot.smaller-font.less-imp
+    span.q-tag= question.tag
+    span.q-lab= question.labels.join(' ')
+    span.q-level 难度：
+      span.br-theme-fontawesome-stars.vertical-middle
+        span.br-widget.br-readonly
+          each l in [0, 1, 2, 3, 4]
+            a(href='#' class={'br-selected': l <= question.level})

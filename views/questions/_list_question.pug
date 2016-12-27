@@ -4,7 +4,7 @@
     span.q-tag.smaller-font #{question.tag}
     span.q-lab.smaller-font #{question.labels.join(' ')}
     span.q-level.smaller-font 难度：
-      span.br-theme-fontawesome-stars
+      span.br-theme-fontawesome-stars.vertical-middle
         span.br-widget.br-readonly
           each l in [0, 1, 2, 3, 4]
             a(href='#' class={'br-selected': l <= question.level})
