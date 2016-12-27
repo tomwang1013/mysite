@@ -21,7 +21,7 @@ block content
       else
         each answer in answers
           - var user = answer._user
-          .answer
+          .answer(data-score=answer.score data-comment=answer.comment data-qid=question.id data-aid=answer.id)
             .a-title.smaller-font.less-imp
               span.a-user-info
                 span
