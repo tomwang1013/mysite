@@ -4,14 +4,14 @@
 /**
  * 新建及编辑职位
  */
-.new-job-fm, edit-job-fm {
+.new-job-fm, .edit-job-fm {
   padding: 1em 1em 0 1em;
-  border: 1px solid #aaa;
+  border: 1px solid $bd-normal;
   max-width: 720px;
   border-radius: 4px;
 
   .header {
-    border-bottom: 2px solid #aaa;
+    border-bottom: 2px solid $bd-normal;
     padding-bottom: 1em;
     margin-bottom: 1em;
   }
@@ -22,11 +22,11 @@
  */
 .show-job {
   padding: 0 1em;
-  border: 1px solid #aaa;
+  border: 1px solid $bd-normal;
 
   h2 {
     padding: 0.5em 0;
-    border-bottom: 4px solid #aaa;
+    border-bottom: 4px solid $bd-normal;
     margin-top: 0;
   }
 
@@ -37,7 +37,7 @@
 
   .job-section {
     padding-bottom: 0.5em;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid $bd-normal;
   }
 
   .sj-foot {
@@ -54,15 +54,15 @@
 
   .applied {
     .waiting {
-      color: #603311;
+      color: $unknown-color;
     }
 
     .passed {
-      color: green;
+      color: $success-color;
     }
 
     .refused {
-      color: red;
+      color: $error-color;
     }
   }
 }
@@ -108,22 +108,22 @@ form.jobs-search > div.flex {
   margin-top:1em;
 
   .no-jobs {
-    color:red;
+    color:$error-color;
     text-align:center;
   }
 
   .job-item {
     margin-bottom:1em;
     padding:10px;
-    background-color:#eee;
-    border:1px solid #d2d2d2;
+    background-color:$bd-light;
+    border:1px solid $bd-light;
   }
 }
 
 .job-title {
   padding-bottom:6px;
   margin-bottom: 6px;
-  border-bottom:1px solid #bbb;
+  border-bottom:1px solid $bd-normal;
   align-items: center;
 
   a {
@@ -131,13 +131,13 @@ form.jobs-search > div.flex {
   }
 
   span.apply-result {
-    color:green;
+    color:$success-color;
   }
 }
 
 .job-basics > span {
   padding:0 8px;
-  border-right:1px solid #bbb;
+  border-right:1px solid $bd-normal;
 
   &:first-child {
     padding-left:0;
@@ -153,28 +153,26 @@ form.jobs-search > div.flex {
  */
 .appliers-container {
   .applier-title {
-    padding-bottom: 6px;
-    border-bottom: 2px solid #666;
-    margin-bottom: 6px;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid $bd-dark;
+    margin-bottom: 0.5em;
   }
 
   .applier {
-    padding: 6px 0;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 6px;
+    border: 1px solid $bd-light;
+    margin: 1em 0;
   }
 }
 
 // 申请者基本信息
 .applier-info {
-  overflow: hidden;
+  padding: 0.5em;
+  border-bottom: 1px solid $bd-normal;
 
   span {
     display: inline-block;
-    padding: 0 6px;
-    border-right: 1px solid #ccc;
-    float:left;
-    margin: 6px 0;
+    border-right: 2px solid $bd-light;
+    padding: 0 0.5em;
   }
 
   span:first-child {
@@ -183,36 +181,14 @@ form.jobs-search > div.flex {
 
   span:last-child {
     border-right: none;
-  }
-
-  .apply-op {
-    float:right;
-    & > button:first-child {
-      margin-right: 0.6em;
-    }
+    padding-right: 0;
   }
 }
 
 // 申请结果
 .apply-result {
-  margin-top: 0.3em;
-  .op-message {
-    margin-top: 0.8em;
-
-    div {
-      margin-bottom: 0.5em;
-    }
-
-    button:first-child {
-      margin-right:0.6em;
-    }
-  }
-
-  .apply-refused {
-    color: red;
-  }
-
-  .apply-passed {
-    color: green;
+  padding: 0.5em;
+  textarea[name='op_message'] {
+    margin-top: 0;
   }
 }

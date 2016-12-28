@@ -117,9 +117,9 @@ $(document).ready(function() {
       var resultHtml;
 
       if (status == 1) {
-        resultHtml = "<div class='apply-refused'>已拒绝：" + message + "</div>";
+        resultHtml = "<div class='error-result'>已拒绝：" + message + "</div>";
       } else {
-        resultHtml = "<div class='apply-passed'>已通过：" + message + "</div>";
+        resultHtml = "<div class='success-result'>已通过：" + message + "</div>";
       }
 
       me.closest('.op-message').replaceWith(resultHtml);

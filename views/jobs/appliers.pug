@@ -1,32 +1,33 @@
 extends _layout.pug
 block content
   .appliers-container
-    .applier-title
+    .applier-title.text-center.large-font
       a.title-link.text-bold(href='/job/' + job.id)= job.title
       |  — 申请者列表
-    each applier in appliers
-      - var user = applier._user
-      .applier(data-user-id=user.id, data-job-id=job.id)
-        .applier-info
-          span
-            a(href='/user/' + user.id)= user.name
-          span= user.university
-          span= user.major
-          span 申请时间：#{applier.createdAt.toLocaleDateString()}
-          if applier.status == 0
-            .apply-op
-              button.btn-primary 通过
-              button.btn-warning 拒绝
-        .apply-result.small-font
-          case applier.status
-            when 0
-              .op-message(style={display: 'none'})
-                div
-                  textarea.form-control(name='op_message')
-                div
-                  button.btn-primary 确定
-                  button.btn-normal 取消
-            when 1
-              .apply-refused 已拒绝：#{applier.message}
-            when 2
-              .apply-passed 已通过：#{applier.message}
+    .appliers-list
+      each applier in appliers
+        - var user = applier._user
+        .applier(data-user-id=user.id, data-job-id=job.id)
+          .applier-info.small-font
+            span
+              a.text-bold(href='/user/' + user.id)= user.name
+            span= user.university
+            span= user.major
+            span 申请时间：#{applier.createdAt.toLocaleDateString()}
+          .apply-result
+            if applier.status == 0
+              .apply-op
+                button.fir-span.btn-primary 通过
+                button.btn-warning 拒绝
+            case applier.status
+              when 0
+                .op-message(style={display: 'none'})
+                  div
+                    textarea.form-control(name='op_message')
+                  div
+                    button.fir-span.btn-primary 确定
+                    button.btn-normal 取消
+              when 1
+                .error-result 已拒绝：#{applier.message}
+              when 2
+                .success-result 已通过：#{applier.message}
