@@ -1,13 +1,13 @@
-.basic-info.small-font
+.u-basic-info.small-font
   span
-    img(src=user.avatarUrl() alt='头像' width='24px' height='24px')
+    img.round-border.vertical-middle(src=user.avatarUrl() alt='头像' width='24px' height='24px')
   span= user.name
   span= user.university
   span= user.major
   span= user.entryDate
-.career-plan
+.u-desc-sec
   .head.text-bold 职业规划：
-  .detail.small-font!= user.careerPlan ? user.careerPlan : '暂无'
-.zuopin
+  .detail!= user.careerPlan || '暂无'
+.u-desc-sec
   .head.text-bold 课外作品：
-  .detail.small-font!= user.zuopin ? user.zuopin : '暂无'
+  .detail!= user.zuopin || '暂无'

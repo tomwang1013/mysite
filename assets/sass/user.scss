@@ -1,51 +1,47 @@
 @import 'partials/all';
 @import 'partials/login_box';
 
-.basic-info {
-  padding: 0.5em 1em;
-  border: 1px solid #aaa;
+.u-basic-info {
+  padding: 0.5em;
+  border: 1px solid $bd-normal;
   border-radius: 4px 4px 0 0;
 
   span {
     padding: 0 0.5em;
-    border-right: 1px solid #aaa;
+    border-right: 2px solid $bd-normal;
 
     &:first-child {
       padding-left: 0;
     }
 
     &:last-child {
+      padding-right: 0;
       border-right: none;
     }
   }
-
-  img {
-    vertical-align: middle;
-    border-radius: 3px;
-  }
 }
 
-.career-plan,
-.zuopin,
-.company-desc,
-.jobs {
-  padding: 1em;
-  border: 1px solid #aaa;
+.u-desc-sec {
+  padding: 0.5em;
+  border: 1px solid $bd-normal;
   border-top: none;
 
   .head {
-    margin-bottom: 1em;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
   }
 }
 
-.jobs .job {
+.u-desc-job {
   padding: 0.5em 0;
-  border-top: 1px dashed #aaa;
+  border-top: 1px dashed $bd-normal;
+
   span {
     flex: 1;
   }
 
   &:last-child {
-    border-bottom: 1px dashed #aaa;
+    border-bottom: 1px dashed $bd-normal;
   }
 }
