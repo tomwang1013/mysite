@@ -83,8 +83,7 @@ ul.nav {
 @mixin inline-box {
   display: inline-block;
   padding: 0.25em 0.5em;
-  // 设置为字体的高度一样可以使文字居中
-  line-height: 1.3125;
+  line-height: normal;
   border-width: 1px;
   border-style: solid;
   border-radius: 4px;

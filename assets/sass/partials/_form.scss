@@ -1,14 +1,31 @@
 /* +++++++++++ form and controls ++++++++++++ */
-.label {
+label {
   display: inline-block;
 }
 
-.label-radio {
-  margin-right: 0.5em;
+input[type='radio'] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
 }
 
-input[type='radio'] {
-  margin-right: 0.5em;
+input[type='radio'] + label {
+  text-align: center;
+  width: 50%;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+input[type='radio']:checked + label {
+  border-color: $bd-focus;
+}
+
+
+label.input-error {
+  display: inline-block;
+  color: $error-color;
+  border: none;
+  font-size: 0.9em;
 }
 
 .form-group {
@@ -22,32 +39,29 @@ input[type='radio'] {
 
 .form-control {
   @include inline-box;
-  height: 2.4375em;
   padding: 0.5em;
   width: 100%;
-  border-color: #ccc;
-  color: #333;
+  border-color: $bd-light;
   margin-top: 0.5em;
 }
 
 input.like-fm-ctl[type=submit] {
   padding: 0.5em;
+  width: 100%;
 }
 
 .form-control-hr {
   @include inline-box;
-  height: 1.9375em;
-  border-color: #ccc;
-  color: #333;
+  border-color: $bd-light;
   vertical-align: middle;
 }
 
 .form-control:focus {
-  border-color: #00a;
+  border-color: $bd-focus;
 }
 
 .form-control-hr:focus {
-  border-color: #00a;
+  border-color: $bd-focus;
 }
 
 textarea.form-control {
@@ -58,15 +72,8 @@ textarea.rich-editor + div {
   margin-top: 0.5em;
 }
 
-label.input-error {
-  display: inline-block;
-  color: #f00;
-  border: none;
-  font-size: 0.9em;
-}
-
 .form-control-hint {
-  color: #777;
+  color: $less-imp;
   font-size: 0.75em;
   margin-top:6px;
 }
