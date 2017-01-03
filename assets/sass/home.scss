@@ -19,6 +19,7 @@
   input[type='radio']:checked + label {
     background-color: $bd-darker;
     border-color: $bd-darker;
+    box-shadow: inset 0 0 4px $bd-normal;
     color: #fff;
   }
 
@@ -41,27 +42,22 @@
 }
 
 .welcome-other-wrapper {
-  background: #F7EFC6;
-
   .welcome-other {
     padding: 32px 0;
     justify-content: space-around;
   }
 
   .welcome-sec {
-    flex: 1;
     flex-flow: column;
     padding: 0 1em;
-
-    &:nth-child(2) {
-      border-left: 1px solid $bd-normal;
-      border-right: 1px solid $bd-normal;
-    }
   }
 
-  .wl-content {
+  ul.wl-content {
     margin: 0.5em 0;
-    text-align: justify;
     flex: 1;
+    li {
+      margin: 0.5em 0;
+      font-weight: bold;
+    }
   }
 }
