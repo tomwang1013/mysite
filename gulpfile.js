@@ -73,7 +73,7 @@ gulp.task('clean:js', function () {
 });
 
 gulp.task('manifest:js', ['vendor.js', 'bundle.js'], function() {
-  gulp.src(['public/js/+([^-]).js'], { base: 'public' })
+  gulp.src(['public/js/**/+([^-]).js'], { base: 'public' })
     .pipe(buffer())
     .pipe(uglify())
     .pipe(rev())
