@@ -229,6 +229,10 @@ function message(req, res, next) {
 }
 
 function messageStatus(req, res, next) {
+  if (!req.currentUser) {
+    return res.json({ has_msg: false });
+  }
+
   co(function* () {
     let messages = yield gModels.Message.find({
       userId: req.currentUser.id,

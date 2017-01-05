@@ -125,7 +125,8 @@ function isValidEmail(req, res, next) {
 function loginView(req, res, next) {
   res.locals.title = '学做-用户登陆';
   res.render('user/loginView', {
-    return_to: req.query.return_to || '/'
+    return_to: req.query.return_to || '/',
+    flashErrors: req.flash('error')
   });
 }
 
