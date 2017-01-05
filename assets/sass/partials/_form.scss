@@ -3,6 +3,10 @@ label {
   display: inline-block;
 }
 
+.label-input {
+  font-weight:bold;
+}
+
 input[type='radio'] {
   position: absolute;
   top: -9999px;

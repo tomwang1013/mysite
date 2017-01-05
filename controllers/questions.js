@@ -90,7 +90,7 @@ function create(req, res, next) {
       }).exec()
     ];
 
-    res.redirect('/job/' + jobId + '/questions');
+    res.json({ error: 0, location: '/job/' + jobId + '/questions' });
   }).catch(next);
 }
 
@@ -164,6 +164,7 @@ function edit(req, res, next) {
   }).catch(next);
 }
 
+// 更新问题
 function update(req, res, next) {
   let questionId = req.params.qid;
 
@@ -200,7 +201,7 @@ function update(req, res, next) {
       }).exec()
     ];
 
-    res.redirect('/job/' + req.params.jid + '/questions');
+    res.json({ error: 0, location: '/job/' + req.params.jid + '/questions' });
   }).catch(next);
 }
 

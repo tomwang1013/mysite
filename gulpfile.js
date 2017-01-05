@@ -32,12 +32,12 @@ gulp.task('vendor.js', function() {
 });
 
 gulp.task('bundle.js', function(done) {
-  glob('assets/js/*.js', (err, files) => {
+  glob('assets/js/**/*.js', (err, files) => {
     if (err) {
       return done(err);
     }
 
-    const tasks = files.map(entry => {
+    const tasks = files.filter(f => f.indexOf('/common/') < 0).map(entry => {
       const b = browserify({
         entries:    entry,
 
@@ -46,7 +46,7 @@ gulp.task('bundle.js', function(done) {
       });
 
       return b.external(deps).bundle()
-      .pipe(source(entry.slice(entry.lastIndexOf('/') + 1)))
+      .pipe(source(entry.slice(10)))
       .pipe(gulp.dest('public/js'));
     });
 
@@ -105,5 +105,5 @@ gulp.task('watch', function() {
   gulp.watch('assets/sass/vendor/**/*.scss', ['vendor.css']);
   gulp.watch('assets/sass/**/*.scss', ['bundle.css']);
   gulp.watch('assets/js/common/*.js', ['vendor.js']);
-  gulp.watch('assets/js/*.js', ['bundle.js']);
+  gulp.watch(['assets/js/**/*.js', '!assets/js/common/*.js'], ['bundle.js']);
 });

@@ -10,12 +10,12 @@ const mongoose = require('mongoose');
  */
 let Schema = mongoose.Schema;
 let questionSchema = new Schema({
-  title:        String,   // 标题
-  content:      String,   // 问题内容
-  level:        Number,   // 期望难度
-  deleted:      { type: Number, default: 0 }, // 是否已删除：0：未删除，1：已删除
-  labels:       [String], // 标签
-  tag:          String,   // 分类
+  title:        { type: String,   required: [true, '请给一个标题吧'] },       // 标题
+  content:      { type: String,   required: [true, '忘记填问题内容了'] },     // 问题内容
+  labels:       { type: [String], required: [true, '请至少指定一个标签'] },   // 标签
+  tag:          { type: String,   required: [true, '请指定问题所属分类'] },   // 分类
+  level:        { type: Number, default: 2 },   // 期望难度
+  deleted:      { type: Number, default: 0 },   // 是否已删除：0：未删除，1：已删除
 
   _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
   _creator:     { type: Schema.Types.ObjectId, ref: 'User' },

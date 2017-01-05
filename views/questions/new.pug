@@ -1,5 +1,6 @@
 extends _layout.pug
 append js
+  script(src=assetHashPath('js/question/new_edit.js'))
   script(src='/ckeditor/ckeditor.js')
 block content
   .q-new-edit
@@ -10,10 +11,10 @@ block content
     form.q-new(method='post' action='/job/' + job.id + '/questions/create')
       .form-group
         label(for='title' class='label label-input') 标题：
-        input(type='text' name='title', id='title' class='form-control', required, autofocus)
+        input(type='text' name='title', id='title' class='form-control' autofocus)
       .form-group
         label(for='tag' class='label label-input') 分类：
-        select(name='tag', id='tag' class='form-control', required)
+        select(name='tag', id='tag' class='form-control')
           option(value='' selected) 请选择
           each t in quesTags
             option(value=t)= t 
@@ -22,7 +23,7 @@ block content
         input(type='text' name='labels', id='labels' class='form-control')
       .form-group
         label(class='label label-input') 难度：
-        select(name='level', id='level' class='form-control', required)
+        select(name='level', id='level' class='form-control')
           each l in [0,1,2,3,4]
             option(value=l)= l
       .form-group
