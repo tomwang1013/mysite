@@ -1,7 +1,8 @@
 extends _layout.pug
 block content
-  article.show-job
-    h2.text-center.relative= job.title
+  article.show-job.round-border
+    .header.text-center.relative
+      span.large-font= job.title
       a.absolute(href=`/job/${job.id}/questions` class='questions-link btn-primary') 问题列表
     section.job-section.job-basic
       h3 基本信息
@@ -45,6 +46,12 @@ block content
             span.appliers-size 当前申请人数：#{job._appliersSize}
             a(href=`/job/${job.id}/edit` class='btn-normal edit-job fir-span') 编 辑
             button(class='btn-warning del-job' data-job-id=job.id) 删 除
+            .overlay(style={display: 'none'})
+            .overlay-content.del-job-dlg(style={display: 'none'})
+              .ol-main 删除后无法恢复，确定要删除职位：#{job.title}吗？
+              .ol-foot
+                button.fir-span.btn-normal.ol-cancel 取消
+                button.btn-warning.ol-ok 确定
       else
         .text-center
           button(class='btn-primary to-apply' data-job-id=job.id) 申 请

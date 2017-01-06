@@ -229,6 +229,16 @@ function handleApply(req, res, next) {
   }).catch(next);
 }
 
+// 删除职位：物理删除
+function remove(req, res, next) {
+  var jobId = req.params.id;
+
+  gModels.Job.findById(jobId).remove(function(err, result) {
+    req.flash('info', '删除职位成功');
+    res.json({ error: 0, location: '/profile/jobs'});
+  });
+};
+
 exports = module.exports = {
   index:        index,
   newJob:       newJob,
@@ -238,5 +248,6 @@ exports = module.exports = {
   apply:        apply,
   appliers:     appliers,
   handleApply:  handleApply,
-  show:         show
+  show:         show,
+  remove:       remove
 };

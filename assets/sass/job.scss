@@ -11,9 +11,9 @@
   border-radius: 4px;
 
   .header {
-    border-bottom: 2px solid $bd-normal;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    border-bottom: 2px solid $hl-color;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
   }
 }
 
@@ -21,18 +21,18 @@
  * 职位详情
  */
 .show-job {
-  padding: 0 1em;
+  padding: 1em 1em 0 1em;
   border: 1px solid $bd-normal;
 
-  h2 {
-    padding: 0.5em 0;
-    border-bottom: 4px solid $bd-normal;
-    margin-top: 0;
+  .header {
+    padding-bottom: 0.8em;
+    border-bottom: 2px solid $hl-color;
+    margin-bottom: 0.5em;
   }
 
   .questions-link {
+    top: -4px;
     right: 0;
-    font-size: 1rem;
   }
 
   .job-section {
@@ -64,6 +64,12 @@
     .refused {
       color: $error-color;
     }
+  }
+
+  .ol-foot {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    border-top: 1px solid $bd-dark;
   }
 }
 

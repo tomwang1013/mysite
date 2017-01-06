@@ -46,6 +46,7 @@ router.get('/job/:id/appliers',       gControllers.middlewares.checkCompanyLogin
 router.get('/job/:id',                gControllers.jobs.show);
 router.post('/job/:id',               gControllers.middlewares.checkCompanyLogin, gControllers.jobs.update);
 router.post('/job/:id/handle_apply',  gControllers.middlewares.checkCompanyLogin, gControllers.jobs.handleApply);
+router.post('/job/:id/remove',        gControllers.middlewares.checkCompanyLogin, gControllers.jobs.remove);
 
 // questions
 router.get('/questions',                      gControllers.questions.search);
