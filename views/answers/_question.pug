@@ -2,8 +2,10 @@
   .as-q-title.text-bold 问题：#{question.title}
   .as-q-content.small-font!= question.content
   .as-q-foot.smaller-font.less-imp
-    span.q-tag= question.tag
-    span.q-lab= question.labels.join(' ')
+    span= question.tag
+    span= question.labels.join(' ')
+    span 所属职位：
+      a(href='/job/' + question._job.id)= question._job.title
     span.q-level 难度：
       span.br-theme-fontawesome-stars.vertical-middle
         span.br-widget.br-readonly

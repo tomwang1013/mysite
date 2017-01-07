@@ -18,7 +18,13 @@
           a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
       else if isMyJob
         a.fir-span.btn-normal.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
-        button.fir-span.btn-warning.del-question(data-url='/job/' + job.id + '/question/' + question.id + '/update') 删 除
+        button.fir-span.btn-warning.del-question(data-link='/question/' + question.id + '/remove') 删 除
+        .overlay(style={display: 'none'})
+        .overlay-content(style={display: 'none'})
+          .ol-main 删除后无法恢复，确定要删除你的解答吗？
+          .ol-foot
+            button.fir-span.btn-warning.ol-ok 确定
+            button.btn-normal.ol-cancel 取消
         a.fir-span.answers.small-font(href='/question/' + question.id + '/answers') 查看所有解答
     else
       a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答

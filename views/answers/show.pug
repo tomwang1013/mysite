@@ -5,19 +5,4 @@ block content
       a.job-title(href='/job/' + job.id)= job.title
       span 我的问题解答
     include _question.pug
-    .answer
-      .a-title.smaller-font.less-imp
-        span 创建时间：#[span.vertical-middle= answer.createdAt.toLocaleDateString()]
-        span 最后更新时间：#[span.vertical-middle= answer.updatedAt.toLocaleDateString()]
-      .a-content.small-font!= answer.content
-      .a-foot.flex.fl-align-cen
-        if answer.isScored
-          if answer.score > 60
-            span.success-result 当前得分：#[strong= answer.score]
-          else
-            span.error-result 当前得分：#[strong= answer.score]
-        else
-          span.known-result 暂时还没有被评分！
-        span.a-edit-opt
-          a.fir-span.edit-answer.btn-normal(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
-          button.btn-warning.del-answer(data-link='/question/' + question.id + '/answer/' + answer.id + '/remove' data-job-id=job.id) 删 除
+    include _answer.pug

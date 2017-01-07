@@ -61,5 +61,5 @@ $.fn.popupOverlay = function(options) {
   });
 
   // 确定
-  $('.ol-ok').click(options.okCallback);
+  $('.ol-ok').click(options.okCallback.bind(null, me));
 }

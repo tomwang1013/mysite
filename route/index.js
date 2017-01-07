@@ -56,6 +56,7 @@ router.post('/job/:jid/questions/create',     gControllers.middlewares.checkComp
 router.get('/job/:jid/question/:qid/edit',    gControllers.middlewares.checkCompanyLogin, gControllers.questions.edit);
 router.get('/job/:jid/question/:qid',         gControllers.questions.show);
 router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkCompanyLogin, gControllers.questions.update);
+router.post('/question/:qid/remove',          gControllers.middlewares.checkCompanyLogin, gControllers.questions.remove);
 
 // answers
 router.get('/question/:qid/answers',              gControllers.middlewares.checkCompanyLogin, gControllers.answers.index);

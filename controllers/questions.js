@@ -247,9 +247,20 @@ function search(req, res, next) {
 
     res.render('questions/search', locals);
   }).catch(next);
+}
 
+// 删除问题
+function remove(req, res, next) {
+  let qid = req.params.qid;
+
+  gModels.Question.update({ _id: qid }, { deleted: 1 }, function(err, result) {
+    if (err) return next(err);
+
+    res.json({ error: 0, location: '/profile/jobs' })
+  })
 }
 
 exports = module.exports = {
-  index, nnew, create, edit, update, show, search
+  index, nnew, create, edit,
+  update, show, search, remove
 };

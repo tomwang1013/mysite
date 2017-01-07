@@ -23,10 +23,10 @@ $(function() {
   });
 
   // 学生删除解答
-  $('.del-answer').click(function() {
-    if (confirm('确定要删除此解答吗？')) {
-      $.post($(this).data('link'), {
-        job_id: $(this).data('jobId')
+  $('.del-answer').popupOverlay({
+    okCallback: function(me) {
+      $.post(me.data('link'), {
+        job_id: me.data('jobId')
       }, function(data) {
         location.replace(data.location);
       });

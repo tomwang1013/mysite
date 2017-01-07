@@ -1,0 +1,24 @@
+.answer
+  .a-title.flex
+    span.text-bold 你的解答如下：
+    span.a-attrs.smaller-font.less-imp
+      span 创建时间：#[span.vertical-middle= answer.createdAt.toLocaleDateString()]
+      span 最后更新时间：#[span.vertical-middle= answer.updatedAt.toLocaleDateString()]
+  .a-content.small-font!= answer.content
+  .a-foot.flex.fl-align-cen
+    if answer.isScored
+      if answer.score > 60
+        span.success-result 当前得分：#[strong= answer.score]
+      else
+        span.error-result 当前得分：#[strong= answer.score]
+    else
+      span.known-result 暂时还没有被评分！
+    span.a-edit-opt
+      a.fir-span.edit-answer.btn-normal(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
+      button.btn-warning.del-answer(data-link='/question/' + question.id + '/answer/' + answer.id + '/remove' data-job-id=job.id) 删 除
+      .overlay(style={display: 'none'})
+      .overlay-content(style={display: 'none'})
+        .ol-main 删除后无法恢复，确定要删除你的解答吗？
+        .ol-foot
+          button.fir-span.btn-warning.ol-ok 确定
+          button.btn-normal.ol-cancel 取消

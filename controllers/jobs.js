@@ -229,14 +229,17 @@ function handleApply(req, res, next) {
   }).catch(next);
 }
 
-// 删除职位：物理删除
+// 删除职位
 function remove(req, res, next) {
   var jobId = req.params.id;
 
-  gModels.Job.findById(jobId).remove(function(err, result) {
+  Promise.all([
+    gModels.Job.update({ _id: jobId }, { deleted: 1 }).exec(),
+    gModels.Question.update({ _job: jobId }, { deleted: 1 }, { multi: true }).exec()
+  ]).then(function(results) {
     req.flash('info', '删除职位成功');
     res.json({ error: 0, location: '/profile/jobs'});
-  });
+  }).catch(next);
 };
 
 exports = module.exports = {

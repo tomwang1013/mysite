@@ -1,4 +1,6 @@
 @import 'partials/all';
+@import 'partials/question';
+@import 'partials/answer';
 
 .q-common-head {
   padding-bottom: 0.5em;
@@ -78,15 +80,4 @@ form.q-edit {
  * 问题详情页
  */
 .q-show {
-  .q-content {
-    border-top: none;
-    border-bottom: 2px solid $bd-normal;
-  }
-
-  .a-content {
-    padding: 0.5em;
-    background-color: $bd-light;
-    border: 1px solid $bd-normal;
-    margin: 0.5em 0;
-  }
 }

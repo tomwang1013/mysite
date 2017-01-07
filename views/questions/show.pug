@@ -3,21 +3,23 @@ append js
   script(src=assetHashPath('js/question/show.js'))
 block content
   .q-show
-    .q-common-head
-      | 所属职位：
-      a.qj-title(href='/job/' + job.id)= job.title
-    .q-content!= question.content
-    div
+    .q-common-head.large-font.text-center= question.title
+    include ../answers/_question.pug
+    .q-show-foot
       case status
         when 'toAnswer'
-          span.small-font 对这个问题有兴趣？
-          a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
+          .to-answer
+            span.fir-span 对这个问题有兴趣？
+            a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
         when 'hasAnswer'
-          strong.small-font 你已经做过解答，答案如下：
-          .a-content.small-font.round-border!= answer.content
-          div
-            a.fir-span.btn-normal(href=`/question/${question.id}/answer/${answer.id}/edit`) 修 改
-            button.btn-warning.del-answer(data-link=`/question/${question.id}/answer/${answer.id}/remove` data-job-id=job.id) 删 除
+          include ../answers/_answer.pug
         when 'toEdit'
-          a.fir-span.btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑
-          a.btn-warning(href=`/job/${job.id}/question/${question.id}/edit`) 删除
+          .to-edit
+            a.fir-span.btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑
+            button.del-question.btn-warning(data-link=`/question/${question.id}/remove`) 删除
+            .overlay(style={display: 'none'})
+            .overlay-content(style={display: 'none'})
+              .ol-main 删除后无法恢复，确定要删除你的解答吗？
+              .ol-foot
+                button.fir-span.btn-warning.ol-ok 确定
+                button.btn-normal.ol-cancel 取消

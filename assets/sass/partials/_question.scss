@@ -1,0 +1,26 @@
+// 问题详情展示UI
+.as-q {
+  margin: 1em 0;
+  border: 1px solid $bd-light;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+
+.as-q-title, .as-q-content, .as-q-foot {
+  border-bottom: 1px solid $bd-light;
+  padding: 0.5rem;
+}
+
+.as-q-foot > span {
+  padding: 0 0.5em;
+  border-right: 2px solid $bd-normal;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+}

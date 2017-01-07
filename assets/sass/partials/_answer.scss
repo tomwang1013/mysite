@@ -1,0 +1,38 @@
+// 答案详情展示UI
+.answer {
+  border: 1px solid $bd-dark;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  margin: 1em 0;
+}
+
+.a-title, .a-content, .a-foot {
+  padding: 0.5rem;
+  border-bottom: 1px solid $bd-dark;
+}
+
+.a-edit-opt {
+  margin-left: auto;
+}
+
+.a-title {
+  align-items: flex-end;
+}
+
+.a-title > span:first-child {
+  margin-right: auto;
+}
+
+.a-attrs > span {
+  padding: 0 0.5em;
+  border-right: 2px solid $bd-dark;
+
+  &:first-child {
+    padding-left: 0;
+  }
+
+  &:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+}
