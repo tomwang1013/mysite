@@ -3,14 +3,14 @@ append js
   script(src=assetHashPath('js/question/index.js'))
 block content
   .q-index
-    .q-common-head.flex.large-font
+    .q-common-head.large-font.text-center.relative
       a.fir-span(href='/job/' + job.id)= job.title
       span 的题目列表
       if isMyJob
-        a.btn-primary.new-q.normal-font(href='/job/' + job.id + '/questions/new') 创建题目
+        a.btn-primary.new-q.normal-font.absolute(href='/job/' + job.id + '/questions/new') 创建题目
     .q-list
       if questions.length == 0
-        .text-center
+        .text-center.error-result
           if isMyJob
             | 您暂时没有为此职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
           else

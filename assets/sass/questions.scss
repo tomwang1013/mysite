@@ -10,15 +10,10 @@
   .form-control-hr {
     width: 256px;
   }
-}
-
-.q-index {
-  .q-common-head {
-    align-items: flex-end;
-  }
 
   .new-q {
-    margin-left: auto;
+    top: -0.25em;
+    right: 0;
   }
 }
 
@@ -74,10 +69,4 @@ form.q-edit {
   padding: 1em;
   border: 1px solid $bd-normal;
   border-radius: 4px;
-}
-
-/**
- * 问题详情页
- */
-.q-show {
 }
