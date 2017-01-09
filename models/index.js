@@ -9,7 +9,7 @@ const mongoose = require( 'mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/mysite', {
+mongoose.connect('mongodb://mysiter:llAAwx11@localhost/mysite', {
   config: {
     autoIndex: false
   }
