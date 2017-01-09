@@ -80,6 +80,9 @@
     border: 1px solid #aaa;
     margin-left: 2em;
     flex: 1;
+    p {
+      line-height: 1.5em;
+    }
   }
 
   .signup-over {

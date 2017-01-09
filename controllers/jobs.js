@@ -21,14 +21,6 @@ function index(req, res, next) {
       cond['business'] = req.query.business;
     }
 
-    if (req.query.type) {
-      cond['type'] = req.query.type;
-    }
-
-    if (req.query.salary) {
-      cond['salary'] = parseInt(req.query.salary);
-    }
-
     if (req.query.address) {
       cond['address'] = req.query.address;
     }
@@ -43,8 +35,6 @@ function index(req, res, next) {
       page:       page,
       pages:      Math.ceil(result.total / perPage),
       businesses: gModels.Business,
-      types:      gModels.JobType,
-      salaries:   gModels.Job.salaries,
       seo:        { title: '搜索实习岗位' }
     }, req.query));
   }).catch(next);

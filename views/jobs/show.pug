@@ -13,11 +13,8 @@ block content
         span.inline-block 工作地点：
         span.inline-block= job.address
       p
-        span.inline-block 薪资：
-        span.inline-block= job.displaySalary
-      p
-        span.inline-block 行业/职位类别：
-        span.inline-block= job.business + '/' + job.type
+        span.inline-block 行业：
+        span.inline-block= job.business
     section.job-section
       h3 工作职责
       p!= job.duty
