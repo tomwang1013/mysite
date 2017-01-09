@@ -3,6 +3,8 @@ var $ = require('jquery');
 $(document).ready(function() {
   $('#university').popupList({ remoteUrl: '/universities' });
   $('#major').popupTabs(window.ms);
+
+  // 用户注册第一步
   $('form#signup-step1').validate({
     rules: {
       name: {
@@ -15,6 +17,7 @@ $(document).ready(function() {
     }
   });
 
+  // 用户注册第二步
   $('form#signup-step2').validate();
   $('form.login').validate();
 });

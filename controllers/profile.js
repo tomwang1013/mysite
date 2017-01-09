@@ -255,16 +255,8 @@ function setMsgRead(req, res, next) {
 }
 
 exports = module.exports = {
-  index:          index,
-  userInfo:       userInfo,
-  account:        account,
-  jobs:           jobs,
-  message:        message,
-  messageStatus:  messageStatus,
-  setMsgRead:     setMsgRead,
-  changeUserInfo: changeUserInfo,
-  changeAccount:  changeAccount,
-  changePassword: changePassword,
-  changeAvatar:   changeAvatar,
-  changeAvatar2:  changeAvatar2,
+  index, userInfo, account, jobs, message,
+  messageStatus, setMsgRead, changeUserInfo,
+  changeAccount, changePassword, changeAvatar,
+  changeAvatar2
 };

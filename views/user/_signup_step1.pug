@@ -1,22 +1,27 @@
-form(method='post', action='/signup_step1', class='signup', id='signup-step1', data-step=step)
+form(method='post', action='/signup_step1', class='signup round-border', id='signup-step1', data-step=step)
   .form-group
     label(for='name' class='label-input') 用户名：
     input(type='text', name='name', id='name', class='form-control', required, autofocus)
+
   .form-group
     label(for='email' class='label-input') Email：
     input(type='email', name='email', id='email', class='form-control', required)
+
   .form-group
     label(for='password' class='label-input') 密码：
     input(type='password', name='password', id='password', class='form-control', required)
+
   label(class='label-input') 身份：
   .form-group
     input(type='radio', id='user-type-student', name='userType', value=0, checked)
     label.form-control(for='user-type-student') 学生
     input(type='radio', id='user-type-company', name='userType', value=1)
     label.form-control(for='user-type-company') 公司
+
   .form-group
     input(type='submit', value='下一步' class='btn-primary like-fm-ctl')
-.comments
+
+.comments.round-border
   h2 在这里，你将：
   p
     strong 更快找到实习机会：
@@ -24,3 +29,6 @@ form(method='post', action='/signup_step1', class='signup', id='signup-step1', d
   p
     strong 更好学习专业知识：
     | 每个实习岗位都有明确的深入的在线测试，如果你热爱你的专业，通过测试你能知道自己哪些地方有欠缺，哪些地方需要提高；如果你喜欢这个岗位但是专业不对口，通过测试你能知道学习方向，发现不足，从而为未来赢得这类岗位打下坚实基础，毕竟，我们还年轻
+  p
+    strong 快速锁定优秀毕业生：
+    | 作为企业，你可以根据职位要求及公司对人才的期望提前发布测试问题，通过对学生答题的考察，加上进一步的面试，可以高效准确地判断学生各方面的素质，从而快速锁定优秀毕业生

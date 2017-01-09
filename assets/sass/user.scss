@@ -49,11 +49,12 @@
 // 注册
 .formal-signup {
   .progress {
-    border: 1px solid #aaa;
+    border: 1px solid $bd-normal;
+    margin: 1em 0 2em 0;
 
     div {
       flex: 1;
-      border-left: 1px solid #aaa;
+      border-left: 1px solid $bd-normal;
       padding: 20px 30px;
     }
 
@@ -62,33 +63,27 @@
     }
 
     .signup-active {
-      background-color: #ccc;
+      background-color: $bd-normal;
     }
-  }
-
-  .current-step {
-    margin-top: 20px;
   }
 }
 
 .current-step {
   form {
     padding: 0.5em 1em;
-    border: 1px solid #aaa;
+    border: 1px solid $bd-normal;
     flex: 1;
-
-    .promotion {
-      color: #008;
-      padding-bottom: 0.5em;
-      border-bottom: 1px solid #ddd;
-    }
   }
 
   .comments {
     padding: 0.5em 1em;
     border: 1px solid #aaa;
+    margin-left: 2em;
     flex: 1;
-    margin-left: 30px;
+  }
+
+  .signup-over {
+    flex: 1;
   }
 }
 

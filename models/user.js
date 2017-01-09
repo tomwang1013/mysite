@@ -37,10 +37,10 @@ let userSchema = new Schema({
 
   // 学生属性
   gender:     String, // 性别
-  university: { type: String, required: [isStudent, '这是必填字段'] }, // 学校名称
-  major:      { type: String, required: [isStudent, '这是必填字段'] }, // 专业
-  entryDate:  { type: String, required: [isStudent, '这是必填字段'] }, // 入学日期
-  careerPlan: String, // 职业规划
+  university: { type: String, required: [isStudent, '请选择学校名称'] }, // 学校名称
+  major:      { type: String, required: [isStudent, '请选择专业名称'] }, // 专业
+  entryDate:  { type: String, required: [isStudent, '请选择入学时间'] }, // 入学日期
+  careerPlan: { type: String, required: [isStudent, '请写上你的职业规划'] }, // 职业规划
   zuopin:     String, // 课外作品
 
   // 企业属性
