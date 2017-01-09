@@ -340,4 +340,59 @@ $(document).ready(function() {
   });
 
   handleMouse();
+
+  /**
+   * 更改账号与密码
+   */
+  $('.account-edit').validate({
+    rules: {
+      name: 'required',
+      email: 'required'
+    },
+
+    messages: {
+      name: '用户名不能为空',
+      email: 'Email不能为空'
+    },
+
+    submitHandler: function(form) {
+      var validator = this;
+      var args = $(form).serializeObject();
+
+      $.post(form.action, args, function(data) {
+        if (data.error) {
+          validator.showErrors(data.errors);
+        } else {
+          $(form).find('.result-hint').text('账号修改成功').show().fadeOut(3000);
+        }
+      }, 'json');
+    }
+  });
+
+  $('.password-edit').validate({
+    rules: {
+      old_pwd: 'required',
+      new_pwd: 'required',
+      c_new_pwd: { equalTo: '#new_pwd' }
+    },
+
+    messages: {
+      old_pwd: '请输入旧密码',
+      new_pwd: '请输入新密码',
+      c_new_pwd: { equalTo: '新密码2次输入不一致' }
+    },
+
+    submitHandler: function(form) {
+      var validator = this;
+      var args = $(form).serializeObject();
+
+      $.post(form.action, args, function(data) {
+        if (data.error) {
+          validator.showErrors(data.errors);
+        } else {
+          $(form).find('.result-hint').text('密码修改成功').show().fadeOut(3000);
+        }
+      }, 'json');
+    }
+  });
 });

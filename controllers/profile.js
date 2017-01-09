@@ -108,10 +108,13 @@ function account(req, res, next) {
 // 修改账号信息: user name, email, phone
 function changeAccount(req, res, next) {
   co(function* () {
-    var user = yield gModels.User.findById(req.currentUser.id).exec();
-    _.merge(user, req.body);
+    let user = yield gModels.User.findById(req.currentUser.id).exec();
+
+    _.merge(user, _.pick(req.body, 'name', 'email', 'phone'));
+
     yield user.save();
-    res.redirect('/profile/account');
+
+    res.json({ error: 0 });
   }).catch(next);
 };
 
@@ -122,8 +125,10 @@ function changePassword(req, res, next) {
   var cNewPwd = req.body.c_new_pwd;
 
   if (newPwd != cNewPwd) {
-    req.flash('error', '新密码确认错误');
-    return res.redirect('/profile/account');
+    return res.json({
+      error: 1,
+      errors: { c_new_pwd: '新密码2次输入不一致' }
+    });
   }
 
   co(function *() {
@@ -135,8 +140,10 @@ function changePassword(req, res, next) {
     });
 
     if (!match) {
-      req.flash('error', '密码不正确');
-      return res.redirect('/profile/account');
+      return res.json({
+        error: 1,
+        errors: { old_pwd: '密码错误' }
+      });
     }
 
     let newHashedPwd = yield new Promise(function(resolve) {
@@ -148,8 +155,7 @@ function changePassword(req, res, next) {
     user.password = newHashedPwd;
     yield user.save()
 
-    req.flash('success', '密码修改成功');
-    res.redirect('/profile/account');
+    res.json({ error: 0 });
   }).catch(next);
 };
 

@@ -40,7 +40,7 @@ let userSchema = new Schema({
   university: { type: String, required: [isStudent, '请选择学校名称'] }, // 学校名称
   major:      { type: String, required: [isStudent, '请选择专业名称'] }, // 专业
   entryDate:  { type: String, required: [isStudent, '请选择入学时间'] }, // 入学日期
-  careerPlan: { type: String, required: [isStudent, '请写上你的职业规划'] }, // 职业规划
+  careerPlan: String, // 职业规划
   zuopin:     String, // 课外作品
 
   // 企业属性

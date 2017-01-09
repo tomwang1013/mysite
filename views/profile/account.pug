@@ -48,16 +48,17 @@ block right_content
         else if flash.error
           .flash-error= flash.error
         .form-group
-          label(for='name' class='label label-input') 用户名：
-          input(type='text', name='name', id='name', class='form-control', value=user.name, required)
+          label(for='name' class='label-input') 用户名：
+          input(type='text', name='name', id='name', class='form-control', value=user.name)
         .form-group
-          label(for='email' class='label label-input') Email：
-          input(type='email', name='email', id='email', class='form-control', value=user.email, required)
+          label(for='email' class='label-input') Email：
+          input(type='email', name='email', id='email', class='form-control', value=user.email)
         .form-group
-          label(for='phone' class='label label-input') 电话：
+          label(for='phone' class='label-input') 电话：
           input(type='text', name='phone', id='phone', class='form-control', value=user.phone)
         .form-group
-          input(type='submit', value='更新账号信息' class='btn btn-primary')
+          input(type='submit', value='更新账号信息' class='btn-primary fir-span')
+          span.text-bold.success-result.result-hint(style={display: 'none'})
 
     .header 修改密码
     form(method='post' action='/profile/change_password' class='password-edit account-content')
@@ -66,13 +67,14 @@ block right_content
       else if flash.error
         .flash-error= flash.error
       .form-group
-        label(for='old_pwd' class='label label-input') 旧密码：
+        label(for='old_pwd' class='label-input') 旧密码：
         input(type='password', name='old_pwd', id='old_pwd', class='form-control')
       .form-group
-        label(for='new_pwd' class='label label-input') 新密码：
-        input(type='password', name='new_pwd', id='new_pwd', class='form-control', required)
+        label(for='new_pwd' class='label-input') 新密码：
+        input(type='password', name='new_pwd', id='new_pwd', class='form-control')
       .form-group
-        label(for='c_new_pwd' class='label label-input') 确认新密码：
-        input(type='password', name='c_new_pwd', id='c_new_pwd', class='form-control', required)
+        label(for='c_new_pwd' class='label-input') 确认新密码：
+        input(type='password', name='c_new_pwd', id='c_new_pwd', class='form-control')
       .form-group
-        input(type='submit', value='更新密码' class='btn btn-primary')
+        input(type='submit', value='更新密码' class='btn-primary fir-span')
+        span.text-bold.success-result.result-hint(style={display: 'none'})
