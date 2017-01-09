@@ -3,9 +3,9 @@ html(lang='zh')
   head
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    title= seo && seo.title
-    meta(name="keywords" content=seo && seo.keywords)
-    meta(name="description" content=seo && seo.description)
+    title= seo && seo.title || 学做网
+    meta(name="keywords" content=seo && seo.keywords || '实习,实习岗位,大学生')
+    meta(name="description" content=seo && seo.description || '学做网专注于大学在校及毕业生学习及实习岗位')
 
     block css
       link(href=assetHashPath("css/vendor.css"), rel="stylesheet")

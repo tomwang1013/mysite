@@ -4,7 +4,7 @@ block content
     .as-head.text-center.large-font
       a.job-title(href='/job/' + job.id)= job.title
       span 问题解答列表
-    include _question.pug
+    include ../share/_question_detail.pug
     .as-list
       if !answers.length
         .no-answer.error-result 暂时没有求职者做解答

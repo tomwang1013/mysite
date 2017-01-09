@@ -6,7 +6,7 @@ block content
     .as-head.text-center.large-font
       a.job-title(href='/job/' + job.id)= job.title
       span 修改解答 
-    include _question.pug
+    include ../share/_question_detail.pug
     div
       .a-title.text-bold 你的答案：
       form.answer-new-form(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')

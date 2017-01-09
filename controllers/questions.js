@@ -11,21 +11,15 @@ const _  = require('lodash');
 //
 // 单个问题：
 // 学生：
-//  已解答：查看答案 TODO
+//  已解答：查看答案
 //  未解答：去解答
 // 未登陆用户：去解答
 function index(req, res, next) {
   co(function* () {
-    let jobId = req.params.jid;
-    let job = yield gModels.Job.findById(jobId).exec();
-    let questions = yield gModels.Question.find({
-      _job: jobId,
-      deleted: 0
-    }).exec();
-    let locals = {
-      job: job,
-      questions: questions
-    }
+    let jobId     = req.params.jid;
+    let job       = yield gModels.Job.findById(jobId).exec();
+    let questions = yield gModels.Question.find({ _job: jobId, deleted: 0 }).exec();
+    let locals    = { job: job, questions: questions }
 
     if (req.currentUser) {
       if (req.currentUser.type == 0) {
@@ -130,7 +124,7 @@ function show(req, res, next) {
         if (job._creator == req.currentUser.id) {
           status = 'toEdit';
         } else {
-          return next(new Error('access denied'));
+          throw new Error(403);
         }
       }
     } else {

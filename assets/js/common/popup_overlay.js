@@ -10,7 +10,12 @@ var $ = require('jquery');
  *  okCallback:  callback when click ok button
  */
 $.fn.popupOverlay = function(options) {
-  var me              = $(this);
+  if (!this.length) {
+    console.warning('popupOverlay called on empty object');
+    return;
+  }
+
+  var me              = this;
   var overlayEmpty    = $('.overlay');
   var overlayContent  = $('.overlay-content');
 
@@ -61,5 +66,5 @@ $.fn.popupOverlay = function(options) {
   });
 
   // 确定
-  $('.ol-ok').click(options.okCallback.bind(null, me));
+  $('.ol-ok').on('click', me, options.okCallback);
 }

@@ -99,6 +99,7 @@ $(document).ready(function() {
     confirm.find('textarea').data('status', status).val(message).focus();
   });
 
+  // 处理学生的职位申请请求
   $('.op-message button:first-child').click(function() {
     var me = $(this);
     var c = $(this).closest('.applier');

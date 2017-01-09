@@ -14,8 +14,10 @@
     else
       span.known-result 暂时还没有被评分！
     span.a-edit-opt
-      a.fir-span.edit-answer.btn-normal(href='/question/' + question.id + '/answer/' + answer.id + '/edit') 修 改
-      button.btn-warning.del-answer(data-link='/question/' + question.id + '/answer/' + answer.id + '/remove' data-job-id=job.id) 删 除
+      - var editUrl = '/question/' + question.id + '/answer/' + answer.id + '/edit'
+      - var remUrl  = '/question/' + question.id + '/answer/' + answer.id + '/remove'
+      a.fir-span.edit-answer.btn-normal(href=editUrl) 修 改
+      button.btn-warning.del-answer(data-link=remUrl data-job-id=job.id) 删 除
       .overlay(style={display: 'none'})
       .overlay-content(style={display: 'none'})
         .ol-main 删除后无法恢复，确定要删除你的解答吗？

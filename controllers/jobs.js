@@ -38,18 +38,6 @@ function index(req, res, next) {
       total: gModels.Job.find(cond).count().exec()
     };
 
-    if (req.currentUser && req.currentUser.type === 0) {
-      var myAppliedJobs = yield gModels.ApplyJob.find({
-        _user: req.currentUser.id
-      }, '_job').exec();
-      
-      result.jobs.forEach(function(job) {
-        if (_.find(myAppliedJobs, apply => apply._job == job.id)) {
-          job.applied = true;
-        }
-      });
-    }
-
     res.render('jobs/index', _.assign({
       jobs:       result.jobs,
       page:       page,
@@ -57,20 +45,18 @@ function index(req, res, next) {
       businesses: gModels.Business,
       types:      gModels.JobType,
       salaries:   gModels.Job.salaries,
-      seo:        {
-        title:        '搜索实习岗位',
-        keywords:     '实习,实习岗位,大学生',
-        description:  '学做网专注于大学在校及毕业生学习及实习岗位'
-      }
+      seo:        { title: '搜索实习岗位' }
     }, req.query));
   }).catch(next);
 }
 
+// 新建职位
 function newJob(req, res, next) {
   res.render('jobs/new', {
     businesses: gModels.Business,
     types:      gModels.JobType,
-    salaries:   gModels.Job.salaries
+    salaries:   gModels.Job.salaries,
+    seo:        { title: '新建实习职位' }
   });
 }
 
@@ -113,45 +99,45 @@ function show(req, res, next) {
   }).catch(next);
 }
 
+// 创建职位
 function create(req, res, next) {
   gModels.Job.create(_.merge(req.body, { _creator: req.currentUser.id })).then(function(job) {
-    res.json({ error: 0, location: '/jobs' });
-  }).catch(function(err) {
-    if (err.errors) {
-      res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
-    } else {
-      res.json({ error: 1, message: err.message });
-    }
-  });
+    res.json({ error: 0, location: '/profile/jobs' });
+  }).catch(next)
 }
 
+// 编辑职位
 function edit(req, res, next) {
   var jobId = req.params.id;
 
-  gModels.Job.findById(jobId, function(err, job) {
+  gModels.Job.findById(jobId).populate('_creator').exec(function(err, job) {
+    if (job._creator.id != req.currentUser.id) {
+      return next(new Error({ code: 403 }));
+    }
+
     res.render('jobs/edit', {
       job: job,
       businesses: gModels.Business,
       types:      gModels.JobType,
       salaries:   gModels.Job.salaries
     });
-  })
+  });
 }
 
 function update(req, res, next) {
   var jobId = req.params.id;
 
-  gModels.Job.findById(jobId, function(err, job) {
+  gModels.Job.findById(jobId).populate('_creator').exec(function(err, job) {
+    if (job._creator.id != req.currentUser.id) {
+      return next(new Error({ code: 403 }));
+    }
+
     _.assign(job, req.body);
     job.save(function(err, updatedJob) {
-      if (err) {
-        console.error(err);
-        res.json({ error: 1, errors: _.mapValues(err.errors, function(e) { return e.message; }) });
-      } else {
-        res.json({ error: 0, location: '/profile/jobs' });
-      }
+      if (err) return next(err);
+      res.json({ error: 0, location: '/profile/jobs' });
     });
-  })
+  });
 }
 
 // apply for a job
@@ -188,11 +174,15 @@ function apply(req, res, next) {
 function appliers(req, res, next) {
   var jobId = req.params.id;
 
-  gModels.Job.findById(jobId).populate({
+  gModels.Job.findById(jobId).populate(['_creator', {
     path:     '_appliers',
     populate: { path: '_user' }
-  }).exec(function(err, job) {
+  }]).exec(function(err, job) {
     if (err) return next(err);
+
+    if (job._creator.id != req.currentUser.id) {
+      return next(new Error({ code: 403 }));
+    }
 
     res.render('jobs/appliers', {
       job:      job,
@@ -201,6 +191,7 @@ function appliers(req, res, next) {
   })
 }
 
+// 处理学生的职位申请请求
 function handleApply(req, res, next) {
   var userId = req.body.userId;
   var jobId = req.body.jobId;
@@ -208,6 +199,12 @@ function handleApply(req, res, next) {
   var message = req.body.message;
 
   co(function* () {
+    let job   = yield gModels.Job.findById(jobId).populate('_creator').exec();
+
+    if (job._creator.id != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
     let dbOps = yield {
       applyJob: gModels.ApplyJob.update({
           _user:  userId,
@@ -233,24 +230,24 @@ function handleApply(req, res, next) {
 function remove(req, res, next) {
   var jobId = req.params.id;
 
-  Promise.all([
-    gModels.Job.update({ _id: jobId }, { deleted: 1 }).exec(),
-    gModels.Question.update({ _job: jobId }, { deleted: 1 }, { multi: true }).exec()
-  ]).then(function(results) {
+  co(function* () {
+    let job   = yield gModels.Job.findById(jobId).populate('_creator').exec();
+
+    if (job._creator.id != req.currentUser.id) {
+      throw new Error({ code: 403 });
+    }
+
+    yield [
+      gModels.Job.update({ _id: jobId }, { deleted: 1 }).exec(),
+      gModels.Question.update({ _job: jobId }, { deleted: 1 }, { multi: true }).exec()
+    ];
+
     req.flash('info', '删除职位成功');
     res.json({ error: 0, location: '/profile/jobs'});
   }).catch(next);
 };
 
 exports = module.exports = {
-  index:        index,
-  newJob:       newJob,
-  create:       create,
-  edit:         edit,
-  update:       update,
-  apply:        apply,
-  appliers:     appliers,
-  handleApply:  handleApply,
-  show:         show,
-  remove:       remove
+  index, newJob, create, edit, update, apply, appliers,
+  handleApply, show, remove
 };

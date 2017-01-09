@@ -4,7 +4,7 @@ append js
 block content
   .q-show
     .q-common-head.large-font.text-center= question.title
-    include ../answers/_question.pug
+    include ../share/_question_detail.pug
     .q-show-foot
       case status
         when 'toAnswer'
@@ -12,7 +12,7 @@ block content
             span.fir-span 对这个问题有兴趣？
             a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
         when 'hasAnswer'
-          include ../answers/_answer.pug
+          include ../share/_answer_detail.pug
         when 'toEdit'
           .to-edit
             a.fir-span.btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑

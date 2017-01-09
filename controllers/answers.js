@@ -13,7 +13,7 @@ function index(req, res, next) {
 
     // 企业只能查看其发布的职位的答案列表
     if (req.currentUser.id != result.question._job._creator) {
-      return next({ code: 403 });
+      throw new Error({ code: 403 });
     }
 
     res.render('answers/index', {
@@ -67,7 +67,7 @@ function create(req, res, next) {
     score: 0,
     sysScore: 0
   }, req.body), function(err, result) {
-    res.redirect('/job/' + req.body._job);
+    res.redirect(`/job/${req.body._job}/question/${req.body._question}`);
   })
 }
 

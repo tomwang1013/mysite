@@ -42,11 +42,7 @@ block content
         .job-item(data-job-id=job.id)
           div.flex.job-title
             a(href='/job/' + job.id)= job.title
-            if currentUser && currentUser.type === 0
-              if job.applied
-                span.apply-result 已申请
-              else
-                button.btn.btn-primary 申请职位
+            button.btn-primary 申请职位
           div.job-basics.small-font
             span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
             span 公司：
