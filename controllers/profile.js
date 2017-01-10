@@ -1,26 +1,22 @@
 'use strict'
 
-const mongoose = require('mongoose');
-const co = require('co');
-const _ = require('lodash');
-const bcrypt = require('bcrypt');
-const gridfs = require('../lib/gridfs');
-const gm = require('gm');
-const path = require('path');
-const fs = require('fs');
-const async = require('async');
+const co      = require('co');
+const _       = require('lodash');
+const bcrypt  = require('bcrypt');
+const gm      = require('gm');
+const path    = require('path');
+const fs      = require('fs');
+const async   = require('async');
+const gridfs  = require('../lib/gridfs');
 
-function index(req, res, next) {
-  res.redirect(301, '/profile/user_info');
-}
-
+// 基本信息
 function userInfo(req, res, next) {
   Promise.all([
     gModels.User.findOne({ _id: req.currentUser.id }).exec(),
     gModels.University.all(),
     gModels.Major.all()
   ]).then(function(result) {
-    res.render('profile/index', {
+    res.render('profile/user_info', {
       pos:          'user_info',
       universities: result[1],
       majors:       result[2],
@@ -60,7 +56,7 @@ function jobs(req, res, next) {
       jobs = yield gModels.Job.find({ _creator: req.currentUser.id }).exec();
     }
 
-    res.render('profile/index', {
+    res.render('profile/jobs', {
       pos:          'jobs',
       appliedJobs:  appliedJobs,
       jobs:         jobs,
@@ -70,6 +66,7 @@ function jobs(req, res, next) {
   }).catch(next);
 }
 
+// 修改用户基本信息
 function changeUserInfo(req, res, next) {
   co(function* () {
     let user = yield gModels.User.findOne({
@@ -96,7 +93,7 @@ function changeUserInfo(req, res, next) {
 // account and password
 function account(req, res, next) {
   gModels.User.findById(req.currentUser.id, function(err, user) {
-    res.render('profile/index', {
+    res.render('profile/account', {
       pos:         'account',
       user:        user,
       currentUser: req.currentUser,
@@ -108,6 +105,7 @@ function account(req, res, next) {
   });
 };
 
+// 修改账号信息: user name, email, phone
 function changeAccount(req, res, next) {
   co(function* () {
     var user = yield gModels.User.findById(req.currentUser.id).exec();
@@ -215,19 +213,21 @@ function changeAvatar2(req, res, next) {
   }).catch(next);
 }
 
+// 消息中心
 function message(req, res, next) {
   co(function* () {
     let messages = yield gModels.Message.find({
       userId: req.currentUser.id
     }).populate('_job').exec();
 
-    res.render('profile/index', {
+    res.render('profile/message', {
       messages: messages,
       pos: 'message'
     });
   }).catch(next);
 }
 
+// 消息通知状态
 function messageStatus(req, res, next) {
   if (!req.currentUser) {
     return res.json({ has_msg: false });
@@ -255,7 +255,7 @@ function setMsgRead(req, res, next) {
 }
 
 exports = module.exports = {
-  index, userInfo, account, jobs, message,
+  userInfo, account, jobs, message,
   messageStatus, setMsgRead, changeUserInfo,
   changeAccount, changePassword, changeAvatar,
   changeAvatar2

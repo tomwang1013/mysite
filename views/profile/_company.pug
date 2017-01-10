@@ -1,11 +1,6 @@
 // 公司信息
 div.user-info
   form
-    mixin buttons
-      .operations(style={display: 'none'})
-        button(type='button', class='btn-primary') 修改
-        button(type='button', class='btn-normal') 取消
-
     .form-group
       label(for='url' class='label label-input') 公司主页：
       input(type='url', name='url', id='url', class='form-control change-field', data-ori-value=user.url, value=user.url, required)

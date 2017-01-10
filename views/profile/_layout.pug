@@ -1,7 +1,4 @@
 extends ../layouts/main
-append js
-  script(src='/ckeditor/ckeditor.js')
-  script(src=assetHashPath('js/profile.js'))
 append css
   link(href=assetHashPath("css/profile.css"), rel="stylesheet")
 block content
@@ -18,18 +15,5 @@ block content
         a(href='/profile/message' class={active: pos == 'message'}) 消息中心
       li
         a(href='/profile/account' class={active: pos == 'account'}) 账号与密码
-    div.right-content
-      if pos == 'account'
-        include _account.pug
-      else if pos == 'user_info'
-        if currentUser.type == 0
-          include _student.pug
-        else
-          include _company.pug
-      else if pos == 'jobs'
-        if currentUser.type == 0
-          include _student_jobs.pug
-        else
-          include _company_jobs.pug
-      else if pos == 'message'
-        include _message.pug
+    .right-content
+      block right_content

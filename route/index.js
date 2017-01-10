@@ -69,11 +69,10 @@ router.post('/question/:qid/answer/:aid/update_score',  gControllers.middlewares
 router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
 
 // user center
-router.get('/profile',                    gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
 router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
 router.get('/profile/message_status',     gControllers.profile.messageStatus);
-router.get('/profile/user_info',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
+router.get('/profile(/user_info)?',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);

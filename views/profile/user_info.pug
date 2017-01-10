@@ -1,0 +1,14 @@
+extends _layout.pug
+append js
+  script(src=assetHashPath('js/profile/user_info.js'))
+  script(src='/ckeditor/ckeditor.js')
+block right_content
+  mixin buttons
+    .operations(style={display: 'none'})
+      button(type='button', class='btn-primary') 修改
+      button(type='button', class='btn-normal') 取消
+
+  if currentUser.type == 0
+    include _student.pug
+  else
+    include _company.pug
