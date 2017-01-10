@@ -98,6 +98,9 @@ $(document).ready(function() {
 
     formData.append('avatar', file);
 
+    $('.upload label').text('上传中，请稍等...');
+    $('.upload input').prop('disabled', true);
+
     $.ajax({
       type:         'POST',
       url:          '/profile/change_avatar',
@@ -105,6 +108,9 @@ $(document).ready(function() {
       processData:  false,
       contentType:  false,
       success:      function(data) {
+        $('.upload label').text('上传头像');
+        $('.upload input').prop('disabled', false);
+
         if (!data.error) {
           cropImageAndSave(data.url, data.size);
         }
