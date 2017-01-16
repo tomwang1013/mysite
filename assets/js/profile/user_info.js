@@ -1,6 +1,9 @@
 // 修改用户基本信息
 var $ = require('jquery');
 var _ = require('lodash');
+var x = require('common/popup_list');
+var y = require('common/popup_tabs');
+var z = require('common/main_nav');
 
 $(document).ready(function() {
   $('#university').popupList({ remoteUrl: '/universities' });

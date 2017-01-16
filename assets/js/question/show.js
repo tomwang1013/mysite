@@ -1,6 +1,7 @@
 var $ = require('jquery');
-
-require('../common/del_answer');
+var x = require('common/popup_overlay');
+var y = require('common/del_answer');
+var z = require('common/main_nav');
 
 $(function() {
   // 公司删除问题

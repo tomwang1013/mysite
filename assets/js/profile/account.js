@@ -1,6 +1,8 @@
 var $ = require('jquery');
 var _ = require('lodash');
-var x = require('jquery-validation');
+var x = require('common/jq_val_wrapper');
+var y = require('common/serialize_object');
+var z = require('common/main_nav');
 
 // 用户选择图片后开始上传
 function uploadAvatar(file) {

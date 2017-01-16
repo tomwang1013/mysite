@@ -1,4 +1,6 @@
 var $ = require('jquery');
+var x = require('common/popup_overlay');
+var y = require('common/main_nav');
 
 $(function() {
   $('.del-question').popupOverlay({

@@ -1,5 +1,8 @@
 var $ = require('jquery');
-var x = require('jquery-validation');
+var x = require('common/jq_val_wrapper');
+var y = require('common/popup_list');
+var z = require('common/popup_tabs');
+var w = require('common/main_nav');
 
 $(document).ready(function() {
   $('#university').popupList({ remoteUrl: '/universities' });

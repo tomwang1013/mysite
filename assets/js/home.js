@@ -1,5 +1,6 @@
 var $ = require('jquery');
-var x = require('jquery-validation');
+var x = require('common/jq_val_wrapper');
+var y = require('common/main_nav');
 
 $(function() {
   $('.index-signup').validate({

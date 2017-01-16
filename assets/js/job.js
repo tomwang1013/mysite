@@ -1,5 +1,8 @@
 var $ = require('jquery');
-var x = require('jquery-validation');
+var x = require('common/jq_val_wrapper');
+var x = require('common/popup_overlay');
+var y = require('common/popup_tabs');
+var z = require('common/main_nav');
 
 var cities = {
   labels: ['省份', '市区'],

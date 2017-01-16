@@ -1,4 +1,6 @@
 var $ = require('jquery');
+var x = require('common/serialize_object');
+var y = require('jquery-validation');
 
 $(function() {
   // for validation on submit

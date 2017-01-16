@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var _ = require('lodash');
+var x = require('common/main_nav');
 
 $(document).ready(function() {
   // message handler

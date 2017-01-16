@@ -1,6 +1,8 @@
 var $ = require('jquery');
-
-require('./common/del_answer');
+var x = require('common/popup_overlay');
+var y = require('common/del_answer');
+var z = require('common/serialize_object');
+var w = require('common/main_nav');
 
 $(function() {
   // 企业给解答评分

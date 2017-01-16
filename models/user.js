@@ -73,7 +73,7 @@ userSchema.methods.avatarUrl = function() {
   if (this.avatar) {
     return gridfs.getUrlByFileName(this.avatar);
   } else {
-    return '/default_avatar.png';
+    return '/images/default_avatar.png';
   }
 };
 
