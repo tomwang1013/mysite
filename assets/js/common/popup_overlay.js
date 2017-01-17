@@ -16,8 +16,8 @@ $.fn.popupOverlay = function(options) {
   }
 
   var me              = this;
-  var overlayEmpty    = $('.overlay');
-  var overlayContent  = $('.overlay-content');
+  var overlayEmpty    = $('.o-overlay-bk');
+  var overlayContent  = $('.o-overlay-dlg');
 
   // get the corrent position of the popup dialog
   var vw        = $(window).width();

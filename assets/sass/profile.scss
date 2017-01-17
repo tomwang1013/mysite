@@ -4,6 +4,7 @@
  * 个人中心
  ***********/
 
+
 /* 左侧导航栏 */
 .c-uc-left-nav {
   flex: 1;
@@ -28,20 +29,12 @@
   }
 }
 
-// 右侧具体内容
-.right-content {
+/* 右侧具体内容 */
+.c-uc-right-content {
   flex:6;
   padding: 15px 20px;
   border: 1px solid #ccc;
   border-left:none;
-}
-
-/* 浏览与修改用户信息 */
-.operations {
-  margin-top:0.5em;
-  button:first-child {
-    margin-right: 0.5em;
-  }
 }
 
 /* 申请或创建的职位信息 */
@@ -117,178 +110,212 @@
   }
 }
 
-/* 账号与密码 */
-.account {
-  .header {
-    border-radius: 0.25em 0.25em 0 0;
-    background:#ccc;
-    border:1px solid #ccc;
-    padding:0.5em 1.2em;
-  }
 
-  .account-content {
-    border:1px solid #ccc;
-    border-top:none;
-    padding:0.5em 1.2em;
-    margin-bottom:1em;
 
-    .avatar {
-      margin-bottom: 1em;
-    }
+/*****************
+ * 头像 账号 密码
+ *****************/
 
-    .cropDlg {
-      width:500px;
-      top:100px;
-    }
-  }
+
+
+.c-uc-chg-head {
+  border-radius: 0.25em 0.25em 0 0;
+  background: #ccc;
+  border: 1px solid #ccc;
+  padding: 0.5em 1em;
+}
+
+.c-uc-acc-chg {
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
 }
 
 // 上传头像按钮
-.avatar {
-  .current-avatar {
-    border-radius: 0.25em;
-  }
+.c-uc-acc-chg__upload-ava {
+  display: inline-block;
+  position: relative;
+  margin-left: 1em;
+  vertical-align: top;
+  overflow: hidden;
 
-  .upload {
-    margin-left:1em;
-    vertical-align:top;
-    overflow:hidden;
-
-    input {
-      left:0;
-      top:0;
-      opacity:0.001;
-      cursor:pointer;
-    }
+  & > input {
+    left: 0;
+    top: 0;
+    opacity: 0.001;
+    cursor: pointer;
   }
 }
 
-// 裁减悬浮框
-.cropDlg {
+/************** 裁减悬浮框 *************/
+
+// 边框宽度
+$edge_border_width: 2px;
+
+// 边框共性
+@mixin crop-edge-common {
+  position: absolute;
+  background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
+  opacity: 0.5;
+}
+
+// 4个角及8个边中点共性
+@mixin crop-corner-common {
+  position: absolute;
+  border: 1px solid #eee;
+  background-color: #333;
+  opacity: 0.7;
+  width: 8px;
+  height: 8px;
+}
+
+// 整个裁剪区域：包括原图和缩放框
+.c-ava-crop-area {
+  position: relative;
+  margin-left:  auto;
+  margin-right: auto;
+  display:      block;
+
   // disable image be selected
-  img {
+  & img {
     -moz-user-select: -moz-none;
     -o-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
   }
-
-  .close {
-    float:right;
-  }
-
-  .middle {
-    margin:6px 0;
-    padding:6px 0;
-    border-top:2px solid #777;
-    border-bottom:2px solid #777;
-  }
-
-  .foot {
-    text-align:right;
-  }
 }
 
-.crop-container {
-  $edge_border_width: 2px;
-
-  .sep-line {
-    background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
-    opacity: 0.5;
-  }
-
-  .origin-img {
-    opacity: 0.5;
-    z-index:1000;
-  }
-
-  .cropArea {
-    overflow:hidden;
-    z-index:1001;
-  }
-
-  .move-area {
-    z-index:1002;
-    cursor:move;
-  }
-
-  .left-edge {
-    z-index:1003;
-    width:$edge_border_width;
-    cursor:w-resize;
-  }
-  .top-edge {
-    z-index:1004;
-    height:$edge_border_width;
-    cursor:n-resize;
-  }
-  .right-edge {
-    z-index:1005;
-    width:$edge_border_width;
-    cursor:e-resize;
-  }
-  .bottom-edge {
-    z-index:1006;
-    height:$edge_border_width;
-    cursor:s-resize;
-  }
-
-  .corner {
-    border: 1px solid #eee;
-    background-color: #333;
-    opacity: 0.7;
-    width: 8px;
-    height: 8px;
-  }
-
-  .tl-corner {
-    cursor: nw-resize;
-    z-index:1007;
-    margin-left: -4px;
-    margin-top: -4px;
-  }
-  .tm-corner {
-    cursor: n-resize;
-    z-index:1008;
-    margin-top: -4px;
-  }
-  .tr-corner {
-    cursor: ne-resize;
-    z-index:1009;
-    margin-top: -4px;
-    margin-left: 4px;
-  }
-  .lm-corner {
-    cursor: w-resize;
-    z-index:1010;
-    margin-left: -4px;
-  }
-  .rm-corner {
-    cursor: e-resize;
-    z-index:1011;
-    margin-left: 4px;
-  }
-  .bl-corner {
-    cursor: sw-resize;
-    z-index:1012;
-    margin-left: -4px;
-    margin-top: 4px;
-  }
-  .bm-corner {
-    cursor: s-resize;
-    z-index:1013;
-    margin-top: 4px;
-  }
-  .br-corner {
-    cursor: se-resize;
-    z-index:1014;
-    margin-left: 4px;
-    margin-top: 4px;
-  }
+// 原图
+.c-ava-crop-area__ori-img {
+  opacity: 0.5;
+  z-index: 1000;
 }
 
-/* 消息中心 */
+// 从原图中裁剪出的区域
+.c-ava-crop-area__ret-img {
+  position: absolute;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+// 中间拖动区域
+.c-ava-crop-area__move-area {
+  position: absolute;
+  z-index:1002;
+  cursor:move;
+}
+
+/* 4条边框 */
+.c-ava-crop-area__left-edge {
+  @include crop-edge-common;
+
+  z-index:1003;
+  width:$edge_border_width;
+  cursor:w-resize;
+}
+
+.c-ava-crop-area__top-edge {
+  @include crop-edge-common;
+
+  z-index:1004;
+  height:$edge_border_width;
+  cursor:n-resize;
+}
+
+.c-ava-crop-area__right-edge {
+  @include crop-edge-common;
+
+  z-index:1005;
+  width:$edge_border_width;
+  cursor:e-resize;
+}
+
+.c-ava-crop-area__bottom-edge {
+  @include crop-edge-common;
+
+  z-index:1006;
+  height:$edge_border_width;
+  cursor:s-resize;
+}
+
+/* 顶点及边中点 */
+.c-ava-crop-area__tl-corner {
+  @include crop-corner-common;
+
+  cursor: nw-resize;
+  z-index:1007;
+  margin-left: -4px;
+  margin-top: -4px;
+}
+
+.c-ava-crop-area__tm-corner {
+  @include crop-corner-common;
+
+  cursor: n-resize;
+  z-index:1008;
+  margin-top: -4px;
+}
+
+.c-ava-crop-area__tr-corner {
+  @include crop-corner-common;
+
+  cursor: ne-resize;
+  z-index:1009;
+  margin-top: -4px;
+  margin-left: 4px;
+}
+
+.c-ava-crop-area__lm-corner {
+  @include crop-corner-common;
+
+  cursor: w-resize;
+  z-index:1010;
+  margin-left: -4px;
+}
+
+.c-ava-crop-area__rm-corner {
+  @include crop-corner-common;
+
+  cursor: e-resize;
+  z-index:1011;
+  margin-left: 4px;
+}
+
+.c-ava-crop-area__bl-corner {
+  @include crop-corner-common;
+
+  cursor: sw-resize;
+  z-index:1012;
+  margin-left: -4px;
+  margin-top: 4px;
+}
+
+.c-ava-crop-area__bm-corner {
+  @include crop-corner-common;
+
+  cursor: s-resize;
+  z-index:1013;
+  margin-top: 4px;
+}
+
+.c-ava-crop-area__br-corner {
+  @include crop-corner-common;
+
+  cursor: se-resize;
+  z-index:1014;
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
+
+
+/***********
+ * 消息中心
+ ***********/
+
+
 .messages {
   border: 1px solid #aaa;
 

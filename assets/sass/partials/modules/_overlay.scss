@@ -25,6 +25,16 @@
   display: 'none';
 }
 
+.o-overlay-dlg__head {
+}
+
+.o-overlay-dlg__body {
+  margin: 6px 0;
+  padding: 6px 0;
+  border-top: 2px solid #777;
+  border-bottom: 2px solid #777;
+}
+
 .o-overlay-dlg__foot {
   margin-top: 0.5em;
   padding-top: 0.5em;

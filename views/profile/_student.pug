@@ -1,30 +1,34 @@
 // 学生信息
 script.
   window.ms = !{JSON.stringify(majors)};
-div.user-info
-  .form-group
-    label(for='university' class='label label-input') 学校名称：
-    input(type='text', name='university', id='university', class='form-control change-field', data-ori-value=user.university, value=user.university, required)
-    +buttons
-  .form-group
-    label(for='major' class='label label-input') 专业：
-    input(type='text', name='major', id='major', class='form-control change-field', data-ori-value=user.major, value=user.major, required)
-    +buttons
-  .form-group
-    label(for='entryDate' class='label label-input') 入学年份：
-    select(name='entryDate', id='entryDate', class='form-control change-field', data-ori-value=user.entryDate, value=user.entryDate, required)
-      each ed in entryDates
-        option(value=ed, selected=ed == user.entryDate)= ed
-    +buttons
-  .form-group
-    label(for='careerPlan' class='label label-input') 职业规划：
-    textarea(name='careerPlan', id='careerPlan', rows=8, class='form-control rich-editor change-field', data-ori-value=user.careerPlan, data-rule-minlength=64, required)= user.careerPlan
-    +buttons
-  .form-group
-    label(for='zuopin' class='label label-input') 课外作品（可选）：
-    textarea(name='zuopin', id='zuopin', rows=8, class='form-control rich-editor change-field', data-ori-value=user.zuopin)= user.zuopin
-    +buttons
-    .form-control-hint.
-      可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
-      大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
-      相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]
+
+.o-fm-grp
+  label(for='university') 学校名称：
+  input(type='text' name='university' id='university' class='o-fm-ctl js-change-field' data-ori-value=user.university value=user.university)
+  +buttons
+
+.o-fm-grp
+  label(for='major') 专业：
+  input(type='text' name='major' id='major' class='o-fm-ctl js-change-field' data-ori-value=user.major value=user.major)
+  +buttons
+
+.o-fm-grp
+  label(for='entryDate') 入学年份：
+  select(name='entryDate' id='entryDate' class='o-fm-ctl js-change-field' data-ori-value=user.entryDate value=user.entryDate)
+    each ed in entryDates
+      option(value=ed, selected=ed == user.entryDate)= ed
+  +buttons
+
+.o-fm-grp
+  label(for='careerPlan') 职业规划：
+  textarea(name='careerPlan' id='careerPlan' rows=8 class='o-fm-ctl js-rich-editor js-change-field' data-ori-value=user.careerPlan)= user.careerPlan
+  +buttons
+
+.o-fm-grp
+  label(for='zuopin') 课外作品（可选）：
+  textarea(name='zuopin' id='zuopin' rows=8 class='o-fm-ctl js-rich-editor js-change-field' data-ori-value=user.zuopin)= user.zuopin
+  +buttons
+  .o-fm-ctl-hint.
+    可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
+    大三下学期和几个同学一起尝试给电冰箱开发智能控制app，通过app可以查看和控制冰箱的基本状态，如温度，湿度等，
+    相关的创作过程和成果在：#[a(href='http://github.com/xxxxx/xxx_app.git') http://github.com/xxxxx/xxx_app.git]

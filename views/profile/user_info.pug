@@ -4,9 +4,9 @@ append js
   script(src='/ckeditor/ckeditor.js')
 block right_content
   mixin buttons
-    .operations(style={display: 'none'})
-      button(type='button', class='btn-primary') 修改
-      button(type='button', class='btn-normal') 取消
+    .js-change-btns(style={display: 'none', 'margin-top': '0.5em'})
+      button.u-fir-span(type='button', class='o-btn o-btn-primary js-save') 修改
+      button(type='button', class='o-btn o-btn-normal js-cancel') 取消
 
   if currentUser.type == 0
     include _student.pug

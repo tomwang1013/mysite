@@ -23,9 +23,9 @@ $(document).ready(function() {
 
   function handleDataChange(newData, oldData, field) {
     if (newData != oldData) {
-      field.siblings('.operations').show();
+      field.siblings('.js-change-btns').show();
     } else {
-      field.siblings('.operations').hide();
+      field.siblings('.js-change-btns').hide();
     }
   }
 
@@ -37,13 +37,13 @@ $(document).ready(function() {
   });
 
   // 保存按钮
-  $('.user-info .form-group button:first-of-type').click(function() {
+  $('.js-save').click(function() {
     var parent  = $(this).parent();
-    var field   = parent.siblings('.change-field');
+    var field   = parent.siblings('.js-change-field');
     var fname   = field.attr('name');
     var data    = {};
 
-    if (field.hasClass('rich-editor')) {
+    if (field.hasClass('js-rich-editor')) {
       data[fname] = CKEDITOR.instances[fname].getData()
     } else {
       data[fname] = field.val();
@@ -63,14 +63,14 @@ $(document).ready(function() {
   });
 
   // 取消按钮
-  $('.user-info .form-group button:last-of-type').click(function() {
+  $('.js-cancel').click(function() {
     var parent = $(this).parent();
-    var field  = parent.siblings('.change-field');
+    var field  = parent.siblings('.js-change-field');
     var fname  = field.attr('name');
 
     field.val(field.attr('data-ori-value'));
 
-    if (field.hasClass('rich-editor')) {
+    if (field.hasClass('js-rich-editor')) {
       CKEDITOR.instances[fname].setData(field.attr('data-ori-value'))
     }
 

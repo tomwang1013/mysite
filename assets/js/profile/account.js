@@ -27,6 +27,7 @@ function uploadAvatar(file) {
 
       if (!data.error) {
         cropImageAndSave(data.url, data.size);
+        overTriBtn.trigger('click');
       }
     }
   });
@@ -34,24 +35,16 @@ function uploadAvatar(file) {
 
 // 展示裁减悬浮框
 function cropImageAndSave(imgToCrop, size) {
-  var docHeight = $(document).height();
-  var docWeight = $(document).width();
-  var cropDlgWidth = $('.cropDlg').width();
   var ow = size.width;
   var oh = size.height;
 
   originSize = size;
   initCropArea(ow, oh);
 
-  $('.crop-container').css({ width: ow, height: oh });
-  $('.origin-img').attr('src', imgToCrop);
-  $('.crop-img').attr('src', imgToCrop);
+  $('.js-ava-crop-area').css({ width: ow, height: oh });
+  $('.js-origin-img').attr('src', imgToCrop);
+  $('.js-ret-img').attr('src', imgToCrop);
   $('input[name="origin_img_path"]').val(imgToCrop);
-
-  $('.overlay').show();
-  $('.cropDlg').css({
-    left: (docWeight - cropDlgWidth) / 2
-  }).show();
 
   drawCropArea();
 }
@@ -145,20 +138,20 @@ function handleMouse() {
   var target = null;
   var oriPos = { left: 0, top: 0 };
 
-  $('.crop-edge').mousedown(function(e) {
+  $('.js-crop-edge').mousedown(function(e) {
     target = $(this);
     oriPos.left = e.pageX;
     oriPos.top = e.pageY;
 
     // keep the cursor shape during the crop process
-    $('.crop-container').css('cursor', target.css('cursor'));
-    $('.crop-edge').each(function() {
+    $('.js-ava-crop-area').css('cursor', target.css('cursor'));
+    $('.js-crop-edge').each(function() {
       $(this).data('defCursor', $(this).css('cursor'));
     });
-    $('.crop-edge').css('cursor', target.css('cursor'));
+    $('.js-crop-edge').css('cursor', target.css('cursor'));
   });
 
-  $('.crop-container').mousemove(function(e) {
+  $('.js-ava-crop-area').mousemove(function(e) {
     if (target) {
       var offset = {
         dx: e.pageX - oriPos.left,
@@ -178,7 +171,7 @@ function handleMouse() {
       $(this).css('cursor', 'default');
 
       // restore the cursor
-      $('.crop-edge').each(function() {
+      $('.js-crop-edge').each(function() {
         $(this).css('cursor', $(this).data('defCursor'));
       });
       target = null;
@@ -308,6 +301,8 @@ function adjustCropArea(target, offset) {
   drawCropArea();
 }
 
+// fake button to trigger overlay dialog
+var overTriBtn;
 
 $(document).ready(function() {
   /*
@@ -315,8 +310,10 @@ $(document).ready(function() {
    * select through file dialog
    */
 
+  overTriBtn = $('<button type="button"/>');
+
   // disable default image drag action
-  $('img, .crop-edge').on('dragstart', false);
+  $('img, .js-crop-edge').on('dragstart', false);
 
   // file dialog select upload
   $('#avatar').change(function() {
@@ -324,22 +321,18 @@ $(document).ready(function() {
   });
 
   // 裁减完后提交
-  $('form.cropDlg').submit(function(e) {
-    $.post($(this).attr('action'), $(this).serializeObject(), function(data) {
-      var newUrl = data.url + '?' + new Date().getTime();
-      $('.current-avatar').attr('src', newUrl);
-      $('.profile-index img').attr('src', newUrl);
-      $('.cropDlg').hide();
-      $('.overlay').hide();
-    });
+  overTriBtn.popupOverlay({
+    okCallback: function() {
+      var cropDlg = $('.js-crop-dlg');
 
-    return false;
-  });
+      $.post(cropDlg.attr('action'), cropDlg.serializeObject(), function(data) {
+        var newUrl = data.url + '?' + new Date().getTime();
+        $('.js-cur-ava').attr('src', newUrl);
+        $('.profile-index img').attr('src', newUrl);
+      });
 
-  // 关闭裁减框
-  $('.close').click(function() {
-    $('.overlay').hide();
-    $('.cropDlg').hide();
+      return false;
+    }
   });
 
   handleMouse();
