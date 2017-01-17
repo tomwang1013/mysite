@@ -4,12 +4,14 @@ var y = require('common/del_answer');
 var z = require('common/serialize_object');
 var w = require('common/main_nav');
 
+var css = require('answer.scss');
+
 $(function() {
   // 企业给解答评分
   var updScoreUrl;
-  $('.a-to-score, .a-re-score').popupOverlay({
+  $('.js-re-score, .js-to-score').popupOverlay({
     beforePopup: function() {
-      var a = this.closest('.answer');
+      var a = this.closest('.js-list-answer');
       updScoreUrl = '/question/' + a.data('qid') + '/answer/' + a.data('aid') + '/update_score'
     },
 
@@ -20,7 +22,7 @@ $(function() {
     },
 
     afterPopup: function() {
-      var a = this.closest('.answer');
+      var a = this.closest('.js-list-answer');
       $('#score').focus().val(a.data('score'));
       $('#comment').val(a.data('comment'));
     }

@@ -3,7 +3,7 @@
  */
 
 // 全屏阴影层
-.overlay {
+.o-overlay-bk {
   position:fixed;
   left:0;
   top:0;
@@ -12,19 +12,21 @@
   background-color:#000;
   opacity:0.5;
   z-index:100;
+  display: 'none';
 }
 
 // 中间悬浮框
-.overlay-content {
+.o-overlay-dlg {
   position:fixed;
   border:6px solid rgba(0,0,0,0.7);
   z-index:101;
   padding:0.5em;
   background:#fff;
+  display: 'none';
+}
 
-  .ol-foot {
-    margin-top: 0.5em;
-    padding-top: 0.5em;
-    border-top: 1px solid $bd-normal;
-  }
+.o-overlay-dlg__foot {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid $bd-normal;
 }

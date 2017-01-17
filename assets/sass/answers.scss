@@ -1,50 +1,50 @@
-@import 'partials/all';
-@import 'partials/question';
-@import 'partials/answer';
+@import 'partials/common/index';
+@import 'partials/modules/question';
+@import 'partials/modules/answer';
 
-@mixin job-title {
+/* header of all answer page */
+.c-answer-head {
   padding-bottom: 0.5em;
   border-bottom: 2px solid $hl-color;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.c-answer-head__job-link {
+  margin-right: 0.5em;
 }
 
 
-/* new answer */
-.answer-new .a-title {
+/* 新建 & 编辑 答案 */
+
+// 新建和编辑页面的："你的答案："
+.c-your-answer-txt {
   border: 1px solid $bd-normal;
   border-bottom: none;
   border-radius: 4px 4px 0 0;
+  font-weight: bold;
 }
 
-#content + div {
-  margin-top: 0;
-}
+// 覆盖默认的：
+// [class^="cke_editor_"] { margin-top: 0.5em; }
+[class^="cke_editor_"] { margin-top: 0; }
 
-.a-new-submit {
+// submit of the new & edit page's form
+.c-answer-fm-submit {
   border: 1px solid $bd-normal;
   border-top: none;
   padding: 0.5rem;
 }
 
+
 /* answsers list */
-.as-head {
-  @include job-title;
 
-  .job-title {
-    margin-right: 0.5em;
-  }
-}
+// hint when none answer
+.c-none-answer-hint { margin-top: 0.5em; }
 
-.no-answer {
-  margin-top: 0.5em;
-}
-
-.a-user-info > span {
+// user info in header: add space
+.c-list-answer-user-info > span {
   margin-right: 0.5em; 
-  &:last-child {
-    margin-right: 0; 
-  }
-}
 
-.set-score {
-  width: 500px;
+  &:last-child { margin-right: 0; }
 }

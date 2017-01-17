@@ -1,26 +1,32 @@
-.answer
-  .a-title.flex
-    span.text-bold 你的解答如下：
-    span.a-attrs.smaller-font.less-imp
-      span 创建时间：#[span.vertical-middle= answer.createdAt.toLocaleDateString()]
-      span 最后更新时间：#[span.vertical-middle= answer.updatedAt.toLocaleDateString()]
-  .a-content.small-font!= answer.content
-  .a-foot.flex.fl-align-cen
+.c-answer-detail
+  .c-answer-detail__head
+    span.u-bold-text.u-flex-mg-r-auto 你的解答如下：
+    span.c-answer-detail__attrs.u-smaller-font.u-less-imp
+      span 创建时间：#{answer.createdAt.toLocaleDateString()}
+      span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
+
+  .c-answer-detail__body.u-small-font!= answer.content
+
+  .c-answer-detail__foot
     if answer.isScored
       if answer.score > 60
-        span.success-result 当前得分：#[strong= answer.score]
+        span.u-success-result 当前得分：#[strong= answer.score]
       else
-        span.error-result 当前得分：#[strong= answer.score]
+        span.u-error-result 当前得分：#[strong= answer.score]
     else
-      span.known-result 暂时还没有被评分！
-    span.a-edit-opt
+      span.u-known-result 暂时还没有被评分！
+
+    span.u-flex-mg-l-auto
       - var editUrl = '/question/' + question.id + '/answer/' + answer.id + '/edit'
       - var remUrl  = '/question/' + question.id + '/answer/' + answer.id + '/remove'
-      a.fir-span.edit-answer.btn-normal(href=editUrl) 修 改
-      button.btn-warning.del-answer(data-link=remUrl data-job-id=job.id) 删 除
-      .overlay(style={display: 'none'})
-      .overlay-content(style={display: 'none'})
-        .ol-main 删除后无法恢复，确定要删除你的解答吗？
-        .ol-foot
-          button.fir-span.btn-warning.ol-ok 确定
-          button.btn-normal.ol-cancel 取消
+
+      a.o-btn.btn-normal.u-fir-span(href=editUrl) 修 改
+      button.o-btn.o-btn-warning.js-del-answer(data-link=remUrl data-job-id=job.id) 删 除
+
+      //- 删除答案确定框
+      .o-overlay-bk
+      .o-overlay-dlg
+        .o-overlay-dlg__body 删除后无法恢复，确定要删除你的解答吗？
+        .o-overlay-dlg__foot
+          button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
+          button.o-btn.o-btn-normal.ol-cancel 取消

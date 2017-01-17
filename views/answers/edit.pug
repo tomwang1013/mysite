@@ -2,14 +2,15 @@ extends _layout.pug
 append js
   script(src='/ckeditor/ckeditor.js')
 block content
-  .answer-new
-    .as-head.text-center.large-font
-      a.job-title(href='/job/' + job.id)= job.title
-      span 修改解答 
-    include ../share/_question_detail.pug
-    div
-      .a-title.text-bold 你的答案：
-      form.answer-new-form(method='post' action='/question/' + question.id + '/answer/' + answer.id + '/update')
-        textarea(name='content' id='content' class='form-control rich-editor')!= answer.content
-        .a-new-submit
-          input.btn-primary(type='submit' value='保 存')
+  .c-answer-head
+    a.c-answer-head__job-link(href='/job/' + job.id)= job.title
+    span 修改解答 
+
+  include ../share/_question_detail.pug
+
+  .c-your-answer-txt 你的答案：
+  - var uri = `/question/${question.id}/answer/${answer.id}/update`
+  form(method='post' action=uri)
+    textarea(name='content' id='content' class='o-fm-ctl js-rich-editor')!= answer.content
+    .c-answer-fm-submit
+      input.btn.btn-primary(type='submit' value='保 存')

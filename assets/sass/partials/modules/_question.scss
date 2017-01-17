@@ -1,17 +1,20 @@
 // 问题详情展示UI
-.as-q {
+.c-detail-question {
   margin: 1em 0;
   border: 1px solid $bd-light;
   border-radius: 4px 4px 0 0;
   border-bottom: none;
 }
 
-.as-q-title, .as-q-content, .as-q-foot {
+.c-detail-question__head,
+.c-detail-question__body,
+.c-detail-question__foot {
   border-bottom: 1px solid $bd-light;
   padding: 0.5rem;
 }
 
-.as-q-foot > span {
+// 底部说明分割线
+.c-detail-question__foot > span {
   padding: 0 0.5em;
   border-right: 2px solid $bd-normal;
 

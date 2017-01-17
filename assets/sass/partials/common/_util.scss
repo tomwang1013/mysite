@@ -9,7 +9,9 @@
 }
 
 .u-flex           { display: flex; }
-.u-fl-align-cen   { align-items: center}
+.u-flex-align-cen { align-items: center}
+.u-flex-mg-r-auto { margin-right: auto }
+.u-flex-mg-l-auto { margin-left: auto }
 .u-inline-block   { display: inline-block; }
 .u-relative       { position: relative; }
 .u-absolute       { position: absolute; }
@@ -25,8 +27,8 @@
 /* text */
 .u-center-text      { text-align: center; }
 .u-bold-text        { font-weight: bold; }
-.u-large-font       { font-size: 1.4rem; }
-.u-larger-font      { font-size: 1.2rem; }
+.u-larger-font      { font-size: 1.4rem; }
+.u-large-font       { font-size: 1.2rem; }
 .u-normal-font      { font-size: 1rem; }
 .u-small-font       { font-size: 0.9rem; }
 .u-smaller-font     { font-size: 0.8rem; }

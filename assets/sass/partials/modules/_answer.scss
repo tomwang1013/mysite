@@ -1,29 +1,30 @@
 // 答案详情展示UI
-.answer {
+.c-answer-detail {
   border: 1px solid $bd-dark;
   border-radius: 4px 4px 0 0;
   border-bottom: none;
   margin: 1em 0;
 }
 
-.a-title, .a-content, .a-foot {
+.c-answer-detail__head,
+.c-answer-detail__body,
+.c-answer-detail__foot {
   padding: 0.5rem;
   border-bottom: 1px solid $bd-dark;
 }
 
-.a-edit-opt {
-  margin-left: auto;
-}
-
-.a-title {
+.c-answer-detail__head {
+  display: flex;
   align-items: flex-end;
 }
 
-.a-title > span:first-child {
-  margin-right: auto;
+.c-answer-detail__foot {
+  display: flex;
+  align-items: center;
 }
 
-.a-attrs > span {
+// 答案的各种属性，如创建时间等
+.c-answer-detail__attrs > span {
   padding: 0 0.5em;
   border-right: 2px solid $bd-dark;
 

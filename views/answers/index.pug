@@ -1,41 +1,42 @@
 extends _layout.pug
 block content
-  .answers
-    .as-head.text-center.large-font
-      a.job-title(href='/job/' + job.id)= job.title
-      span 问题解答列表
-    include ../share/_question_detail.pug
-    .as-list
-      if !answers.length
-        .no-answer.error-result 暂时没有求职者做解答
-      else
-        each answer in answers
-          - var user = answer._user
-          .answer(data-score=answer.score data-comment=answer.comment data-qid=question.id data-aid=answer.id)
-            .a-title.smaller-font.less-imp
-              span.a-user-info
-                span
-                  a.text-bold(href='/user/' + user.id)= user.name
-                span= user.university
-                span= user.major
-              span 创建时间：#{answer.createdAt.toLocaleDateString()}
-              span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
-            .a-content.small-font!= answer.content
-            .a-foot
-              if answer.isScored
-                span.fir-span.success-result 你对此解答的当前评分：#{answer.score} 分
-                button.btn-normal.a-re-score 重新评分
-              else
-                button.btn-primary.a-to-score 为此解答评分
-  .overlay(style={display: 'none'})
-  .overlay-content.set-score(style={display: 'none'})
+  .c-answer-head
+    a.c-answer-head__job-link(href='/job/' + job.id)= job.title
+    span 问题解答列表
+
+  include ../share/_question_detail.pug
+
+  if !answers.length
+    .c-none-answer-hint.u-error-result 暂时没有求职者做解答
+  else
+    each answer in answers
+      - var user = answer._user
+      .js-list-answer(data-score=answer.score data-comment=answer.comment data-qid=question.id data-aid=answer.id)
+        .u-smaller-font.u-less-imp
+          span.c-list-answer-user-info
+            span #[a.u-bold-text(href='/user/' + user.id)= user.name]
+            span= user.university
+            span= user.major
+          span 创建时间：#{answer.createdAt.toLocaleDateString()}
+          span 最后更新时间：#{answer.updatedAt.toLocaleDateString()}
+        .u-small-font!= answer.content
+        div
+          if answer.isScored
+            span.u-fir-span.u-success-result 你对此解答的当前评分：#{answer.score} 分
+            button.o-btn.o-btn-normal.js-re-score 重新评分
+          else
+            button.o-btn.o-btn-primary.js-to-score 为此解答评分
+
+  //- 评分悬浮框
+  .o-overlay-bk
+  .o-overlay-dlg(style={width: '500px'})
+    .o-fm-grp
+      label(for='score') 分数：
+      input(type='text', name='score' id='score' placeholder='0 ~ 100' class='o-fm-ctl')
+      .o-fm-ctl-hint 取值范围：0 ~ 100
+    .o-fm-grp
+      label(for='comment') 评语：
+      textarea(name='comment', id='comment', class='o-fm-ctl')
     .form-group
-      label.label.label-input(for='score') 分数：
-      input(type='text', name='score' id='score' placeholder='0 ~ 100' class='form-control')
-      .form-control-hint 取值范围：0 ~ 100
-    .form-group
-      label.label.label-input(for='comment') 评语：
-      textarea(name='comment', id='comment', class='form-control')
-    .form-group
-      input.ol-ok.fir-span.btn-primary(type='button' value='提 交')
-      input.ol-cancel.btn-normal(type='button' value='取消')
+      input.ol-ok.u-fir-span.o-btn.o-btn-primary(type='button' value='提 交')
+      input.ol-cancel.o-btn.o-btn-normal(type='button' value='取消')

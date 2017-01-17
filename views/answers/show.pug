@@ -1,8 +1,7 @@
 extends _layout.pug
 block content
-  .answer-show
-    .as-head.text-center.large-font
-      a.job-title(href='/job/' + job.id)= job.title
-      span 我的问题解答
-    include ../share/_question_detail.pug
-    include ../share/_answer_detail.pug
+  .c-answer-head
+    a.c-answer-head__job-link(href='/job/' + job.id)= job.title
+    span 我的问题解答
+  include ../share/_question_detail.pug
+  include ../share/_answer_detail.pug
