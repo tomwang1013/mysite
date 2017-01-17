@@ -5,11 +5,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let entries = {};
 
-glob.sync('./assets/js/**/*.js').filter(f => {
-  return f.indexOf('/common/') == -1;
-}).forEach(f => {
-  entries[f.slice(12, -3)] = f;
-});
+//glob.sync('./assets/js/**/*.js').filter(f => {
+  //return f.indexOf('/common/') == -1;
+//}).forEach(f => {
+  //entries[f.slice(12, -3)] = f;
+//});
+entries['profile/account'] = './assets/js/profile/account.js';
 
 module.exports = {
   entry: entries,
@@ -33,16 +34,15 @@ module.exports = {
         test: /\.(jpg|png|gif)$/,
         loader: 'url-loader',
         options: {
-          //limit: 20000,
+          limit: 20000,
           name:  'images/[name].[ext]'
         }
       },
 
       {
         test: /\.(eot|woff|woff2|ttf|svg)/,
-        loader: 'url-loader',
+        loader: 'file-loader',
         options: {
-          //limit: 20000,
           name:  'fonts/[name].[ext]'
         }
       },
@@ -52,12 +52,7 @@ module.exports = {
         exclude: /node_modules\//,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: "style-loader",
-          loader: ["css-loader", {
-            loader: "sass-loader",
-            options: {
-              includePaths: [path.resolve(__dirname, "./assets/sass/")]
-            }
-          }]
+          loader: ["css-loader", 'resolve-url-loader', "sass-loader?sourceMap"]
         })
       }
     ]
