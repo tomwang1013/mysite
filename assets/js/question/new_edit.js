@@ -1,4 +1,6 @@
 var $ = require('jquery');
+var x = require('jquery-validation');
+var y = require('jquery-bar-rating');
 
 $(function() {
   $('#labels').labelIt({

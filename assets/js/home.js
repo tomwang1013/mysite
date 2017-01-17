@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var x = require('jquery-validation');
 
 $(function() {
   $('.index-signup').validate({

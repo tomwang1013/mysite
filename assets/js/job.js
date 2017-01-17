@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var x = require('jquery-validation');
 
 var cities = {
   labels: ['省份', '市区'],
