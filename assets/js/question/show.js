@@ -3,6 +3,8 @@ var x = require('common/popup_overlay');
 var y = require('common/del_answer');
 var z = require('common/main_nav');
 
+var css = require('question/show.scss');
+
 $(function() {
   // 公司删除问题
   $('.js-del-question').popupOverlay({

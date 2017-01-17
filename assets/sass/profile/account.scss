@@ -44,7 +44,7 @@ $edge_border_width: 2px;
 // 边框共性
 @mixin crop-edge-common {
   position: absolute;
-  background: #fff url('/images/crop_edge.gif') repeat scroll 0 0;
+  background: #fff url('../../images/crop_edge.gif') repeat scroll 0 0;
   opacity: 0.5;
 }
 

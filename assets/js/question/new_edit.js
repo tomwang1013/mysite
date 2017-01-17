@@ -4,6 +4,8 @@ var y = require('jquery-bar-rating');
 var z = require('common/input_labels');
 var w = require('common/main_nav');
 
+var css = require('question/new_edit.scss');
+
 $(function() {
   $('#labels').labelIt({
     searchUrl:  '/qlabels/search',

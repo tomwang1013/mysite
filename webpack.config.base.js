@@ -5,12 +5,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let entries = {};
 
-//glob.sync('./assets/js/**/*.js').filter(f => {
-  //return f.indexOf('/common/') == -1;
-//}).forEach(f => {
-  //entries[f.slice(12, -3)] = f;
-//});
-entries['profile/account'] = './assets/js/profile/account.js';
+glob.sync('./assets/js/**/*.js').filter(f => {
+  return f.indexOf('/common/') == -1;
+}).forEach(f => {
+  entries[f.slice(12, -3)] = f;
+});
 
 module.exports = {
   entry: entries,
@@ -35,7 +34,8 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 20000,
-          name:  'images/[name].[ext]'
+          name:  'images/[name].[ext]',
+          publicPath: '/assets/'
         }
       },
 
@@ -43,7 +43,8 @@ module.exports = {
         test: /\.(eot|woff|woff2|ttf|svg)/,
         loader: 'file-loader',
         options: {
-          name:  'fonts/[name].[ext]'
+          name:  'fonts/[name].[ext]',
+          publicPath: '/assets/'
         }
       },
 
