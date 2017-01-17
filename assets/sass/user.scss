@@ -1,12 +1,31 @@
-@import 'partials/all';
-@import 'partials/login_box';
+@import 'partials/common/index';
 
-.u-basic-info {
+/*****************
+ ***** 登录框 ****
+ *****************/
+.c-login-box {
+  margin: 16px auto auto 0;
+  width: 50%;
+  padding: 1em;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+
+
+
+/**************
+ * 用户详情页 *
+ **************/
+
+// 基本信息
+.c-user-basics {
   padding: 0.5em;
   border: 1px solid $bd-normal;
   border-radius: 4px 4px 0 0;
 
-  span {
+  // 基本信息分隔栏
+  & > span {
     padding: 0 0.5em;
     border-right: 2px solid $bd-normal;
 
@@ -21,86 +40,108 @@
   }
 }
 
-.u-desc-sec {
+// 小头像
+.c-user-basics__ava {
+  border-radius: 4px;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+}
+
+// 用户的部分信息
+.c-user-part-info {
   padding: 0.5em;
   border: 1px solid $bd-normal;
   border-top: none;
-
-  .head {
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-  }
 }
 
-.u-desc-job {
+// 部分信息标题
+.c-user-part-info__head {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+// 企业发布的职位
+.c-user-part-info__cmp-job {
+  display: flex;
   padding: 0.5em 0;
   border-top: 1px dashed $bd-normal;
 
-  span {
-    flex: 1;
-  }
+  & > span { flex: 1; }
 
   &:last-child {
     border-bottom: 1px dashed $bd-normal;
   }
 }
 
-// 注册
-.formal-signup {
-  .progress {
-    border: 1px solid $bd-normal;
-    margin: 1em 0 2em 0;
 
-    div {
-      flex: 1;
-      border-left: 1px solid $bd-normal;
-      padding: 20px 30px;
-    }
 
-    div:first-child {
-      border-left: none;
-    }
+/***************
+ *    注册     *
+ ***************/
 
-    .signup-active {
-      background-color: $bd-normal;
-    }
-  }
+// 注册进度
+.c-signup-progress {
+  display: flex;
+  margin: 1em 0 2em 0;
+  border-radius: 4px;
+  border: 1px solid $bd-normal;
 }
 
-.current-step {
-  form {
-    padding: 0.5em 1em;
-    border: 1px solid $bd-normal;
-    flex: 1;
-  }
+// 具体每一步
+.c-signup-progress__step {
+  flex: 1;
+  border-left: 1px solid $bd-normal;
+  padding: 20px 30px;
 
-  .comments {
-    padding: 0.5em 1em;
-    border: 1px solid #aaa;
-    margin-left: 2em;
-    flex: 1;
-    p {
-      line-height: 1.5em;
-    }
-  }
+  &:first-child { border-left: none; }
 
-  .signup-over {
-    flex: 1;
-  }
+  &.is-active { background-color: $bd-normal; }
 }
 
-// 密码重置
-.password-reset {
+// 每一步的注册表单
+.c-signup-step-fm {
+  padding: 0.5em 1em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
+  flex: 1;
+}
+
+// 第一步注册过程中的宣传语
+.c-signup-step-comments {
+  padding: 0.5em 1em;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  margin-left: 2em;
+  flex: 1;
+}
+
+.c-signup-step-comment {
+  line-height: 1.5em;
+  margin: 1em 0;
+}
+
+// 注册完成
+.c-signup-step-over {
+  text-align: center;
+  font-weight: bold;
+  flex: 1;
+}
+
+
+
+/*****************
+ *** 密码重置 **
+ *****************/
+
+.c-pwd-reset {
+  margin: 0 auto;
   width: 40%;
-  p.reset-hint {
-    color: #777;
-    margin-bottom: 1em;
-  }
-  input[type='submit'] {
-    width: 100%;
-  }
-  .form-group {
-    text-align:left;
-  }
+  text-align: center;
+}
+
+.c-pwd-reset__hint {
+  color: #777;
+  margin-bottom: 1em;
 }

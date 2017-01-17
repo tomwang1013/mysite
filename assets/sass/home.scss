@@ -27,21 +27,6 @@
   margin-left: 1em;
 }
 
-.c-home-welcome__signup__ut-label {
-  background-color: $bd-normal;
-  border-color:     $bd-dark;
-
-  [type='radio']:checked + & {
-    background-color: #090;
-    border-color:     #090;
-    color:            #fff;
-  }
-}
-
-.c-home-welcome__signup__submit {
-  width: 100%;
-}
-
 
 /**
  * 标语和注册框下面的介绍部分 

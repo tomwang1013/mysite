@@ -19,31 +19,6 @@
  *************** form controls *****************
 \***********************************************/
 
-input[type='radio'] {
-  position: absolute;
-  visibility: hidden;
-}
-
-input[type='radio'] + label {
-  text-align: center;
-  width: 50%;
-  background-color: #fff;
-  cursor: pointer;
-
-  &:first-of-type {
-    border-radius: 4px 0 0 4px;
-  }
-
-  &:last-of-type {
-    border-radius: 0 4px 4px 0;
-  }
-}
-
-input[type='radio']:checked + label {
-  border-color: $bd-focus;
-}
-
-
 // invalid field hint text color
 .u-input-error {
   display: inline-block;
@@ -79,6 +54,26 @@ input[type='radio']:checked + label {
   border-color: $bd-light;
 
   &:focus { border-color: $bd-focus; }
+}
+
+// 隐藏默认的radio
+.o-hidden-radio {
+  position: absolute;
+  visibility: hidden;
+}
+
+// 自定义radio的label形状
+.o-fm-ctl.is-radio-label {
+  width: 50%;
+  cursor: pointer;
+  text-align: center;
+
+  &:first-of-type { border-radius: 4px 0 0 4px; }
+  &:last-of-type { border-radius: 0 4px 4px 0; }
+
+  .o-hidden-radio:checked + & {
+    border-color: $bd-focus;
+  }
 }
 
 // form control not occupying a whole line

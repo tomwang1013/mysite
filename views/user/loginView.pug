@@ -1,16 +1,19 @@
 extends _layout.pug
 block content
-  .login-box.hcenter
+  .c-login-box
     if flashErrors && flashErrors.length
-      .text-center.flash-error= flashErrors[0]
-    form(method='post', action='/login', class='login')
+      .u-center-text.u-flash-error= flashErrors[0]
+    form(method='post', action='/login', class='js-login-fm')
       input(type='hidden' name='return_to' value=return_to)
-      .form-group
-        label(for='email' class='label label-input') Email：
-        input(type='email', name='email', id='email', class='form-control' autofocus, required)
-      .form-group
+
+      .o-fm-grp
+        label(for='email') Email：
+        input(type='email', name='email', id='email', class='o-fm-ctl' autofocus)
+
+      .o-fm-grp
         label(for='password' class='label label-input') 密码：
-        input(type='password', name='password', id='password' class='form-control', required)
-      div
-        input(type='submit', value='登 陆' class='btn btn-primary')
-        a(href='/password_reset' class='small-font') 忘记密码
+        input(type='password', name='password', id='password' class='o-fm-ctl')
+
+      .o-fm-grp
+        input(type='submit', value='登 陆' class='u-fir-span o-btn o-btn-primary')
+        a(href='/password_reset' class='u-small-font') 忘记密码

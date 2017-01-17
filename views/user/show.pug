@@ -1,7 +1,6 @@
 extends _layout.pug
 block content
-  .user-show
-    if user.isStudent()
-      include ./_student_show.pug
-    else
-      include ./_company_show.pug
+  if user.isStudent()
+    include ./_student_show.pug
+  else
+    include ./_company_show.pug
