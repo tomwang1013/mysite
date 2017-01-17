@@ -12,6 +12,13 @@ module.exports = webpackMerge(baseConfig, {
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
     new ManifestPlugin({ fileName: 'rev-manifest.json' }),
-    new ExtractTextPlugin({ filename: '[name].[contenthash].css' })
+    new ExtractTextPlugin({ filename: '[name].[contenthash].css' }),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      mangle: {
+        // Skip mangling these
+        except: ['$super', '$', 'exports', 'require']
+      }
+    })
   ]
 });

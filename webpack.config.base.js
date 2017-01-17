@@ -53,7 +53,7 @@ module.exports = {
         exclude: /node_modules\//,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: "style-loader",
-          loader: ["css-loader", 'resolve-url-loader', "sass-loader?sourceMap"]
+          loader: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
         })
       }
     ]
