@@ -22,6 +22,18 @@ module.exports = {
     path: path.resolve(__dirname, 'public/js')
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallbackLoader: "style-loader",
+          loader: ["css-loader", "sass-loader"]
+        })
+      }
+    ]
+  },
+
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest'],

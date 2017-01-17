@@ -1,0 +1,70 @@
+.u-content {
+  width:  960px;
+  margin: auto;
+}
+
+.u-flex           { display: flex; }
+.u-fl-align-cen   { align-items: center}
+.u-inline-block   { display: inline-block; }
+.u-relative       { position: relative; }
+.u-absolute       { position: absolute; }
+.u-round-border   { border-radius: 4px; }
+
+/* horizontal center */
+.u-hcenter {
+  margin-left:  auto;
+  margin-right: auto;
+  display:      block;
+}
+
+/* text */
+.u-center-text      { text-align: center; }
+.u-bold-text        { font-weight: bold; }
+.u-large-font       { font-size: 1.4rem; }
+.u-larger-font      { font-size: 1.2rem; }
+.u-normal-font      { font-size: 1rem; }
+.u-small-font       { font-size: 0.9rem; }
+.u-smaller-font     { font-size: 0.8rem; }
+.u-vertical-middle  { vertical-align: middle; }
+
+/* flash */
+.u-flash-success {
+  padding: 0.5em 0;
+  color: $success-color;
+  margin-bottom: 0.5em;
+}
+
+.u-flash-error {
+  padding: 0.5em 0;
+  color: $error-color;
+  margin-bottom: 0.5em;
+}
+
+/* list */
+ul.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// 2个紧挨在一起的行内元素，第一个元素右边留空
+.fir-span {
+  margin-right: 0.5em;
+}
+
+// color change
+.success-result {
+  color: $success-color;
+}
+
+.error-result {
+  color: $error-color;
+}
+
+.less-imp {
+  color: $less-imp;
+}
+
+.unknown-result {
+  color: $unknown-color;
+}

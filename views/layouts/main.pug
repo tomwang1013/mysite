@@ -10,10 +10,12 @@ html(lang='zh')
     block css
       link(href=assetHashPath("css/vendor.css"), rel="stylesheet")
   body.flex
-    include ./_head.pug
-    main
-      .content
+    header.c-header
+      include ./_head.pug
+    main.c-main.u-flex(class={'c-main--is-home': isHome})
+      .u-content
         block content
-    include ./_foot.pug
+    footer.c-footer
+      include ./_foot.pug
     block js
       script(src=assetHashPath('js/vendor.js'))

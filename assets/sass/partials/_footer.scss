@@ -1,13 +1,6 @@
 /* footer */
-footer {
-  font-size: 0.8rem;
-  border-top: 1px solid #ccc;
-  color: #999;
-  text-align: center;
-  width: 100%;
-  padding:10px 0;
 
-  a {
-    margin:0 10px;
-  }
+// footer module is moved to layout definition
+.c-footer__a {
+  margin:0 10px;
 }

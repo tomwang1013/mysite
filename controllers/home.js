@@ -6,7 +6,9 @@ function index(req,res, next) {
       res.redirect('/profile/jobs');
     }
   } else {
-    res.render('home/index');
+    res.render('home/index', {
+      isHome: true
+    });
   }
 }
 

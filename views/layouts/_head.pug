@@ -1,39 +1,38 @@
-header
-  .content.header-container.flex
-    - var cu = currentUser
-    a.large-font.text-bold(href='/' class='logo') 学做网
+.c-header__inner.u-content.u-flex
+  - var cu = currentUser
+  a.u-large-font.u-bold-text(href='/' class='site-logo') 学做网
 
-    if cu
-      if cu.type == 0
-        a(href='/questions') 解决问题
-        a(href='/jobs') 找实习岗位
-      else
-        a(href='/jobs/new') 发布实习岗位
+  if cu
+    if cu.type == 0
+      a.c-header__inner__link(href='/questions') 解决问题
+      a.c-header__inner__link(href='/jobs') 找实习岗位
     else
-      a(href='/questions') 解决问题
-      a(href='/jobs') 找实习岗位
-      span.division
-      a(href='/jobs/new') 发布实习岗位
+      a.c-header__inner__link(href='/jobs/new') 发布实习岗位
+  else
+    a.c-header__inner__link(href='/questions') 解决问题
+    a.c-header__inner__link(href='/jobs') 找实习岗位
+    span.c-header__inner__sep
+    a.c-header__inner__link(href='/jobs/new') 发布实习岗位
 
-    span.right-btns
-      if cu
-        a.msg-notify(href='/profile/message')
-          span(class='fa fa-bell vertical-middle')
-          span.msg-tip.small-font.round-border 你有未读消息
-        span.user-center
-          a.profile-index(href='/profile')
-            img.round-border.vertical-middle(src=cu.avatar)
-            span.vertical-middle(class='fa fa-caret-down menu-show')
-          ul.profile-dropdown.nav.small-font.round-border
-            li.text-center #{cu.name}, 你好
-            li.text-center
-              a(href='/profile/user_info') 基本信息
-            li.text-center
-              a(href='/profile/jobs') 职位信息
-            li.text-center
-              a(href='/profile/account') 账号与密码
-            li.text-center
-              a(href='/logout') 退出
-      else
-        a(href='/login' class='btn-normal login fir-span') 登陆
-        a(href='/signup' class='btn-primary signup') 注册
+  span.c-header__inner__right
+    if cu
+      a.c-msg-notify(href='/profile/message')
+        span(class='c-msg-notify__icon fa fa-bell u-vertical-middle')
+        span.c-msg-notify__tip.u-small-font.u-round-border 你有未读消息
+      span.user-center
+        a.profile-index(href='/profile')
+          img.round-border.vertical-middle(src=cu.avatar)
+          span.vertical-middle(class='fa fa-caret-down menu-show')
+        ul.profile-dropdown.nav.small-font.round-border
+          li.text-center #{cu.name}, 你好
+          li.text-center
+            a(href='/profile/user_info') 基本信息
+          li.text-center
+            a(href='/profile/jobs') 职位信息
+          li.text-center
+            a(href='/profile/account') 账号与密码
+          li.text-center
+            a(href='/logout') 退出
+    else
+      a(href='/login' class='btn-normal login fir-span') 登陆
+      a(href='/signup' class='btn-primary signup') 注册

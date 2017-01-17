@@ -1,0 +1,26 @@
+/**
+ * styles related to the site's layout, i.e. main components
+ * like header, footer, etc
+ */
+.c-header {
+  padding: 0.5em 0;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+}
+
+.c-main {
+  margin: 1em 0;
+}
+
+.c-main--is-home {
+  margin: auto;
+}
+
+.c-footer {
+  font-size: 0.8rem;
+  border-top: 1px solid #ccc;
+  color: #999;
+  text-align: center;
+  width: 100%;
+  padding:10px 0;
+}

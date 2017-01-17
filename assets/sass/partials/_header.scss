@@ -1,131 +1,119 @@
 /* header */
-header {
-  padding: 0.5em 0;
-  background-color: #eee;
-  border-bottom: 1px solid #ddd;
+.c-header__inner {
+  align-items:center;
+}
 
-  .header-container {
-    align-items:center;
+.c-header__inner__link {
+  margin-right: 1em;
+  color: $less-imp;
+  color: $link-color;
+}
 
-    & > a {
-      margin-right: 1em;
-    }
+.c-header__inner__sep {
+  margin-right: 1em;
+  background-color: $bd-light;
+  width: 2px;
+  height: 1.125em;
+}
 
-    & > a:not(.logo) {
-      color: $less-imp;
-    }
+.c-header__inner__right {
+  margin-left: auto;
+}
 
-    & > a:not(.logo):hover {
-      color: $link-color;
-    }
+// 消息通知
+.c-msg-notify {
+  display: inline-block;
+  position: relative;
+  margin-right: 18px;
+}
 
-    .division {
-      margin-right: 1em;
-      background-color: $bd-light;
-      width: 2px;
-      height: 1.125em;
-    }
+.c-msg-notify__icon {
+  font-size: 22px;
+  color: $less-imp;
 
-    .right-btns {
-      margin-left: auto;
-    }
+  &.has-msg {
+    color: $error-color;
   }
+}
 
-  // 消息通知
-  .msg-notify {
+.c-msg-notify__tip {
+  display: none;
+  position: absolute;
+  top: 140%;
+  left: -2.7em;
+  padding: 0.5em;
+  width: 7em;
+  color: #fff;
+  background-color: #000;
+}
+
+.c-msg-notify:hover .c-msg-notify__tip {
+  display: block;
+  z-index: 10;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: calc(50% - 5px);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #000 transparent;
+  }
+}
+
+// 登陆菜单
+.user-center {
+  position: relative;
+
+  .profile-index {
     display: inline-block;
-    position: relative;
-    margin-right: 18px;
-    color: $less-imp;
 
-    .fa {
-      font-size: 22px;
-    }
-
-    &.has-msg {
-      color: $error-color;
-    }
-
-    .msg-tip {
-      display: none;
-      position: absolute;
-      top: 140%;
-      left: -2.7em;
-      padding: 0.5em;
-      width: 7em;
-      color: #fff;
-      background-color: #000;
+    img {
+      margin-right: 6px;
+      width: 22px;
+      height: 22px;
     }
   }
 
-  .msg-notify:hover .msg-tip {
-    display: block;
+  .profile-dropdown {
+    position: absolute;
+    display: none;
+    top: 140%;
+    right: -53%;
+    width: 100px;
+    background-color: #fff;
+    border: 1px solid $bd-normal;
     z-index: 10;
 
-    &::after {
+    li:not(:first-child):hover {
+      background-color: $bd-light;
+    }
+
+    li {
+      padding:: 0.4em;
+    }
+
+    li:first-child {
+      border-bottom: 1px solid $bd-light;
+    }
+
+    &::before {
       content: '';
       position: absolute;
+      z-index: -1;
       bottom: 100%;
-      left: calc(50% - 5px);
-      border-width: 5px;
-      border-style: solid;
-      border-color: transparent transparent #000 transparent;
-    }
-  }
-
-  // 登陆菜单
-  .user-center {
-    position: relative;
-
-    .profile-index {
-      display: inline-block;
-
-      img {
-        margin-right: 6px;
-        width: 22px;
-        height: 22px;
-      }
-    }
-
-    .profile-dropdown {
-      position: absolute;
-      display: none;
-      top: 140%;
-      right: -53%;
-      width: 100px;
+      left: 70%;
+      top: -7px;
       background-color: #fff;
-      border: 1px solid $bd-normal;
-      z-index: 10;
-
-      li:not(:first-child):hover {
-        background-color: $bd-light;
-      }
-
-      li {
-        padding:: 0.4em;
-      }
-
-      li:first-child {
-        border-bottom: 1px solid $bd-light;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        bottom: 100%;
-        left: 70%;
-        top: -7px;
-        background-color: #fff;
-        width: 10px;
-        height: 10px;
-        border-width: 1px;
-        border-style: solid;
-        border-color: $bd-normal $bd-normal transparent transparent;
-        -webkit-transform: rotate(-45deg);
-        -ms-transform: rotate(-45deg);
-        transform: rotate(-45deg);
-      }
+      width: 10px;
+      height: 10px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $bd-normal $bd-normal transparent transparent;
+      -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
     }
   }
 }
