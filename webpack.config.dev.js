@@ -3,16 +3,7 @@ const webpackMerge      = require('webpack-merge');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = webpackMerge(baseConfig, {
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
-      }
-    ]
-  },
-
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css' })
+    //new ExtractTextPlugin({ filename: '[name].css' })
   ]
 });
