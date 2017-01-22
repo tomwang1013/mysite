@@ -3,7 +3,7 @@ var x = require('common/jq_val_wrapper');
 var y = require('common/main_nav');
 
 $(function() {
-  $('.index-signup').validate({
+  $('.js-home-signup-form').validate({
     rules: {
       name: {
         remote: '/signup/is_valid_name'

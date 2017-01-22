@@ -1,5 +1,9 @@
-/* header */
+/**
+ * site's header
+ */
+
 .c-header__inner {
+  display: flex;
   align-items:center;
 }
 
@@ -20,22 +24,29 @@
   margin-left: auto;
 }
 
-// 消息通知
+
+/**
+ * 消息通知图标
+ */
+
 .c-msg-notify {
   display: inline-block;
   position: relative;
   margin-right: 18px;
 }
 
+// 图标
 .c-msg-notify__icon {
   font-size: 22px;
   color: $less-imp;
+  vertical-align: middle;
 
   &.has-msg {
     color: $error-color;
   }
 }
 
+// 悬浮提示框
 .c-msg-notify__tip {
   display: none;
   position: absolute;
@@ -47,7 +58,8 @@
   background-color: #000;
 }
 
-.c-msg-notify:hover .c-msg-notify__tip {
+// 鼠标移上去后才展示
+.c-msg-notify:hover > .c-msg-notify__tip {
   display: block;
   z-index: 10;
 
@@ -62,58 +74,69 @@
   }
 }
 
-// 登陆菜单
-.user-center {
+
+/**
+ * 头像及个人中心菜单列表
+ */
+.c-profile-bar {
   position: relative;
+}
 
-  .profile-index {
-    display: inline-block;
+// 头像
+.c-profile-bar__avatar {
+  vertical-align: middle;
+  border-radius: 4px;
+  margin-right: 6px;
+  width: 22px;
+  height: 22px;
+}
 
-    img {
-      margin-right: 6px;
-      width: 22px;
-      height: 22px;
-    }
-  }
+// 下拉图标
+.c-profile-bar__caret {
+  vertical-align: middle;
+}
 
-  .profile-dropdown {
+// 下拉菜单
+.c-profile-bar__pop-menu {
+  position: absolute;
+  display: none;
+  top: 140%;
+  right: -53%;
+  width: 100px;
+  background-color: #fff;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
+  z-index: 10;
+
+  &::before {
+    content: '';
     position: absolute;
-    display: none;
-    top: 140%;
-    right: -53%;
-    width: 100px;
+    z-index: -1;
+    bottom: 100%;
+    left: 70%;
+    top: -7px;
     background-color: #fff;
-    border: 1px solid $bd-normal;
-    z-index: 10;
-
-    li:not(:first-child):hover {
-      background-color: $bd-light;
-    }
-
-    li {
-      padding:: 0.4em;
-    }
-
-    li:first-child {
-      border-bottom: 1px solid $bd-light;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      bottom: 100%;
-      left: 70%;
-      top: -7px;
-      background-color: #fff;
-      width: 10px;
-      height: 10px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: $bd-normal $bd-normal transparent transparent;
-      -webkit-transform: rotate(-45deg);
-      -ms-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-    }
+    width: 10px;
+    height: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: $bd-normal $bd-normal transparent transparent;
+    transform: rotate(-45deg);
   }
+
+}
+
+// 下拉菜单项
+.c-profile-bar__pop-menu__item {
+  text-align: center;
+  padding:: 0.4em;
+
+  &:first-child {
+    border-bottom: 1px solid $bd-light;
+  }
+
+  &:not(:first-child):hover {
+    background-color: $bd-light;
+  }
+
 }

@@ -1,4 +1,4 @@
-.c-header__inner.u-content.u-flex
+.c-header__inner.u-content
   - var cu = currentUser
   a.u-large-font.u-bold-text(href='/' class='site-logo') 学做网
 
@@ -17,21 +17,21 @@
   span.c-header__inner__right
     if cu
       a.c-msg-notify(href='/profile/message')
-        span(class='c-msg-notify__icon fa fa-bell u-vertical-middle')
+        span(class='c-msg-notify__icon fa fa-bell')
         span.c-msg-notify__tip.u-small-font.u-round-border 你有未读消息
-      span.user-center
-        a.profile-index(href='/profile')
-          img.round-border.vertical-middle(src=cu.avatar)
-          span.vertical-middle(class='fa fa-caret-down menu-show')
-        ul.profile-dropdown.nav.small-font.round-border
-          li.text-center #{cu.name}, 你好
-          li.text-center
+      span.c-profile-bar
+        a.u-inline-block(href='/profile')
+          img.c-profile-bar__avatar(src=cu.avatar)
+          span.c-profile-bar__caret(class='fa fa-caret-down')
+        ul.c-profile-bar__pop-menu.nav.small-font
+          li.c-profile-bar__pop-menu__item #{cu.name}, 你好
+          li.c-profile-bar__pop-menu__item
             a(href='/profile/user_info') 基本信息
-          li.text-center
+          li.c-profile-bar__pop-menu__item
             a(href='/profile/jobs') 职位信息
-          li.text-center
+          li.c-profile-bar__pop-menu__item
             a(href='/profile/account') 账号与密码
-          li.text-center
+          li.c-profile-bar__pop-menu__item
             a(href='/logout') 退出
     else
       a(href='/login' class='btn-normal login fir-span') 登陆

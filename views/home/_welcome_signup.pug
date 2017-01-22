@@ -1,10 +1,10 @@
-.welcome-signup-wrapper
-  .welcome-signup.content.flex
-    .main-slogan.larger-font
-      h2.title 有效的学习和实习方式？
-      .sub-title 通过问答，在企业和学生之间建立能力评估模型
-      .sub-title 不做象牙塔里的学霸，解决问题才是王道
-    form(method='post', action='/signup_step1' class='index-signup')
+.c-home-welcome
+  .c-home-welcome__inner.u-content
+    .c-home-welcome__slogan.larger-font
+      h2 有效的学习和实习方式？
+      div 通过问答，在企业和学生之间建立能力评估模型
+      div 不做象牙塔里的学霸，解决问题才是王道
+    form(method='post', action='/signup_step1' class='c-home-welcome__signup js-home-signup-form')
       .form-group
         input(type='hidden', name='step', value='1')
         label(for='name' class='label-input') 用户名：
@@ -18,8 +18,8 @@
       label(class='label-input') 身份：
       .form-group
         input(type='radio', id='user-type-student', name='userType', value=0, checked)
-        label.form-control(for='user-type-student') 学生
+        label.c-home-welcome__signup__ut-label.form-control(for='user-type-student') 学生
         input(type='radio', id='user-type-company', name='userType', value=1)
-        label.form-control(for='user-type-company') 公司
+        label.c-home-welcome__signup__ut-label.form-control(for='user-type-company') 公司
       .form-group
-        input(type='submit', value='加入学做网' class='btn-primary like-fm-ctl')
+        input(type='submit', value='加入学做网' class='btn-primary c-home-welcome__signup__submit')

@@ -1,63 +1,71 @@
 @import 'partials/all';
 @import 'partials/login_box';
 
-.welcome-signup-wrapper {
+/**
+ * 首页欢迎页面，页面里面有标语及注册框
+ */
+.c-home-welcome {
   background: #362819;
   color: #fff;
+}
 
-  .welcome-signup {
-    align-items: center;
-    padding: 32px 0;
-  }
+.c-home-welcome__inner {
+  display: flex;
+  align-items: center;
+  padding: 32px 0;
+}
 
-  input[type='radio'] + label {
-    background-color: $bd-normal;
-    border-color: $bd-dark;
-  }
+// 标语
+.c-home-welcome__slogan {
+  flex: 1;
+  line-height:2em;
+  margin-right:1em;
+}
 
-  input[type='radio']:checked + label {
+// 注册框
+.c-home-welcome__signup {
+  flex: 1;
+  margin-left: 1em;
+}
+
+.c-home-welcome__signup__ut-label {
+  background-color: $bd-normal;
+  border-color: $bd-dark;
+
+  [type='radio']:checked + & {
     background-color: $btn-pri-bk-color;
     border-color: $btn-pri-bd-color;
     color: #fff;
   }
-
-  .main-slogan, .index-signup {
-    flex: 1;
-  }
-
-  .main-slogan {
-    line-height:2em;
-    margin-right:1em;
-  }
-
-  .index-signup {
-    margin-left: 1em;
-  }
-
-  input[type=submit] {
-    width: 100%;
-  }
 }
 
-.welcome-other-wrapper {
-  .welcome-other {
-    padding: 32px 0;
-    justify-content: space-around;
-  }
+.c-home-welcome__signup__submit {
+  width: 100%;
+}
 
-  .welcome-sec {
-    flex-flow: column;
-    padding: 0 1em;
-  }
 
-  ul.wl-content {
-    margin: 0.5em 0;
-    padding-left: 1.125em;
-    flex: 1;
+/**
+ * 标语和注册框下面的介绍部分 
+ */
+.c-home-second-wel {
+  display: flex;
+  justify-content: space-around;
+  padding: 32px 0;
+}
 
-    li {
-      margin: 0.5em 0;
-      font-weight: bold;
-    }
-  }
+.c-home-second-wel__part {
+  display: flex;
+  flex-flow: column;
+  padding: 0 1em;
+}
+
+.c-home-second-wel__todo-list {
+  margin: 0.5em 0;
+  padding-left: 1.125em;
+  flex: 1;
+}
+
+.c-home-second-wel__todo-list__item {
+  margin: 0.5em 0;
+  font-weight: bold;
 }
