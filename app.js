@@ -37,12 +37,13 @@ app.use(function(req, res, next) {
 app.use(require('./route'));
 app.use(gControllers.error);
 
-app.assetsManifest = require('./rev-manifest.json');
+// js和css文件名映射
+app.assetsManifest = require('./public/assets/rev-manifest.json');
 app.locals.assetHashPath = function(originPath) {
   if (app.get('env') == 'development') {
-    return '/' + originPath;
+    return '/assets/' + originPath;
   } else {
-    return '/' + app.assetsManifest[originPath];
+    return '/assets/' + app.assetsManifest[originPath];
   }
 }
 
