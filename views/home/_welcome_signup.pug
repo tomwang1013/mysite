@@ -5,21 +5,26 @@
       div 通过问答，在企业和学生之间建立能力评估模型
       div 不做象牙塔里的学霸，解决问题才是王道
     form(method='post', action='/signup_step1' class='c-home-welcome__signup js-home-signup-form')
-      .form-group
-        input(type='hidden', name='step', value='1')
-        label(for='name' class='label-input') 用户名：
-        input(type='text', name='name', id='name', class='form-control', required, autofocus)
-      .form-group
-        label(for='email' class='label-input') Email：
-        input(type='email', name='email', id='email', class='form-control' required)
-      .form-group
-        label(for='password' class='label-input') 密码：
-        input(type='password', name='password', id='password', class='form-control' required)
-      label(class='label-input') 身份：
-      .form-group
+      input(type='hidden', name='step', value='1')
+      .o-fm-grp
+        label(for='name') 用户名：
+        input(type='text', name='name', id='name', class='o-fm-ctl', autofocus)
+
+      .o-fm-grp
+        label(for='email') Email：
+        input(type='email', name='email', id='email', class='o-fm-ctl')
+
+      .o-fm-grp
+        label(for='password') 密码：
+        input(type='password', name='password', id='password', class='o-fm-ctl')
+
+      .o-fm-grp
+        label 身份：
         input(type='radio', id='user-type-student', name='userType', value=0, checked)
-        label.c-home-welcome__signup__ut-label.form-control(for='user-type-student') 学生
+        label.c-home-welcome__signup__ut-label(for='user-type-student') 学生
+
         input(type='radio', id='user-type-company', name='userType', value=1)
-        label.c-home-welcome__signup__ut-label.form-control(for='user-type-company') 公司
-      .form-group
-        input(type='submit', value='加入学做网' class='btn-primary c-home-welcome__signup__submit')
+        label.c-home-welcome__signup__ut-label(for='user-type-company') 公司
+
+      .o-fm-grp
+        input(type='submit', value='加入学做网' class='o-btn o-btn-primary c-home-welcome__signup__submit')

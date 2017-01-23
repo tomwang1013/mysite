@@ -1,3 +1,8 @@
+/**
+ * utility css classes
+ */
+
+// page content size
 .u-content {
   width:  960px;
   margin: auto;
@@ -41,30 +46,30 @@
 }
 
 /* list */
-ul.nav {
+.u-nav-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 // 2个紧挨在一起的行内元素，第一个元素右边留空
-.fir-span {
+.u-fir-span {
   margin-right: 0.5em;
 }
 
 // color change
-.success-result {
+.u-success-result {
   color: $success-color;
 }
 
-.error-result {
+.u-error-result {
   color: $error-color;
 }
 
-.less-imp {
+.u-less-imp {
   color: $less-imp;
 }
 
-.unknown-result {
+.u-unknown-result {
   color: $unknown-color;
 }

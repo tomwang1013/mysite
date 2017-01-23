@@ -1,5 +1,4 @@
-@import 'partials/all';
-@import 'partials/login_box';
+@import 'partials/common/index';
 
 /**
  * 首页欢迎页面，页面里面有标语及注册框
@@ -30,12 +29,12 @@
 
 .c-home-welcome__signup__ut-label {
   background-color: $bd-normal;
-  border-color: $bd-dark;
+  border-color:     $bd-dark;
 
   [type='radio']:checked + & {
-    background-color: $btn-pri-bk-color;
-    border-color: $btn-pri-bd-color;
-    color: #fff;
+    background-color: #090;
+    border-color:     #090;
+    color:            #fff;
   }
 }
 

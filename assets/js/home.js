@@ -2,6 +2,8 @@ var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
 var y = require('common/main_nav');
 
+var z = require('home.scss');
+
 $(function() {
   $('.js-home-signup-form').validate({
     rules: {

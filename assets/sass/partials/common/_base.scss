@@ -1,0 +1,39 @@
+/**
+ * https://smacss.com/book/type-base
+ * A Base rule is applied to an element using an element selector, a
+ * descendent selector, or a child selector, along with any
+ * pseudo-classes. It doesn’t include any class or ID selectors.
+ * It is defining the default styling for how that element should look
+ * in all occurrences on the page.
+ *
+ * it is like css reset rules such as normalize.css
+ */
+
+* { box-sizing: border-box; }
+
+body {
+  font-size: 100%;
+  font-family: Helvetica, Tahoma, Arial,
+               STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑",
+               SimSun, "宋体", sans-serif;
+  flex-flow:column;
+  min-height:100vh;
+}
+
+p {
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+/* link */
+a {
+  color: #00a;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover { text-decoration: underline; }
+}
+
+label { display: inline-block; }
+
+textarea { height: auto; }

@@ -12,7 +12,7 @@ $(function() {
 });
 
 $.validator.setDefaults({
-  errorClass: 'input-error',
+  errorClass: 'u-input-error',
   ignore: '.ignore',
   errorPlacement: function(error, element) {
     error.insertBefore(element);

@@ -1,20 +1,27 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let entries = {};
 
-glob.sync('./assets/js/**/*.js').filter(f => {
-  return f.indexOf('/common/') == -1;
-}).forEach(f => {
-  entries[f.slice(12, -3)] = f;
-});
+//glob.sync('./assets/js/**/*.js').filter(f => {
+  //return f.indexOf('/common/') == -1;
+//}).forEach(f => {
+  //entries[f.slice(12, -3)] = f;
+//});
+
+entries['home'] = './assets/js/home.js'
 
 module.exports = {
   entry: entries,
 
   resolve: {
-    modules: [path.resolve(__dirname, 'assets/js'), 'node_modules']
+    modules: [
+      path.resolve(__dirname, 'assets/js'),
+      path.resolve(__dirname, 'assets/sass'),
+      'node_modules'
+    ]
   },
 
   output: {

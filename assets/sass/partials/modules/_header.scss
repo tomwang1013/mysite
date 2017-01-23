@@ -2,6 +2,12 @@
  * site's header
  */
 
+.c-header {
+  padding: 0.5em 0;
+  background-color: #eee;
+  border-bottom: 1px solid #ddd;
+}
+
 .c-header__inner {
   display: flex;
   align-items:center;
@@ -10,7 +16,6 @@
 .c-header__inner__link {
   margin-right: 1em;
   color: $less-imp;
-  color: $link-color;
 }
 
 .c-header__inner__sep {
@@ -28,7 +33,6 @@
 /**
  * 消息通知图标
  */
-
 .c-msg-notify {
   display: inline-block;
   position: relative;

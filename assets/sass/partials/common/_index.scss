@@ -1,0 +1,11 @@
+/**
+ * common styles: should be included by every page
+ */
+
+@import 'normalize';
+@import 'base';
+@import 'variables';
+@import 'util';
+@import '../modules/header';
+@import '../modules/footer';
+@import 'form';

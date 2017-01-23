@@ -11,7 +11,7 @@ module.exports = webpackMerge(baseConfig, {
 
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
-    new ManifestPlugin({ fileName: 'rev-manifest.json' })
-    //new ExtractTextPlugin({ filename: '[name].[contenthash].css' })
+    new ManifestPlugin({ fileName: 'rev-manifest.json' }),
+    new ExtractTextPlugin({ filename: '[name].[contenthash].css' })
   ]
 });

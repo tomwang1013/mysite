@@ -1,0 +1,140 @@
+/**
+ * form control & button style
+ */
+
+
+/* abstract attributes shared by button & form control */
+@mixin mx-inline-box {
+  display: inline-block;
+  padding: 0 0.5em;
+  height: 2.125em;
+  line-height: 2;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  outline:none;
+}
+
+/***********************************************\
+ *************** form controls *****************
+\***********************************************/
+
+input[type='radio'] {
+  position: absolute;
+  visibility: hidden;
+}
+
+input[type='radio'] + label {
+  text-align: center;
+  width: 50%;
+  background-color: #fff;
+  cursor: pointer;
+
+  &:first-of-type {
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-of-type {
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+input[type='radio']:checked + label {
+  border-color: $bd-focus;
+}
+
+
+// invalid field hint text color
+.u-input-error {
+  display: inline-block;
+  color: $error-color;
+  border: none;
+  font-size: 0.9em;
+}
+
+/**
+ * form group to include label & input
+ * label and input are in different line
+ * [label]
+ * [input]
+ */
+.o-fm-grp { margin-bottom: 1em; }
+
+/**
+ * form group to include label & input
+ * label and input are in the same line
+ * [label] [input]
+ */
+.o-fm-grp-hr {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+// form control(input, select, textarea, etc) occupying whole line
+.o-fm-ctl {
+  @include mx-inline-box;
+
+  width: 100%;
+  margin-top: 0.5em;
+  border-color: $bd-light;
+
+  &:focus { border-color: $bd-focus; }
+}
+
+// form control not occupying a whole line
+.o-fm-ctl-hr {
+  @include mx-inline-box;
+
+  border-color: $bd-light;
+
+  &:focus { border-color: $bd-focus; }
+}
+
+// make ckeditor textarea have a top margin as other form control
+[class^="cke_editor_"] { margin-top: 0.5em; }
+
+// hint after a form control
+.o-fm-ctl-hint {
+  color: $less-imp;
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+
+/***********************************************\
+ ***************** buttons *********************
+\***********************************************/
+
+// all button style
+.o-btn {
+  @include mx-inline-box;
+
+  cursor: pointer;
+}
+
+// normal button style
+.o-btn-normal {
+  color:            #000;
+  border-color:     #aaa;
+  background-color: #ddd;
+
+  &:hover { background-color: #bbb; }
+}
+
+// primary button look
+.o-btn-primary {
+  color:            #fff;
+  border-color:     #070;
+  background-color: #090;
+
+  &:hover { background-color: #080; }
+}
+
+// warning button look
+.o-btn-warning {
+  color:            #fff;
+  border-color:     #700;
+  background-color: #900;
+
+  &:hover { background-color: #800; }
+}
