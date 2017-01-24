@@ -1,22 +1,22 @@
 //- pagination: input: page, pages
 //- 最多5个页码
 mixin pageLink(pageNum)
-  li(class={active: page == pageNum})
+  li.o-pager-container__page-num(class={active: page == pageNum})
     a(href=createPageUrl(req, pageNum))= pageNum 
 
-.pager-container.text-center
+.o-pager-container
     - var pageNum = 1
     if pages <= 5
-      ul.nav
+      ul.o-pager-container__list.u-nav-list
         while pageNum <= pages
           +pageLink(pageNum++)
     else
       if page > 1
-        span.prefix
+        span.o-pager-container__prefix
           a(href=createPageUrl(req, 1)) 第一页
           a(href=createPageUrl(req, page - 1)) 上一页
 
-      ul.nav.text-center
+      ul.o-pager-container__list.u-nav-list
         //- link 1
         +pageLink(1)
 
@@ -24,7 +24,7 @@ mixin pageLink(pageNum)
         if page <= 3 || page >= pages - 1
           +pageLink(2)
         else
-          li ... 
+          li.o-pager-container__page-num ... 
 
         //- link 3
         if page == 3
@@ -32,18 +32,18 @@ mixin pageLink(pageNum)
         else if page == pages - 2
           +pageLink(pages - 2)
         else
-          li ...
+          li.o-pager-container__page-num ...
 
         //- link 4
         if page >= pages - 2 || page <= 2
           +pageLink(pages - 1)
         else
-          li ...
+          li.o-pager-container__page-num ...
 
         //- link 5
         +pageLink(pages)
 
       if page < pages 
-        span.postfix
+        span.o-pager-container__postfix
           a(href=createPageUrl(req, page + 1)) 下一页
           a(href=createPageUrl(req, pages)) 最后一页

@@ -1,38 +1,41 @@
 extends _layout.pug
 block content
-  form.jobs-search(action='/jobs' method='get')
-    div.flex
-      span.flex
-        label(for='title' class='label') 职位名称：
-        input(type='text' id='title' name='title' value=title class='form-control-hr')
+  //- 搜索框
+  form.c-jobs-search-fm(action='/jobs' method='get')
+    .c-jobs-search-fm__field-grp
+      span.c-jobs-search-fm__field
+        label(for='title') 职位名称：
+        input(type='text' id='title' name='title' value=title class='o-fm-ctl-hr')
 
-      span.flex
-        label(for='business' class='label') 行业：
-        select(name='business' id='business' class='form-control-hr')
+      span.c-jobs-search-fm__field
+        label(for='business') 行业：
+        select(name='business' id='business' class='o-fm-ctl-hr')
           option(value='' selected) 请选择
           each b in businesses
             option(value=b selected=b == business)= b 
-    div.flex
-      span.flex
-        label(for='address' class='label') 工作地点：
-        input(type='text', name='address', id='address', value=address, class='form-control-hr')
 
-      span.flex
-        input(type='submit', value='搜索', class='btn-normal')
+    .c-jobs-search-fm__field-grp
+      span.c-jobs-search-fm__field
+        label(for='address') 工作地点：
+        input(type='text', name='address', id='address', value=address, class='o-fm-ctl-hr')
 
-  .jobs-container
+      span.c-jobs-search-fm__submit
+        input(type='submit', value='搜索', class='o-btn o-btn-normal')
+
+  //- 职位列表
+  .c-jobs-search-list
     if !jobs.length
-      .text-center.error-result 对不起，没有符合条件的职位，请换个搜索条件吧
+      .u-center-text.u-error-result 对不起，没有符合条件的职位，请换个搜索条件吧
     else
       each job in jobs
-        .job-item(data-job-id=job.id)
-          div.flex.job-title
-            a(href='/job/' + job.id)= job.title
-            button.btn-primary 申请职位
-          div.job-basics.small-font
+        .c-jobs-search-item(data-job-id=job.id)
+          .c-jobs-search-item__title
+            a.u-flex-mg-r-auto(href='/job/' + job.id)= job.title
+            button.o-btn.o-btn-primary 申请职位
+
+          .c-jobs-search-item__attrs.u-small-font
             span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
-            span 公司：
-              a(href='/user/' + job._creator.id)= job._creator.name
+            span 公司：#[a(href='/user/' + job._creator.id)= job._creator.name]
             span 工作地点：<strong>#{job.address}</strong>
     if pages > 1
       include ../share/_pager.pug

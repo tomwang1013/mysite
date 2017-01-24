@@ -1,8 +1,9 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
-var x = require('common/popup_overlay');
-var y = require('common/popup_tabs');
-var z = require('common/main_nav');
+var y = require('common/popup_overlay');
+var z = require('common/popup_tabs');
+var w = require('common/main_nav');
+var v = require('job.scss');
 
 var cities = {
   labels: ['省份', '市区'],
@@ -81,7 +82,7 @@ $(document).ready(function() {
   // pass or refuse applying
   $('.js-apply-op > button').click(function() {
     var me = $(this);
-    var confirm = me.closest('.applier').find('.js-op-message');
+    var confirm = me.closest('.c-applier').find('.js-op-message');
     var message;
     var status;
 
@@ -102,7 +103,7 @@ $(document).ready(function() {
   // 处理学生的职位申请请求
   $('.js-op-message button:first-child').click(function() {
     var me = $(this);
-    var c = $(this).closest('.applier');
+    var c = $(this).closest('.c-applier');
     var userId = c.data('userId');
     var jobId  = c.data('jobId');
     var t = me.closest('.js-op-message').find('textarea');
@@ -129,7 +130,7 @@ $(document).ready(function() {
 
   $('.js-op-message button:last-child').click(function() {
     $(this).closest('.js-op-message').hide();
-    $(this).closest('.applier').find('.js-apply-op').show();
+    $(this).closest('.c-applier').find('.js-apply-op').show();
   });
 
   // 删除职位

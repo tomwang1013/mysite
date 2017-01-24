@@ -1,42 +1,42 @@
-.pager-container {
+/***********
+ * 分页组件
+ ***********/
+
+.o-pager-container {
+  text-align: center;
   margin: 1em 0;
+}
 
-  ul {
-    display: inline;
+// 页码列表
+.o-pager-container__list {
+  display: inline;
+}
+
+// 单个页码
+.o-pager-container__page-num {
+  display: inline-block;
+  text-align: center;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  border: 1px solid #aaa;
+  border-right: none;
+
+  &:last-child {
+    border-right: 1px solid #aaa;
   }
 
-  li {
-    display: inline-block;
-    text-align: center;
-    height: 2em;
-    width: 2em;
-    line-height: 2em;
-    border: 1px solid #aaa;
-    border-right: none;
-
-    &:last-child {
-      border-right: 1px solid #aaa;
-    }
-
-    &.active {
-      background-color: #aaa;
-    }
-  }
-
-  a {
-    display: inline-block;
-  }
-
-  .prefix, .postfix {
-    font-family: SimSun, "宋体", sans-serif;
-    font-size: 0.8em;
-  }
-
-  .postfix a {
-    padding-left: 0.5em;
-  }
-
-  .prefix a {
-    padding-right: 0.5em;
+  &.active {
+    background-color: #aaa;
   }
 }
+
+// 头部和尾部的中文页码
+.o-pager-container__prefix,
+.o-pager-container__postfix {
+  font-family: SimSun, "宋体", sans-serif;
+  font-size: 0.8em;
+}
+
+.o-pager-container__prefix > a  { padding-left: 0.5em; }
+.o-pager-container__postfix > a { padding-right: 0.5em; }
