@@ -2,18 +2,18 @@ extends ../layouts/main
 append css
   link(href=assetHashPath("css/profile.css"), rel="stylesheet")
 block content
-  .flex.profile-container
-    ul.nav.left-nav.small-font.text-center
+  .u-flex
+    ul.c-uc-left-nav.u-small-font.u-nav-list
       li
-        a(href='/profile/user_info' class={active: pos == 'user_info'}) 基本信息
+        a.c-uc-left-nav__item(href='/profile/user_info' class={'is-active': pos == 'user_info'}) 基本信息
       li
         if currentUser.type == 0
-          a(href='/profile/jobs' class={active: pos == 'jobs'}) 申请的职位
+          a.c-uc-left-nav__item(href='/profile/jobs' class={'is-active': pos == 'jobs'}) 申请的职位
         else
-          a(href='/profile/jobs' class={active: pos == 'jobs'}) 发布的职位
+          a.c-uc-left-nav__item(href='/profile/jobs' class={'is-active': pos == 'jobs'}) 发布的职位
       li
-        a(href='/profile/message' class={active: pos == 'message'}) 消息中心
+        a.c-uc-left-nav__item(href='/profile/message' class={'is-active': pos == 'message'}) 消息中心
       li
-        a(href='/profile/account' class={active: pos == 'account'}) 账号与密码
-    .right-content
+        a.c-uc-left-nav__item(href='/profile/account' class={'is-active': pos == 'account'}) 账号与密码
+    .c-uc-right-content
       block right_content

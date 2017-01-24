@@ -1,33 +1,39 @@
-@import 'partials/all';
+@import 'partials/common/index';
 
-.profile-container {
- .left-nav {
-    flex:1;
-    border: 1px solid #ccc;
+/***********
+ * 个人中心
+ ***********/
 
-    a {
-      display: block;
-      line-height: 2;
-      border-bottom: 1px solid #ccc;
-    }
+/* 左侧导航栏 */
+.c-uc-left-nav {
+  flex: 1;
+  border: 1px solid #ccc;
+  text-align: center;
+}
 
-    a.active {
-      color: #000;
-      border-left: 2px solid #a00;
-      cursor: default;
-    }
+// 导航栏中的链接
+.c-uc-left-nav__item {
+  display: block;
+  line-height: 2;
+  border-bottom: 1px solid #ccc;
 
-    a:hover:not(.active) {
-      background-color: #ddd;
-    }
+  &.is-active {
+    color: #000;
+    border-left: 2px solid #a00;
+    cursor: default;
   }
 
-  .right-content {
-    flex:6;
-    padding: 15px 20px;
-    border: 1px solid #ccc;
-    border-left:none;
+  &:hover:not(.is-active) {
+    background-color: #ddd;
   }
+}
+
+// 右侧具体内容
+.right-content {
+  flex:6;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-left:none;
 }
 
 /* 浏览与修改用户信息 */
