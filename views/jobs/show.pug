@@ -1,54 +1,67 @@
 extends _layout.pug
 block content
-  article.show-job.round-border
-    .header.text-center.relative
-      span.large-font= job.title
-      a.absolute(href=`/job/${job.id}/questions` class='questions-link btn-primary') 问题列表
-    section.job-section.job-basic
+  article.c-job-detail
+    .c-job-detail__head
+      span.u-large-font= job.title
+      a.c-job-detail__head__qlink(href=`/job/${job.id}/questions` class='o-btn o-btn-primary') 问题列表
+
+    section.c-job-detail__secion
       h3 基本信息
-      p
-        span.inline-block 发布日期：
-        span.inline-block= job.createdAt.toLocaleDateString()
-      p
-        span.inline-block 工作地点：
-        span.inline-block= job.address
-      p
-        span.inline-block 行业：
-        span.inline-block= job.business
-    section.job-section
+      p.c-job-detail__basic-info
+        span 发布日期：
+        span= job.createdAt.toLocaleDateString()
+      p.c-job-detail__basic-info
+        span 工作地点：
+        span= job.address
+      p.c-job-detail__basic-info
+        span 行业：
+        span = job.business
+
+    section.c-job-detail__secion
       h3 工作职责
       p!= job.duty
-    section.job-section
+
+    section.c-job-detail__secion
       h3 工作要求
       p!= job.requirement
-    section.job-section
+
+    section.c-job-detail__secion
       h3 公司简介
       p!= company.desc
-    section.sj-foot
-      if currentUser
-        if currentUser.type == 0
-          if applyStatus
-            .applied.text-bold
-              if applyStatus.status == 0
-                span.waiting 已申请，审核中...
-              else if applyStatus.status == 1
-                span.refused 企业已拒绝你的申请：#{applyStatus.message}
-              else
-                span.passed 申请已通过：#{applyStatus.message}
-          else
-            .text-center
-              button(class='btn-primary to-apply' data-job-id=job.id) 申 请
-        else if isMyJob
-          .my-job.flex
-            span.appliers-size 当前申请人数：#{job._appliersSize}
-            a(href=`/job/${job.id}/edit` class='btn-normal edit-job fir-span') 编 辑
-            button(class='btn-warning del-job' data-job-id=job.id) 删 除
-            .overlay(style={display: 'none'})
-            .overlay-content(style={display: 'none'})
-              .ol-main 删除后无法恢复，确定要删除职位：#{job.title}吗？
-              .ol-foot
-                button.fir-span.btn-warning.ol-ok 确定
-                button.btn-normal.ol-cancel 取消
+
+    section.c-job-detail__foot
+      if !currentUser
+        //- 未登录
+        .u-bold-text
+          button(class='o-btn o-btn-primary js-to-apply' data-job-id=job.id) 申 请
+
       else
-        .text-center
-          button(class='btn-primary to-apply' data-job-id=job.id) 申 请
+        if currentUser.type == 0
+          //- 学生浏览
+          if applyStatus
+            //- 学生已申请
+            .u-bold-text
+              if applyStatus.status == 0
+                span.u-unknown-result 已申请，审核中...
+              else if applyStatus.status == 1
+                span.u-error-result 企业已拒绝你的申请：#{applyStatus.message}
+              else
+                span.u-success-result 申请已通过：#{applyStatus.message}
+          else
+            //- 学生未申请
+            .u-text-center
+              button(class='o-btn o-btn-primary js-to-apply' data-job-id=job.id) 申 请
+
+        else if isMyJob
+          //- 企业浏览且当前职位是它发布的
+          .c-job-detail__foot__myjob
+            span.u-flex-mg-r-auto 当前申请人数：#{job._appliersSize}
+            a(href=`/job/${job.id}/edit` class='o-btn o-btn-normal u-fir-span') 编 辑
+            button(class='o-btn o-btn-warning js-del-job' data-job-id=job.id) 删 除
+
+            .o-overlay-bk
+            .o-overlay-dlg
+              .o-overlay-dlg__body 删除后无法恢复，确定要删除职位：#{job.title}吗？
+              .o-overlay-dlg__foot
+                button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
+                button.o-btn.o-btn-normal.ol-cancel 取消

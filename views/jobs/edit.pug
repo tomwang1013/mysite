@@ -2,40 +2,49 @@ extends _layout.pug
 append js
   script(src='/ckeditor/ckeditor.js')
 block content
-  form(method='post', action='/job/' + job.id, class='edit-job-fm hcenter')
-    .header.large-font.text-center 修改职位信息
-    .form-group
-      label(for='title' class='label label-input') 职位名称：
-      input(type='text', name='title', id='title', class='form-control' value=job.title, autofocus, required)
-    .form-group
-      label(for='address' class='label label-input') 工作地点：
-      input(type='text', name='address', id='address', class='form-control', value=job.address, required)
-    .form-group
-      label(for='salary' class='label label-input') 薪资：
-      select(name='salary', id='salary' class='form-control', required)
+  form(method='post', action='/job/' + job.id, class='c-job-ne-fm js-job-ne-fm')
+    .c-job-ne-fm__head.large-font 修改职位信息
+
+    .o-fm-grp
+      label(for='title') 职位名称：
+      input(type='text', name='title', id='title', class='o-fm-ctl' value=job.title, autofocus)
+
+    .o-fm-grp
+      label(for='address') 工作地点：
+      input(type='text', name='address', id='address', class='o-fm-ctl', value=job.address)
+
+    .o-fm-grp
+      label(for='salary') 薪资：
+      select(name='salary', id='salary' class='o-fm-ctl')
         option(value='' selected) 请选择
         each s, i in salaries
           option(value=i, selected=i == job.salary)= s 
-    .form-group
-      label(for='business' class='label label-input') 行业：
-      select(name='business', id='business' class='form-control' required)
+
+    .o-fm-grp
+      label(for='business') 行业：
+      select(name='business', id='business' class='o-fm-ctl')
         option(value='' selected) 请选择
         each b in businesses
           option(value=b, selected=b == job.business)= b 
-    .form-group
-      label(for='type' class='label label-input') 类别：
-      select(name='type', id='type' class='form-control', required)
+
+    .o-fm-grp
+      label(for='type') 类别：
+      select(name='type', id='type' class='o-fm-ctl')
         option(value='' selected) 请选择
         each t in types
           option(value=t, selected=t == job.type)= t 
-    .form-group
-      label(for='duty' class='label label-input') 职责：
-      textarea(name='duty', id='duty', class='form-control rich-editor', rows=12, data-rule-required='true', data-rule-minlength=64)= job.duty
-    .form-group
-      label(for='requirement' class='label label-input') 要求：
-      textarea(name='requirement', id='requirement', class='form-control rich-editor', rows=12, data-rule-required='true', data-rule-minlength=64)= job.requirement
-    .form-group
-      label(for='notes' class='label label-input') 备注：
-      input(type='text', name='notes', id='notes', class='form-control', value=job.notes)
-    .form-group.text-center
-      input(type='submit', value='保 存', class='btn-primary')
+
+    .o-fm-grp
+      label(for='duty') 职责：
+      textarea(name='duty', id='duty', class='o-fm-ctl js-rich-editor', rows=12)= job.duty
+
+    .o-fm-grp
+      label(for='requirement') 要求：
+      textarea(name='requirement', id='requirement', class='o-fm-ctl js-rich-editor', rows=12)= job.requirement
+
+    .o-fm-grp
+      label(for='notes') 备注：
+      input(type='text', name='notes', id='notes', class='o-fm-ctl', value=job.notes)
+
+    .o-fm-grp.text-center
+      input(type='submit', value='保 存', class='o-btn o-btn-primary')

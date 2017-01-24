@@ -47,11 +47,7 @@ var cities = {
 $(document).ready(function() {
   $('#address').popupTabs(cities);
 
-  // create job
-  $('form.new-job-fm').validate();
-
-  // update job
-  $('form.edit-job-fm').validate();
+  $('.js-job-ne-fm').validate();
 
   // apply job at jobs index
   $('.job-title button').click(function() {
@@ -65,7 +61,7 @@ $(document).ready(function() {
   });
 
   // apply job at job detail
-  $('.to-apply').click(function() {
+  $('.js-to-apply').click(function() {
     var me = $(this);
 
     $.post('/jobs/apply', {
@@ -73,8 +69,8 @@ $(document).ready(function() {
     }, function(data) {
       if (!data.error) {
         me.parent().replaceWith(
-          "<div class='applied text-bold'>" +
-            "<span class='waiting'>已申请，审核中...</span>" +
+          "<div class='u-bold-text'>" +
+            "<span class='u-unknown-result'>已申请，审核中...</span>" +
           "</div>");
       } else {
         location = data.location || '/';
@@ -83,9 +79,9 @@ $(document).ready(function() {
   });
 
   // pass or refuse applying
-  $('.apply-op button').click(function() {
+  $('.js-apply-op > button').click(function() {
     var me = $(this);
-    var confirm = me.closest('.applier').find('.op-message');
+    var confirm = me.closest('.applier').find('.js-op-message');
     var message;
     var status;
 
@@ -104,12 +100,12 @@ $(document).ready(function() {
   });
 
   // 处理学生的职位申请请求
-  $('.op-message button:first-child').click(function() {
+  $('.js-op-message button:first-child').click(function() {
     var me = $(this);
     var c = $(this).closest('.applier');
     var userId = c.data('userId');
     var jobId  = c.data('jobId');
-    var t = me.closest('.op-message').find('textarea');
+    var t = me.closest('.js-op-message').find('textarea');
     var status = t.data('status');
     var message = t.val();
 
@@ -127,19 +123,19 @@ $(document).ready(function() {
         resultHtml = "<div class='success-result'>已通过：" + message + "</div>";
       }
 
-      me.closest('.op-message').replaceWith(resultHtml);
+      me.closest('.js-op-message').replaceWith(resultHtml);
     });
   });
 
-  $('.op-message button:last-child').click(function() {
-    $(this).closest('.op-message').hide();
-    $(this).closest('.applier').find('.apply-op').show();
+  $('.js-op-message button:last-child').click(function() {
+    $(this).closest('.js-op-message').hide();
+    $(this).closest('.applier').find('.js-apply-op').show();
   });
 
   // 删除职位
-  $('.del-job').popupOverlay({
+  $('.js-del-job').popupOverlay({
     okCallback: function() {
-      var remJobUrl = '/job/' + $('.del-job').data('jobId') + '/remove';
+      var remJobUrl = '/job/' + $('.js-del-job').data('jobId') + '/remove';
       $.post(remJobUrl, function(data) {
         location = data.location;
       });

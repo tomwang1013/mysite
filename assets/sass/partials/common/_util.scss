@@ -55,23 +55,10 @@
 }
 
 // 2个紧挨在一起的行内元素，第一个元素右边留空
-.u-fir-span {
-  margin-right: 0.5em;
-}
+.u-fir-span { margin-right: 0.5em; }
 
 // color change
-.u-success-result {
-  color: $success-color;
-}
-
-.u-error-result {
-  color: $error-color;
-}
-
-.u-less-imp {
-  color: $less-imp;
-}
-
-.u-unknown-result {
-  color: $unknown-color;
-}
+.u-success-result { color: $success-color; }
+.u-error-result   { color: $error-color; }
+.u-less-imp       { color: $less-imp; }
+.u-unknown-result { color: $unknown-color; }

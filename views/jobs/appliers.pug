@@ -1,33 +1,31 @@
 extends _layout.pug
 block content
-  .appliers-container
-    .applier-title.text-center.large-font
-      a.title-link(href='/job/' + job.id)= job.title
-      |  — 申请者列表
-    .appliers-list
-      each applier in appliers
-        - var user = applier._user
-        .applier(data-user-id=user.id, data-job-id=job.id)
-          .applier-info.small-font
-            span
-              a.text-bold(href='/user/' + user.id)= user.name
-            span= user.university
-            span= user.major
-            span 申请时间：#{applier.createdAt.toLocaleDateString()}
-          .apply-result
-            if applier.status == 0
-              .apply-op
-                button.fir-span.btn-primary 通过
-                button.btn-warning 拒绝
-            case applier.status
-              when 0
-                .op-message(style={display: 'none'})
-                  div
-                    textarea.form-control(name='op_message')
-                  div
-                    button.fir-span.btn-primary 确定
-                    button.btn-normal 取消
-              when 1
-                .error-result 已拒绝：#{applier.message}
-              when 2
-                .success-result 已通过：#{applier.message}
+  .c-appliers-list-head.u-large-font
+    a(href='/job/' + job.id) #{job.title} — 申请者列表
+
+  each applier in appliers
+    - var user = applier._user
+    .c-applier(data-user-id=user.id, data-job-id=job.id)
+      .c-applier__info.u-small-font
+        span #[a.u-text-bold(href='/user/' + user.id)= user.name]
+        span= user.university
+        span= user.major
+        span 申请时间：#{applier.createdAt.toLocaleDateString()}
+
+      .c-applier__result
+        if applier.status == 0
+          .js-apply-op
+            button.u-fir-span.o-btn.o-btn-primary 通过
+            button.o-btn.o-btn-warning 拒绝
+        case applier.status
+          when 0
+            .js-op-message(style={display: 'none'})
+              div
+                textarea.o-fm-ctl.c-applier__result__msg
+              div
+                button.u-fir-span.o-btn.o-btn-primary 确定
+                button.o-btn.o-btn-normal 取消
+          when 1
+            .u-error-result 已拒绝：#{applier.message}
+          when 2
+            .u-success-result 已通过：#{applier.message}

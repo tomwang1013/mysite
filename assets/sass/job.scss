@@ -1,86 +1,81 @@
 @import 'partials/all';
 @import 'partials/pager';
 
-/**
+/*****************
  * 新建及编辑职位
- */
-.new-job-fm, .edit-job-fm {
+ *****************/
+
+.c-job-ne-fm {
   padding: 1em 1em 0 1em;
   border: 1px solid $bd-normal;
   max-width: 720px;
   border-radius: 4px;
-
-  .header {
-    border-bottom: 2px solid $hl-color;
-    padding-bottom: 0.5em;
-    margin-bottom: 0.5em;
-  }
+  margin-left:  auto;
+  margin-right: auto;
 }
 
-/**
+.c-job-ne-fm__head {
+  border-bottom: 2px solid $hl-color;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+
+
+/***********
  * 职位详情
- */
-.show-job {
+ ***********/
+
+.c-job-detail {
   padding: 1em 1em 0 1em;
   border: 1px solid $bd-normal;
-
-  .header {
-    padding-bottom: 0.8em;
-    border-bottom: 2px solid $hl-color;
-    margin-bottom: 0.5em;
-  }
-
-  .questions-link {
-    top: -4px;
-    right: 0;
-  }
-
-  .job-section {
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid $bd-normal;
-  }
-
-  .sj-foot {
-    padding: 1em 0;
-  }
-
-  .my-job {
-    align-items: center;
-  }
-
-  .appliers-size {
-    margin-right: auto;
-  }
-
-  .applied {
-    .waiting {
-      color: $unknown-color;
-    }
-
-    .passed {
-      color: $success-color;
-    }
-
-    .refused {
-      color: $error-color;
-    }
-  }
+  border-radius: 4px;
 }
 
-// 职位基本信息
-.job-basic {
-  p:not(:last-child) {
-    margin-bottom: 0.5em;
-  }
-
-  span:first-child {
-    width: 15%;
-  }
+// head
+.c-job-detail__head {
+  padding-bottom: 0.8em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.5em;
+  text-align: center;
+  position: relative;
 }
 
-/**
+// questions link in head: 问题列表
+.c-job-detail__head__qlink {
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+
+// 职位信息的各个模块
+.c-job-detail__secion {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid $bd-normal;
+}
+
+// 职位基本信息，如发布日期，工作地点等
+.c-job-detail__basic-info {
+  &:not(:last-child) { margin-bottom: 0.5em; }
+  & > span { display: inline-block; }
+  & > span:first-child { width: 15%; }
+}
+
+// 底部申请状态栏
+.c-job-detail__foot { padding: 1em 0; }
+
+// 当前职位是我发布时的状态信息
+.c-job-detail__foot__myjob {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/*************
  * 职位列表页
- */
+ *************/
 
 // job search form
 form.jobs-search > div.flex {
@@ -139,47 +134,55 @@ form.jobs-search > div.flex {
   }
 }
 
-/**
- * 企业查看职位申请者列表
- */
-.appliers-container {
-  .applier-title {
-    padding-bottom: 0.5em;
-    border-bottom: 2px solid $hl-color;
-    margin-bottom: 0.5em;
-  }
 
-  .applier {
-    border: 1px solid $bd-light;
-    margin: 1em 0;
-  }
+
+/***************************
+ * 企业查看职位申请者列表
+ ***************************/
+
+// 申请者列表头部
+.c-appliers-list-head {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+// 单个申请者信息
+.c-applier {
+  border: 1px solid $bd-light;
+  margin: 1em 0;
 }
 
 // 申请者基本信息
-.applier-info {
+.c-applier__info {
   padding: 0.5em;
   border-bottom: 1px solid $bd-normal;
 
-  span {
+  // 分隔线
+  & > span {
     display: inline-block;
     border-right: 2px solid $bd-light;
     padding: 0 0.5em;
-  }
 
-  span:first-child {
-    padding-left: 0;
-  }
+    span:first-child {
+      padding-left: 0;
+    }
 
-  span:last-child {
-    border-right: none;
-    padding-right: 0;
+    span:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
   }
 }
 
 // 申请结果
-.apply-result {
+.c-applier__result {
   padding: 0.5em;
-  textarea[name='op_message'] {
-    margin-top: 0;
-  }
+}
+
+// 申请结果附带消息
+.c-applier__result__msg {
+  // overwrite default: margin-top: 0.5em
+  margin-top: 0;
 }

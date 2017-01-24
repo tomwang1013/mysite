@@ -4,7 +4,7 @@ var y = require('jquery-validation');
 
 $(function() {
   // for validation on submit
-  $('.rich-editor').each(function(idx, ele) {
+  $('.js-rich-editor').each(function(idx, ele) {
     CKEDITOR.replace(ele.id).on('change', function(evt) {
       evt.editor.updateElement();
     });
@@ -22,7 +22,7 @@ $.validator.setDefaults({
     var args = $(form).serializeObject();
 
     // check ckeditor textarea of this form
-    $(form).find('.rich-editor').each(function(i, ele) {
+    $(form).find('.js-rich-editor').each(function(i, ele) {
       args[ele.name] = CKEDITOR.instances[ele.name].getData();
     });
 
