@@ -37,77 +37,66 @@
   border-left:none;
 }
 
-/* 申请或创建的职位信息 */
-.new-job {
-  margin-bottom: 0.8em;
+
+
+/************************
+ * 申请或创建的职位信息
+ ************************/
+
+
+
+// 学生职位申请状态分类
+.c-uc-jobs-type {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ddd;
 }
 
-/* 职位列表 */
-.jobs-container {
-  .job-category {
-    margin-bottom: 1em;
-    border-bottom: 1px solid #ddd;
+.c-uc-jobs-type__link {
+  display: inline-block;
+  margin-right: 1em;
+  padding-bottom: 0.5em;
+  text-decoration: none;
+}
 
-    a {
-      display: inline-block;
-      margin-right: 1em;
-      padding-bottom: 0.5em;
-      text-decoration: none;
-    }
+.c-uc-jobs-type__link.is-active {
+  border-bottom: 2px solid #a00;
+  color: #000;
+  cursor: default;
+}
 
-    a.active {
-      border-bottom: 2px solid #a00;
-      color: #000;
-      cursor: default;
-    }
-  }
+// 单个职位
+.c-uc-job {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #eee;
+  border: 1px solid #d2d2d2;
+}
 
-  .job-item {
-    margin-bottom:20px;
-    padding:10px;
-    background-color:#eee;
-    border:1px solid #d2d2d2;
+// 标题栏
+.c-uc-job__title {
+  display: flex;
+  padding-bottom:6px;
+  border-bottom:1px solid #bbb;
+}
+
+// 职位基本信息
+.c-uc-job__basics {
+  margin-top: 6px;
+  padding-bottom: 6px;
+
+  & > span {
+    padding:0 8px;
+    border-right:1px solid #bbb;
+
+    &:first-child { padding-left:0; }
+    &:last-child  { border-right:none; }
   }
 }
 
-.job-item {
-  .job-title {
-    padding-bottom:6px;
-    border-bottom:1px solid #bbb;
-
-    a.title-link {
-      margin-right: 16px;
-    }
-
-    a.job-edit {
-      right: 75px;
-    }
-
-    a.job-questions {
-      right: 0;
-    }
-  }
-
-  .job-basics {
-    margin-top: 6px;
-    padding-bottom: 6px;
-
-    span {
-      padding:0 8px;
-      border-right:1px solid #bbb;
-      &:first-child {
-        padding-left:0;
-      }
-      &:last-child {
-        border-right:none;
-      }
-    }
-  }
-
-  .job-status {
-    padding-top: 6px;
-    border-top: 1px dashed #bbb;
-  }
+// 职位申请状态
+.c-uc-job__status {
+  padding-top: 6px;
+  border-top: 1px dashed #bbb;
 }
 
 
@@ -245,7 +234,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: nw-resize;
-  z-index:1007;
+  z-index: 1007;
   margin-left: -4px;
   margin-top: -4px;
 }
@@ -254,7 +243,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: n-resize;
-  z-index:1008;
+  z-index: 1008;
   margin-top: -4px;
 }
 
@@ -262,7 +251,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: ne-resize;
-  z-index:1009;
+  z-index: 1009;
   margin-top: -4px;
   margin-left: 4px;
 }
@@ -271,7 +260,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: w-resize;
-  z-index:1010;
+  z-index: 1010;
   margin-left: -4px;
 }
 
@@ -279,7 +268,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: e-resize;
-  z-index:1011;
+  z-index: 1011;
   margin-left: 4px;
 }
 
@@ -287,7 +276,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: sw-resize;
-  z-index:1012;
+  z-index: 1012;
   margin-left: -4px;
   margin-top: 4px;
 }
@@ -296,7 +285,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: s-resize;
-  z-index:1013;
+  z-index: 1013;
   margin-top: 4px;
 }
 
@@ -304,7 +293,7 @@ $edge_border_width: 2px;
   @include crop-corner-common;
 
   cursor: se-resize;
-  z-index:1014;
+  z-index: 1014;
   margin-left: 4px;
   margin-top: 4px;
 }
@@ -316,29 +305,31 @@ $edge_border_width: 2px;
  ***********/
 
 
-.messages {
+// 消息列表
+.c-uc-messages {
   border: 1px solid #aaa;
+}
 
-  .head, .message {
-    padding: 0.5em 1em;
+// 单条消息
+.c-uc-message {
+  display: flex;
+  padding: 0.5em 1em;
 
-    &:hover {
-      background-color: #ddd;
-    }
+  &:hover { background-color: #ddd; }
+}
 
-    span:first-child {
-      flex: 5;
-    }
+// 消息标题
+.c-uc-message__title {
+  flex: 5;
 
-    span:last-child {
-      flex: 1;
-      text-align: right;
-    }
-  }
-
-  .message .title a.read {
+  & > .is-read {
     cursor: default;
     color: #777;
-    text-decoration:none;
   }
+}
+
+// 置为已读
+.c-uc-message__operation {
+  flex: 1;
+  text-align: right;
 }

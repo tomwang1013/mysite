@@ -1,18 +1,20 @@
-.new-job
-  a(href='/jobs/new' class='btn btn-primary') 发布新的职位
-.jobs-container
+div(style={'margin-bottom': '0.5em'})
+  a(href='/jobs/new' class='o-btn o-btn-primary') 发布新的职位
+
+.c-uc-jobs
   each job in jobs
-    .job-item(data-job-id=job.id)
-      .job-title.relative
-        a.title-link.inline-block(href='/job/' + job.id)= job.title
-        span 申请人数：
+    .c-uc-job(data-job-id=job.id)
+      .c-uc-job__title
+        a.u-flex-mg-r-auto(href='/job/' + job.id)= job.title
+        span.u-fir-span 申请人数：
           if job._appliersSize > 0
-            a.appliers-link(href='/job/' + job.id + '/appliers')= job._appliersSize
+            a(href='/job/' + job.id + '/appliers')= job._appliersSize
           else
             | 0
-        a.job-edit.absolute(href='/job/' + job.id + '/edit') 编辑
-        a.job-questions.absolute(href='/job/' + job.id + '/questions') 题目列表
-      .job-basics.small-font
+        a.u-fir-span(href='/job/' + job.id + '/edit') 编辑
+        a(href='/job/' + job.id + '/questions') 题目列表
+
+      .c-uc-job__basics.u-small-font
         span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
         span 工作地点：<strong>#{job.address}</strong>
         span 薪资：    <strong>#{job.displaySalary}</strong>

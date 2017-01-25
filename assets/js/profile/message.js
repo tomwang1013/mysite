@@ -4,8 +4,8 @@ var x = require('common/main_nav');
 
 $(document).ready(function() {
   // message handler
-  $('.message .title a').click(function() {
-    if ($(this).hasClass('read')) {
+  $('.js-msg-link').click(function() {
+    if ($(this).hasClass('is-read')) {
       return false;
     }
 
@@ -19,12 +19,12 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.message .operation a').click(function() {
+  $('.js-set-read').click(function() {
     var msgId = this.dataset.msgId;
     var me = $(this);
 
     $.post('/profile/message/set_read', { msg_id: msgId }, function() {
-      me.parent().parent().find('.title a').addClass('read');
+      me.parent().parent().find('.js-msg-link').addClass('is-read');
       me.replaceWith('已读');
     }, 'json');
   });

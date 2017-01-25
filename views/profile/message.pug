@@ -3,14 +3,14 @@ append js
   script(src=assetHashPath('js/profile/message.js'))
 block right_content
   if messages.length
-    .messages
+    .c-uc-messages
       each message in messages
-        .message.flex.small-font
-          span.title
-            a(href='/profile/jobs?status=replied' data-msg-id=message.id class={read: message.read}) 你申请的职位 #{message._job.title} 有回复了 
-          span.operation
+        .c-uc-message.u-small-font
+          .c-uc-message__title
+            a.js-msg-link(href='/profile/jobs?status=replied' data-msg-id=message.id class={'is-read': message.read}) 你申请的职位 #{message._job.title} 有回复了 
+          .c-uc-message__operation
             if !message.read
-              a(href='javascrpt:void(0)' data-msg-id=message.id) 置为已读
+              a.js-set-read(href='javascrpt:void(0)' data-msg-id=message.id) 置为已读
             else
               | 已读
   else

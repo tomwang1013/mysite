@@ -340,7 +340,7 @@ $(document).ready(function() {
   /**
    * 更改账号与密码
    */
-  $('.account-edit').validate({
+  $('.js-account-edit').validate({
     rules: {
       name: 'required',
       email: 'required'
@@ -359,13 +359,13 @@ $(document).ready(function() {
         if (data.error) {
           validator.showErrors(data.errors);
         } else {
-          $(form).find('.result-hint').text('账号修改成功').show().fadeOut(3000);
+          $(form).find('.js-result-hint').text('账号修改成功').show().fadeOut(3000);
         }
       }, 'json');
     }
   });
 
-  $('.password-edit').validate({
+  $('.js-password-edit').validate({
     rules: {
       old_pwd: 'required',
       new_pwd: 'required',
@@ -386,7 +386,7 @@ $(document).ready(function() {
         if (data.error) {
           validator.showErrors(data.errors);
         } else {
-          $(form).find('.result-hint').text('密码修改成功').show().fadeOut(3000);
+          $(form).find('.js-result-hint').text('密码修改成功').show().fadeOut(3000);
         }
       }, 'json');
     }
