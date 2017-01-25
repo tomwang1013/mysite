@@ -16,7 +16,7 @@ $(function() {
   });
 
   // question创建修改表单验证
-  $('form.q-new, form.q-edit').validate({
+  $('.js-ques-n-e-fm').validate({
     rules: {
       title: 'required',
       tag: 'required',

@@ -3,31 +3,38 @@ append js
   script(src=assetHashPath('js/question/new_edit.js'))
   script(src='/ckeditor/ckeditor.js')
 block content
-  .q-new-edit
-    .q-common-head.large-font.text-center
-      span.fir-span 您正在为职位
-      a.fir-span(href='/job/' + job.id)= job.title
+  .c-ques-n-e
+    .c-ques-common-head
+      span.u-fir-span 您正在为职位
+      a.u-fir-span(href='/job/' + job.id)= job.title
       span 新增一道试题：
-    form.q-new(method='post' action='/job/' + job.id + '/questions/create')
-      .form-group
-        label(for='title' class='label label-input') 标题：
-        input(type='text' name='title', id='title' class='form-control' autofocus)
-      .form-group
-        label(for='tag' class='label label-input') 分类：
-        select(name='tag', id='tag' class='form-control')
+
+    - var uri = '/job/' + job.id + '/questions/create'
+    form.c-ques-n-e__fm.js-ques-n-e-fm(method='post' action=uri)
+      .o-fm-grp
+        label(for='title') 标题：
+        input(type='text' name='title', id='title' class='o-fm-ctl' autofocus)
+
+      .o-fm-grp
+        label(for='tag') 分类：
+        select(name='tag', id='tag' class='o-fm-ctl')
           option(value='' selected) 请选择
           each t in quesTags
             option(value=t)= t 
-      .form-group
-        label(for='labels' class='label label-input') 标签：
-        input(type='text' name='labels', id='labels' class='form-control')
-      .form-group
-        label(class='label label-input') 难度：
-        select(name='level', id='level' class='form-control')
+
+      .o-fm-grp
+        label(for='labels') 标签：
+        input(type='text' name='labels', id='labels' class='o-fm-ctl')
+
+      .o-fm-grp
+        label(for='level') 难度：
+        select(name='level', id='level' class='o-fm-ctl')
           each l in [0,1,2,3,4]
             option(value=l)= l
-      .form-group
-        label(for='content' class='label label-input') 题目内容：
-        textarea(name='content', id='content' class='form-control rich-editor', required)
-      .form-group.text-center
-        input(type='submit', value='保 存' class='btn btn-primary')
+
+      .o-fm-grp
+        label(for='content') 题目内容：
+        textarea(name='content', id='content' class='o-fm-ctl js-rich-editor')
+
+      .o-fm-grp.u-center-text
+        input(type='submit', value='保 存' class='o-btn o-btn-primary')

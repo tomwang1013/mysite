@@ -2,24 +2,26 @@ extends _layout.pug
 append js
   script(src=assetHashPath('js/question/show.js'))
 block content
-  .q-show
-    .q-common-head.large-font.text-center= question.title
-    include ../share/_question_detail.pug
-    .q-show-foot
-      case status
-        when 'toAnswer'
-          .to-answer
-            span.fir-span 对这个问题有兴趣？
-            a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
-        when 'hasAnswer'
-          include ../share/_answer_detail.pug
-        when 'toEdit'
-          .to-edit
-            a.fir-span.btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑
-            button.del-question.btn-warning(data-link=`/question/${question.id}/remove`) 删除
-            .overlay(style={display: 'none'})
-            .overlay-content(style={display: 'none'})
-              .ol-main 删除后无法恢复，确定要删除你的解答吗？
-              .ol-foot
-                button.fir-span.btn-warning.ol-ok 确定
-                button.btn-normal.ol-cancel 取消
+  .c-ques-common-head= question.title
+
+  include ../share/_question_detail.pug
+
+  case status
+    when 'toAnswer'
+      div
+        span.u-fir-span 对这个问题有兴趣？
+        a.o-btn.o-btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
+    when 'hasAnswer'
+      include ../share/_answer_detail.pug
+    when 'toEdit'
+      div
+        a.u-fir-span.o-btn.o-btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑
+        button.js-del-question.o-btn.o-btn-warning(data-link=`/question/${question.id}/remove`) 删除
+
+        //- 删除确认
+        .o-overlay-bk(style={display: 'none'})
+        .o-overlay-dlg(style={display: 'none'})
+          .o-overlay-dlg__body 删除后无法恢复，确定要删除你的解答吗？
+          .o-overlay-dlg__foot
+            button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
+            button.o-btn.o-btn-normal.ol-cancel 取消

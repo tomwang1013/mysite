@@ -5,7 +5,7 @@ var z = require('common/main_nav');
 
 $(function() {
   // 公司删除问题
-  $('.del-question').popupOverlay({
+  $('.js-del-question').popupOverlay({
     okCallback: function(event) {
       var btn = event.data;
 

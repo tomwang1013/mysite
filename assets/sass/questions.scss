@@ -1,72 +1,82 @@
-@import 'partials/all';
-@import 'partials/question';
-@import 'partials/answer';
+@import 'partials/common/all';
+@import 'partials/common/question';
+@import 'partials/common/answer';
 
-.q-common-head {
+// 公共头部
+.c-ques-common-head {
   padding-bottom: 0.5em;
   border-bottom: 2px solid $hl-color;
   margin-bottom: 0.8em;
+  font-size: 1.2rem;
+}
 
-  .form-control-hr {
-    width: 256px;
-  }
 
-  .new-q {
-    top: -0.25em;
-    right: 0;
-  }
+
+/*******************
+ * 问题搜索及列表页
+ *******************/
+
+
+
+// 搜索框
+.c-ques-search-fm {
+  font-size: 1rem;
+
+  & > .form-control-hr { width: 33.3%; }
 }
 
 // 列表中单个问题
-.q-single {
+.c-ques-list-item {
   padding: 0.5em;
   border: 1px solid $bd-normal;
   border-radius: 4px;
   margin-bottom: 1em;
-
-  .q-head {
-    align-items: flex-end;
-  }
 }
 
-.q-content {
-  padding: 0.5em 0;
-  margin: 0.5em 0;
-  border-top: 1px dashed $bd-light;
-  border-bottom: 1px dashed $bd-light;
+// 问题头部
+.c-ques-list-item__head {
+  display: flex;
+  align-items: flex-end;
 }
 
-.q-tag {
-  margin-left: auto;
-}
-
-.q-lab {
+// 问题标签
+.c-ques-list-item__head__labels {
   padding: 0 0.5em;
   border-left: 2px solid $bd-normal;
   border-right: 2px solid $bd-normal;
   margin: 0 0.5em;
 }
 
-/**
- * 新建及修改题目
- */
-form.q-new,
-form.q-edit {
-  .br-theme-fontawesome-stars {
-    margin-top: 0.6em;
-    .br-widget {
-      a {
-        font-size: 24px;
-        margin-right: 8px;
-      }
-    }
-  }
+// 问题内容
+.c-ques-list-item__content {
+  padding: 0.5em 0;
+  margin: 0.5em 0;
+  border-top: 1px dashed $bd-light;
+  border-bottom: 1px dashed $bd-light;
 }
 
-.q-new-edit {
+
+
+/*****************
+ * 新建及修改题目
+ *****************/
+
+
+
+.c-ques-n-e {
   width: 720px;
   margin: auto;
   padding: 1em;
   border: 1px solid $bd-normal;
   border-radius: 4px;
+}
+
+// 调整五角星大小
+.c-ques-n-e__fm .br-theme-fontawesome-stars {
+  margin-top: 0.6em;
+
+  .br-widget a {
+    font-size: 24px;
+    margin-right: 8px;
+  }
 }

@@ -1,30 +1,38 @@
-.q-single
-  .q-head.flex.less-imp
+.c-ques-list-item
+  .c-ques-list-item__head.u-less-imp
     a(href='/job/' + question._job + '/question/' + question.id)= question.title
-    span.q-tag.smaller-font #{question.tag}
-    span.q-lab.smaller-font #{question.labels.join(' ')}
-    span.q-level.smaller-font 难度：
+    span.u-flex-mg-l-auto.u-smaller-font #{question.tag}
+    span.c-ques-list-item__head__labels.u-smaller-font #{question.labels.join(' ')}
+    span.u-smaller-font 难度：
       span.br-theme-fontawesome-stars
         span.br-widget.br-readonly
           each l in [0, 1, 2, 3, 4]
             a(href='#' class={'br-selected': l <= question.level})
-  .q-content!= question.content
-  .q-foot
-    if currentUser
-      if currentUser.type == 0
-        if myAnswers[question.id]
-          a.btn-normal(href=`/question/${question.id}/answer/${myAnswers[question.id]}`) 查看我的解答
-        else
-          a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
-      else if isMyJob
-        a.fir-span.btn-normal.edit-question(href='/job/' + job.id + '/question/' + question.id + '/edit') 编 辑
-        button.fir-span.btn-warning.del-question(data-link='/question/' + question.id + '/remove') 删 除
-        .overlay(style={display: 'none'})
-        .overlay-content(style={display: 'none'})
-          .ol-main 删除后无法恢复，确定要删除这个问题吗？
-          .ol-foot
-            button.fir-span.btn-warning.ol-ok 确定
-            button.btn-normal.ol-cancel 取消
-        a.fir-span.answers.small-font(href='/question/' + question.id + '/answers') 查看所有解答
-    else
-      a.btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
+
+  .c-ques-list-item__content!= question.content
+
+  if currentUser
+    if currentUser.type == 0
+      if myAnswers[question.id]
+        - var showUrl = `/question/${question.id}/answer/${myAnswers[question.id]}`
+        a.o-btn.o-btn-normal(href=showUrl) 查看我的解答
+      else
+        a.o-btn.o-btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
+
+    else if isMyJob
+      - var editUrl = '/job/' + job.id + '/question/' + question.id + '/edit'
+      a.u-fir-span.o-btn.o-btn-normal(href=editUrl) 编 辑
+
+      - var delUrl = '/question/' + question.id + '/remove'
+      button.u-fir-span.o-btn.o-btn-warning.js-del-question(data-link=delUrl) 删 除
+      .o-overlay-bk
+      .o-overlay-dlg
+        .o-overlay-dlg__body 删除后无法恢复，确定要删除这个问题吗？
+        .o-overlay-dlg__foot
+          button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
+          button.o-btn.o-btn-normal.ol-cancel 取消
+
+      - var asUrl = '/question/' + question.id + '/answers'
+      a.u-fir-span.u-small-font(href=asUrl) 查看所有解答
+  else
+    a.o-btn.o-btn-primary(href=`/question/${question.id}/answers/new`) 马上解答
