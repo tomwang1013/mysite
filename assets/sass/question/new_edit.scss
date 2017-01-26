@@ -1,0 +1,25 @@
+@import "common";
+
+
+/*****************
+ * 新建及修改题目
+ *****************/
+
+
+.c-ques-n-e {
+  width: 720px;
+  margin: auto;
+  padding: 1em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
+}
+
+// 调整五角星大小
+.c-ques-n-e__fm .br-theme-fontawesome-stars {
+  margin-top: 0.6em;
+
+  .br-widget a {
+    font-size: 24px;
+    margin-right: 8px;
+  }
+}

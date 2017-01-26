@@ -7,4 +7,3 @@ $(function() {
     remoteUrl: '/users/queryByCompanyName'
   });
 });
-

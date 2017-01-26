@@ -4,6 +4,8 @@ var x = require('common/jq_val_wrapper');
 var y = require('common/serialize_object');
 var z = require('common/main_nav');
 
+var css = require('profile/account.scss');
+
 // 用户选择图片后开始上传
 function uploadAvatar(file) {
   if (!file) return;

@@ -1,0 +1,61 @@
+@import "common";
+
+
+/************************
+ * 申请或创建的职位信息
+ ************************/
+
+
+// 学生职位申请状态分类
+.c-uc-jobs-type {
+  margin-bottom: 1em;
+  border-bottom: 1px solid #ddd;
+}
+
+.c-uc-jobs-type__link {
+  display: inline-block;
+  margin-right: 1em;
+  padding-bottom: 0.5em;
+  text-decoration: none;
+}
+
+.c-uc-jobs-type__link.is-active {
+  border-bottom: 2px solid #a00;
+  color: #000;
+  cursor: default;
+}
+
+// 单个职位
+.c-uc-job {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #eee;
+  border: 1px solid #d2d2d2;
+}
+
+// 标题栏
+.c-uc-job__title {
+  display: flex;
+  padding-bottom:6px;
+  border-bottom:1px solid #bbb;
+}
+
+// 职位基本信息
+.c-uc-job__basics {
+  margin-top: 6px;
+  padding-bottom: 6px;
+
+  & > span {
+    padding:0 8px;
+    border-right:1px solid #bbb;
+
+    &:first-child { padding-left:0; }
+    &:last-child  { border-right:none; }
+  }
+}
+
+// 职位申请状态
+.c-uc-job__status {
+  padding-top: 6px;
+  border-top: 1px dashed #bbb;
+}

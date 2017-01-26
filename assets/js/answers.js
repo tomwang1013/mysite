@@ -4,7 +4,7 @@ var y = require('common/del_answer');
 var z = require('common/serialize_object');
 var w = require('common/main_nav');
 
-var css = require('answer.scss');
+var css = require('answers.scss');
 
 $(function() {
   // 企业给解答评分

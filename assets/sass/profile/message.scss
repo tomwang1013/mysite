@@ -1,0 +1,36 @@
+@import  "common";
+
+
+/***********
+ * 消息中心
+ ***********/
+
+
+// 消息列表
+.c-uc-messages {
+  border: 1px solid #aaa;
+}
+
+// 单条消息
+.c-uc-message {
+  display: flex;
+  padding: 0.5em 1em;
+
+  &:hover { background-color: #ddd; }
+}
+
+// 消息标题
+.c-uc-message__title {
+  flex: 5;
+
+  & > .is-read {
+    cursor: default;
+    color: #777;
+  }
+}
+
+// 置为已读
+.c-uc-message__operation {
+  flex: 1;
+  text-align: right;
+}

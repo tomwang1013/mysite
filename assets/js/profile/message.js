@@ -2,6 +2,8 @@ var $ = require('jquery');
 var _ = require('lodash');
 var x = require('common/main_nav');
 
+var css = require('profile/message.scss');
+
 $(document).ready(function() {
   // message handler
   $('.js-msg-link').click(function() {

@@ -1,21 +1,9 @@
-@import 'partials/common/all';
-@import 'partials/common/question';
-@import 'partials/common/answer';
-
-// 公共头部
-.c-ques-common-head {
-  padding-bottom: 0.5em;
-  border-bottom: 2px solid $hl-color;
-  margin-bottom: 0.8em;
-  font-size: 1.2rem;
-}
-
+@import "common";
 
 
 /*******************
  * 问题搜索及列表页
  *******************/
-
 
 
 // 搜索框
@@ -53,30 +41,4 @@
   margin: 0.5em 0;
   border-top: 1px dashed $bd-light;
   border-bottom: 1px dashed $bd-light;
-}
-
-
-
-/*****************
- * 新建及修改题目
- *****************/
-
-
-
-.c-ques-n-e {
-  width: 720px;
-  margin: auto;
-  padding: 1em;
-  border: 1px solid $bd-normal;
-  border-radius: 4px;
-}
-
-// 调整五角星大小
-.c-ques-n-e__fm .br-theme-fontawesome-stars {
-  margin-top: 0.6em;
-
-  .br-widget a {
-    font-size: 24px;
-    margin-right: 8px;
-  }
 }
