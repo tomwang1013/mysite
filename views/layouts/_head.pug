@@ -16,14 +16,14 @@
 
   span.c-header__inner__right
     if cu
-      a.c-msg-notify(href='/profile/message')
+      a.c-msg-notify.js-msg-notify(href='/profile/message')
         span(class='c-msg-notify__icon fa fa-bell')
-        span.c-msg-notify__tip.u-small-font.u-round-border 你有未读消息
+        span.c-msg-notify__tip.u-small-font.u-round-border.js-msg-tip 你有未读消息
       span.c-profile-bar
-        a.u-inline-block(href='/profile')
+        a.u-inline-block.js-show-menu(href='/profile')
           img.c-profile-bar__avatar(src=cu.avatar)
           span.c-profile-bar__caret(class='fa fa-caret-down')
-        ul.c-profile-bar__pop-menu.nav.small-font
+        ul.c-profile-bar__pop-menu.u-nav-list.u-small-font.js-profile-dropdown
           li.c-profile-bar__pop-menu__item #{cu.name}, 你好
           li.c-profile-bar__pop-menu__item
             a(href='/profile/user_info') 基本信息

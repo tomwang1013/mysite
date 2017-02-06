@@ -86,7 +86,7 @@
 }
 
 // make ckeditor textarea have a top margin as other form control
-[class^="cke_editor_"] { margin-top: 0.5em; }
+[id^="cke_"] { margin-top: 0.5em !important; }
 
 // hint after a form control
 .o-fm-ctl-hint {
