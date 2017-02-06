@@ -1,5 +1,6 @@
 @import 'partials/common/index';
 @import 'partials/modules/pager';
+@import 'partials/modules/popup_tab';
 
 
 /*****************
@@ -92,15 +93,9 @@
   align-items: center;
   flex: 1;
 
-  // 搜索属性之间留空
-  &:first-child { margin-right: 0.5em; }
-
   // 输入框最大化
-  & > .o-fm-grp-hr { flex: 1; }
+  & > .o-fm-ctl-hr { flex: 1; }
 }
-
-// submit
-.c-jobs-search-fm__submit { flex: 1; }
 
 
 /* 搜索结果：职位列表  */

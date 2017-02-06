@@ -7,6 +7,20 @@ var w = require('common/popup_overlay');
 
 var css = require('profile/account.scss');
 
+function submitAvaHander() {
+  var cropDlg = $('.js-crop-dlg');
+
+  cropDlg.on('submit', false);
+
+  $.post(cropDlg.attr('action'), cropDlg.serializeObject(), function(data) {
+    var newUrl = data.url + '?' + new Date().getTime();
+    $('.js-cur-ava').attr('src', newUrl);
+    $('.js-show-menu > img').attr('src', newUrl);
+  });
+
+  return false;
+}
+
 // 用户选择图片后开始上传
 function uploadAvatar(file) {
   if (!file) return;
@@ -15,8 +29,8 @@ function uploadAvatar(file) {
 
   formData.append('avatar', file);
 
-  $('.upload label').text('上传中，请稍等...');
-  $('.upload input').prop('disabled', true);
+  $('.js-upload-btn > label').text('上传中，请稍等...');
+  $('.js-upload-btn > input').prop('disabled', true);
 
   $.ajax({
     type:         'POST',
@@ -25,12 +39,14 @@ function uploadAvatar(file) {
     processData:  false,
     contentType:  false,
     success:      function(data) {
-      $('.upload label').text('上传头像');
-      $('.upload input').prop('disabled', false);
+      $('.js-upload-btn > label').text('上传头像');
+      $('.js-upload-btn > input').prop('disabled', false);
 
       if (!data.error) {
         cropImageAndSave(data.url, data.size);
-        overTriBtn.trigger('click');
+        $('<button type="button"/>').popupOverlay({
+          okCallback: submitAvaHander
+        }).trigger('click');
       }
     }
   });
@@ -54,67 +70,67 @@ function cropImageAndSave(imgToCrop, size) {
 
 // 裁减区域重绘
 function drawCropArea() {
-  var edgeWidth = $('.left-edge').outerWidth();
-  var cornerWidth = $('.tl-corner').outerWidth();
+  var edgeWidth = $('.js-left-edge').outerWidth();
+  var cornerWidth = $('.js-tl-corner').outerWidth();
 
   $('input[name="x"]').val(cropArea.left);
   $('input[name="y"]').val(cropArea.top);
   $('input[name="width"]').val(cropArea.width);
   $('input[name="height"]').val(cropArea.height);
 
-  $('.cropArea').css(cropArea);
-  $('.crop-img').css({
+  $('.js-crop-area').css(cropArea);
+  $('.js-ret-img').css({
     'margin-left': -cropArea.left,
     'margin-top':  -cropArea.top
   });
 
-  $('.left-edge').css(_.omit(cropArea, 'width'));
-  $('.top-edge').css(_.omit(cropArea, 'height'));
-  $('.right-edge').css({
+  $('.js-left-edge').css(_.omit(cropArea, 'width'));
+  $('.js-top-edge').css(_.omit(cropArea, 'height'));
+  $('.js-right-edge').css({
     left:   cropArea.left + cropArea.width - edgeWidth,
     top:    cropArea.top,
     height: cropArea.height
   });
-  $('.bottom-edge').css({
+  $('.js-bottom-edge').css({
     left:   cropArea.left,
     top:    cropArea.top + cropArea.height - edgeWidth,
     width:  cropArea.width,
   });
-  $('.move-area').css({
+  $('.js-move-area').css({
     left:   cropArea.left + edgeWidth,
     top:    cropArea.top + edgeWidth,
     width:  cropArea.width - 2 * edgeWidth,
     height: cropArea.height - 2 * edgeWidth
   });
-  $('.tl-corner').css({
+  $('.js-tl-corner').css({
     left: cropArea.left,
     top:  cropArea.top,
   });
-  $('.tm-corner').css({
+  $('.js-tm-corner').css({
     left: cropArea.left + (cropArea.width - cornerWidth) / 2,
     top:  cropArea.top,
   });
-  $('.tr-corner').css({
+  $('.js-tr-corner').css({
     left: cropArea.left + cropArea.width - cornerWidth,
     top:  cropArea.top,
   });
-  $('.lm-corner').css({
+  $('.js-lm-corner').css({
     left: cropArea.left,
     top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
   });
-  $('.rm-corner').css({
+  $('.js-rm-corner').css({
     left: cropArea.left + cropArea.width - cornerWidth,
     top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
   });
-  $('.bl-corner').css({
+  $('.js-bl-corner').css({
     left: cropArea.left,
     top:  cropArea.top + cropArea.height - cornerWidth,
   });
-  $('.bm-corner').css({
+  $('.js-bm-corner').css({
     left: cropArea.left + (cropArea.width - cornerWidth) / 2,
     top:  cropArea.top + cropArea.height - cornerWidth,
   });
-  $('.br-corner').css({
+  $('.js-br-corner').css({
     left: cropArea.left + cropArea.width - cornerWidth,
     top:  cropArea.top + cropArea.height - cornerWidth,
   });
@@ -169,7 +185,7 @@ function handleMouse() {
     }
   });
 
-  $('.crop-container').on('mouseup mouseleave', function(e) {
+  $('.js-ava-crop-area').on('mouseup mouseleave', function(e) {
     if (target) {
       $(this).css('cursor', 'default');
 
@@ -187,14 +203,14 @@ function adjustCropArea(target, offset) {
   var mindx, maxdx, mindy, maxdy;
   var lx, rx, th, bh;
   var dd, mindd, maxdd;
-  var edgeWidth = $('.left-edge').outerWidth();
+  var edgeWidth = $('.js-left-edge').outerWidth();
 
   lx = cropArea.left;
   rx = originSize.width - lx - cropArea.width;
   th = cropArea.top;
   bh = originSize.height - th - cropArea.height;
 
-  if (target.is('.left-edge,.lm-corner')) {
+  if (target.is('.js-left-edge,.js-lm-corner')) {
     mindx = -Math.min(lx, th);
     maxdx = cropArea.width - 2 * edgeWidth;
 
@@ -205,7 +221,7 @@ function adjustCropArea(target, offset) {
     cropArea.top    += offset.dx;
     cropArea.width  -= offset.dx;
     cropArea.height -= offset.dx;
-  } else if (target.is('.top-edge,.tm-corner')) {
+  } else if (target.is('.js-top-edge,.js-tm-corner')) {
     mindy = -Math.min(th, rx);
     maxdy = cropArea.height - 2 * edgeWidth;
 
@@ -215,7 +231,7 @@ function adjustCropArea(target, offset) {
     cropArea.top    += offset.dy;
     cropArea.width  -= offset.dy;
     cropArea.height -= offset.dy;
-  } else if (target.is('.right-edge,.rm-corner')) {
+  } else if (target.is('.js-right-edge,.js-rm-corner')) {
     mindx = -(cropArea.width - 2 * edgeWidth);
     maxdx = Math.min(bh, rx);
 
@@ -224,7 +240,7 @@ function adjustCropArea(target, offset) {
 
     cropArea.width  += offset.dx;
     cropArea.height += offset.dx;
-  } else if (target.is('.bottom-edge,.bm-corner')) {
+  } else if (target.is('.js-bottom-edge,.js-bm-corner')) {
     mindy = -(cropArea.height - 2 * edgeWidth);
     maxdy = Math.min(lx, bh);
 
@@ -234,7 +250,7 @@ function adjustCropArea(target, offset) {
     cropArea.left   -= offset.dy;
     cropArea.width  += offset.dy;
     cropArea.height += offset.dy;
-  } else if (target.is('.tl-corner')) {
+  } else if (target.is('.js-tl-corner')) {
     if (offset.dx * offset.dy < 0) return;
 
     dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
@@ -248,7 +264,7 @@ function adjustCropArea(target, offset) {
     cropArea.top    += dd;
     cropArea.width  -= dd;
     cropArea.height -= dd;
-  } else if (target.is('.tr-corner')) {
+  } else if (target.is('.js-tr-corner')) {
     if (offset.dx * offset.dy > 0) return;
 
     dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
@@ -261,7 +277,7 @@ function adjustCropArea(target, offset) {
     cropArea.top    -= dd;
     cropArea.width  += dd;
     cropArea.height += dd;
-  } else if (target.is('.br-corner')) {
+  } else if (target.is('.js-br-corner')) {
     if (offset.dx * offset.dy < 0) return;
 
     dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
@@ -273,7 +289,7 @@ function adjustCropArea(target, offset) {
 
     cropArea.width  += dd;
     cropArea.height += dd;
-  } else if (target.is('.bl-corner')) {
+  } else if (target.is('.js-bl-corner')) {
     if (offset.dx * offset.dy > 0) return;
 
     dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
@@ -305,7 +321,6 @@ function adjustCropArea(target, offset) {
 }
 
 // fake button to trigger overlay dialog
-var overTriBtn;
 
 $(document).ready(function() {
   /*
@@ -313,29 +328,12 @@ $(document).ready(function() {
    * select through file dialog
    */
 
-  overTriBtn = $('<button type="button"/>');
-
   // disable default image drag action
   $('img, .js-crop-edge').on('dragstart', false);
 
   // file dialog select upload
   $('#avatar').change(function() {
     uploadAvatar(this.files[0]);
-  });
-
-  // 裁减完后提交
-  overTriBtn.popupOverlay({
-    okCallback: function() {
-      var cropDlg = $('.js-crop-dlg');
-
-      $.post(cropDlg.attr('action'), cropDlg.serializeObject(), function(data) {
-        var newUrl = data.url + '?' + new Date().getTime();
-        $('.js-cur-ava').attr('src', newUrl);
-        $('.profile-index img').attr('src', newUrl);
-      });
-
-      return false;
-    }
   });
 
   handleMouse();

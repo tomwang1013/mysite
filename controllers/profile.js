@@ -207,13 +207,13 @@ function changeAvatar2(req, res, next) {
     req.session.currentUser.avatar = user.avatarUrl();
     yield user.save()
 
-    // 删除中间文件
-    yield new Promise(function(resolve, reject) {
-      fs.unlink(fullFilePath, function(err) {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
+    // 删除中间文件: 裁剪后自动删除了原始文件，无需再删除
+    //yield new Promise(function(resolve, reject) {
+      //fs.unlink(fullFilePath, function(err) {
+        //if (err) reject(err);
+        //else resolve();
+      //});
+    //});
 
     res.json({ error: 0, url: gridfs.getUrlByFileName(filename) });
   }).catch(next);

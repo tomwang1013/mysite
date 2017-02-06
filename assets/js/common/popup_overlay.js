@@ -11,7 +11,7 @@ var $ = require('jquery');
  */
 $.fn.popupOverlay = function(options) {
   if (!this.length) {
-    console.warning('popupOverlay called on empty object');
+    console.warn('popupOverlay called on empty object');
     return;
   }
 
@@ -66,5 +66,10 @@ $.fn.popupOverlay = function(options) {
   });
 
   // 确定
-  $('.ol-ok').on('click', me, options.okCallback);
+  $('.ol-ok').on('click', me, function() {
+    options.okCallback.apply();
+    hideOverlay();
+  });
+
+  return me;
 }
