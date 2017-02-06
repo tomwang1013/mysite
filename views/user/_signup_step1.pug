@@ -11,8 +11,8 @@ form(method='post', action='/signup_step1', class='c-signup-step-fm', id='signup
     label(for='password') 密码：
     input(type='password', name='password', id='password', class='o-fm-ctl')
 
+  label 身份：
   .o-fm-grp
-    label 身份：
     input.o-hidden-radio(type='radio', id='user-type-student', name='userType', value=0, checked)
     label.o-fm-ctl.is-radio-label(for='user-type-student') 学生
     input.o-hidden-radio(type='radio', id='user-type-company', name='userType', value=1)

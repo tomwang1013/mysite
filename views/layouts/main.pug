@@ -8,10 +8,10 @@ html(lang='zh')
     meta(name="description" content=seo && seo.description || '学做网专注于大学在校及毕业生学习及实习岗位')
 
     block css
-  body.flex
+  body
     header.c-header
       include ./_head.pug
-    main.c-main.u-flex(style={padding: '1em 0'})
+    main(style={padding: '1em 0'})
       .u-content
         block content
     footer.c-footer

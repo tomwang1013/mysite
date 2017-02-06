@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "watch": "nodemon app.js",
-    "build:dev": "webpack --env=dev --progress --profile --colors",
+    "build:dev": "webpack --env=dev --progress --profile --colors --watch",
     "build:prod": "webpack --env=prod --progress --profile --colors",
     "stats": "webpack --env production --profile --json > stats.json"
   },
@@ -61,6 +61,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.3.0",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^2.4.0"
   }

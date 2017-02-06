@@ -4,14 +4,10 @@
  * 首页欢迎页面，页面里面有标语及注册框
  */
 .c-home-welcome {
-  background: #362819;
-  color: #fff;
-}
-
-.c-home-welcome__inner {
   display: flex;
   align-items: center;
   padding: 32px 0;
+  border-bottom: 2px solid $bd-light;
 }
 
 // 标语

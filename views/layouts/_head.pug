@@ -1,6 +1,6 @@
 .c-header__inner.u-content
   - var cu = currentUser
-  a.u-large-font.u-bold-text(href='/' class='site-logo') 学做网
+  a.u-larger-font.u-bold-text.c-header__inner__site-logo(href='/') 学做网
 
   if cu
     if cu.type == 0
@@ -34,5 +34,5 @@
           li.c-profile-bar__pop-menu__item
             a(href='/logout') 退出
     else
-      a(href='/login' class='btn-normal login fir-span') 登陆
-      a(href='/signup' class='btn-primary signup') 注册
+      a(href='/login' class='o-btn o-btn-normal u-fir-span') 登陆
+      a(href='/signup' class='o-btn o-btn-primary') 注册

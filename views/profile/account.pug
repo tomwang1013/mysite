@@ -1,4 +1,6 @@
 extends _layout.pug
+append css
+  link(href=assetHashPath("profile/account.css"), rel="stylesheet")
 append js
   script(src=assetHashPath('profile/account.js'))
 block right_content

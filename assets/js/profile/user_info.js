@@ -5,6 +5,8 @@ var x = require('common/popup_list');
 var y = require('common/popup_tabs');
 var z = require('common/main_nav');
 
+var css = require('profile/user_info.scss');
+
 $(document).ready(function() {
   $('#university').popupList({ remoteUrl: '/universities' });
   $('#major').popupTabs(window.ms);
