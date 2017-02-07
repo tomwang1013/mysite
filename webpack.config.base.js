@@ -24,7 +24,8 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'public/assets')
+    path: path.resolve(__dirname, 'public/assets'),
+    publicPath: '/assets/'
   },
 
   module: {
@@ -35,7 +36,6 @@ module.exports = {
         options: {
           limit: 20000,
           name:  'images/[name].[ext]',
-          publicPath: '/assets/'
         }
       },
 
@@ -44,7 +44,6 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name:  'fonts/[name].[ext]',
-          publicPath: '/assets/'
         }
       },
 

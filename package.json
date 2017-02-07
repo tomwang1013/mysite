@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "my site for university",
   "scripts": {
-    "start": "node app.js",
+    "devServer": "webpack-dev-server --env=dev",
     "watch": "nodemon app.js",
     "build:dev": "webpack --env=dev --progress --profile --colors --watch",
     "build:prod": "webpack --env=prod --progress --profile --colors",
