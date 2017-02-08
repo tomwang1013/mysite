@@ -32,25 +32,29 @@ module.exports = {
     rules: [
       {
         test: /\.(jpg|png|gif)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 20000,
-          name:  'images/[name].[ext]',
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 20000,
+            name:  'images/[name].[ext]',
+          }
         }
       },
 
       {
         test: /\.(eot|woff|woff2|ttf|svg)/,
-        loader: 'file-loader',
-        options: {
-          name:  'fonts/[name].[ext]',
+        use: {
+          loader: 'file-loader',
+          options: {
+            name:  'fonts/[name].[ext]',
+          }
         }
       },
 
       {
         test: /\.scss$/,
         exclude: /node_modules\//,
-        loader: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
         })
