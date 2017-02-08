@@ -99,6 +99,7 @@ let sessionStore = new MongoStore({
 });
 
 let sessionHandler = session({
+  name:              'jingeSessionId',
   secret:            'xiongwang',
   resave:            false,
   saveUninitialized: false,
