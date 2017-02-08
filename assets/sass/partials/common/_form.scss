@@ -116,6 +116,14 @@
   &:hover { background-color: #bbb; }
 }
 
+// normal button style
+.o-btn-disabled {
+  color:            #000;
+  border-color:     #aaa;
+  background-color: #ddd;
+  cursor: default;
+}
+
 // primary button look
 .o-btn-primary {
   color:            #fff;

@@ -51,13 +51,13 @@ $(document).ready(function() {
   $('.js-job-ne-fm').validate();
 
   // apply job at jobs index
-  $('.job-title button').click(function() {
+  $('.js-idx-apply-job').click(function() {
     var me = $(this);
 
     $.post('/jobs/apply', {
-      job_id: me.closest('.job-item').data('jobId')
+      job_id: me.closest('.js-jobs-search-item').data('jobId')
     }, function(data) {
-      me.replaceWith("<span class='apply-result'>已申请</span>")
+      me.text("已申请").prop('disabled', true).removeClass('o-btn-primary').addClass('o-btn-disabled');
     });
   });
 
@@ -119,9 +119,9 @@ $(document).ready(function() {
       var resultHtml;
 
       if (status == 1) {
-        resultHtml = "<div class='error-result'>已拒绝：" + message + "</div>";
+        resultHtml = "<div class='u-error-result'>已拒绝：" + message + "</div>";
       } else {
-        resultHtml = "<div class='success-result'>已通过：" + message + "</div>";
+        resultHtml = "<div class='u-success-result'>已通过：" + message + "</div>";
       }
 
       me.closest('.js-op-message').replaceWith(resultHtml);

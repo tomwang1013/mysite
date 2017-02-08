@@ -7,7 +7,7 @@
     "watch": "nodemon app.js",
     "build:dev": "webpack --env=dev --progress --profile --colors --watch",
     "build:prod": "webpack --env=prod --progress --profile --colors",
-    "stats": "webpack --env production --profile --json > stats.json"
+    "stats": "webpack --env prod --profile --json > stats.json"
   },
   "author": "wang xiantong",
   "dependencies": {

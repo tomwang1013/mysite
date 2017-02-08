@@ -28,10 +28,10 @@ block content
       .u-center-text.u-error-result 对不起，没有符合条件的职位，请换个搜索条件吧
     else
       each job in jobs
-        .c-jobs-search-item(data-job-id=job.id)
+        .c-jobs-search-item.js-jobs-search-item(data-job-id=job.id)
           .c-jobs-search-item__title
             a.u-flex-mg-r-auto(href='/job/' + job.id)= job.title
-            button.o-btn.o-btn-primary 申请职位
+            button.o-btn.o-btn-primary.js-idx-apply-job 申请职位
 
           .c-jobs-search-item__attrs.u-small-font
             span 发布日期：<strong>#{job.createdAt.toLocaleDateString()}</strong>
