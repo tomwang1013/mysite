@@ -18,10 +18,10 @@ $(document).ready(function() {
   }
 
   // rich editor state change
-  function checkRichEditState(evt) {
-    var newData = evt.editor.getData();
-    var oldData = evt.editor.element.getAttribute('data-ori-value');
-    handleDataChange(newData, oldData, $('#' + evt.editor.name));
+  function checkRichEditState() {
+    var newData = this.getContent();
+    var oldData = this.textarea.getAttribute('data-ori-value');
+    handleDataChange(newData, oldData, $('#' + this.textarea.name));
   }
 
   function handleDataChange(newData, oldData, field) {
@@ -35,19 +35,19 @@ $(document).ready(function() {
   // 触发修改按钮展示
   $('#url').keyup(checkEditState);
   $('#university, #major, select').change(checkEditState);
-  Object.keys(CKEDITOR.instances).forEach(function(editorName) {
-    CKEDITOR.instances[editorName].on('change', checkRichEditState);
+  $('.js-rich-editor').each(function(idx, ele) {
+    UE.getEditor(ele.id).addListener('contentChange', checkRichEditState);
   });
 
   // 保存按钮
   $('.js-save').click(function() {
     var parent  = $(this).parent();
-    var field   = parent.siblings('.js-change-field');
+    var field   = parent.siblings('textarea.js-change-field');
     var fname   = field.attr('name');
     var data    = {};
 
     if (field.hasClass('js-rich-editor')) {
-      data[fname] = CKEDITOR.instances[fname].getData()
+      data[fname] = UE.getEditor(field.attr('name')).getContent()
     } else {
       data[fname] = field.val();
     }
@@ -68,13 +68,12 @@ $(document).ready(function() {
   // 取消按钮
   $('.js-cancel').click(function() {
     var parent = $(this).parent();
-    var field  = parent.siblings('.js-change-field');
-    var fname  = field.attr('name');
+    var field  = parent.siblings('textarea.js-change-field');
 
     field.val(field.attr('data-ori-value'));
 
     if (field.hasClass('js-rich-editor')) {
-      CKEDITOR.instances[fname].setData(field.attr('data-ori-value'))
+      UE.getEditor(field.attr('name')).setContent(field.attr('data-ori-value') || '')
     }
 
     parent.hide();

@@ -42,7 +42,7 @@ app.use(gControllers.error);
 app.assetsManifest = require('./public/assets/rev-manifest.json');
 app.locals.assetHashPath = function(originPath) {
   if (app.get('env') == 'development') {
-    return `/assets/${originPath}`;
+    return `${gConfig.assets_path}/assets/${originPath}`;
   } else {
     return `${gConfig.assets_path}/assets/${app.assetsManifest[originPath]}`;
   }

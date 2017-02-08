@@ -5,8 +5,8 @@ var y = require('jquery-validation');
 $(function() {
   // for validation on submit
   $('.js-rich-editor').each(function(idx, ele) {
-    CKEDITOR.replace(ele.id).on('change', function(evt) {
-      evt.editor.updateElement();
+    UE.getEditor(ele.id).addListener('contentChange', function() {
+      this.sync();
     });
   });
 });
@@ -23,7 +23,7 @@ $.validator.setDefaults({
 
     // check ckeditor textarea of this form
     $(form).find('.js-rich-editor').each(function(i, ele) {
-      args[ele.name] = CKEDITOR.instances[ele.name].getData();
+      args[ele.name] = UE.getEditor[ele.id].getContent();
     });
 
     $.post(form.action, args, function(data) {
