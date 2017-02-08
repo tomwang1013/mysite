@@ -9,5 +9,4 @@ public/assets/
 public/css/
 public/uploads/
 public/tmp/
-rev-manifest.json
-build/
+config/settings.local.js

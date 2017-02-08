@@ -1,5 +1,6 @@
 module.exports = {
   site: 'www.mysite.com',
+  assets_path: '//assets.51shixi.net',
   nodemailer: {
     host:   'smtp.qq.com',
     port:   465,
