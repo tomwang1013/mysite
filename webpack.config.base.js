@@ -51,8 +51,8 @@ module.exports = {
         test: /\.scss$/,
         exclude: /node_modules\//,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
+          fallback: "style-loader",
+          use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
         })
       }
     ]
