@@ -31,7 +31,8 @@ a {
   text-decoration: none;
   cursor: pointer;
 
-  &:hover { text-decoration: underline; }
+  &:hover       { text-decoration: underline; }
+  &.o-btn:hover { text-decoration: none; }
 }
 
 label { display: inline-block; }

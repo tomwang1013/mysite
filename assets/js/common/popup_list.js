@@ -176,14 +176,14 @@ $.fn.popupList = function(options) {
   // UI rendering
   function createList() {
     var template = ''
-      + '<div class="popuplist-container small-font">'
+      + '<div class="popuplist-container u-small-font">'
       +   '<% if (items.length > minSearchItemsCount) { %>'
       +     '<div class="popuplist-searchbar">'
       +       '<input type="text">'
       +     '</div>'
       +   '<% } %>'
       +   '<div class="popuplist-items">'
-      +     '<ul class="nav">'
+      +     '<ul class="u-nav-list">'
       +       '<% for (let idx in items) { %>'
       +         '<% if (idx == hlItemIdx) {%>'
       +           '<li class="popuplist-item-active"><%= items[idx] %></li>'

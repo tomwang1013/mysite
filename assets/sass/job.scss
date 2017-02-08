@@ -81,6 +81,12 @@
 
 /* 搜索框 */
 
+.c-jobs-search-fm {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.8em;
+}
+
 // list of [label + input]
 .c-jobs-search-fm__field-grp {
   display: flex;

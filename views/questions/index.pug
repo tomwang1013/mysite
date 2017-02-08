@@ -4,20 +4,19 @@ append css
 append js
   script(src=assetHashPath('question/index.js'))
 block content
-  .q-index
-    .c-ques-common-head.u-flex
-      a.u-fir-span(href='/job/' + job.id)= job.title
-      span.u-flex-mg-r-auto 的题目列表
-      if isMyJob
-        - var uri = '/job/' + job.id + '/questions/new';
-        a(href=uri class='o-btn o-btn-primary u-normal-font') 创建题目
+  .c-ques-common-head.u-flex
+    a.u-fir-span(href='/job/' + job.id)= job.title
+    span.u-flex-mg-r-auto 的题目列表
+    if isMyJob
+      - var uri = '/job/' + job.id + '/questions/new';
+      a(href=uri class='o-btn o-btn-primary u-normal-font') 创建题目
 
-    if questions.length == 0
-      .u-center-text.u-error-result
-        if isMyJob
-          | 您暂时没有为此职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
-        else
-          | 此职位暂时没有创建任何题目
-    else
-      each question in questions
-        include _list_question.pug
+  if questions.length == 0
+    .u-center-text.u-error-result
+      if isMyJob
+        | 您暂时没有为此职位创建任何题目，预先给出试题有助于深入及提前考察面试者！
+      else
+        | 此职位暂时没有创建任何题目
+  else
+    each question in questions
+      include _list_question.pug

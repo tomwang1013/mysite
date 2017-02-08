@@ -52,6 +52,12 @@
   list-style: none;
   padding: 0;
   margin: 0;
+
+  a {
+    display: block;
+
+    &:hover { text-decoration: none; }
+  }
 }
 
 // 2个紧挨在一起的行内元素，第一个元素右边留空
