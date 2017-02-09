@@ -1,5 +1,5 @@
 {
   "verbose": true,
-  "ignore": ["assets/*", "node_modules/*"],
+  "ignore": ["assets/*", "node_modules/*", "public/tmp/*"],
   "ext": "js,pug"
 }

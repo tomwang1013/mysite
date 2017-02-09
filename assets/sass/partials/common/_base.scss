@@ -35,6 +35,9 @@ a {
   &.o-btn:hover { text-decoration: none; }
 }
 
-label { display: inline-block; }
+label {
+  display: inline-block;
+  font-weight: bold;
+}
 
 textarea { height: auto; }

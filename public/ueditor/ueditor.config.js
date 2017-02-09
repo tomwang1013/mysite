@@ -35,9 +35,9 @@
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
           'fullscreen', 'source', 'undo', 'redo', '|',
-          'insertorderedlist', 'insertunorderedlist', 'link', 'unlink', 'blockquote', 'simpleupload', 'insertcode', '|',
+          'insertorderedlist', 'insertunorderedlist', 'link', 'unlink', 'blockquote', 'simpleupload', '|',
           'bold', 'italic', 'underline', 'strikethrough', 'forecolor', 'backcolor', '|',
-          'preview'
+          'insertcode', 'preview'
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{

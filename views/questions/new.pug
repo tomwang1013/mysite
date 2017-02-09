@@ -3,7 +3,8 @@ append css
   link(href=assetHashPath("question/new_edit.css"), rel="stylesheet")
 append js
   script(src=assetHashPath('question/new_edit.js'))
-  script(src='/ckeditor/ckeditor.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
 block content
   .c-ques-n-e
     .c-ques-common-head
@@ -36,7 +37,7 @@ block content
 
       .o-fm-grp
         label(for='content') 题目内容：
-        textarea(name='content', id='content' class='o-fm-ctl js-rich-editor')
+        textarea(name='content', id='content' class='js-rich-editor')
 
       .o-fm-grp.u-center-text
         input(type='submit', value='保 存' class='o-btn o-btn-primary')

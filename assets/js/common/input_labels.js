@@ -23,17 +23,9 @@ $.fn.labelIt = function(options) {
 
   var input       = this;
   var form        = input.closest('form');
-  var inputRect   = getInputRect();
   var curLabels   = input.val() ? input.val().split(',') : [];
   var searchUrl   = options.searchUrl || '';
   var addUrl      = options.addUrl || '';
-
-  var popupLabDlgPos = {
-    left:     inputRect.left,
-    top:      inputRect.top + inputRect.height,
-    width:    inputRect.width,
-    position: 'absolute'
-  };
 
   init();
 
@@ -44,8 +36,19 @@ $.fn.labelIt = function(options) {
     }
   });
 
+  function getPopupLabDlgPos() {
+    var inputRect = getInputRect($('.il-labels-input'));
+
+    return {
+      left:     inputRect.left,
+      top:      inputRect.top + inputRect.height,
+      width:    inputRect.width,
+      position: 'absolute'
+    };
+  }
+
   // get input's rect
-  function getInputRect() {
+  function getInputRect(input) {
     var offset    = input.offset();
     var myWidth   = parseFloat(window.getComputedStyle(input.get(0)).width);
     var myHeight  = input.outerHeight();
@@ -153,9 +156,9 @@ $.fn.labelIt = function(options) {
     if (isAdd) {
       curLabels.push(name);
       $('.il-labels').append(
-        '<span class="il-in-lab round-border relative">' +
+        '<span class="il-in-lab u-round-border u-relative">' +
           '<span>' + name + '</span>' +
-          '<span class="fa fa-times il-rm-lab absolute" aria-hidden="true"></span>' +
+          '<span class="fa fa-times il-rm-lab u-absolute" aria-hidden="true"></span>' +
         '</span>'
       );
     } else {
@@ -167,12 +170,12 @@ $.fn.labelIt = function(options) {
   // new input to replace the default input
   function createNewInput() {
     var template = ''
-      + '<span class="il-labels-input flex round-border relative">'
+      + '<span class="il-labels-input u-flex u-round-border u-relative">'
       +   '<span class="il-labels">'
       +     '<% for (let idx in labels) { %>'
-      +       '<span class="il-in-lab round-border relative">'
+      +       '<span class="il-in-lab u-round-border u-relative">'
       +         '<span class="il-lab-name"><%= labels[idx] %></span>'
-      +         '<span class="fa fa-times il-rm-lab absolute" aria-hidden="true"></span>'
+      +         '<span class="fa fa-times il-rm-lab u-absolute" aria-hidden="true"></span>'
       +       '</span>'
       +     '<% } %>'
       +   '</span>'
@@ -181,16 +184,16 @@ $.fn.labelIt = function(options) {
 
     return $(_.template(template)({
       labels: curLabels
-    })).css(_.pick(inputRect, 'width', 'height'));
+    })).css(_.pick(getInputRect(input), 'width', 'height'));
   }
 
   // popup dlg for matching labels
   function popupLabels(matchingLabels) {
     var template = ''
-      + '<div class="il-pop-labels small-font">'
-      +   '<ul class="nav">'
+      + '<div class="il-pop-labels u-small-font">'
+      +   '<ul class="u-nav-list">'
       +     '<% for (let lab of labels) { %>'
-      +       '<li class="il-pop-lab round-border">'
+      +       '<li class="il-pop-lab u-round-border">'
       +         '<span><%= lab.name %></span>'
       +         '<span><%= lab.ques_cnt %></span>'
       +       '</li>'
@@ -200,6 +203,6 @@ $.fn.labelIt = function(options) {
 
     return $(_.template(template)({
       labels: matchingLabels
-    })).css(popupLabDlgPos);
+    })).css(getPopupLabDlgPos());
   }
 }

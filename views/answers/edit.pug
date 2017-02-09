@@ -1,6 +1,7 @@
 extends _layout.pug
 append js
-  script(src='/ckeditor/ckeditor.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title
@@ -11,6 +12,6 @@ block content
   .c-your-answer-txt 你的答案：
   - var uri = `/question/${question.id}/answer/${answer.id}/update`
   form(method='post' action=uri)
-    textarea(name='content' id='content' class='o-fm-ctl js-rich-editor')!= answer.content
+    textarea(name='content' id='content' class='js-rich-editor')!= answer.content
     .c-answer-fm-submit
       input.o-btn.o-btn-primary(type='submit' value='保 存')

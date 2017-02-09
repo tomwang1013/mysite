@@ -73,7 +73,7 @@ userSchema.methods.avatarUrl = function() {
   if (this.avatar) {
     return gridfs.downloadPath(this.avatar);
   } else {
-    return '/images/default_avatar.png';
+    return gConfig.assets_path + '/images/default_avatar.png';
   }
 };
 

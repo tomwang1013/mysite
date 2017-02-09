@@ -2,6 +2,7 @@
 @import "vendor/jquery-bar-rating/fontawesome-stars";
 @import 'partials/modules/question';
 @import 'partials/modules/answer';
+@import 'partials/modules/overlay';
 
 /* header of all answer page */
 .c-answer-head {
@@ -20,21 +21,14 @@
 
 // 新建和编辑页面的："你的答案："
 .c-your-answer-txt {
-  border: 1px solid $bd-normal;
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
   font-weight: bold;
 }
 
-// 覆盖默认的：
-// [class^="cke_editor_"] { margin-top: 0.5em; }
-[class^="cke_editor_"] { margin-top: 0; }
-
 // submit of the new & edit page's form
 .c-answer-fm-submit {
-  border: 1px solid $bd-normal;
   border-top: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 }
 
 

@@ -4,10 +4,11 @@ var y = require('jquery-validation');
 
 $(function() {
   // for validation on submit
-  $('.js-rich-editor').each(function(idx, ele) {
-    UE.getEditor(ele.id).addListener('contentChange', function() {
-      this.sync();
-    });
+  $('textarea.js-rich-editor').each(function(idx, ele) {
+    UE.getEditor(ele.name);
+    //UE.getEditor(ele.name).addListener('contentChange', function() {
+      //this.sync();
+    //});
   });
 });
 
@@ -22,8 +23,8 @@ $.validator.setDefaults({
     var args = $(form).serializeObject();
 
     // check ckeditor textarea of this form
-    $(form).find('.js-rich-editor').each(function(i, ele) {
-      args[ele.name] = UE.getEditor[ele.id].getContent();
+    $(form).find('textarea.js-rich-editor').each(function(i, ele) {
+      args[ele.name] = UE.getEditor(ele.name).getContent();
     });
 
     $.post(form.action, args, function(data) {

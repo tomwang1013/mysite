@@ -1,9 +1,10 @@
 extends _layout.pug
 append js
-  script(src='/ckeditor/ckeditor.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
 block content
   form(method='post', action='/job/' + job.id, class='c-job-ne-fm js-job-ne-fm')
-    .c-job-ne-fm__head.large-font 修改职位信息
+    .c-job-ne-fm__head.u-large-font 修改职位信息
 
     .o-fm-grp
       label(for='title') 职位名称：
@@ -28,19 +29,12 @@ block content
           option(value=b, selected=b == job.business)= b 
 
     .o-fm-grp
-      label(for='type') 类别：
-      select(name='type', id='type' class='o-fm-ctl')
-        option(value='' selected) 请选择
-        each t in types
-          option(value=t, selected=t == job.type)= t 
-
-    .o-fm-grp
       label(for='duty') 职责：
-      textarea(name='duty', id='duty', class='o-fm-ctl js-rich-editor', rows=12)= job.duty
+      textarea(name='duty', id='duty', class='js-rich-editor')= job.duty
 
     .o-fm-grp
       label(for='requirement') 要求：
-      textarea(name='requirement', id='requirement', class='o-fm-ctl js-rich-editor', rows=12)= job.requirement
+      textarea(name='requirement', id='requirement', class='js-rich-editor')= job.requirement
 
     .o-fm-grp
       label(for='notes') 备注：

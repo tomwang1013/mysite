@@ -44,7 +44,6 @@ function index(req, res, next) {
 function newJob(req, res, next) {
   res.render('jobs/new', {
     businesses: gModels.Business,
-    types:      gModels.JobType,
     salaries:   gModels.Job.salaries,
     seo:        { title: '新建实习职位' }
   });
@@ -108,7 +107,6 @@ function edit(req, res, next) {
     res.render('jobs/edit', {
       job: job,
       businesses: gModels.Business,
-      types:      gModels.JobType,
       salaries:   gModels.Job.salaries
     });
   });

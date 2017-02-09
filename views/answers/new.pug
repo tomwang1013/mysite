@@ -1,6 +1,7 @@
 extends _layout.pug
 append js
-  script(src='/ckeditor/ckeditor.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
+  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title
@@ -14,6 +15,6 @@ block content
     input(type='hidden' name='_question' value=question.id)
     input(type='hidden' name='_user' value=currentUser.id)
     input(type='hidden' name='_job' value=question._job.id)
-    textarea(name='content' id='content' class='o-fm-ctl js-rich-editor')
+    textarea(name='content' id='content' class='js-rich-editor')
     .c-answer-fm-submit
-      input.btn.btn-primary(type='submit' value='提 交')
+      input.o-btn.o-btn-primary(type='submit' value='提 交')

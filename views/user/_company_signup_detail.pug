@@ -1,26 +1,31 @@
 // 公司信息
-.promotion.form-group.small-font.text-center 请务必完善企业信息，否则发布的职位可能不会被求职者看到
-.form-group
-  label(for='url' class='label label-input') 公司主页：
-  input(type='url', name='url', id='url', class='form-control', required)
-.form-group
-  label(for='business' class='label label-input') 所属行业：
-  select(name='business', id='business', class='form-control', required)
+.o-fm-grp.u-small-font.u-center-text 请务必完善企业信息，否则发布的职位可能不会被求职者看到
+
+.o-fm-grp
+  label(for='url') 公司主页：
+  input(type='url', name='url', id='url', class='o-fm-ctl')
+
+.o-fm-grp
+  label(for='business') 所属行业：
+  select(name='business', id='business', class='o-fm-ctl')
     option(value='') 请选择行业
     each b in businesses
       option(value=b)= b
-.form-group
-  label(for='scale' class='label label-input') 规模：
-  select(name='scale', id='scale', class='form-control', required)
+
+.o-fm-grp
+  label(for='scale') 规模：
+  select(name='scale', id='scale', class='o-fm-ctl')
     option(value='') 请选择企业规模
     each s,i in scales
       option(value=i)= s
-.form-group
-  label(for='maturity' class='label label-input') 成熟度：
-  select(name='maturity', id='maturity', class='form-control', required)
+
+.o-fm-grp
+  label(for='maturity') 成熟度：
+  select(name='maturity', id='maturity', class='o-fm-ctl')
     option(value='') 请选择企业成熟度
     each m,i in maturities
       option(value=i)= m
-.form-group
-  label(for='desc' class='label label-input') 介绍：
-  textarea(name='desc', id='desc', rows=8, class='form-control rich-editor', data-rule-minlength=64, required)
+
+.o-fm-grp
+  label(for='desc') 介绍：
+  textarea(name='desc', id='desc', class='js-rich-editor')

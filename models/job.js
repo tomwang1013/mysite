@@ -2,6 +2,11 @@
 
 const mongoose = require('mongoose');
 
+const salaries = [
+  '0~2000', '2000~4000', '4000~6000',
+  '6000~8000', '8000以上', '面议'
+];
+
 let Schema = mongoose.Schema;
 let jobSchema = new Schema({
   title:        String,   // 职位名称
@@ -22,5 +27,7 @@ let jobSchema = new Schema({
 });
 
 let Job = mongoose.model('Job', jobSchema);
+
+Job.salaries = salaries;
 
 exports = module.exports = Job;
