@@ -94,4 +94,7 @@ router.get('/about',          gControllers.about.index );
 router.get('/qlabels/search', gControllers.ques_labels.search );
 router.post('/qlabels',  gControllers.ques_labels.create );
 
+// 编辑器操作对应服务端处理
+router.post('/ueditor',  gControllers.ueditor.index);
+
 module.exports = router;
