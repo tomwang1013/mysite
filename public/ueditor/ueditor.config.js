@@ -30,7 +30,7 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        , serverUrl: "/ueditor/config"  // 统一在nodejs中处理所有服务端请求
+        , serverUrl: "/ueditor"  // 统一在nodejs中处理所有服务端请求
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
