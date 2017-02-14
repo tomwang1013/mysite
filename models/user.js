@@ -71,7 +71,7 @@ userSchema.methods.isCompany = function() {
 
 userSchema.methods.avatarUrl = function() {
   if (this.avatar) {
-    return gridfs.getUrlByFileName(this.avatar);
+    return gridfs.downloadPath(this.avatar);
   } else {
     return '/images/default_avatar.png';
   }

@@ -83,7 +83,9 @@ router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, g
 router.post('/profile/message/set_read',  gControllers.middlewares.checkLogin, gControllers.profile.setMsgRead);
 
 // misc
-router.get('/uploads/:filename',  gControllers.uploads.index );
+router.get('/download/:filename',   gControllers.gridfs.download );
+router.get('/upload/:filename',     gControllers.gridfs.upload );
+
 router.get('/universities',       gControllers.universities.index );
 router.get('/majors',             gControllers.majors.index );
 
@@ -95,6 +97,6 @@ router.get('/qlabels/search', gControllers.ques_labels.search );
 router.post('/qlabels',  gControllers.ques_labels.create );
 
 // 编辑器操作对应服务端处理
-router.post('/ueditor',  gControllers.ueditor.index);
+router.use('/ueditor', upload.single('upfile'), gControllers.ueditor.index);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 module.exports = {
-  site: 'www.mysite.com',
+  site: 'www.51shixi.net',
   assets_path: '//assets.51shixi.net',
   nodemailer: {
     host:   'smtp.qq.com',

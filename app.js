@@ -39,7 +39,10 @@ app.use(require('./route'));
 app.use(gControllers.error);
 
 // js和css文件名映射
-app.assetsManifest = require('./public/assets/rev-manifest.json');
+if (app.get('env') == 'production') {
+  app.assetsManifest = require('./public/assets/rev-manifest.json');
+}
+
 app.locals.assetHashPath = function(originPath) {
   if (app.get('env') == 'development') {
     return `${gConfig.assets_path}/assets/${originPath}`;

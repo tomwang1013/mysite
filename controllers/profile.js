@@ -215,7 +215,7 @@ function changeAvatar2(req, res, next) {
       //});
     //});
 
-    res.json({ error: 0, url: gridfs.getUrlByFileName(filename) });
+    res.json({ error: 0, url: gridfs.downloadPath(filename) });
   }).catch(next);
 }
 
