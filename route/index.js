@@ -59,20 +59,20 @@ router.post('/job/:jid/question/:qid/update', gControllers.middlewares.checkComp
 router.post('/question/:qid/remove',          gControllers.middlewares.checkCompanyLogin, gControllers.questions.remove);
 
 // answers
-router.get('/question/:qid/answers',              gControllers.middlewares.checkCompanyLogin, gControllers.answers.index);
-router.get('/question/:qid/answers/new',          gControllers.middlewares.checkStudentLogin, gControllers.answers.nnew);
-router.post('/question/:qid/answers/create',      gControllers.middlewares.checkStudentLogin, gControllers.answers.create);
-router.get('/question/:qid/answer/:aid',          gControllers.middlewares.checkLogin,        gControllers.answers.show);
-router.get('/question/:qid/answer/:aid/edit',     gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
-router.post('/question/:qid/answer/:aid/update',  gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
+router.get('/question/:qid/answers',                    gControllers.middlewares.checkCompanyLogin, gControllers.answers.index);
+router.get('/question/:qid/answers/new',                gControllers.middlewares.checkStudentLogin, gControllers.answers.nnew);
+router.post('/question/:qid/answers/create',            gControllers.middlewares.checkStudentLogin, gControllers.answers.create);
+router.get('/question/:qid/answer/:aid',                gControllers.middlewares.checkLogin,        gControllers.answers.show);
+router.get('/question/:qid/answer/:aid/edit',           gControllers.middlewares.checkStudentLogin, gControllers.answers.edit);
+router.post('/question/:qid/answer/:aid/update',        gControllers.middlewares.checkStudentLogin, gControllers.answers.update);
 router.post('/question/:qid/answer/:aid/update_score',  gControllers.middlewares.checkCompanyLogin, gControllers.answers.updateScore);
-router.post('/question/:qid/answer/:aid/remove',  gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
+router.post('/question/:qid/answer/:aid/remove',        gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
 
 // user center
 router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
 router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
 router.get('/profile/message_status',     gControllers.profile.messageStatus);
-router.get('/profile(/user_info)?',          gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
+router.get('/profile(/user_info)?',       gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
 router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
 
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);
@@ -85,18 +85,17 @@ router.post('/profile/message/set_read',  gControllers.middlewares.checkLogin, g
 // misc
 router.get('/download/:filename',   gControllers.gridfs.download );
 router.get('/upload/:filename',     gControllers.gridfs.upload );
-
-router.get('/universities',       gControllers.universities.index );
-router.get('/majors',             gControllers.majors.index );
-
-// about
-router.get('/about',          gControllers.about.index );
+router.get('/universities',         gControllers.universities.index );
+router.get('/majors',               gControllers.majors.index );
 
 // question labels
 router.get('/qlabels/search', gControllers.ques_labels.search );
-router.post('/qlabels',  gControllers.ques_labels.create );
+router.post('/qlabels',       gControllers.ques_labels.create );
 
 // 编辑器操作对应服务端处理
 router.use('/ueditor', upload.single('upfile'), gControllers.ueditor.index);
+
+// about
+router.get('/about', gControllers.about.index );
 
 module.exports = router;
