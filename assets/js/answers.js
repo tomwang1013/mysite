@@ -8,6 +8,29 @@ var x = require('common/popup_overlay');
 var css = require('answers.scss');
 
 $(function() {
+  // 提交解答验证
+  $('.js-new-answer-fm, .js-edit-answer-fm').each(function() {
+    $(this).validate({
+      rules: {
+        content: {
+          required: true,
+          ta_minlength: 10
+        }
+      },
+
+      messages: {
+        content: {
+          required: '解答不能为空',
+          ta_minlength: $.validator.format("解答应至少包含 {0} 个字符")
+        }
+      },
+
+      errorPlacement: function(error, element) {
+        error.insertAfter($(':submit'));
+      }
+    });
+  });
+
   // 企业给解答评分
   var updScoreUrl;
   $('.js-re-score, .js-to-score').popupOverlay({

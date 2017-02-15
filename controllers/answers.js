@@ -62,12 +62,16 @@ function nnew(req, res, next) {
   });
 }
 
+// 创建答案
 function create(req, res, next) {
   gModels.Answer.create(_.assign({
     score: 0,
     sysScore: 0
   }, req.body), function(err, result) {
-    res.redirect(`/job/${req.body._job}/question/${req.body._question}`);
+    res.json({
+      error: 0,
+      location: `/job/${req.body._job}/question/${req.body._question}`
+    });
   })
 }
 
@@ -111,7 +115,10 @@ function update(req, res, next) {
     _.assign(answer, req.body);
 
     answer.save(function(err, result) {
-      res.redirect('/question/' + req.params.qid + '/answer/' + req.params.aid);
+      res.json({
+        error: err,
+        location: '/question/' + req.params.qid + '/answer/' + req.params.aid
+      });
     });
   })
 }

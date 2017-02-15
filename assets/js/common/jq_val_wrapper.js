@@ -6,11 +6,13 @@ $(function() {
   // for validation on submit
   $('textarea.js-rich-editor').each(function(idx, ele) {
     UE.getEditor(ele.name);
-    //UE.getEditor(ele.name).addListener('contentChange', function() {
-      //this.sync();
-    //});
   });
 });
+
+// ueditor textarea文本长度最小化验证
+$.validator.addMethod('ta_minlength', function(value, element, minlen) {
+  return this.optional(element) || UE.getEditor(element.name).getContentLength(true) >= minlen;
+}, "至少需要 {0} 个字符");
 
 $.validator.setDefaults({
   errorClass: 'u-input-error',

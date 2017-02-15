@@ -11,10 +11,10 @@ block content
 
   .c-your-answer-txt 你的答案：
   - var uri = `/question/${question.id}/answers/create`
-  form(method='post' action=uri)
+  form(class='js-new-answer-fm' method='post' action=uri)
     input(type='hidden' name='_question' value=question.id)
     input(type='hidden' name='_user' value=currentUser.id)
     input(type='hidden' name='_job' value=question._job.id)
     textarea(name='content' id='content' class='js-rich-editor')
     .c-answer-fm-submit
-      input.o-btn.o-btn-primary(type='submit' value='提 交')
+      input.o-btn.o-btn-primary.u-fir-span(type='submit' value='提 交')
