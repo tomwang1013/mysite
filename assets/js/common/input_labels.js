@@ -3,6 +3,8 @@
 var $ = require('jquery');
 var _ = require('lodash');
 
+var css = require('partials/modules/_input_labels.scss');
+
 /**
  * label something through input
  * 1. show current labels on left of the input

@@ -12,6 +12,8 @@ module.exports = webpackMerge(baseConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css' })
+    new ExtractTextPlugin({
+      filename: '[name].css',
+    })
   ]
 });

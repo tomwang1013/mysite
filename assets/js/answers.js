@@ -1,9 +1,9 @@
 var $ = require('jquery');
-var x = require('common/popup_overlay');
 var y = require('common/del_answer');
 var z = require('common/serialize_object');
 var p = require('common/jq_val_wrapper');
 var w = require('common/main_nav');
+var x = require('common/popup_overlay');
 
 var css = require('answers.scss');
 

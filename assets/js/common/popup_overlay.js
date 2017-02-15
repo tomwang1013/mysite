@@ -1,6 +1,7 @@
 'use strict'
 
 var $ = require('jquery');
+var css = require('partials/modules/_popup_overlay.scss');
 
 /**
  * popup overlay when click it

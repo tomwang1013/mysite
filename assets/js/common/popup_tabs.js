@@ -3,6 +3,8 @@
 var $ = require('jquery');
 var _ = require('lodash');
 
+var css = require('partials/modules/_popup_tabs.scss');
+
 /**
  * data format:
  * 1 level: [a1, a2, ...]

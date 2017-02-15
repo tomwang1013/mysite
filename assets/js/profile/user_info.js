@@ -4,7 +4,7 @@ var _ = require('lodash');
 var x = require('common/popup_list');
 var y = require('common/popup_tabs');
 var z = require('common/main_nav');
-var z = require('common/jq_val_wrapper');
+var w = require('common/jq_val_wrapper');
 
 var css = require('profile/user_info.scss');
 

@@ -3,6 +3,9 @@
 var $ = require('jquery');
 var _ = require('lodash');
 
+var css = require('partials/modules/_popup_list_no_sb.scss');
+
+
 /**
  * when user click an input, popup a list and let the user select
  * from it; user can't input other things; if the list is too long,
@@ -133,8 +136,8 @@ $.fn.popupListNoSb = function(options) {
   // UI rendering
   function createList() {
     var template = ''
-      + '<div class="pl-no-sb small-font">'
-      +   '<ul class="nav">'
+      + '<div class="pl-no-sb u-small-font">'
+      +   '<ul class="u-nav-list">'
       +     '<% for (let idx in items) { %>'
       +       '<% if (idx == hlItemIdx) {%>'
       +         '<li class="popuplist-item-active"><%= items[idx] %></li>'

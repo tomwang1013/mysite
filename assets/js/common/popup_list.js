@@ -3,6 +3,8 @@
 var $ = require('jquery');
 var _ = require('lodash');
 
+var css = require('partials/modules/_popup_list.scss');
+
 /**
  * when user click an input, popup a list and let the user select
  * from it; user can't input other things; if the list is too long,
