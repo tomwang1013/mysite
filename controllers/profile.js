@@ -204,7 +204,7 @@ function changeAvatar2(req, res, next) {
 
     // 保存文件名
     user.avatar = filename;
-    req.session.currentUser.avatar = user.avatarUrl();
+    gControllers.user.loginUser(res, user);
     yield user.save()
 
     // 删除中间文件: 裁剪后自动删除了原始文件，无需再删除

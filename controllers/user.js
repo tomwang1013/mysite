@@ -292,6 +292,6 @@ exports = module.exports = {
   login:  loginHandler,
   logout: logoutHandler,
   signupView, signup_step1, signup_step2,
-  loginView, isValidName, isValidEmail,
+  loginView, isValidName, isValidEmail, loginUser,
   passwordReset, show, queryByCompanyName
 };
