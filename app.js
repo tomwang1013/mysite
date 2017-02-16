@@ -45,9 +45,9 @@ if (app.get('env') == 'production') {
 
 app.locals.assetHashPath = function(originPath) {
   if (app.get('env') == 'development') {
-    return `${gConfig.assets_path}/assets/${originPath}`;
+    return `${gConfig.assets_host}/assets/${originPath}`;
   } else {
-    return `${gConfig.assets_path}/assets/${app.assetsManifest[originPath]}`;
+    return `${gConfig.assets_host}/assets/${app.assetsManifest[originPath]}`;
   }
 }
 

@@ -1,13 +1,13 @@
 module.exports = {
   site: '51shixi.net',
-  assets_path: '//assets.51shixi.net',
+  assets_host: '//assets.51shixi.net',
   nodemailer: {
-    host:   'smtp.qq.com',
+    host:   'smtp.mxhichina.com',
     port:   465,
     secure: true, // use SSL
     auth: {
-      user: 'tomwang1013@qq.com',
-      pass: 'xue123zuo321'
+      user: 'wangxiantong@51shixi.net',
+      pass: 'kkLLwx11'
     }
   }
 }
