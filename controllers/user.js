@@ -32,7 +32,7 @@ function signupView(req, res, next) {
     gModels.Major.all().then(function(result) {
       res.render('user/signupView', {
         step:         step,
-        title:        '学做-用户注册',
+        title:        '实习网-用户注册',
         userType:     req.session.signupAccount.userType,
         majors:       result,
         entryDates:   gModels.User.allEntryDates,
@@ -44,7 +44,7 @@ function signupView(req, res, next) {
   } else {
     res.render('user/signupView', {
       step:       step,
-      title:      '学做-用户注册',
+      title:      '实习网-用户注册',
       userType:   req.currentUser ? req.currentUser.type : undefined
     });
   }
@@ -123,7 +123,7 @@ function isValidEmail(req, res, next) {
 
 // 登录页面
 function loginView(req, res, next) {
-  res.locals.title = '学做-用户登陆';
+  res.locals.title = '实习网-用户登陆';
   res.render('user/loginView', {
     return_to: req.query.return_to || '/',
     flashErrors: req.flash('error')
@@ -260,7 +260,7 @@ function passwordReset(req, res, next) {
       sendEmailRes: mailer.sendMail({
         from:     gConfig.nodemailer.auth.user,
         to:       req.body.email,
-        subject: '学做网密码重置',
+        subject: '实习网密码重置',
         html:
           `<p>请在24小时之内点击下面的链接进入重置过程:</p>
           <p>
