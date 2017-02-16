@@ -20,11 +20,10 @@
 \***********************************************/
 
 // invalid field hint text color
-.u-input-error {
+label.u-input-error {
   display: inline-block;
   color: $error-color;
   border: none;
-  font-size: 0.9em;
 }
 
 /**

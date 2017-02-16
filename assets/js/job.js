@@ -46,9 +46,45 @@ var cities = {
 };
 
 $(document).ready(function() {
+  // 工作地点选择
   $('#address').popupTabs(cities);
 
-  $('.js-job-ne-fm').validate();
+  // 创建和修改职位表单验证
+  $('.js-job-ne-fm').validate({
+    rules: {
+      title:        'required',
+      address:      'required',
+      salary:       'required',
+      business:     'required',
+
+      duty:         {
+        required: true,
+        ta_minlength: 20
+      },
+
+      requirement:  {
+        required: true,
+        ta_minlength: 20
+      }
+    },
+
+    messages: {
+      title:        '请给一个标题吧',
+      address:      '请选择工作地点',
+      salary:       '请选择薪资范围',
+      business:     '请选择所属行业',
+
+      duty:         {
+        required: '工作职责不能为空',
+        ta_minlength: $.validator.format("工作职责应至少包含 {0} 个字符")
+      },
+
+      requirement:  {
+        required: '职位要求不能为空',
+        ta_minlength: $.validator.format("职位要求应至少包含 {0} 个字符")
+      }
+    }
+  });
 
   // apply job at jobs index
   $('.js-idx-apply-job').click(function() {

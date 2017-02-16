@@ -11,7 +11,7 @@ block content
 
   .c-your-answer-txt 你的答案：
   - var uri = `/question/${question.id}/answers/create`
-  form(class='js-new-answer-fm' method='post' action=uri)
+  form(class='js-answer-ne-fm' method='post' action=uri)
     input(type='hidden' name='_question' value=question.id)
     input(type='hidden' name='_user' value=currentUser.id)
     input(type='hidden' name='_job' value=question._job.id)

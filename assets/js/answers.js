@@ -9,7 +9,7 @@ var css = require('answers.scss');
 
 $(function() {
   // 提交解答验证
-  $('.js-new-answer-fm, .js-edit-answer-fm').each(function() {
+  $('.js-answer-ne-fm').each(function() {
     $(this).validate({
       rules: {
         content: {

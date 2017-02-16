@@ -21,12 +21,12 @@ script.
 
 .o-fm-grp
   label(for='careerPlan') 职业规划：
-  textarea(name='careerPlan' id='careerPlan' rows=8 class='js-rich-editor js-change-field' data-ori-value=user.careerPlan)= user.careerPlan
+  textarea(name='careerPlan' id='careerPlan' class='js-rich-editor js-change-field' data-ori-value=user.careerPlan)= user.careerPlan
   +buttons
 
 .o-fm-grp
-  label(for='zuopin') 课外作品（可选）：
-  textarea(name='zuopin' id='zuopin' rows=8 class='js-rich-editor js-change-field' data-ori-value=user.zuopin)= user.zuopin
+  label(for='zuopin') 课外作品：
+  textarea(name='zuopin' id='zuopin' class='js-rich-editor js-change-field' data-ori-value=user.zuopin)= user.zuopin
   +buttons
   .o-fm-ctl-hint.
     可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>

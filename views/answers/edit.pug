@@ -11,7 +11,7 @@ block content
 
   .c-your-answer-txt 你的答案：
   - var uri = `/question/${question.id}/answer/${answer.id}/update`
-  form(class='js-edit-answer-fm' method='post' action=uri)
+  form(class='js-answer-ne-fm' method='post' action=uri)
     textarea(name='content' id='content' class='js-rich-editor')!= answer.content
     .c-answer-fm-submit
       input.o-btn.o-btn-primary.u-fir-span(type='submit' value='保 存')
