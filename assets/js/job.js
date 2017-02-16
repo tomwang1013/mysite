@@ -93,7 +93,11 @@ $(document).ready(function() {
     $.post('/jobs/apply', {
       job_id: me.closest('.js-jobs-search-item').data('jobId')
     }, function(data) {
-      me.text("已申请").prop('disabled', true).removeClass('o-btn-primary').addClass('o-btn-disabled');
+      if (data.error) {
+        location = data.location;
+      } else {
+        me.text("已申请").prop('disabled', true).removeClass('o-btn-primary').addClass('o-btn-disabled');
+      }
     });
   });
 
