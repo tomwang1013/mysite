@@ -1,13 +1,17 @@
+'use strict'
+
+const co = require('co');
+const _  = require('lodash');
+
 function index(req,res, next) {
-  if (req.currentUser) {
-    if (req.currentUser.type === 0) {
-      res.redirect('/jobs');
-    } else {
-      res.redirect('/profile/jobs');
-    }
-  } else {
-    res.render('home/index');
-  }
+  co(function* () {
+    let hots = yield {
+      hotQs: gModels.Question.find({}),
+      hotJobs: gModels.Job.find({})
+    };
+
+    res.render('home/index', hots);
+  }).catch(next);
 }
 
 module.exports = {

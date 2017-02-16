@@ -1,18 +1,14 @@
 .c-home-second-wel
-  .c-home-second-wel__part
-    .u-large-font.u-bold-text 我是大学生：
-    ul.c-home-second-wel__todo-list.u-nav-list
-      li.c-home-second-wel__todo-list__item 和企业提前互动
-      li.c-home-second-wel__todo-list__item 认真解决问题
-      li.c-home-second-wel__todo-list__item 获得实习机会
-    div
-      a(href='/questions' class='o-btn o-btn-primary u-fir-span') 解决问题
-      a(href='/jobs' class='o-btn o-btn-primary') 找实习岗位
-  .c-home-second-wel__part
-    .u-large-font.u-bold-text 我是公司：
-    ul.c-home-second-wel__todo-list.u-nav-list
-      li.c-home-second-wel__todo-list__item 发布实习岗位
-      li.c-home-second-wel__todo-list__item 辅以配套问题
-      li.c-home-second-wel__todo-list__item 锁定优秀毕业生
-    div
-      a(href='/jobs/new' class='o-btn o-btn-primary') 发布实习岗位
+  .c-home-hot-part
+    .u-large-font 热门问题：
+    .c-home-hot-items
+      each q in hotQs
+        .c-home-hot-item
+          a(href=`/job/${q._job}/question/${q.id}`)= q.title
+
+  .c-home-hot-part
+    .u-large-font 热门实习岗位：
+    .c-home-hot-items
+      each job in hotJobs
+        .c-home-hot-item
+          a(href=`/job/${job.id}`)= job.title

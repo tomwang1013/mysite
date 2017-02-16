@@ -1,5 +1,5 @@
 .c-home-welcome.u-content
-  .c-home-welcome__slogan.larger-font
+  .c-home-welcome__slogan
     h1 有效的学习和实习方式？
     h3 通过问答，在企业和学生之间建立能力评估模型
     h3 不做象牙塔里的学霸，解决问题才是王道
@@ -8,18 +8,14 @@
     input(type='hidden', name='step', value='1')
 
     .o-fm-grp
-      label(for='name') 用户名：
-      input(type='text', name='name', id='name', class='o-fm-ctl', autofocus)
+      input(type='text', name='name', id='name', class='o-fm-ctl', placeholder='用户名：' autofocus)
 
     .o-fm-grp
-      label(for='email') Email：
-      input(type='email', name='email', id='email', class='o-fm-ctl')
+      input(type='email', name='email', id='email', class='o-fm-ctl' placeholder='Email：')
 
     .o-fm-grp
-      label(for='password') 密码：
-      input(type='password', name='password', id='password', class='o-fm-ctl')
+      input(type='password', name='password', id='password', class='o-fm-ctl', placeholder='密码：')
 
-    label 身份：
     .o-fm-grp
       input.o-hidden-radio(type='radio', id='user-type-student', name='userType', value=0, checked)
       label.o-fm-ctl.is-radio-label(for='user-type-student') 学生
