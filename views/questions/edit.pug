@@ -3,8 +3,7 @@ append css
   link(href=assetHashPath("question/new_edit.css"), rel="stylesheet")
 append js
   script(src=assetHashPath('question/new_edit.js'))
-  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
-  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
+  include ../share/_ueditor_js.pug
 block content
   .c-ques-n-e
     .c-ques-common-head

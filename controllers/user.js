@@ -159,7 +159,7 @@ function loginHandler(req, res, next) {
 // logout
 function logoutHandler(req, res, next) {
   res.clearCookie('_ppinfo', {
-    domain: 'mysite.com', // 必须加domain才能清除掉
+    domain: gConfig.site, // 必须加domain才能清除掉
   });
   res.redirect('/');
 }
@@ -175,7 +175,7 @@ function loginUser(res, user) {
     // apply to mysite.com and all its subdomains
     // no way to match exactly 'mysite.com'
     // http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/
-    domain: 'mysite.com',
+    domain: gConfig.site,
     secure: process.env.NODE_ENV == 'production',
     maxAge: 30 * 24 * 3600 * 1000
   });

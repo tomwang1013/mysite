@@ -1,7 +1,6 @@
 extends _layout.pug
 append js
-  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
-  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
+  include ../share/_ueditor_js.pug
 block content
   form(method='post', action='/job/' + job.id, class='c-job-ne-fm js-job-ne-fm')
     .c-job-ne-fm__head.u-large-font 修改职位信息

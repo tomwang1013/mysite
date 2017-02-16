@@ -3,8 +3,7 @@ append css
   link(href=assetHashPath("profile/user_info.css"), rel="stylesheet")
 append js
   script(src=assetHashPath('profile/user_info.js'))
-  script(src='http://assets.mysite.com/ueditor/ueditor.config.js')
-  script(src='http://assets.mysite.com/ueditor/ueditor.all.js')
+  include ../share/_ueditor_js.pug
 block right_content
   mixin buttons
     .js-change-btns(style={display: 'none', 'margin-top': '0.5em'})
