@@ -45,6 +45,10 @@ $(function() {
       password: {
         required: '密码不能为空'
       }
+    },
+
+    errorPlacement: function(error, element) {
+      error.insertAfter(element);
     }
   });
 });
