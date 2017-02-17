@@ -1,10 +1,21 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
 var y = require('common/main_nav');
+var Cookies = require('js-cookie');
 
 var z = require('home.scss');
 
 $(function() {
+  var userInfo = Cookies.getJSON('_ppinfo');
+
+  if (userInfo) {
+    if (userInfo.type == 0) {
+      location = '/jobs';
+    } else {
+      location = '/profile/jobs';
+    }
+  }
+
   $('.js-home-signup-form').validate({
     rules: {
       name: {

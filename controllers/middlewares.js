@@ -75,9 +75,11 @@ function checkStudentLogin(req, res, next) {
  * get the current user if login
  */
 function currentUser(req, res, next) {   
-  if (req.session && req.session.currentUser) {
-    req.currentUser = req.session.currentUser;
-    res.locals.currentUser = req.session.currentUser;
+  if (req.cookies && req.cookies._ppinfo) {
+    let currentUser = JSON.parse(req.cookies._ppinfo);
+
+    req.currentUser = currentUser;
+    res.locals.currentUser = currentUser;
   }
 
   next();

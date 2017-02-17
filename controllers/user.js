@@ -91,7 +91,7 @@ function signup_step2(req, res, next) {
     // 将账号信息和其他信息一起创建账号
     let userFullAttrs = _.assign(req.body, req.session.signupAccount);
     let user = yield gModels.User.create(userFullAttrs);
-    loginUser(req, user);
+    loginUser(res, user);
     res.json({ error: 0, location: '/signup?step=3' });
   }).catch(function(error) {
     res.json({
@@ -148,7 +148,7 @@ function loginHandler(req, res, next) {
     });
 
     if (match) {
-      loginUser(req, user);
+      loginUser(res, user);
       res.json({ error: 0, location: req.body.return_to || '/' });
     } else {
       res.json({ error: 1, errors: { password: '密码错误' } });
@@ -158,19 +158,27 @@ function loginHandler(req, res, next) {
 
 // logout
 function logoutHandler(req, res, next) {
-  req.session.destroy(function(err) {
-    res.redirect('/login');
+  res.clearCookie('_ppinfo', {
+    domain: 'mysite.com', // 必须加domain才能清除掉
   });
+  res.redirect('/');
 }
 
 // make user login
-function loginUser(req, user) {
-  req.session.currentUser = {
+function loginUser(res, user) {
+  res.cookie('_ppinfo', JSON.stringify({
     id:     user.id,
     name:   user.name,
     type:   user.userType,
     avatar: user.avatarUrl()
-  };
+  }), {
+    // apply to mysite.com and all its subdomains
+    // no way to match exactly 'mysite.com'
+    // http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/
+    domain: 'mysite.com',
+    secure: process.env.NODE_ENV == 'production',
+    maxAge: 30 * 24 * 3600 * 1000
+  });
 }
 
 // 密码重置

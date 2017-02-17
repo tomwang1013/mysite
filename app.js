@@ -16,7 +16,7 @@ global.gConfig      = _.merge({},
 global.gControllers = require('./controllers');
 global.gModels      = require('./models');
 
-app.disable('x-powered-by');
+app.set('x-powered-by', false);
 app.set('etag', false);
 app.set('trust proxy', true);
 app.set('views', './views')
