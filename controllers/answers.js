@@ -64,15 +64,25 @@ function nnew(req, res, next) {
 
 // 创建答案
 function create(req, res, next) {
-  gModels.Answer.create(_.assign({
-    score: 0,
-    sysScore: 0
-  }, req.body), function(err, result) {
+  co(function* () {
+    yield {
+      createAnswer: gModels.Answer.create(_.assign({
+        score: 0,
+        sysScore: 0
+      }, req.body)),
+
+      updAnswerCnt: gModels.Question.update({
+        _id: req.body._question
+      }, {
+        $inc: { answer_cnt: 1 }
+      })
+    };
+
     res.json({
       error: 0,
       location: `/job/${req.body._job}/question/${req.body._question}`
     });
-  })
+  });
 }
 
 // 编辑答案
@@ -149,13 +159,21 @@ function remove(req, res, next) {
       return next({ code: 403 });
     }
 
-    answer.remove(function(err, result) {
-      res.json({
-        error: err,
-        location: `/job/${req.body.job_id}/question/${answer._question}`
-      });
+    yield {
+      removeAnswer: answer.remove(),
+
+      updAnswerCnt: gModels.Question.update({
+        _id: req.body._question
+      }, {
+        $inc: { answer_cnt: -1 }
+      })
+    };
+
+    res.json({
+      error: err,
+      location: `/job/${req.body.job_id}/question/${answer._question}`
     });
-  });
+  }).catch(next);
 }
 
 exports = module.exports = {

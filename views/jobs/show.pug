@@ -15,7 +15,7 @@ block content
         span= job.address
       p.c-job-detail__basic-info
         span 行业：
-        span = job.business
+        span= job.business
 
     section.c-job-detail__secion
       h3 工作职责
@@ -55,7 +55,7 @@ block content
         else if isMyJob
           //- 企业浏览且当前职位是它发布的
           .c-job-detail__foot__myjob
-            span.u-flex-mg-r-auto 当前申请人数：#{job._appliersSize}
+            span.u-flex-mg-r-auto 当前申请人数：#{job.appliers_cnt}
             a(href=`/job/${job.id}/edit` class='o-btn o-btn-normal u-fir-span') 编 辑
             button(class='o-btn o-btn-warning js-del-job' data-job-id=job.id) 删 除
 

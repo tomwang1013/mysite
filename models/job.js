@@ -17,11 +17,11 @@ let jobSchema = new Schema({
   notes:        String,   // 备注
   business:     String,   // 行业
   deleted:      { type: Number, default: 0 },   // 是否已删除：0：未删除，1：已删除
+  appliers_cnt: { type: Number, default: 0 },  // 申请人数
 
   // relations
   _creator:     { type: Schema.Types.ObjectId, ref: 'User' },       // 创建者
   _appliers:    [{ type: Schema.Types.ObjectId, ref: 'apply_job' }], // 申请记录列表
-  _appliersSize:{ type: Number, default: 0 },  // 申请人数
 },  {
   timestamps: true
 });

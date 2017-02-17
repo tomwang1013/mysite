@@ -150,7 +150,7 @@ function apply(req, res, next) {
     });
 
     yield gModels.Job.update({ _id: jobId }, {
-      $inc:   { _appliersSize: 1 },
+      $inc:   { appliers_cnt: 1 },
       $push:  { _appliers: appliedJob.id }
     }).exec();
 

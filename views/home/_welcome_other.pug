@@ -1,14 +1,33 @@
 .c-home-second-wel
   .c-home-hot-part
-    .u-large-font 热门问题：
+    .c-home-hot-part__title 热门问题：
     .c-home-hot-items
       each q in hotQs
         .c-home-hot-item
+          span.u-fir-span
+            | [
+            a.c-home-hot-item__cmp(href=`/user/${q._creator.id}`)= q._creator.name
+            | ]
+
           a(href=`/job/${q._job}/question/${q.id}`)= q.title
 
+          if q.answer_cnt && q.answer_cnt > 0
+            span.c-home-hot-item__right 回答人数：#{q.answer_cnt}
+          else
+            span.c-home-hot-item__right 暂时无人回答
+
   .c-home-hot-part
-    .u-large-font 热门实习岗位：
+    .c-home-hot-part__title 热门实习岗位：
     .c-home-hot-items
       each job in hotJobs
         .c-home-hot-item
+          span.u-fir-span
+            | [
+            a.c-home-hot-item__cmp(href=`/user/${job._creator.id}`)= job._creator.name
+            | ]
           a(href=`/job/${job.id}`)= job.title
+
+          if job.answer_cnt && job.answer_cnt > 0
+            span.c-home-hot-item__right 申请人数：#{job.answer_cnt}
+          else
+            span.c-home-hot-item__right 暂时无人申请

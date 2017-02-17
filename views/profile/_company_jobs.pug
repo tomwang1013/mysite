@@ -7,8 +7,8 @@ div(style={'margin-bottom': '0.5em'})
       .c-uc-job__title
         a.u-flex-mg-r-auto(href='/job/' + job.id)= job.title
         span.u-fir-span 申请人数：
-          if job._appliersSize > 0
-            a(href='/job/' + job.id + '/appliers')= job._appliersSize
+          if job.appliers_cnt > 0
+            a(href='/job/' + job.id + '/appliers')= job.appliers_cnt
           else
             | 0
         a.u-fir-span(href='/job/' + job.id + '/edit') 编辑

@@ -6,7 +6,7 @@
 .c-home-welcome {
   display: flex;
   align-items: center;
-  border-bottom: 2px solid $bd-light;
+  border-bottom: 30px solid #f1f1f1;
 }
 
 // 标语
@@ -34,8 +34,38 @@
 
 .c-home-hot-part {
   flex: 1;
+
+  &:first-child {
+    margin-right: 1em;
+  }
+
+  &:last-child {
+    margin-left: 1em;
+  }
+}
+
+.c-home-hot-part__title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  margin: 0.5em 0;
 }
 
 .c-home-hot-item {
-  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid $bd-light;
+  margin-bottom: 0.5em;
+  position: relative;
+}
+
+.c-home-hot-item__cmp {
+  color: $bd-dark;
+  margin: 0 4px;
+}
+
+.c-home-hot-item__right {
+  position: absolute;
+  color: $bd-dark;
+  right: 0;
 }

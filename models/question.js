@@ -16,10 +16,11 @@ let questionSchema = new Schema({
   tag:          { type: String,   required: [true, '请指定问题所属分类'] },   // 分类
   level:        { type: Number, default: 2 },   // 期望难度
   deleted:      { type: Number, default: 0 },   // 是否已删除：0：未删除，1：已删除
+  answer_cnt:   { type: Number, default: 0 },   // 回答人数
+  creator_name: String,   // 所属公司名称
 
   _job:         { type: Schema.Types.ObjectId, ref: 'Job' },
   _creator:     { type: Schema.Types.ObjectId, ref: 'User' },
-  creator_name: String,   // 所属公司名称
 }, {
   timestamps: true
 });
