@@ -10,6 +10,17 @@
     </span>
     <input class="il-input"></input>
   </span>
+
+  <div class="il-pop-labels u-small-font">
+    <ul class="u-nav-list">
+      <template v-for="label in matchingLabels">
+        <li class="il-pop-lab u-round-border">
+          <span>{{ label.name }}</span>
+          <span>{{ label.ques_cnt }}</span>
+        </li>
+      </template>
+    </ul>
+  </div>
 </template>
 
 <script>

@@ -1,16 +1,19 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
 var y = require('jquery-bar-rating');
-var z = require('common/input_labels');
+//var z = require('common/input_labels');
 var w = require('common/main_nav');
+
+var Vue = require('vue');
+var InputLabels = require('common/input_labels.vue');
 
 var css = require('question/new_edit.scss');
 
 $(function() {
-  $('#labels').labelIt({
-    searchUrl:  '/qlabels/search',
-    addUrl:     '/qlabels'
-  });
+  //$('#labels').labelIt({
+    //searchUrl:  '/qlabels/search',
+    //addUrl:     '/qlabels'
+  //});
 
   $('#level').barrating({
     theme: 'fontawesome-stars',
