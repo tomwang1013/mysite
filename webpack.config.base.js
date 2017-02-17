@@ -5,12 +5,11 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let entries = {};
 
-//glob.sync('./assets/js/**/*.js').filter(f => {
-  //return f.indexOf('/common/') == -1;
-//}).forEach(f => {
-  //entries[f.slice(12, -3)] = f;
-//});
-entries['question/new_edit'] = './assets/js/question/new_edit.js';
+glob.sync('./assets/js/**/*.js').filter(f => {
+  return f.indexOf('/common/') == -1;
+}).forEach(f => {
+  entries[f.slice(12, -3)] = f;
+});
 
 let extractTextLoader = ExtractTextPlugin.extract({
   fallback: "style-loader",

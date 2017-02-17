@@ -26,7 +26,8 @@ block content
 
       .o-fm-grp
         label(for='labels') 标签：
-        input(type='text' name='labels', id='labels' class='o-fm-ctl' value=question.labels.join(','))
+        .labels-wrapper
+          input-labels(input-id='labels' search-url='/qlabels' add-url='/qlabels' init-labels=question.labels)
 
       .o-fm-grp
         label(for='level') 难度：
