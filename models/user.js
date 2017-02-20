@@ -52,7 +52,7 @@ let userSchema = new Schema({
   desc: {
     type: String,
     required: [isCompany, '这是必填字段'],
-    minlength: [60, '对公司的描述不能少于{MINLEGNTH}个字符']
+    minlength: [30, '对公司的描述不能少于{MINLENGTH}个字符']
   }, // 公司介绍
   business:   { type: String, required: [isCompany, '这是必填字段'] }, // 行业
   scale:      { type: String, required: [isCompany, '这是必填字段'] }, // 规模：0~50,50~100，etc
