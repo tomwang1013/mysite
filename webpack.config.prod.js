@@ -13,6 +13,9 @@ module.exports = webpackMerge(baseConfig, {
     new webpack.HashedModuleIdsPlugin(),
     new ManifestPlugin({ fileName: 'rev-manifest.json' }),
     new ExtractTextPlugin({ filename: '[name].[contenthash].css' }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       mangle: {
