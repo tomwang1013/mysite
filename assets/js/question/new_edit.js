@@ -14,6 +14,7 @@ $(function() {
     //searchUrl:  '/qlabels/search',
     //addUrl:     '/qlabels'
   //});
+  new Vue({ el: '.labels-wrapper' });
 
   $('#level').barrating({
     theme: 'fontawesome-stars',

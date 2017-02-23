@@ -1,10 +1,16 @@
 .il-labels-input {
+  position: relative;
+  display: flex;
+  align-items: center;
   color: #333;
   margin-top: 0.5rem;
   padding: 0.25rem 0.5rem;
   line-height: 22px;
   border: 1px solid #ccc;
-  align-items: center;
+
+  &.is-active {
+    border-color: #00a;
+  }
 
   .il-input {
     flex: 1;
@@ -14,6 +20,7 @@
   }
 
   .il-in-lab {
+    position: relative;
     border: 1px solid #888;
     padding: 2px;
     padding-right: 6px;
