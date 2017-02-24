@@ -11,11 +11,6 @@ glob.sync('./assets/js/**/*.js').filter(f => {
   entries[f.slice(12, -3)] = f;
 });
 
-let extractTextLoader = ExtractTextPlugin.extract({
-  fallback: "style-loader",
-  use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
-});
-
 module.exports = {
   entry: entries,
 
@@ -59,7 +54,10 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules\//,
-        use: extractTextLoader
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
+        })
       },
 
       {
@@ -68,7 +66,10 @@ module.exports = {
           loader: 'vue-loader',
           options: {
             loaders: {
-              scss: extractTextLoader
+              scss: ExtractTextPlugin.extract({
+                fallback: "vue-style-loader",
+                use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
+              })
             }
           }
         }

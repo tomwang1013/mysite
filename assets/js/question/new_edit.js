@@ -9,7 +9,11 @@ var InputLabels = require('common/input_labels.vue');
 var css = require('question/new_edit.scss');
 
 $(function() {
-  new Vue({ el: '.labels-wrapper' });
+  new Vue({
+    el: '#labels-wrapper',
+    //template: "<input-labels input-id='labels' search-url='/qlabels' add-url='/qlabels'> \
+               //</input-labels>"
+  });
 
   $('#level').barrating({
     theme: 'fontawesome-stars',

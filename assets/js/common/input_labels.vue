@@ -103,4 +103,4 @@
   };
 </script>
 
-<style src='partials/modules/_input_labels.scss'></style>
+<style lang="sass" src='partials/modules/_input_labels.scss'></style>
