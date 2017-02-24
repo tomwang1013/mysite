@@ -50,7 +50,7 @@
       addUrl:     { required: true },
       initLabels: {
         type: Array,
-        default: []
+        default: function () { return [] }
       }
     },
 

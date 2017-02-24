@@ -11,8 +11,15 @@ var css = require('question/new_edit.scss');
 $(function() {
   new Vue({
     el: '#labels-wrapper',
-    //template: "<input-labels input-id='labels' search-url='/qlabels' add-url='/qlabels'> \
-               //</input-labels>"
+    render: function(createElement) {
+      return createElement(InputLabels, {
+        props: {
+          inputId: 'labels',
+          searchUrl: '/qlabels/search',
+          addUrl: '/qlabels'
+        }
+      });
+    }
   });
 
   $('#level').barrating({
