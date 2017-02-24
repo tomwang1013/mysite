@@ -36,7 +36,7 @@
   module.exports = {
     data: function() {
       return {
-        currentLabels: this.initLabels,
+        currentLabels: this.initLabels.split(','),
         matchingLabels: [],
         isActive: false,
         showPopup: false,
@@ -48,10 +48,7 @@
       inputId:    { required: true },
       searchUrl:  { required: true },
       addUrl:     { required: true },
-      initLabels: {
-        type: Array,
-        default: function () { return [] }
-      }
+      initLabels: String
     },
 
     methods: {
