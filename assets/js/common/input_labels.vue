@@ -1,5 +1,5 @@
 <template>
-  <div class='u-relative'>
+  <div id='labels-wrapper' class='u-relative'>
     <!-- original form input -->
     <input type='hidden' :name='inputId' :id='inputId' :value="currentLabels.join(',')" class='o-fm-ctl'></input>
 

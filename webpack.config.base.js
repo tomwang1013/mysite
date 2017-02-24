@@ -22,7 +22,6 @@ module.exports = {
     ],
 
     alias: {
-      // to use template option, or we must use provide render function
       vue$: 'vue/dist/vue.common.js'
     }
   },
