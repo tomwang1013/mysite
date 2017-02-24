@@ -13,14 +13,14 @@
           </span>
         </template>
       </span>
-      <input class="il-input" @focus="focusInput" @blur="blurInput" @input="searchLabels" @keyup.enter="addLabel" v-model="inputLabel"></input>
+      <input class="il-input" @focus="focusInput" @blur="blurInput" @input="searchLabels" @keyup.enter.prevent="addLabel" v-model.trim="inputLabel"></input>
     </span>
 
     <!-- popup matching labels -->
     <div class="il-pop-labels u-small-font" v-show="matchingLabels.length > 0">
       <ul class="u-nav-list">
         <template v-for="label in matchingLabels">
-          <li class="il-pop-lab u-round-border" :data-label="label" @click="addToCurLabels">
+          <li class="il-pop-lab u-round-border" :data-label="label.name" @click="addToCurLabels">
             <span>{{ label.name }}</span>
             <span>{{ label.ques_cnt }}</span>
           </li>
@@ -61,14 +61,19 @@
 
       blurInput: function(evt) {
         this.isActive = false;
-        matchingLabels = [];
+        //this.matchingLabels = [];
       },
 
       // instantly search matching labels when input label prefix
       searchLabels: function(evt) {
+        if (!this.inputLabel) {
+          this.matchingLabels = [];
+          return;
+        }
+
         var me = this;
 
-        $.get(this.searchUrl, { name: inputLabel }, function(data) {
+        $.get(this.searchUrl, { name: me.inputLabel }, function(data) {
           if (data.error || !data.labels.length) {
             me.matchingLabels = [];
           } else {
@@ -81,8 +86,8 @@
       addLabel: function(evt) {
         var me = this;
 
-        $.post(this.addUrl, { name: inputLabel }, function(data) {
-          me.currentLabels.push(inputLabel);
+        $.post(this.addUrl, { name: me.inputLabel }, function(data) {
+          me.currentLabels.push(me.inputLabel);
           me.inputLabel = '';
           me.matchingLabels = [];
         });
@@ -97,7 +102,8 @@
 
       // add to current labels
       addToCurLabels: function(evt) {
-        this.currentLabels.push(evt.target.dataset.label);
+        this.currentLabels.push(evt.currentTarget.dataset.label);
+        this.inputLabel = '';
       }
     }
   };
