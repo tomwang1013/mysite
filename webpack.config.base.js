@@ -19,7 +19,12 @@ module.exports = {
       path.resolve(__dirname, 'assets/js'),
       path.resolve(__dirname, 'assets/sass'),
       'node_modules'
-    ]
+    ],
+
+    alias: {
+      // to use template option, or we must use provide render function
+      vue$: 'vue/dist/vue.common.js'
+    }
   },
 
   output: {
@@ -66,7 +71,7 @@ module.exports = {
           loader: 'vue-loader',
           options: {
             loaders: {
-              scss: ExtractTextPlugin.extract({
+              sass: ExtractTextPlugin.extract({
                 fallback: "vue-style-loader",
                 use: ["css-loader?minimize", 'resolve-url-loader', "sass-loader?sourceMap"]
               })

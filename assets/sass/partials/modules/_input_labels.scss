@@ -1,63 +1,85 @@
-.il-labels-input {
-  position: relative;
+.o-labels-input {
   display: flex;
   align-items: center;
-  color: #333;
   margin-top: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  line-height: 22px;
+  padding: 0 0.5em;
+  height: 2.125em;
   border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
 
   &.is-active {
     border-color: #00a;
   }
+}
 
-  .il-input {
-    flex: 1;
-    font-size: 0.9rem;
-    outline:none;
-    border: none;
-  }
+//- input label
+.o-labels-input__input {
+  flex: 1;
+  font-size: 0.9rem;
+  outline:none;
+  border: none;
+}
 
-  .il-in-lab {
-    position: relative;
-    border: 1px solid #888;
-    padding: 2px;
-    padding-right: 6px;
-    margin-right: 6px;
+// current label wrapper
+.o-labels-input__lab-wrapper {
+  position: relative;
+  border: 1px solid #888;
+  padding: 2px;
+  padding-right: 6px;
+  margin-right: 6px;
+}
 
-    .fa {
-      top: -6px;
-      cursor: pointer;
-    }
+.o-labels-input__lab-del {
+  cursor: pointer;
+
+  &:hover {
+    color: #900;
   }
 }
 
-.il-pop-labels {
+/*******************
+ * popup lables
+ ******************/
+.o-labels-popup {
   position: absolute;
   z-index: 10;
+  width: 100%;
   border: 1px solid #00a;
   border-top: none;
   padding: 0.5em;
   background-color: #eee;
+}
 
-  li {
-    display: inline-block;
-    border: 1px solid #888;
-    cursor: pointer;
-    margin-right: 6px;
+.o-labels-popup__close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: #900;
   }
+}
 
-  li:hover {
+.o-labels-popup__item {
+  display: inline-block;
+  border: 1px solid #888;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-right: 6px;
+  border-radius: 4px;
+
+  &:hover {
     background-color: #aaa;
   }
 
-  span {
+  & > span {
     display: inline-block;
     padding: 0.25em;
   }
 
-  span:first-child {
+  & > span:first-child {
     border-right: 1px solid #888;
   }
 }

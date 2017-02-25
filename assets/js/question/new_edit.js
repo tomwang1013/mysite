@@ -11,15 +11,18 @@ var css = require('question/new_edit.scss');
 $(function() {
   new Vue({
     el: '#labels-wrapper',
-    render: function(createElement) {
-      return createElement(InputLabels, {
-        props: {
-          inputId: 'labels',
-          searchUrl: '/qlabels/search',
-          addUrl: '/qlabels'
-        }
-      });
+    components: {
+      'input-labels': InputLabels
     }
+    //render: function(createElement) {
+      //return createElement(InputLabels, {
+        //props: {
+          //inputId: 'labels',
+          //searchUrl: '/qlabels/search',
+          //addUrl: '/qlabels'
+        //}
+      //});
+    //}
   });
 
   $('#level').barrating({

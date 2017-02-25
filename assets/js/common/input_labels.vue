@@ -1,26 +1,25 @@
 <template>
-  <div>
+  <div class='u-relative'>
     <!-- original form input -->
     <input type='hidden' :name='inputId' :id='inputId' :value="currentLabels.join(',')" class='o-fm-ctl'></input>
 
     <!-- current labels -->
-    <span class="il-labels-input u-round-border" :class="{'is-active': isActive}">
-      <span class="il-labels">
-        <template v-for="label in currentLabels">
-          <span class="il-in-lab u-round-border">
-            <span class="il-lab-name">{{ label }}</span>
-            <span class="fa fa-times il-rm-lab u-absolute" aria-hidden="true" :label="label" :data-label="label" @click="removeFromCurLabels"></span>
-          </span>
-        </template>
-      </span>
-      <input class="il-input" @focus="focusInput" @blur="blurInput" @input="searchLabels" @keyup.enter.prevent="addLabel" v-model.trim="inputLabel"></input>
+    <span class="o-labels-input" :class="{'is-active': isActive}">
+      <template v-for="label in currentLabels">
+        <span class="o-labels-input__lab-wrapper">
+          <span>{{ label }}</span>
+          <span class="fa fa-times o-labels-input__lab-del" aria-hidden="true" :label="label" :data-label="label" @click="removeFromCurLabels"></span>
+        </span>
+      </template>
+      <input class="o-labels-input__input" ref="labInput" @focus="focusInput" @blur="blurInput" @input="searchLabels" @keydown.enter.prevent="addLabel" v-model.trim="inputLabel"></input>
     </span>
 
     <!-- popup matching labels -->
-    <div class="il-pop-labels u-small-font" v-show="matchingLabels.length > 0">
+    <div class="o-labels-popup u-small-font" v-show="showPopup">
+      <span class="fa fa-times o-labels-popup__close" @click="showPopup = false"></span>
       <ul class="u-nav-list">
         <template v-for="label in matchingLabels">
-          <li class="il-pop-lab u-round-border" :data-label="label.name" @click="addToCurLabels">
+          <li class="o-labels-popup__item" :data-label="label.name" @click="addToCurLabels">
             <span>{{ label.name }}</span>
             <span>{{ label.ques_cnt }}</span>
           </li>
@@ -40,6 +39,7 @@
         currentLabels: this.initLabels,
         matchingLabels: [],
         isActive: false,
+        showPopup: false,
         inputLabel: ''
       }
     },
@@ -60,14 +60,14 @@
       },
 
       blurInput: function(evt) {
+        this.inputLabel = '';
         this.isActive = false;
-        //this.matchingLabels = [];
       },
 
       // instantly search matching labels when input label prefix
       searchLabels: function(evt) {
         if (!this.inputLabel) {
-          this.matchingLabels = [];
+          this.showPopup = false;
           return;
         }
 
@@ -75,9 +75,10 @@
 
         $.get(this.searchUrl, { name: me.inputLabel }, function(data) {
           if (data.error || !data.labels.length) {
-            me.matchingLabels = [];
+            me.showPopup = false;
           } else {
             me.matchingLabels = data.labels;
+            me.showPopup = true;
           }
         });
       },
@@ -89,21 +90,22 @@
         $.post(this.addUrl, { name: me.inputLabel }, function(data) {
           me.currentLabels.push(me.inputLabel);
           me.inputLabel = '';
-          me.matchingLabels = [];
         });
       },
 
       // remove a currently selected label
       removeFromCurLabels: function(evt) {
         var labelToRem = evt.target.dataset.label;
-
         this.currentLabels.splice(this.currentLabels.indexOf(labelToRem), 1);
+        this.inputLabel = '';
+        this.$refs.labInput.focus();
       },
 
       // add to current labels
       addToCurLabels: function(evt) {
         this.currentLabels.push(evt.currentTarget.dataset.label);
         this.inputLabel = '';
+        this.$refs.labInput.focus();
       }
     }
   };
