@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
-var y = require('common/main_nav');
+var y = require('common/global');
 var Cookies = require('js-cookie');
 
 var z = require('home.scss');
