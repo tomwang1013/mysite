@@ -1,9 +1,9 @@
-template(lang='pug')
+<template lang='pug'>
   .c-header__inner.u-content
     a.u-larger-font.u-bold-text.c-header__inner__site-logo(href='/') 实习网
 
     template(v-if='userInfo')
-      <template v-if='userInfo.type == 0'>
+      template(v-if='userInfo.type == 0')
         a.c-header__inner__link(href='/questions') 解决问题
         a.c-header__inner__link(href='/jobs') 找实习岗位
       a.c-header__inner__link(href='/jobs/new' v-else) 发布实习岗位
@@ -14,16 +14,16 @@ template(lang='pug')
       a.c-header__inner__link(href='/jobs/new') 发布实习岗位
 
     span.c-header__inner__right
-      if cu
+      template(v-if='userInfo')
         a.c-msg-notify.js-msg-notify(href='/profile/message')
           span(class='c-msg-notify__icon fa fa-bell')
           span.c-msg-notify__tip.u-small-font.u-round-border.js-msg-tip 你有未读消息
         span.c-profile-bar
           a.u-inline-block.js-show-menu(href='/profile')
-            img.c-profile-bar__avatar(src=cu.avatar)
+            img.c-profile-bar__avatar(v-bind:src='userInfo.avatar')
             span.c-profile-bar__caret(class='fa fa-caret-down')
           ul.c-profile-bar__pop-menu.u-nav-list.u-small-font.js-profile-dropdown
-            li.c-profile-bar__pop-menu__item #{cu.name}, 你好
+            li.c-profile-bar__pop-menu__item {{userInfo.name}}, 你好
             li.c-profile-bar__pop-menu__item
               a(href='/profile/user_info') 基本信息
             li.c-profile-bar__pop-menu__item
@@ -32,9 +32,10 @@ template(lang='pug')
               a(href='/profile/account') 账号与密码
             li.c-profile-bar__pop-menu__item
               a(href='/logout') 退出
-      else
+      template(v-else)
         a(href='/login' class='o-btn o-btn-normal u-fir-span') 登陆
         a(href='/signup' class='o-btn o-btn-primary') 注册
+</template>
 
 <script>
   /**
