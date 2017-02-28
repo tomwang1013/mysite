@@ -1,52 +1,85 @@
-<template lang='pug'>
+<template>
+<div class="popuplist-container u-small-font">
+  <div class="popuplist-searchbar" v-if="items.length > minScrollItemCnt">
+    <input type="text" v-model="keyword" @input='searchItems'
+      @keydown.up='scrollUpItems' @keydown.down='scrollDownItems' @keydown.enter='selectItem'>
+  </div>
+  <div class="popuplist-items">
+    <ul class="u-nav-list">
+      <li v-for="(item, idx) in items" class="{ 'popuplist-item-active': idx == hIndex }">{{ item }}</li>
+    </ul>
+  </div>
+</div>
 </template>
 
 <script>
   module.exports = {
     data: function() {
       return {
-        keyword: '',  // search keyword
-        displayItems: [], // displayed items after search
+        keyword: '', // search keyword
+        items: this.initItems, // displayed items after search
+        hIndex: 0, // highlight index of items
+        showStartIdx: 0, // starting index of items to display
       }
     },
 
     computed: {
-      // if popup list is shown
-      showPupupList: function() {
-        return this.displayItems.length > 0;
+      showEndIdx: function() {
+        return this.showStartIdx + Math.min(this.items.length, minScrollItemCnt);
       }
     },
 
     props: {
-      // if the search list is fixed i.e. pre-fetched
-      isListFixed: true,
-
       /*
-       * items in the popup list
+       * initial items in the popup list
        * if isListFixed is true, we must provide items at initialization
        * or provide itemsInitUrl to pre-fetch it
-       * only used if isListFixed is true
        */
-      items: [],
+      initItems: {
+        type:    Array,
+        default: [],
+      }
 
       /*
        * if isListFixed is ture && items is empty, we use this url to
        * pre-fetch items
-       * only used if isListFixed is true
+       * only used if initItems is empty
        */
-      itemsInitUrl: '',
+      itemsInitUrl: {
+        type:    String,
+        default: ''
+      },
 
-      /* 
-       * search url for items when isListFixed is false
-       * only used if isListFixed is false
+      /*
+       * min items count to show search bar
        */
-      itemsSearchUrl: ''
+      minScrollItemCnt: {
+        type:    Number,
+        default: 10
+      }
     },
 
     methods: {
+      searchItems: function() {
+      },
+
+      scrollDownItems: function() {
+      },
+
+      scrollUpItems: function() {
+      },
+
+      selectItem: function() {
+      }
     },
 
     mounted: function() {
+      if (!this.initItems.length) {
+        if (this.itemsInitUrl) {
+        } else {
+          // error
+        }
+      }
     }
   };
 </script>
