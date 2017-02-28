@@ -24,10 +24,9 @@ block content
           each t in quesTags
             option(value=t)= t 
 
-      .o-fm-grp
+      .o-fm-grp(id='labels-wrapper')
         label(for='labels') 标签：
-        div(id='labels-wrapper')
-          input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels') 
+        input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels') 
 
       .o-fm-grp
         label(for='level') 难度：

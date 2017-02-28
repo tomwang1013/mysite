@@ -24,18 +24,17 @@
 // current label wrapper
 .o-labels-input__lab-wrapper {
   position: relative;
-  border: 1px solid #888;
-  padding: 2px;
-  padding-right: 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 3px;
   margin-right: 6px;
 }
 
 .o-labels-input__lab-del {
+  color: #777;
   cursor: pointer;
 
-  &:hover {
-    color: #900;
-  }
+  &:hover { color: #900; }
 }
 
 /*******************
@@ -43,43 +42,41 @@
  ******************/
 .o-labels-popup {
   position: absolute;
-  z-index: 10;
+  z-index: 1000;
   width: 100%;
+  background-color: #fff;
   border: 1px solid #00a;
   border-top: none;
   padding: 0.5em;
-  background-color: #eee;
 }
 
 .o-labels-popup__close {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  bottom:: 6px;
+  right: 6px;
   cursor: pointer;
+  color: #777;
 
-  &:hover {
-    color: #900;
-  }
+  &:hover { color: #900; }
 }
 
 .o-labels-popup__item {
   display: inline-block;
-  border: 1px solid #888;
+  margin: 0.3em 1em;
+}
+
+.o-labels-popup__name {
+  display: inline-block;
+  padding: 5px;
+  background-color: #ddd;
   cursor: pointer;
-  margin-top: 4px;
-  margin-right: 6px;
-  border-radius: 4px;
 
   &:hover {
-    background-color: #aaa;
+    background-color: #ccc;
   }
+}
 
-  & > span {
-    display: inline-block;
-    padding: 0.25em;
-  }
-
-  & > span:first-child {
-    border-right: 1px solid #888;
-  }
+.o-labels-popup__cnt {
+  display: inline-block;
+  color: #777;
 }

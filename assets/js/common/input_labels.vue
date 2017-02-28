@@ -1,5 +1,5 @@
 <template>
-  <div id='labels-wrapper' class='u-relative'>
+  <div class='u-relative'>
     <!-- original form input -->
     <input type='hidden' :name='inputId' :id='inputId' :value="currentLabels.join(',')" class='o-fm-ctl'></input>
 
@@ -16,12 +16,12 @@
 
     <!-- popup matching labels -->
     <div class="o-labels-popup u-small-font" v-show="showPopup">
-      <span class="fa fa-times o-labels-popup__close" @click="showPopup = false"></span>
+      <span class="fa fa-times o-labels-popup__close fa-lg" @click="showPopup = false"></span>
       <ul class="u-nav-list">
         <template v-for="label in matchingLabels">
           <li class="o-labels-popup__item" :data-label="label.name" @click="addToCurLabels">
-            <span>{{ label.name }}</span>
-            <span>{{ label.ques_cnt }}</span>
+            <span class='o-labels-popup__name'>{{ label.name }}</span>
+            <span class='o-labels-popup__cnt'>× {{ label.ques_cnt }}</span>
           </li>
         </template>
       </ul>
@@ -36,7 +36,7 @@
   module.exports = {
     data: function() {
       return {
-        currentLabels: this.initLabels.split(','),
+        currentLabels: !this.initLabels ? [] : this.initLabels.split(','),
         matchingLabels: [],
         isActive: false,
         showPopup: false,
