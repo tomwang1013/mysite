@@ -1,5 +1,5 @@
 var Vue = require('vue');
-var MainNav = require('common/main_nav.vue');
+var MainNav = require('./main_nav.vue');
 
 new Vue({
   el: '.c-header',

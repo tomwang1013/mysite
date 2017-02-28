@@ -2,7 +2,7 @@ var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
 var y = require('common/popup_list');
 var z = require('common/popup_tabs');
-var w = require('common/main_nav');
+var w = require('common/global');
 
 var css = require('user.scss');
 

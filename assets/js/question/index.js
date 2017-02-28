@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var x = require('common/popup_overlay');
-var y = require('common/main_nav');
+var y = require('common/global');
 
 var css = require('question/list.scss');
 

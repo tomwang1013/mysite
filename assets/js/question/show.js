@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var x = require('common/popup_overlay');
 var y = require('common/del_answer');
-var z = require('common/main_nav');
+var z = require('common/global');
 
 var css = require('question/show.scss');
 

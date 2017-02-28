@@ -2,7 +2,7 @@ var $ = require('jquery');
 var _ = require('lodash');
 var x = require('common/jq_val_wrapper');
 var y = require('common/serialize_object');
-var z = require('common/main_nav');
+var z = require('common/global');
 var w = require('common/popup_overlay');
 
 var css = require('profile/account.scss');

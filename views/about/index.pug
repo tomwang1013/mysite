@@ -1,4 +1,6 @@
 extends ../layouts/main
+append js
+  script(src=assetHashPath('about.js'))
 append css
   link(href=assetHashPath("about.css"), rel="stylesheet")
 block content

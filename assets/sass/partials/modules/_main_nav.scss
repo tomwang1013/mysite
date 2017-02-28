@@ -23,7 +23,7 @@
 
 .c-header__inner__sep {
   margin-right: 1em;
-  background-color: $bd-light;
+  background-color: #ccc;
   width: 2px;
   height: 1.125em;
 }
@@ -45,11 +45,11 @@
 // 图标
 .c-msg-notify__icon {
   font-size: 22px;
-  color: $less-imp;
+  color: #888;
   vertical-align: middle;
 
   &.has-msg {
-    color: $error-color;
+    color: #900;
   }
 }
 
@@ -106,12 +106,11 @@
 // 下拉菜单
 .c-profile-bar__pop-menu {
   position: absolute;
-  display: none;
   top: 140%;
   right: -53%;
   width: 100px;
   background-color: #fff;
-  border: 1px solid $bd-normal;
+  border: 1px solid #aaa;
   border-radius: 4px;
   z-index: 10;
 
@@ -127,7 +126,7 @@
     height: 10px;
     border-width: 1px;
     border-style: solid;
-    border-color: $bd-normal $bd-normal transparent transparent;
+    border-color: #aaa #aaa transparent transparent;
     transform: rotate(-45deg);
   }
 
@@ -139,11 +138,11 @@
   padding:: 0.4em;
 
   &:first-child {
-    border-bottom: 1px solid $bd-light;
+    border-bottom: 1px solid #ccc;
   }
 
   &:not(:first-child):hover {
-    background-color: $bd-light;
+    background-color: #ccc;
   }
 
 }

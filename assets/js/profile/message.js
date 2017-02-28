@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var _ = require('lodash');
-var x = require('common/main_nav');
+var x = require('common/global');
 
 var css = require('profile/message.scss');
 

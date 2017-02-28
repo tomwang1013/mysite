@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
 var y = require('jquery-bar-rating');
-var w = require('common/main_nav');
+var w = require('common/global');
 
 var Vue = require('vue');
 var InputLabels = require('common/input_labels.vue');
@@ -14,15 +14,6 @@ $(function() {
     components: {
       'input-labels': InputLabels
     }
-    //render: function(createElement) {
-      //return createElement(InputLabels, {
-        //props: {
-          //inputId: 'labels',
-          //searchUrl: '/qlabels/search',
-          //addUrl: '/qlabels'
-        //}
-      //});
-    //}
   });
 
   $('#level').barrating({
