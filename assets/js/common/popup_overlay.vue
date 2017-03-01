@@ -1,6 +1,5 @@
 <template>
-  <div class='o-overlay-wrapper' v-show='isShow'>
-    <div class='o-overlay-bk' @click='onCancel'></div>
+  <div class='o-overlay-bk' v-show='isShow'>
     <div class='o-overlay-dlg' ref='dlg' v-bind:style='dlgPos'>
       <div class='o-overlay-dlg__head' v-if='$slots.head'>
         <slot name='head'></slot>
@@ -26,7 +25,7 @@
 
     data: function() {
       return {
-        isShow: true,
+        isShow: false,
         dlgPos: { top: 0, left: 0 }
       };
     },
