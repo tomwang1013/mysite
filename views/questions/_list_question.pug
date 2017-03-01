@@ -25,12 +25,9 @@
 
       - var delUrl = '/question/' + question.id + '/remove'
       button.u-fir-span.o-btn.o-btn-warning.js-del-question(data-link=delUrl) 删 除
-      .o-overlay-bk
-      .o-overlay-dlg
-        .o-overlay-dlg__body 删除后无法恢复，确定要删除这个问题吗？
-        .o-overlay-dlg__foot
-          button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
-          button.o-btn.o-btn-normal.ol-cancel 取消
+      div(id='overlay-mount' + question.id)
+        popup-overlay(v-on:ok='onOk')
+          div(slot='body') 删除后无法恢复，确定要删除这个问题吗？
 
       - var asUrl = '/question/' + question.id + '/answers'
       a.u-fir-span.u-small-font(href=asUrl) 查看所有解答

@@ -1,7 +1,7 @@
 <template>
   <div class='o-overlay-wrapper' v-show='isShow'>
-    <div class='o-overlay-bk'></div>
-    <div class='o-overlay-dlg'>
+    <div class='o-overlay-bk' @click='onCancel'></div>
+    <div class='o-overlay-dlg' ref='dlg' v-bind:style='dlgPos'>
       <div class='o-overlay-dlg__head' v-if='$slots.head'>
         <slot name='head'></slot>
       </div>
@@ -19,10 +19,13 @@
 </template>
 
 <script>
+  var $ = require('jquery');
+
   module.exports = {
     data: function() {
       return {
-        isShow: false
+        isShow: true,
+        dlgPos: { top: 0, left: 0 }
       };
     },
 
@@ -43,13 +46,24 @@
 
     methods: {
       onOk: function(evt) {
-        this.$emit('onok');
+        this.$emit('ok');
       },
 
       onCancel: function(evt) {
         this.isShow = false;
-        this.$emit('oncancel');
+        this.$emit('cancel');
       }
+    },
+
+    mounted: function() {
+      var vw        = window.innerWidth;
+      var vh        = window.innerHeight;
+      var dlgRect   = this.$refs.dlg.getBoundingClientRect();
+
+      this.dlgPos = {
+        top:  (vh - dlgRect.height) / 2,
+        left: (vw - dlgRect.width) / 2
+      };
     }
   };
 </script>
