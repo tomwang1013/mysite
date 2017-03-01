@@ -4,29 +4,29 @@ script.
 
 .o-fm-grp(id='university-field')
   label(for='university') 学校名称：
-  popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl', 'js-change-field']" items-init-url='/universities' v-on:change='onChange' ref='pl')
+  popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl']" items-init-url='/universities' v-on:change='onChange' ref='pl')
   +buttons
 
 .o-fm-grp
   label(for='major') 专业：
-  input(type='text' name='major' id='major' class='o-fm-ctl js-change-field' data-ori-value=user.major value=user.major)
+  input(type='text' name='major' id='major' class='o-fm-ctl' data-ori-value=user.major value=user.major)
   +buttons
 
 .o-fm-grp
   label(for='entryDate') 入学年份：
-  select(name='entryDate' id='entryDate' class='o-fm-ctl js-change-field' data-ori-value=user.entryDate value=user.entryDate)
+  select(name='entryDate' id='entryDate' class='o-fm-ctl' data-ori-value=user.entryDate value=user.entryDate)
     each ed in entryDates
       option(value=ed, selected=ed == user.entryDate)= ed
   +buttons
 
 .o-fm-grp
   label(for='careerPlan') 职业规划：
-  textarea(name='careerPlan' id='careerPlan' class='js-rich-editor js-change-field' data-ori-value=user.careerPlan)= user.careerPlan
+  textarea(name='careerPlan' id='careerPlan' class='js-rich-editor' data-ori-value=user.careerPlan)= user.careerPlan
   +buttons
 
 .o-fm-grp
   label(for='zuopin') 课外作品：
-  textarea(name='zuopin' id='zuopin' class='js-rich-editor js-change-field' data-ori-value=user.zuopin)= user.zuopin
+  textarea(name='zuopin' id='zuopin' class='js-rich-editor' data-ori-value=user.zuopin)= user.zuopin
   +buttons
   .o-fm-ctl-hint.
     可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>

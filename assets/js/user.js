@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
-var y = require('common/popup_list');
+var PopupList = require('common/popup_list.vue');
+var Vue = require('vue');
 var z = require('common/popup_tabs');
 var w = require('common/global');
 
@@ -8,7 +9,15 @@ var css = require('user.scss');
 
 $(document).ready(function() {
   // 大学选择
-  $('#university').popupList({remoteUrl: '/universities' });
+  if ($('#university-field').length) {
+    var uv = new Vue({
+      el: '#university-field',
+
+      components: {
+        'popup-list': PopupList
+      }
+    });
+  }
 
   // 专业选择
   $('#major').popupTabs(window.ms);
@@ -77,7 +86,7 @@ $(document).ready(function() {
       major:      '请选择专业',
       careerPlan: {
         required: '职业规划不能为空',
-        ta_minlength: 20
+        ta_minlength: $.validator.format("职业规划应至少包含 {0} 个字符")
       },
 
       // 公司

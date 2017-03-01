@@ -2,9 +2,9 @@
 script.
   window.ms = !{JSON.stringify(majors)};
 
-.o-fm-grp
+.o-fm-grp(id='university-field')
   label(for='university') 学校名称：
-  input(type='text', name='university', id='university', class='o-fm-ctl')
+  popup-list(field-name='university' v-bind:field-class="['o-fm-ctl']" items-init-url='/universities')
 
 .o-fm-grp
   label(for='major') 专业：

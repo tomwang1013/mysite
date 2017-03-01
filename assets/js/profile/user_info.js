@@ -10,19 +10,21 @@ var w = require('common/jq_val_wrapper');
 var css = require('profile/user_info.scss');
 
 $(document).ready(function() {
-  var uv = new Vue({
-    el: '#university-field',
+  if ($('#university-field').length) {
+    var uv = new Vue({
+      el: '#university-field',
 
-    components: {
-      'popup-list': PopupList
-    },
+      components: {
+        'popup-list': PopupList
+      },
 
-    methods:  {
-      onChange: function(oriValue, value) {
-        handleDataChange(oriValue, value, $(this.$refs.pl.$el));
+      methods:  {
+        onChange: function(oriValue, value) {
+          handleDataChange(oriValue, value, $(this.$refs.pl.$el));
+        }
       }
-    }
-  });
+    });
+  }
 
   $('#major').popupTabs(window.ms);
 
