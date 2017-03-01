@@ -1,6 +1,6 @@
 <template lang='pug'>
   .c-header__inner.u-content
-    a.u-larger-font.u-bold-text.c-header__inner__site-logo(href='/') 实习网
+    a.u-larger-font.u-bold-text.c-header__inner__link(href='/') 实习网
 
     template(v-if='userInfo')
       template(v-if='userInfo.type == 0')
@@ -18,13 +18,13 @@
         a.c-msg-notify(href='/profile/message')
           span(class='c-msg-notify__icon fa fa-bell' v-bind:class="{ 'has-msg': hasMsg }")
           span.c-msg-notify__tip.u-small-font.u-round-border {{msgHint}}
-        span.c-profile-bar
-          a.u-inline-block(href='/profile' v-on:mouseenter='popupProfileMenu')
-            img.c-profile-bar__avatar(v-bind:src='userInfo.avatar')
-            span.c-profile-bar__caret(class='fa fa-caret-down')
+        span.u-relative
+          a.u-inline-block(href='/profile' @mouseenter='popupProfileMenu')
+            img.c-profile-bar__avatar(:src='userInfo.avatar')
+            span.u-vertical-middle(class='fa' v-bind:class="{ 'fa-caret-down': !showProfileMenu, 'fa-caret-up': showProfileMenu }")
           ul.c-profile-bar__pop-menu.u-nav-list.u-small-font(v-show='showProfileMenu'
-                                                             v-bind:mouseenter='keepProfileMenu'
-                                                             v-bind:mouseleave='hideProfileMenu')
+                                                             @mouseenter='keepProfileMenu'
+                                                             @mouseleave='hideProfileMenu')
             li.c-profile-bar__pop-menu__item {{userInfo.name}}, 你好
             li.c-profile-bar__pop-menu__item
               a(href='/profile/user_info') 基本信息
