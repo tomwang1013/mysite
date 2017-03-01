@@ -15,9 +15,11 @@
       <input type="text" ref='searchBar' v-model="keyword" @input='searchItems'/>
     </div>
 
-    <ul class="o-pl__items u-nav-list" ref='itemsList' v-show='items.length > 0' v-bind:style="{ height: itemsListHeight + 'px' }">
+    <ul class="o-pl__items u-nav-list" ref='itemsList' v-show='items.length > 0'
+      v-bind:style="{ height: itemsListHeight + 'px' }">
       <li v-for="(item, idx) in items" class='o-pl__item'
           v-on:click="selectItem($event, idx)"
+          v-bind:style="{ height: itemHeight + 'px' }"
           v-bind:class="{ 'is-active': idx == hIndex }">
         {{ item }}
       </li>
@@ -90,9 +92,7 @@
       },
 
       /*
-       * if isListFixed is ture && items is empty, we use this url to
-       * pre-fetch items
-       * only used if initItems is empty
+       * we use this url to pre-fetch items
        */
       itemsInitUrl: {
         type:    String,
@@ -179,23 +179,20 @@
         this.hIndex = 0;
         this.showStartIdx = 0;
         this.isPopup = false;
+        this.$refs.itemsList.scrollTop = 0;
       }
     },
 
     mounted: function() {
+      if (this.initItems.length)
+        return;
+
       var me = this;
 
-      if (!this.initItems.length) {
-        if (this.itemsInitUrl) {
-          $.get(this.itemsInitUrl, function(data) {
-            me.allItems = data.items;
-            me.items = data.items;
-          });
-        } else {
-          // error
-        }
-      }
-
+      $.get(this.itemsInitUrl, function(data) {
+        me.allItems = data.items;
+        me.items = data.items;
+      });
     }
   };
 </script>
