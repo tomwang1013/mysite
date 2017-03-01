@@ -4,7 +4,7 @@ script.
 
 .o-fm-grp(id='university-field')
   label(for='university') 学校名称：
-  popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl', 'js-change-field']" items-init-url='/universities')
+  popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl', 'js-change-field']" items-init-url='/universities' v-on:change='onChange' ref='pl')
   +buttons
 
 .o-fm-grp

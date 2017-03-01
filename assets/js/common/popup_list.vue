@@ -7,6 +7,7 @@
   <input type='text' :name='fieldName' :id='fieldName'
     v-bind:class="fieldClass.join(' ')"
     v-on:focus='onInputFocus'
+    :data-ori-value='oriValue'
     v-model='value' readonly/>
 
   <div class="o-pl u-small-font" v-show='isPopup'>
@@ -31,6 +32,7 @@
   module.exports = {
     data: function() {
       return {
+        oriValue: this.oriFieldVal,
         value: this.oriFieldVal,
         keyword: '', // search keyword
         items: this.initItems, // displayed items after search
@@ -162,7 +164,7 @@
         if (0 <= idx && idx < this.items.length) {
           this.value = this.items[idx];
           this.reset();
-          this.$emit('change', this.value);
+          this.$emit('change', this.oriValue, this.value);
         }
       },
 

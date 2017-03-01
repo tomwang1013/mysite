@@ -12,8 +12,15 @@ var css = require('profile/user_info.scss');
 $(document).ready(function() {
   var uv = new Vue({
     el: '#university-field',
+
     components: {
       'popup-list': PopupList
+    },
+
+    methods:  {
+      onChange: function(oriValue, value) {
+        handleDataChange(oriValue, value, $(this.$refs.pl.$el));
+      }
     }
   });
 
@@ -49,25 +56,33 @@ $(document).ready(function() {
   // 保存按钮
   $('.js-save').click(function() {
     var parent  = $(this).parent();
-    var field   = parent.siblings('textarea.js-change-field');
+    var field   = parent.prev();
     var fname   = field.attr('name');
     var data    = {};
 
     if (field.hasClass('js-rich-editor')) {
       data[fname] = UE.getEditor(field.attr('name')).getContent()
+    } else if (field.hasClass('o-pl-wrapper')) {
+      data[uv.$refs.pl.fieldName] = uv.$refs.pl.value;
     } else {
       data[fname] = field.val();
     }
 
     $.post('/profile/change_user_info', data, function(result) {
       if (result.error) {
-        // save failed
         field.before("<label class='input-error'>" + result.errors[field.attr('id')] + "<label>");
-        field.focus().val(data[fname]);
+        if (!field.hasClass('o-pl-wrapper')) {
+          field.focus().val(data[fname]);
+        }
       } else {
         parent.hide();
         field.prev('label.input-error').remove();
-        field.attr('data-ori-value', data[fname]).val(data[fname]);
+
+        if (field.hasClass('o-pl-wrapper')) {
+          uv.$refs.pl.oriValue = uv.$refs.pl.value;
+        } else {
+          field.attr('data-ori-value', data[fname]).val(data[fname]);
+        }
       }
     });
   });
@@ -75,12 +90,14 @@ $(document).ready(function() {
   // 取消按钮
   $('.js-cancel').click(function() {
     var parent = $(this).parent();
-    var field  = parent.siblings('textarea.js-change-field');
-
-    field.val(field.attr('data-ori-value'));
+    var field  = parent.prev();
 
     if (field.hasClass('js-rich-editor')) {
       UE.getEditor(field.attr('name')).setContent(field.attr('data-ori-value') || '')
+    } else if (field.hasClass('o-pl-wrapper')) {
+      uv.$refs.pl.value = uv.$refs.pl.oriValue;
+    } else {
+      field.val(field.attr('data-ori-value'));
     }
 
     parent.hide();
