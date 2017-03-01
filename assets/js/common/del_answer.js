@@ -1,14 +1,29 @@
 var $ = require('jquery');
-var y = require('common/popup_overlay');
+var Vue = require('vue');
+var PO  = require('common/popup_overlay.vue');
 
-$('.js-del-answer').popupOverlay({
-  okCallback: function(event) {
-    var btn = event.data;
+var delAnsBtn = $('.js-del-answer');
+var poMount = new Vue({
+  el: delAnsBtn.next().get(0),
 
-    $.post(btn.data('link'), {
-      job_id: btn.data('jobId')
-    }, function(data) {
-      location.replace(data.location);
-    });
+  data: {
+    delUrl: '',
+    jobId: ''
+  },
+
+  components: { 'popup-overlay': PO },
+
+  methods: {
+    onOk: function() {
+      $.post(this.delUrl, { job_id: this.jobId }, function(data) {
+        location.replace(data.location);
+      });
+    }
   }
+});
+
+delAnsBtn.click(function() {
+  poMount.$refs.po.isShow = true;
+  poMount.delUrl = delAnsBtn.data('link');
+  poMount.jobId = delAnsBtn.data('jobId');
 });

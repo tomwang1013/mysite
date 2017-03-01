@@ -28,15 +28,13 @@ block content
             button.o-btn.o-btn-primary.js-to-score 为此解答评分
 
   //- 评分悬浮框
-  .o-overlay-bk
-  .o-overlay-dlg(style={width: '500px'})
-    .o-fm-grp
-      label(for='score') 分数：
-      input(type='text', name='score' id='score' placeholder='0 ~ 100' class='o-fm-ctl')
-      .o-fm-ctl-hint 取值范围：0 ~ 100
-    .o-fm-grp
-      label(for='comment') 评语：
-      textarea(name='comment', id='comment', class='o-fm-ctl')
-    .form-group
-      input.ol-ok.u-fir-span.o-btn.o-btn-primary(type='button' value='提 交')
-      input.ol-cancel.o-btn.o-btn-normal(type='button' value='取消')
+  .o-overlay-mount
+    popup-overlay(v-on:ok='onOk' ref='po')
+      div(slot='body')
+        .o-fm-grp
+          label(for='score') 分数：
+          input(type='text', name='score' id='score' v-model.number='score'  placeholder='0 ~ 100' class='o-fm-ctl')
+          .o-fm-ctl-hint 取值范围：0 ~ 100
+        .o-fm-grp
+          label(for='comment') 评语：
+          textarea(name='comment', id='comment', v-model.trim= 'comment' class='o-fm-ctl')

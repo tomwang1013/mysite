@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
-var y = require('common/popup_overlay');
+var Vue = require('vue');
+var PO  = require('common/popup_overlay.vue');
 var z = require('common/popup_tabs');
 var w = require('common/global');
 var v = require('job.scss');
@@ -174,12 +175,22 @@ $(document).ready(function() {
   });
 
   // 删除职位
-  $('.js-del-job').popupOverlay({
-    okCallback: function() {
-      var remJobUrl = '/job/' + $('.js-del-job').data('jobId') + '/remove';
-      $.post(remJobUrl, function(data) {
-        location = data.location;
-      });
+  var delJobBtn = $('.js-del-job');
+  var poMount = new Vue({
+    el: delJobBtn.next().get(0),
+
+    components: { 'popup-overlay': PO },
+
+    methods: {
+      onOk: function() {
+        $.post(delJobBtn.data('link'), function(data) {
+          location.replace(data.location);
+        });
+      }
     }
+  });
+
+  delJobBtn.click(function() {
+    poMount.$refs.po.isShow = true;
   });
 });

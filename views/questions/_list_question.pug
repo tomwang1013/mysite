@@ -21,9 +21,9 @@
 
     else if isMyJob
       - var editUrl = '/job/' + job.id + '/question/' + question.id + '/edit'
-      a.u-fir-span.o-btn.o-btn-normal(href=editUrl) 编 辑
-
       - var delUrl = '/question/' + question.id + '/remove'
+
+      a.u-fir-span.o-btn.o-btn-normal(href=editUrl) 编 辑
       button.u-fir-span.o-btn.o-btn-warning.js-del-question(data-link=delUrl) 删 除
       .o-overlay-mount
         popup-overlay(v-on:ok='onOk' ref='po')

@@ -3,7 +3,8 @@ var y = require('common/del_answer');
 var z = require('common/serialize_object');
 var p = require('common/jq_val_wrapper');
 var w = require('common/global');
-var x = require('common/popup_overlay');
+var Vue = require('vue');
+var PO  = require('common/popup_overlay.vue');
 
 var css = require('answers.scss');
 
@@ -32,23 +33,34 @@ $(function() {
   });
 
   // 企业给解答评分
-  var updScoreUrl;
-  $('.js-re-score, .js-to-score').popupOverlay({
-    beforePopup: function() {
-      var a = this.closest('.js-list-answer');
-      updScoreUrl = '/question/' + a.data('qid') + '/answer/' + a.data('aid') + '/update_score'
+  var poMount = new Vue({
+    el: $('.o-overlay-mount').get(0),
+
+    data: {
+      score: 0,
+      comment: '',
+      updScoreUrl: ''
     },
 
-    okCallback: function() {
-      $.post(updScoreUrl, $('#score, #comment').serializeObject(), function(data) {
-        location.reload();
-      });
-    },
+    components: { 'popup-overlay': PO },
 
-    afterPopup: function() {
-      var a = this.closest('.js-list-answer');
-      $('#score').focus().val(a.data('score'));
-      $('#comment').val(a.data('comment'));
+    methods: {
+      onOk: function() {
+        $.post(this.updScoreUrl,
+               this.$data,
+               function(data) {
+          location.replace(data.location);
+        });
+      }
     }
+  });
+
+  $('.js-re-score, .js-to-score').click(function() {
+    var a = $(this).closest('.js-list-answer');
+    poMount.$refs.po.isShow = true;
+    poMount.updScoreUrl = '/question/' + a.data('qid') + '/answer/' +
+                          a.data('aid') + '/update_score';
+    poMount.score = a.data('score');
+    poMount.comment = a.data('comment');
   });
 });

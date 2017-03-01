@@ -16,14 +16,12 @@ block content
     when 'hasAnswer'
       include ../share/_answer_detail.pug
     when 'toEdit'
-      div
-        a.u-fir-span.o-btn.o-btn-normal(href=`/job/${job.id}/question/${question.id}/edit`) 编辑
-        button.js-del-question.o-btn.o-btn-warning(data-link=`/question/${question.id}/remove`) 删除
+      - var editUrl = '/job/' + job.id + '/question/' + question.id + '/edit'
+      - var delUrl = '/question/' + question.id + '/remove'
 
-        //- 删除确认
-        .o-overlay-bk(style={display: 'none'})
-        .o-overlay-dlg(style={display: 'none'})
-          .o-overlay-dlg__body 删除后无法恢复，确定要删除你的解答吗？
-          .o-overlay-dlg__foot
-            button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
-            button.o-btn.o-btn-normal.ol-cancel 取消
+      div
+        a.u-fir-span.o-btn.o-btn-normal(href=editUrl) 编辑
+        button.js-del-question.o-btn.o-btn-warning(data-link=delUrl) 删除
+        .o-overlay-mount
+          popup-overlay(v-on:ok='onOk' ref='po')
+            span(slot='body') 删除后无法恢复，确定要删除这个问题吗？

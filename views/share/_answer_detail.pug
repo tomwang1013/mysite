@@ -22,11 +22,6 @@
 
       a.o-btn.o-btn-normal.u-fir-span(href=editUrl) 修 改
       button.o-btn.o-btn-warning.js-del-answer(data-link=remUrl data-job-id=job.id) 删 除
-
-      //- 删除答案确定框
-      .o-overlay-bk
-      .o-overlay-dlg
-        .o-overlay-dlg__body 删除后无法恢复，确定要删除你的解答吗？
-        .o-overlay-dlg__foot
-          button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
-          button.o-btn.o-btn-normal.ol-cancel 取消
+      .o-overlay-mount
+        popup-overlay(v-on:ok='onOk' ref='po')
+          span(slot='body') 删除后无法恢复，确定要删除你的解答吗？

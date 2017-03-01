@@ -56,12 +56,8 @@ block content
           //- 企业浏览且当前职位是它发布的
           .c-job-detail__foot__myjob
             span.u-flex-mg-r-auto 当前申请人数：#{job.appliers_cnt}
-            a(href=`/job/${job.id}/edit` class='o-btn o-btn-normal u-fir-span') 编 辑
-            button(class='o-btn o-btn-warning js-del-job' data-job-id=job.id) 删 除
-
-            .o-overlay-bk
-            .o-overlay-dlg
-              .o-overlay-dlg__body 删除后无法恢复，确定要删除职位：#{job.title}吗？
-              .o-overlay-dlg__foot
-                button.u-fir-span.o-btn.o-btn-warning.ol-ok 确定
-                button.o-btn.o-btn-normal.ol-cancel 取消
+            a(class='o-btn o-btn-normal u-fir-span' href=`/job/${job.id}/edit`) 编 辑
+            button(class='o-btn o-btn-warning js-del-job' data-link=`/job/${job.id}/remove`) 删 除
+            .o-overlay-mount
+              popup-overlay(v-on:ok='onOk' ref='po')
+                span(slot='body') 删除后无法恢复，确定要删除职位：#{job.title}吗？
