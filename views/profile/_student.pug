@@ -2,9 +2,9 @@
 script.
   window.ms = !{JSON.stringify(majors)};
 
-.o-fm-grp
+.o-fm-grp(id='university-field')
   label(for='university') 学校名称：
-  input(type='text' name='university' id='university' class='o-fm-ctl js-change-field' data-ori-value=user.university value=user.university)
+  popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl', 'js-change-field']" items-init-url='/universities')
   +buttons
 
 .o-fm-grp

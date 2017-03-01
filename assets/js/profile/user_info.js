@@ -1,7 +1,8 @@
 // 修改用户基本信息
 var $ = require('jquery');
 var _ = require('lodash');
-var x = require('common/popup_list');
+var PopupList = require('common/popup_list.vue');
+var Vue = require('vue');
 var y = require('common/popup_tabs');
 var z = require('common/global');
 var w = require('common/jq_val_wrapper');
@@ -9,7 +10,13 @@ var w = require('common/jq_val_wrapper');
 var css = require('profile/user_info.scss');
 
 $(document).ready(function() {
-  $('#university').popupList({ remoteUrl: '/universities' });
+  var uv = new Vue({
+    el: '#university-field',
+    components: {
+      'popup-list': PopupList
+    }
+  });
+
   $('#major').popupTabs(window.ms);
 
   // normal input value change
