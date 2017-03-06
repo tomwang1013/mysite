@@ -1,8 +1,8 @@
 <template>
-<div class='popuplist'
+<div class='popuplist u-relative'
   @keydown.up.prevent='scrollUpItems'
   @keydown.down.prevent='scrollDownItems'
-  @keydown.enter.prevent='selectItem'> 
+  @keydown.enter.prevent='selectItem($event, hIndex)'> 
 
   <input type='text' :name='fieldName' :id='fieldName'
     v-bind:class="fieldClass.join(' ')"
@@ -15,12 +15,16 @@
       <input type="text" ref='searchBar' v-model="keyword" @input='searchItems'/>
     </div>
 
-    <ul class="u-nav-list">
+    <ul class="o-pl__items u-nav-list" v-show='items.length > 0' v-bind:style="{ height: itemsListHeight + 'px' }">
       <li v-for="(item, idx) in items" class='o-pl__item'
+          v-on:click="selectItem($event, idx)"
           v-bind:class="{ 'is-active': idx == hIndex }">
         {{ item }}
       </li>
     </ul>
+    <div v-show='items.length == 0'>
+      没有符合条件的选项
+    </div>
   </div>
 </div>
 </template>
@@ -49,6 +53,10 @@
 
       hasSearchBar: function() {
         return this.allItems.length > this.minScrollItemCnt
+      },
+
+      itemsListHeight: function() {
+        return Math.min(this.items.length, this.minScrollItemCnt) * 22;
       }
     },
 
@@ -146,16 +154,16 @@
         }
       },
 
-      selectItem: function() {
-        if (0 <= this.hIndex && this.hIndex < this.items.length) {
-          this.value = this.items[this.hIndex];
+      selectItem: function(evt, idx) {
+        if (0 <= idx && idx < this.items.length) {
+          this.value = this.items[idx];
           this.reset();
         }
       },
 
       reset: function() {
         this.keyword = '';
-        this.items = this.initItems;
+        this.items = this.allItems;
         this.hIndex = 0;
         this.showStartIdx = 0;
         this.isPopup = false;

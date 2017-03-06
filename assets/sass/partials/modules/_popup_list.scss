@@ -1,5 +1,7 @@
 /* popup list */
 .o-pl {
+  position: absolute;
+  width: 100%;
   background-color: #fff;
   border: 1px solid #aaa;
   z-index: 1000;
@@ -22,6 +24,11 @@
       box-shadow: inset 0 0 1px rgba(0,200,0,.75);
     }
   }
+}
+
+.o-pl__items {
+  overflow: auto;
+  border: 1px solid #ccc;
 }
 
 .o-pl__item {
