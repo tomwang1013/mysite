@@ -1,5 +1,5 @@
 <template>
-<div class='popuplist u-relative'
+<div class='o-pl-wrapper u-relative'
   @keydown.up.prevent='scrollUpItems'
   @keydown.down.prevent='scrollDownItems'
   @keydown.enter.prevent='selectItem($event, hIndex)'> 
@@ -7,7 +7,6 @@
   <input type='text' :name='fieldName' :id='fieldName'
     v-bind:class="fieldClass.join(' ')"
     v-on:focus='onInputFocus'
-    :data-ori-value='oriValue'
     v-model='value' readonly/>
 
   <div class="o-pl u-small-font" v-show='isPopup'>
@@ -22,9 +21,6 @@
         {{ item }}
       </li>
     </ul>
-    <div v-show='items.length == 0'>
-      没有符合条件的选项
-    </div>
   </div>
 </div>
 </template>
@@ -36,7 +32,6 @@
     data: function() {
       return {
         value: this.oriFieldVal,
-        oriValue: this.oriFieldVal,
         keyword: '', // search keyword
         items: this.initItems, // displayed items after search
         allItems: this.initItems,
@@ -108,6 +103,8 @@
 
     methods: {
       onInputFocus: function(evt) {
+        var me = this;
+
         this.isPopup = true;
 
         if (this.hasSearchBar) {
@@ -115,6 +112,13 @@
             this.$refs.searchBar.focus();
           });
         }
+
+        $('html').on('click.pl', function(e) {
+          if (!$(e.target).closest('.o-pl-wrapper').length) {
+            me.reset();
+            $('html').off('click.pl');
+          }
+        });
       },
 
       searchItems: function() {
@@ -158,6 +162,7 @@
         if (0 <= idx && idx < this.items.length) {
           this.value = this.items[idx];
           this.reset();
+          this.$emit('change', this.value);
         }
       },
 
@@ -171,9 +176,9 @@
     },
 
     mounted: function() {
-      if (!this.initItems.length) {
-        var me = this;
+      var me = this;
 
+      if (!this.initItems.length) {
         if (this.itemsInitUrl) {
           $.get(this.itemsInitUrl, function(data) {
             me.allItems = data.items;
@@ -183,6 +188,7 @@
           // error
         }
       }
+
     }
   };
 </script>

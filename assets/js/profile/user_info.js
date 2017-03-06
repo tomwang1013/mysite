@@ -40,8 +40,8 @@ $(document).ready(function() {
   }
 
   // 触发修改按钮展示
-  $('#url').keyup(checkEditState);
-  $('#university, #major, select').change(checkEditState);
+  $('#url').on('input', checkEditState);
+  $('#major, select').change(checkEditState);
   $('textarea.js-rich-editor').each(function(idx, ele) {
     UE.getEditor(ele.name).addListener('contentChange', checkRichEditState);
   });
