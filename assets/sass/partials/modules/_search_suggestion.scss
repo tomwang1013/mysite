@@ -1,16 +1,16 @@
-.pl-no-sb {
+.o-search-sugg {
   background-color: #fff;
   border: 1px solid #00a;
   border-top: none;
   overflow:   auto;
   z-index: 1000;
+}
 
-  li {
-    padding: 0.2em 0.6em;
-    cursor: pointer;
-  }
+.o-search-sugg__item {
+  padding: 0.2em 0.6em;
+  cursor: pointer;
 
-  li:hover, .popuplist-item-active {
+  &:hover, &.is-active {
     background-color: #aaa;
   }
 }

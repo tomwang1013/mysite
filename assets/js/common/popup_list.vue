@@ -15,7 +15,7 @@
       <input type="text" ref='searchBar' v-model="keyword" @input='searchItems'/>
     </div>
 
-    <ul class="o-pl__items u-nav-list" v-show='items.length > 0' v-bind:style="{ height: itemsListHeight + 'px' }">
+    <ul class="o-pl__items u-nav-list" ref='itemsList' v-show='items.length > 0' v-bind:style="{ height: itemsListHeight + 'px' }">
       <li v-for="(item, idx) in items" class='o-pl__item'
           v-on:click="selectItem($event, idx)"
           v-bind:class="{ 'is-active': idx == hIndex }">
@@ -49,11 +49,11 @@
       },
 
       hasSearchBar: function() {
-        return this.allItems.length > this.minScrollItemCnt
+        return this.allItems.length > this.minScrollItemCnt;
       },
 
       itemsListHeight: function() {
-        return Math.min(this.items.length, this.minScrollItemCnt) * 22;
+        return Math.min(this.items.length, this.minScrollItemCnt) * this.itemHeight;
       }
     },
 
@@ -62,6 +62,11 @@
         type: String,
         required: true
       },
+
+      itemHeight: {
+        type: Number,
+        default: 22
+      }
 
       // original input value
       oriFieldVal: {
@@ -142,8 +147,8 @@
         this.hIndex++;
 
         if (this.hIndex > this.showEndIdx) {
+          this.$refs.itemsList.scrollTop += this.itemHeight;
           this.showStartIdx++;
-          this.showEndIdx++;
         }
       },
 
@@ -155,8 +160,8 @@
         this.hIndex--;
 
         if (this.hIndex < this.showStartIdx) {
+          this.$refs.itemsList.scrollTop -= this.itemHeight;
           this.showStartIdx--;
-          this.showEndIdx--;
         }
       },
 

@@ -13,9 +13,9 @@ block content
           each t in quesTags
             option(value=t, selected=t == curTag)= t 
 
-      .o-fm-grp-hr
+      .o-fm-grp-hr(id='company-name-field')
         label(for='company_name') 公司：
-        input(type='text' name='company_name', id='company_name' class='o-fm-ctl-hr')
+        search-sugg(field-name='company_name' v-bind:field-class="['o-fm-ctl-hr']" search-url='/users/queryByCompanyName')
 
       .o-fm-grp-hr
         input(type='submit', value='搜 索' class='o-btn o-btn-primary')
