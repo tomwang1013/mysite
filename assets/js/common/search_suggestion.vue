@@ -1,32 +1,34 @@
 <template>
-  <div class='o-ss-wrapper u-relative'
+  <span class='o-ss-wrapper u-relative'
     @keydown.up.prevent='scrollUpItems'
     @keydown.down.prevent='scrollDownItems'
     @keydown.enter.prevent='selectItem($event, hIndex)'> 
 
     <input type='text' :name='fieldName' :id='fieldName'
-      v-bind:class="fieldClass.join(' ')" v-model='keyword' @input='searchItems'/>
+      v-bind:class="fieldClass.join(' ')" v-model.trim='keyword' @input='searchItems'/>
 
-    <ul class="o-search-sugg u-nav-list u-small-font" ref='itemsList'>
-      <li class="o-search-sugg__item is-active" v-for='(item, idx) in items'
-        v-class="{ 'is-active': idx == hIndex }">
+    <ul class="o-search-sugg u-nav-list u-small-font" ref='itemsList' v-show='isPopup'>
+      <li class="o-search-sugg__item" v-for='(item, idx) in items'
+        v-on:click='selectItem($event, idx)'
+        v-bind:class="{ 'is-active': idx == hIndex }">
         {{ item }}
       </li>
     </ul>
-  </div>
+  </span>
 </template>
 
 <script>
   var $ = require('jquery');
 
   module.exports = {
+    name: 'search-suggestion',
     data: function() {
       return {
         keyword: '', // search keyword
         items: [], // displayed items after search
         hIndex: 0, // highlight index of items
         showStartIdx: 0, // starting index of items to display
-        isPopup: false,
+        isPopup: false, // if the item list is shown
       }
     },
 
@@ -89,7 +91,7 @@
 
         this.hIndex++;
 
-        if (this.hIndex > this.showEndIdx) {
+        if (this.hIndex >= this.showEndIdx) {
           this.$refs.itemsList.scrollTop += this.itemHeight;
           this.showStartIdx++;
         }
@@ -118,14 +120,16 @@
 
     watch: {
       isPopup: function(nv) {
-        if (nv) {
-          $('html').on('click.ss', function(e) {
-            if (!$(e.target).closest('.o-ss-wrapper').length) {
-              this.isPopup = false;
-              $('html').off('click.ss');
-            }
-          });
-        }
+        if (!nv) return;
+
+        var me = this;
+
+        $('html').on('click.ss', function(e) {
+          if (!$(e.target).closest('.o-ss-wrapper').length) {
+            me.isPopup = false;
+            $('html').off('click.ss');
+          }
+        });
       }
     }
   };

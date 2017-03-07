@@ -280,6 +280,9 @@ function passwordReset(req, res, next) {
 function queryByCompanyName(req, res, next) {
   let companyName = req.query.kw;
 
+  if (companyName.trim() == '')
+    return res.json({ error: 0, items: [] });
+
   gModels.User.find({
     userType: 1,
     name:     { $regex: companyName }

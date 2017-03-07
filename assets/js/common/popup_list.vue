@@ -66,7 +66,7 @@
       itemHeight: {
         type: Number,
         default: 22
-      }
+      },
 
       // original input value
       oriFieldVal: {
@@ -146,7 +146,7 @@
 
         this.hIndex++;
 
-        if (this.hIndex > this.showEndIdx) {
+        if (this.hIndex >= this.showEndIdx) {
           this.$refs.itemsList.scrollTop += this.itemHeight;
           this.showStartIdx++;
         }

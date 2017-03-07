@@ -1,4 +1,10 @@
+.o-ss-wrapper {
+  display: inline-block;
+}
+
 .o-search-sugg {
+  position: absolute;
+  width: 100%;
   background-color: #fff;
   border: 1px solid #00a;
   border-top: none;
@@ -11,6 +17,6 @@
   cursor: pointer;
 
   &:hover, &.is-active {
-    background-color: #aaa;
+    background-color: #ccc;
   }
 }
