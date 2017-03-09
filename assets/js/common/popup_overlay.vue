@@ -22,6 +22,8 @@
   var $ = require('jquery');
 
   module.exports = {
+    name: 'popup-overlay',
+
     data: function() {
       return {
         isShow: true,

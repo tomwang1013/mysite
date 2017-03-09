@@ -1,21 +1,26 @@
 var $ = require('jquery');
-//var x = require('common/popup_overlay');
+var y = require('common/global');
 var Vue = require('vue');
 var PopupOverlay = require('common/popup_overlay.vue');
-var y = require('common/global');
-
 var css = require('question/list.scss');
 
 $(function() {
-
   $('.js-del-question').click(function() {
-    var me = this;
+    var me = $(this);
+
     var poVm = new Vue({
       el: me.next(),
 
-      components: {
-        'popup-overlay': PopupOverlay
+      render: function(h) {
+        return h(PopupOverlay, {
+          on: {
+            ok: this.onOk
+          }
+        }, [
+          h('span', { attrs: { slot: 'body' }}, '删除后无法恢复，确定要删除这个问题吗？')
+        ]);
       },
+
 
       methods: {
         onOk: function() {
@@ -24,6 +29,7 @@ $(function() {
           });
         }
       }
+
     });
   });
 });
