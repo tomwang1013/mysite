@@ -42,11 +42,9 @@
       }
     },
 
-    computed: {
-    },
-
     methods: {
       onOk: function(evt) {
+        this.isShow = false;
         this.$emit('ok');
       },
 
@@ -56,15 +54,21 @@
       }
     },
 
-    mounted: function() {
-      var vw        = window.innerWidth;
-      var vh        = window.innerHeight;
-      var dlgRect   = this.$refs.dlg.getBoundingClientRect();
+    watch: {
+      isShow: function(nv) {
+        if (!nv) return;
 
-      this.dlgPos = {
-        top:  (vh - dlgRect.height) / 2,
-        left: (vw - dlgRect.width) / 2
-      };
+        this.$nextTick(function() {
+          var vw        = window.innerWidth;
+          var vh        = window.innerHeight;
+          var dlgRect   = this.$refs.dlg.getBoundingClientRect();
+
+          this.dlgPos = {
+            top:  (vh - dlgRect.height) / 2 + 'px',
+            left: (vw - dlgRect.width) / 2 + 'px'
+          };
+        });
+      }
     }
   };
 </script>

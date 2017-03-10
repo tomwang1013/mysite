@@ -25,7 +25,7 @@
 
       - var delUrl = '/question/' + question.id + '/remove'
       button.u-fir-span.o-btn.o-btn-warning.js-del-question(data-link=delUrl) 删 除
-      div(class='po-mount-point')
+      .o-overlay-mount
         popup-overlay(v-on:ok='onOk' ref='po')
           span(slot='body') 删除后无法恢复，确定要删除这个问题吗？
 
