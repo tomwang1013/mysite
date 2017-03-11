@@ -72,8 +72,6 @@ function cropImageAndSave(imgToCrop, size) {
   initCropArea(ow, oh);
 
   $('.js-ava-crop-area').css({ width: ow, height: oh });
-  $('.js-origin-img').attr('src', imgToCrop);
-  $('.js-ret-img').attr('src', imgToCrop);
 
   drawCropArea();
 }

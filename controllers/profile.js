@@ -53,7 +53,10 @@ function jobs(req, res, next) {
         populate: { path: '_creator' }
       }).exec();
     } else {
-      jobs = yield gModels.Job.find({ _creator: req.currentUser.id }).exec();
+      jobs = yield gModels.Job.find({
+        _creator: req.currentUser.id,
+        deleted: 0
+      }).exec();
     }
 
     res.render('profile/jobs', {

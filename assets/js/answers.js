@@ -49,13 +49,14 @@ $(function() {
         $.post(this.updScoreUrl,
                this.$data,
                function(data) {
-          location.replace(data.location);
+          location.reload();
         });
       }
     }
   });
 
   $('.js-re-score, .js-to-score').click(function() {
+    $('.o-overlay-mount').show();
     var a = $(this).closest('.js-list-answer');
     poMount.$refs.po.isShow = true;
     poMount.updScoreUrl = '/question/' + a.data('qid') + '/answer/' +
