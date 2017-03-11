@@ -3,8 +3,8 @@ var x = require('common/jq_val_wrapper');
 var w = require('common/global');
 
 var Vue = require('vue');
-var IL  = require('common/input_labels.vue');
-var FA  = require('common/fa_rating.vue');
+var IL  = require('mycomps/lib/components/input_labels.vue');
+var FA  = require('mycomps/lib/components/fa_rating.vue');
 
 var css = require('question/new_edit.scss');
 

@@ -3,8 +3,8 @@ var x   = require('common/jq_val_wrapper');
 var w   = require('common/global');
 
 var Vue = require('vue');
-var PL  = require('common/popup_list.vue');
-var PT  = require('common/popup_tabs.vue');
+var PL  = require('mycomps/lib/components/popup_list.vue');
+var PT  = require('mycomps/lib/components/popup_tabs.vue');
 
 var css = require('user.scss');
 

@@ -5,8 +5,8 @@ var p = require('common/jq_val_wrapper');
 var w = require('common/global');
 
 var Vue = require('vue');
-var PO  = require('common/popup_overlay.vue');
-var FA  = require('common/fa_rating.vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
+var FA  = require('mycomps/lib/components/fa_rating.vue');
 
 var css = require('answers.scss');
 

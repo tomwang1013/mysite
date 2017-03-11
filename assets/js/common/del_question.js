@@ -1,6 +1,6 @@
 var $   = require('jquery');
 var Vue = require('vue');
-var PO  = require('common/popup_overlay.vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
 
 $('.js-del-question').each(function() {
   var delUrl = this.dataset.link;

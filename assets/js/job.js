@@ -1,8 +1,8 @@
 var $   = require('jquery');
 var x   = require('common/jq_val_wrapper');
 var Vue = require('vue');
-var PO  = require('common/popup_overlay.vue');
-var PT  = require('common/popup_tabs.vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
+var PT  = require('mycomps/lib/components/popup_tabs.vue');
 var w   = require('common/global');
 var v   = require('job.scss');
 

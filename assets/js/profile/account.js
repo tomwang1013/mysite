@@ -3,8 +3,10 @@ var _ = require('lodash');
 var x = require('common/jq_val_wrapper');
 var y = require('common/serialize_object');
 var z = require('common/global');
+
 var Vue = require('vue');
-var PO  = require('common/popup_overlay.vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
+
 var css = require('profile/account.scss');
 
 var poMount = new Vue({

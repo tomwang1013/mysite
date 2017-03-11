@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var Vue = require('vue');
-var PO  = require('common/popup_overlay.vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
 
 var delAnsBtn = $('.js-del-answer');
 var poMount = new Vue({

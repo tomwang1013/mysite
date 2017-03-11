@@ -4,7 +4,7 @@ require('common/del_question');
 require('question/show.scss');
 
 var Vue = require('vue');
-var FA  = require('common/fa_rating.vue');
+var FA  = require('mycomps/lib/components/fa_rating.vue');
 
 new Vue({
   el: '.c-detail-question__foot',
