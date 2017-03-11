@@ -1,6 +1,6 @@
 <template>
-  <div class='o-rat-root'>
-    <input type='text' v-bind:name='fieldName' v-bind:id='fieldName' v-bind:value='curSelectedValue'/>
+  <div class='o-rat-root' v-bind:style='rootStyle'>
+    <input type='hidden' v-bind:name='fieldName' v-bind:id='fieldName' v-bind:value='curSelectedValue'/>
     <div class='o-rat-widget'>
       <a class='o-rat-item' 
         v-for='(v, idx) in allValues'
@@ -20,6 +20,13 @@
     name: 'fa-rating',
 
     props: {
+      rootStyle: {
+        type: Object,
+        default: function() {
+          return {};
+        }
+      },
+
       fieldName: {
         type: String,
         required: true
@@ -27,9 +34,6 @@
 
       initialValue: {
         type: String,
-        validator: function(v) {
-          return _.includes(this.allValues, v);
-        }
       },
 
       allValues: {

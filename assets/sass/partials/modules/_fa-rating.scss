@@ -5,8 +5,12 @@ $star-selected: #EDB867;
   font: normal normal normal 20px/1 FontAwesome;
   text-rendering: auto;
   text-decoration: none;
-  margin-right: 2px;
+  margin-right: 0.2em;
   font-size: 1em;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   &:after {
     content: '\f005';

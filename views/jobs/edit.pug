@@ -9,9 +9,14 @@ block content
       label(for='title') 职位名称：
       input(type='text', name='title', id='title', class='o-fm-ctl' value=job.title, autofocus)
 
-    .o-fm-grp
+    .o-fm-grp.o-pt-mount
       label(for='address') 工作地点：
-      input(type='text', name='address', id='address', class='o-fm-ctl', value=job.address)
+      popup-tabs(
+        field-name='address'
+        field-class='o-fm-ctl'
+        v-bind:init-item=job.address
+        v-bind:init-lables='initLables'
+        v-bind:init-items='initItems')
 
     .o-fm-grp
       label(for='salary') 薪资：

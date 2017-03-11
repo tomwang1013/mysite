@@ -29,11 +29,13 @@ block content
         div(id='labels-wrapper')
           input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels' init-labels=question.labels.join(','))
 
-      .o-fm-grp
+      .o-fm-grp.o-rat-mount
         label(for='level') 难度：
-        select(name='level', id='level' class='o-fm-ctl')
-          each l in [0,1,2,3,4]
-            option(value=l, selected=l == question.level)= l
+        fa-rating(
+          field-name='level'
+          initial-value=question.level
+          v-bind:all-values="['0','1','2','3','4']"
+          v-bind:root-style="{ 'margin-top': '0.5rem', 'font-size': '1.5rem' }")
 
       .o-fm-grp
         label(for='content') 题目内容：
