@@ -1,10 +1,10 @@
-var $ = require('jquery');
-var x = require('common/jq_val_wrapper');
+var $   = require('jquery');
+var x   = require('common/jq_val_wrapper');
 var Vue = require('vue');
 var PO  = require('common/popup_overlay.vue');
-var z = require('common/popup_tabs');
-var w = require('common/global');
-var v = require('job.scss');
+var PT  = require('common/popup_tabs.vue');
+var w   = require('common/global');
+var v   = require('job.scss');
 
 var cities = {
   labels: ['省份', '市区'],
@@ -48,7 +48,16 @@ var cities = {
 
 $(document).ready(function() {
   // 工作地点选择
-  $('#address').popupTabs(cities);
+  var ptVm = new Vue({
+    data: {
+      initLables: cities.labels,
+      initItems:  cities.data
+    },
+    el: '.o-pt-mount',
+    components: {
+      'popup-tabs': PT
+    }
+  });
 
   // 创建和修改职位表单验证
   $('.js-job-ne-fm').validate({

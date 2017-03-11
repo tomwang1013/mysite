@@ -14,10 +14,15 @@ block content
           each b in businesses
             option(value=b selected=b == business)= b 
 
-    .c-jobs-search-fm__field-grp
+    .c-jobs-search-fm__field-grp.o-pt-mount
       span.c-jobs-search-fm__field.u-fir-span
         label(for='address') 工作地点：
-        input(type='text', name='address', id='address', value=address, class='o-fm-ctl-hr')
+        popup-tabs(
+          field-name='address'
+          field-class='o-fm-ctl-hr'
+          :init-item=address
+          :init-labels='initLables'
+          :init-items='initItems')
 
       span.c-jobs-search-fm__field
         input(type='submit', value='搜索', class='o-btn o-btn-normal')
