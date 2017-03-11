@@ -1,11 +1,12 @@
 // 修改用户基本信息
 var $ = require('jquery');
 var _ = require('lodash');
-var PopupList = require('common/popup_list.vue');
-var Vue = require('vue');
-var y = require('common/popup_tabs');
 var z = require('common/global');
 var w = require('common/jq_val_wrapper');
+
+var Vue = require('vue');
+var PL  = require('common/popup_list.vue');
+var PT  = require('common/popup_tabs.vue');
 
 var css = require('profile/user_info.scss');
 
@@ -15,7 +16,7 @@ $(document).ready(function() {
       el: '#university-field',
 
       components: {
-        'popup-list': PopupList
+        'popup-list': PL
       },
 
       methods:  {
@@ -26,7 +27,24 @@ $(document).ready(function() {
     });
   }
 
-  $('#major').popupTabs(window.ms);
+  // 专业选择
+  if ($('.o-pt-mount').length) {
+    var ptVm = new Vue({
+      data: {
+        initLables: window.ms.labels,
+        initItems:  window.ms.data
+      },
+      el: '.o-pt-mount',
+      components: {
+        'popup-tabs': PT
+      },
+      methods: {
+        onChange: function(oriValue, value) {
+          handleDataChange(oriValue, value, $(this.$refs.pt.$el));
+        }
+      }
+    });
+  }
 
   // normal input value change
   function checkEditState() {
@@ -50,7 +68,7 @@ $(document).ready(function() {
 
   // 触发修改按钮展示
   $('#url').on('input', checkEditState);
-  $('#major, select').change(checkEditState);
+  $('select').change(checkEditState);
   $('textarea.js-rich-editor').each(function(idx, ele) {
     UE.getEditor(ele.name).addListener('contentChange', checkRichEditState);
   });
@@ -66,6 +84,8 @@ $(document).ready(function() {
       data[fname] = UE.getEditor(field.attr('name')).getContent()
     } else if (field.hasClass('o-pl-wrapper')) {
       data[uv.$refs.pl.fieldName] = uv.$refs.pl.value;
+    } else if (field.hasClass('o-pt-root')) {
+      data[ptVm.$refs.pt.fieldName] = ptVm.$refs.pt.value;
     } else {
       data[fname] = field.val();
     }
@@ -73,7 +93,7 @@ $(document).ready(function() {
     $.post('/profile/change_user_info', data, function(result) {
       if (result.error) {
         field.before("<label class='input-error'>" + result.errors[field.attr('id')] + "<label>");
-        if (!field.hasClass('o-pl-wrapper')) {
+        if (!field.hasClass('o-pl-wrapper') && !field.hasClass('o-pt-root')) {
           field.focus().val(data[fname]);
         }
       } else {
@@ -82,6 +102,8 @@ $(document).ready(function() {
 
         if (field.hasClass('o-pl-wrapper')) {
           uv.$refs.pl.oriValue = uv.$refs.pl.value;
+        } else if (field.hasClass('o-pt-root')) {
+          ptVm.$refs.pt.oriValue = ptVm.$refs.pt.value;
         } else {
           field.attr('data-ori-value', data[fname]).val(data[fname]);
         }
@@ -98,6 +120,8 @@ $(document).ready(function() {
       UE.getEditor(field.attr('name')).setContent(field.attr('data-ori-value') || '')
     } else if (field.hasClass('o-pl-wrapper')) {
       uv.$refs.pl.value = uv.$refs.pl.oriValue;
+    } else if (field.hasClass('o-pt-root')) {
+      ptVm.$refs.pt.value = ptVm.$refs.pt.oriValue;
     } else {
       field.val(field.attr('data-ori-value'));
     }

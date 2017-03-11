@@ -1,9 +1,10 @@
-var $ = require('jquery');
-var x = require('common/jq_val_wrapper');
-var PopupList = require('common/popup_list.vue');
+var $   = require('jquery');
+var x   = require('common/jq_val_wrapper');
+var w   = require('common/global');
+
 var Vue = require('vue');
-var z = require('common/popup_tabs');
-var w = require('common/global');
+var PL  = require('common/popup_list.vue');
+var PT  = require('common/popup_tabs.vue');
 
 var css = require('user.scss');
 
@@ -14,13 +15,24 @@ $(document).ready(function() {
       el: '#university-field',
 
       components: {
-        'popup-list': PopupList
+        'popup-list': PL
       }
     });
   }
 
   // 专业选择
-  $('#major').popupTabs(window.ms);
+  if ($('.o-pt-mount').length) {
+    var ptVm = new Vue({
+      data: {
+        initLables: window.ms.labels,
+        initItems:  window.ms.data
+      },
+      el: '.o-pt-mount',
+      components: {
+        'popup-tabs': PT
+      }
+    });
+  }
 
   // 用户注册第一步
   $('#signup-step1').validate({

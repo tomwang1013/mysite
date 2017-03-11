@@ -7,9 +7,16 @@ script.
   popup-list(field-name='university' ori-field-val=user.university v-bind:field-class="['o-fm-ctl']" items-init-url='/universities' v-on:change='onChange' ref='pl')
   +buttons
 
-.o-fm-grp
+.o-fm-grp.o-pt-mount
   label(for='major') 专业：
-  input(type='text' name='major' id='major' class='o-fm-ctl' data-ori-value=user.major value=user.major)
+  popup-tabs(
+    field-name='major'
+    field-class='o-fm-ctl'
+    ref='pt'
+    v-on:change='onChange'
+    init-item=user.major
+    v-bind:init-lables='initLables'
+    v-bind:init-items='initItems')
   +buttons
 
 .o-fm-grp

@@ -1,18 +1,22 @@
 <template>
 <div class='o-pt-root' v-bind:style='rootStyle'>
-  <input type='text' :name='fieldName' :id='fieldName' ref='input' v-bind:style='inputStyle'
-    :value='value' v-bind:class='fieldClass' @focus='isPopup = true' readonly/>
+  <input type='text' :name='fieldName' :id='fieldName'
+    v-bind:style='inputStyle'
+    v-bind:data-ori-value='oriValue'
+    v-bind:value='value'
+    v-bind:class='fieldClass'
+    @focus='isPopup = true' readonly/>
   <div class="o-pt-tabs u-small-font" v-show='isPopup'>
-    <ul class="o-pt-tabs__lables u-nav-list">
-      <li @click='switchTab($event, label)' v-for="label in labels"
+    <ul class="u-nav-list o-pt-tabs__lables">
+      <li @click.stop='switchTab($event, label)' v-for="label in labels"
         class='o-pt-tabs__lable'
         v-bind:class="{ 'is-active': activeLabel == label } ">
         {{ label }}
       </li>
       <a href="javascript:void(0)" class="o-pt-tabs__clear" @click="reset">清空</a>
     </ul>
-    <ul class="o-pt-tabs__items u-nav-list">
-      <li @click='pickItem($event, item)' v-for="item in items"
+    <ul class="u-nav-list o-pt-tabs__items">
+      <li @click.stop='pickItem($event, item)' v-for="item in items"
         class='o-pt-tabs__item'
         v-bind:class="{ 'is-active': activeItem == item }">
         {{ item }}
@@ -36,7 +40,8 @@
         activeItem:     this.initItem,
         selectedItems:  [],
         isPopup:        false,
-        value:          ''
+        oriValue:       this.initItem,
+        value:          this.initItem,
       };
     },
 
@@ -122,17 +127,13 @@
 
         // click in the last tab's items, select it
         if (level == this.initLables.length - 1) {
-          this.value = item;
-          this.isPopup = false;
-          return;
+          return this.changeValue(item);
         }
 
         var nextLevelItems = this.getItemsByLevel(level);
 
         if (!nextLevelItems) {
-          this.isPopup = false;
-          this.value = item;
-          return;
+          return this.changeValue(item);
         }
 
         this.items = nextLevelItems;
@@ -142,6 +143,12 @@
         }
 
         this.activeLabel = this.labels[level + 1];
+      },
+
+      changeValue: function(nv) {
+        this.value = nv;
+        this.isPopup = false;
+        this.$emit('change', this.oriValue, this.value);
       },
 
       getItemsByLevel: function(level) {

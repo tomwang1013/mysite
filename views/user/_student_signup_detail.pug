@@ -6,9 +6,13 @@ script.
   label(for='university') 学校名称：
   popup-list(field-name='university' v-bind:field-class="['o-fm-ctl']" items-init-url='/universities')
 
-.o-fm-grp
+.o-fm-grp.o-pt-mount
   label(for='major') 专业：
-  input(type='text', name='major', id='major', class='o-fm-ctl')
+  popup-tabs(
+    field-name='major'
+    field-class='o-fm-ctl'
+    v-bind:init-lables='initLables'
+    v-bind:init-items='initItems')
 
 .o-fm-grp
   label(for='entryDate') 入学年份：
