@@ -3,23 +3,35 @@ var _ = require('lodash');
 var x = require('common/jq_val_wrapper');
 var y = require('common/serialize_object');
 var z = require('common/global');
-var w = require('common/popup_overlay');
-
+var Vue = require('vue');
+var PO  = require('common/popup_overlay.vue');
 var css = require('profile/account.scss');
 
-function submitAvaHander() {
-  var cropDlg = $('.js-crop-dlg');
+var poMount = new Vue({
+  el: $('.o-overlay-mount').get(0),
 
-  cropDlg.on('submit', false);
+  data: {
+    originImgPath: ''
+  },
 
-  $.post(cropDlg.attr('action'), cropDlg.serializeObject(), function(data) {
-    var newUrl = data.url + '?' + new Date().getTime();
-    $('.js-cur-ava').attr('src', newUrl);
-    $('.js-show-menu > img').attr('src', newUrl);
-  });
+  components: { 'popup-overlay': PO },
 
-  return false;
-}
+  methods: {
+    onOk: function() {
+      $.post('/profile/change_avatar2', {
+        x: cropArea.left,
+        y: cropArea.top,
+        width: cropArea.width,
+        height: cropArea.height,
+        origin_img_path: this.originImgPath
+      }, function(data) {
+        var newUrl = data.url + '?' + new Date().getTime();
+        $('.js-cur-ava').attr('src', newUrl);
+        $('.c-profile-bar__avatar').attr('src', newUrl);
+      });
+    }
+  }
+});
 
 // 用户选择图片后开始上传
 function uploadAvatar(file) {
@@ -44,9 +56,8 @@ function uploadAvatar(file) {
 
       if (!data.error) {
         cropImageAndSave(data.url, data.size);
-        $('<button type="button"/>').popupOverlay({
-          okCallback: submitAvaHander
-        }).trigger('click');
+        poMount.originImgPath = data.url;
+        poMount.$refs.po.isShow = true;
       }
     }
   });
@@ -63,7 +74,6 @@ function cropImageAndSave(imgToCrop, size) {
   $('.js-ava-crop-area').css({ width: ow, height: oh });
   $('.js-origin-img').attr('src', imgToCrop);
   $('.js-ret-img').attr('src', imgToCrop);
-  $('input[name="origin_img_path"]').val(imgToCrop);
 
   drawCropArea();
 }
@@ -72,11 +82,6 @@ function cropImageAndSave(imgToCrop, size) {
 function drawCropArea() {
   var edgeWidth = $('.js-left-edge').outerWidth();
   var cornerWidth = $('.js-tl-corner').outerWidth();
-
-  $('input[name="x"]').val(cropArea.left);
-  $('input[name="y"]').val(cropArea.top);
-  $('input[name="width"]').val(cropArea.width);
-  $('input[name="height"]').val(cropArea.height);
 
   $('.js-crop-area').css(cropArea);
   $('.js-ret-img').css({

@@ -15,35 +15,27 @@ block right_content
         input(type='file' id='avatar' name='avatar')
 
     //- 头像裁减框
-    .o-overlay-bk
-    form(method='post' action='/profile/change_avatar2' class='js-crop-dlg o-overlay-dlg' style={width: '500px'})
-      input(type='hidden' name='origin_img_path')
-      input(type='hidden' name='x')
-      input(type='hidden' name='y')
-      input(type='hidden' name='width')
-      input(type='hidden' name='height')
-      .o-overlay-dlg__head 裁减并替换新的头像
-      .o-overlay-dlg__body
-        .c-ava-crop-area.js-ava-crop-area
-          img.c-ava-crop-area__ori-img.js-origin-img
-          .c-ava-crop-area__ret-img.js-crop-area
-            img.js-ret-img
-          .c-ava-crop-area__move-area.js-crop-edge.js-move-area
-          .c-ava-crop-area__left-edge.js-crop-edge.js-left-edge
-          .c-ava-crop-area__top-edge.js-crop-edge.js-top-edge
-          .c-ava-crop-area__right-edge.js-crop-edge.js-right-edge
-          .c-ava-crop-area__bottom-edge.js-crop-edge.js-bottom-edge
-          .c-ava-crop-area__tl-corner.js-crop-edge.js-tl-corner
-          .c-ava-crop-area__tm-corner.js-crop-edge.js-tm-corner
-          .c-ava-crop-area__tr-corner.js-crop-edge.js-tr-corner
-          .c-ava-crop-area__lm-corner.js-crop-edge.js-lm-corner
-          .c-ava-crop-area__rm-corner.js-crop-edge.js-rm-corner
-          .c-ava-crop-area__bl-corner.js-crop-edge.js-bl-corner
-          .c-ava-crop-area__bm-corner.js-crop-edge.js-bm-corner
-          .c-ava-crop-area__br-corner.js-crop-edge.js-br-corner
-      .o-overlay-dlg__foot
-        input(type='submit' class='o-btn o-btn-primary ol-ok u-fir-span' value='保存')
-        input(type='button' class='o-btn o-btn-normal ol-cancel' value='取消')
+    .o-overlay-mount
+      popup-overlay(v-on:ok='onOk' ref='po')
+        span(slot='head') 裁剪并替换新的头像
+        div(slot='body')
+          .c-ava-crop-area.js-ava-crop-area
+            img.c-ava-crop-area__ori-img.js-origin-img
+            .c-ava-crop-area__ret-img.js-crop-area
+              img.js-ret-img
+            .c-ava-crop-area__move-area.js-crop-edge.js-move-area
+            .c-ava-crop-area__left-edge.js-crop-edge.js-left-edge
+            .c-ava-crop-area__top-edge.js-crop-edge.js-top-edge
+            .c-ava-crop-area__right-edge.js-crop-edge.js-right-edge
+            .c-ava-crop-area__bottom-edge.js-crop-edge.js-bottom-edge
+            .c-ava-crop-area__tl-corner.js-crop-edge.js-tl-corner
+            .c-ava-crop-area__tm-corner.js-crop-edge.js-tm-corner
+            .c-ava-crop-area__tr-corner.js-crop-edge.js-tr-corner
+            .c-ava-crop-area__lm-corner.js-crop-edge.js-lm-corner
+            .c-ava-crop-area__rm-corner.js-crop-edge.js-rm-corner
+            .c-ava-crop-area__bl-corner.js-crop-edge.js-bl-corner
+            .c-ava-crop-area__bm-corner.js-crop-edge.js-bm-corner
+            .c-ava-crop-area__br-corner.js-crop-edge.js-br-corner
 
   //- 账号修改
   .c-uc-chg-head 修改账号信息
