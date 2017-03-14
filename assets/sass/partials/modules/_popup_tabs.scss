@@ -1,42 +1,45 @@
 /* pop tab */
-.tab-container {
+.o-pt-tabs {
+  position: absolute;
   border: 1px solid #aaa;
   padding: 6px 8px;
   background-color: #fff;
   max-height: 400px;
   overflow: auto;
   z-index: 1000;
+  width: 100%;
+}
 
-  li {
-    display: inline-block;
-    cursor: pointer;
-    padding: 4px 8px;
+.o-pt-tabs__lable {
+  display: inline-block;
+  cursor: pointer;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+
+  &.is-active {
+    border-color: #00a;
+    font-weight: bold;
   }
+}
 
-  .tab-header {
-    li {
-      border: 1px solid #ccc;
-      border-bottom: none;
+.o-pt-tabs__clear {
+  float: right;
+  padding: 4px 0;
+  display: inline-block;
+}
 
-      &.tab-label-active {
-        border-color: #00a;
-        font-weight: bold;
-      }
-    }
+.o-pt-tabs__items {
+  border-top: 1px solid #00a;
+  padding-top: 6px;
+}
 
-    .tab-clear {
-      float: right;
-      padding: 4px 0;
-      display: inline-block;
-    }
-  }
+.o-pt-tabs__item {
+  display: inline-block;
+  cursor: pointer;
+  padding: 4px 8px;
 
-  .tab-content {
-    border-top: 1px solid #00a;
-    padding-top: 6px;
-
-    li.tab-item-active, li:hover {
-      background-color: #aaa;
-    }
+  &.is-active, &:hover {
+    background-color: #aaa;
   }
 }

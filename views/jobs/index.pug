@@ -20,9 +20,9 @@ block content
         popup-tabs(
           field-name='address'
           field-class='o-fm-ctl-hr'
-          :init-item=address
-          :init-labels='initLables'
-          :init-items='initItems')
+          v-bind:init-item=address
+          v-bind:init-lables='initLables'
+          v-bind:init-items='initItems')
 
       span.c-jobs-search-fm__field
         input(type='submit', value='搜索', class='o-btn o-btn-normal')

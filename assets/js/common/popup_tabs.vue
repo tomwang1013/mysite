@@ -1,18 +1,23 @@
 <template>
-<div class='popup-tabs-comp'>
-  <input type='text' name='fieldName' id='fieldName' ref='input' :value='value' class='fieldClass' @focus='isPopup = true' readonly/>
-  <div class="tab-container u-small-font" v-show='isPopup'>
-    <div class="tab-header">
-      <ul class="u-nav-list">
-        <li @click='switchTab($event, label)' v-for="label in labels" class="{ 'tab-label-active': activeLabel == label } ">{{ label }}</li>
-        <a href="javascript:void(0)" class="tab-clear" @click="reset">清空</a>
-      </ul>
-    </div>
-    <div class="tab-content">
-      <ul class="u-nav-list">
-        <li @click='pickItem($event, item)' v-for="item in items" class="{ 'tab-item-active': activeItem == item }">{{ item }}</li>
-      </ul>
-    </div>
+<div class='o-pt-root' v-bind:style='rootStyle'>
+  <input type='text' :name='fieldName' :id='fieldName' ref='input' v-bind:style='inputStyle'
+    :value='value' v-bind:class='fieldClass' @focus='isPopup = true' readonly/>
+  <div class="o-pt-tabs u-small-font" v-show='isPopup'>
+    <ul class="o-pt-tabs__lables u-nav-list">
+      <li @click='switchTab($event, label)' v-for="label in labels"
+        class='o-pt-tabs__lable'
+        v-bind:class="{ 'is-active': activeLabel == label } ">
+        {{ label }}
+      </li>
+      <a href="javascript:void(0)" class="o-pt-tabs__clear" @click="reset">清空</a>
+    </ul>
+    <ul class="o-pt-tabs__items u-nav-list">
+      <li @click='pickItem($event, item)' v-for="item in items"
+        class='o-pt-tabs__item'
+        v-bind:class="{ 'is-active': activeItem == item }">
+        {{ item }}
+      </li>
+    </ul>
   </div>
 </div>
 </template>
@@ -35,25 +40,39 @@
       };
     },
 
-    computed: {
-    },
-
     watch: {
       isPopup: function(nv) {
         if (!nv) return;
 
         var me = this;
 
-        $('html').bind('click.tab', function(e) {
-          if (!$(e.target).closest('.tab-container').length && 
-              !$(e.target).closest(me.$refs.input).length) {
-                me.isPopup = false;
-              }
+        $('html').on('click.pt', function(e) {
+          if (!$(e.target).closest('.o-pt-root').length) {
+            me.isPopup = false;
+            $('html').off('click.pt');
+          }
         });
       }
     },
 
     props: {
+      rootStyle: {
+        type: Object,
+        default: function() {
+          return {
+            position: 'relative',
+            flex: 1
+          }
+        }
+      },
+
+      inputStyle: {
+        type: Object,
+        default: function() {
+          return { width: '100%' };
+        }
+      },
+
       fieldName: {
         type: String,
         required: true
@@ -75,7 +94,7 @@
       },
 
       initItems: {
-        type: Array,
+        type: Object,
         required: true
       }
     },
@@ -91,7 +110,7 @@
         var level = this.labels.indexOf(label);
 
         this.activeLabel = label;
-        this.items       = getItemsByLevel(level - 1);
+        this.items       = this.getItemsByLevel(level - 1);
         this.activeItem  = this.selectedItems[level];
       },
 
@@ -108,7 +127,7 @@
           return;
         }
 
-        var nextLevelItems = getItemsByLevel(level);
+        var nextLevelItems = this.getItemsByLevel(level);
 
         if (!nextLevelItems) {
           this.isPopup = false;
