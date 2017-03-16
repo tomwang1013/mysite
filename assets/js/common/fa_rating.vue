@@ -1,13 +1,14 @@
 <template>
   <div class='o-rat-root'>
-    <input type='text' v-bind:name='fieldName'
-      v-bind:id='fieldName' v-bind:value='curSelectedValue'/>
+    <input type='text' v-bind:name='fieldName' v-bind:id='fieldName' v-bind:value='curSelectedValue'/>
     <div class='o-rat-widget'>
-      <a v-for='(v, idx) in allValues'
-        v-on:click='onClick'
+      <a class='o-rat-item' 
+        v-for='(v, idx) in allValues'
+        v-bind:data-idx='idx'
+        v-on:click.prevent='onClick'
         v-on:mouseenter='onMouseEner'
         v-on:mouseleave='onMouseLeave'
-        v-bind:class="{ 'is-selected': idx <= curSelectedIdx, 'cur-selected': idx === curSelectedIdx}"/>
+        v-bind:class="{ 'is-selected': idx <= hoverIdx, 'is-readonly': readOnly }"/>
     </div>
   </div>
 </template>
@@ -53,8 +54,11 @@
     },
 
     data: function() {
+      let idx = this.allValues.indexOf(this.initialValue);
+
       return {
-        curSelectedIdx: this.allValues.indexOf(this.initialValue),
+        curSelectedIdx: idx,
+        hoverIdx: idx 
       }
     },
 
@@ -62,7 +66,7 @@
       curSelectedValue: function() {
         if (this.curSelectedIdx != -1) {
           return this.allValues[this.curSelectedIdx];
-        else if (this.allowEmpty) {
+        } else if (this.allowEmpty) {
           return this.emptyValue;
         } else {
           return '';
@@ -73,17 +77,23 @@
     methods: {
       onClick: function(evt) {
         if (this.readOnly) return;
+
+        this.curSelectedIdx = this.hoverIdx = evt.target.dataset.idx;
       },
 
       onMouseEner: function(evt) {
         if (this.readOnly) return;
+
+        this.hoverIdx = evt.target.dataset.idx;
       },
 
       onMouseLeave: function(evt) {
         if (this.readOnly) return;
+
+        this.hoverIdx = this.curSelectedIdx;
       }
     }
   };
 </script>
 
-<style lang="sass" src='partials/modules/_input_labels.scss'></style>
+<style lang="sass" src='partials/modules/_fa-rating.scss'></style>

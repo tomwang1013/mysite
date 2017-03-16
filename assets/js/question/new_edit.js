@@ -1,10 +1,10 @@
 var $ = require('jquery');
 var x = require('common/jq_val_wrapper');
-var y = require('jquery-bar-rating');
 var w = require('common/global');
 
 var Vue = require('vue');
-var InputLabels = require('common/input_labels.vue');
+var IL  = require('common/input_labels.vue');
+var FA  = require('common/fa_rating.vue');
 
 var css = require('question/new_edit.scss');
 
@@ -12,13 +12,15 @@ $(function() {
   new Vue({
     el: '#labels-wrapper',
     components: {
-      'input-labels': InputLabels
+      'input-labels': IL
     }
   });
 
-  $('#level').barrating({
-    theme: 'fontawesome-stars',
-    showSelectedRating: false
+  new Vue({
+    el: '.o-rat-mount',
+    components: {
+      'fa-rating': FA
+    }
   });
 
   // question创建修改表单验证

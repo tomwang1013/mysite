@@ -1,0 +1,23 @@
+$star-default: #d2d2d2;
+$star-selected: #EDB867;
+
+.o-rat-item {
+  font: normal normal normal 20px/1 FontAwesome;
+  text-rendering: auto;
+  text-decoration: none;
+  margin-right: 2px;
+  font-size: 1em;
+
+  &:after {
+    content: '\f005';
+    color: $star-default;
+  }
+
+  &.is-selected:after {
+    color: $star-selected;
+  }
+
+  &.is-readonly {
+    cursor: default;
+  }
+}

@@ -28,11 +28,9 @@ block content
         label(for='labels') 标签：
         input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels') 
 
-      .o-fm-grp
+      .o-fm-grp.o-rat-mount
         label(for='level') 难度：
-        select(name='level', id='level' class='o-fm-ctl')
-          each l in [0,1,2,3,4]
-            option(value=l)= l
+        fa-rating(field-name='level' v-bind:initial-value='[0,1,2,3,4]')
 
       .o-fm-grp
         label(for='content') 题目内容：
