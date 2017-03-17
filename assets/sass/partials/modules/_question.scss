@@ -14,16 +14,20 @@
 }
 
 // 底部说明分割线
-.c-detail-question__foot > span {
-  padding: 0 0.5em;
-  border-right: 2px solid $bd-normal;
+.c-detail-question__foot {
+  display: flex;
 
-  &:first-child {
-    padding-left: 0;
-  }
+  & > span {
+    padding: 0 0.5em;
+    border-right: 2px solid $bd-normal;
 
-  &:last-child {
-    padding-right: 0;
-    border-right: none;
+    &:first-of-type {
+      padding-left: 0;
+    }
+
+    &:last-of-type {
+      padding-right: 0;
+      border-right: none;
+    }
   }
 }

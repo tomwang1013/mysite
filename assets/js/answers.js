@@ -3,8 +3,10 @@ var y = require('common/del_answer');
 var z = require('common/serialize_object');
 var p = require('common/jq_val_wrapper');
 var w = require('common/global');
+
 var Vue = require('vue');
 var PO  = require('common/popup_overlay.vue');
+var FA  = require('common/fa_rating.vue');
 
 var css = require('answers.scss');
 
@@ -52,6 +54,13 @@ $(function() {
           location.reload();
         });
       }
+    }
+  });
+
+  new Vue({
+    el: '.c-detail-question__foot',
+    components: {
+      'fa-rating': FA
     }
   });
 

@@ -7,7 +7,8 @@
     span 所属职位：
       a(href='/job/' + question._job.id)= question._job.title
     span 难度：
-      span.br-theme-fontawesome-stars.u-vertical-middle
-        span.br-widget.br-readonly
-          each l in [0, 1, 2, 3, 4]
-            a(href='#' class={'br-selected': l <= question.level})
+    fa-rating(
+      v-bind:read-only='true'
+      initial-value=question.level
+      v-bind:all-values="['0','1','2','3','4']"
+      v-bind:root-style="{ 'font-size': '0.8rem' }")

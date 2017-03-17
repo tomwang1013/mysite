@@ -1,15 +1,13 @@
 <template>
   <div class='o-rat-root' v-bind:style='rootStyle'>
     <input type='hidden' v-bind:name='fieldName' v-bind:id='fieldName' v-bind:value='curSelectedValue'/>
-    <div class='o-rat-widget'>
-      <a class='o-rat-item' 
-        v-for='(v, idx) in allValues'
-        v-bind:data-idx='idx'
-        v-on:click.prevent='onClick'
-        v-on:mouseenter='onMouseEner'
-        v-on:mouseleave='onMouseLeave'
-        v-bind:class="{ 'is-selected': idx <= hoverIdx, 'is-readonly': readOnly }"/>
-    </div>
+    <a class='o-rat-item'
+      v-for='(v, idx) in allValues'
+      v-bind:data-idx='idx'
+      v-on:click.prevent='onClick'
+      v-on:mouseenter='onMouseEner'
+      v-on:mouseleave='onMouseLeave'
+      v-bind:class="{ 'is-selected': idx <= hoverIdx, 'is-readonly': readOnly }"/>
   </div>
 </template>
 
@@ -28,8 +26,7 @@
       },
 
       fieldName: {
-        type: String,
-        required: true
+        type: String
       },
 
       initialValue: {
