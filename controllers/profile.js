@@ -11,23 +11,7 @@ const gridfs  = require('../lib/gridfs');
 
 // 基本信息
 function userInfo(req, res, next) {
-  Promise.all([
-    gModels.User.findOne({ _id: req.currentUser.id }).exec(),
-    gModels.University.all(),
-    gModels.Major.all()
-  ]).then(function(result) {
-    res.render('profile/user_info', {
-      pos:          'user_info',
-      universities: result[1],
-      majors:       result[2],
-      entryDates:   gModels.User.allEntryDates,
-      businesses:   gModels.Business,
-      scales:       gModels.User.scales,
-      maturities:   gModels.User.maturities,
-      user:         result[0],
-      currentUser:  req.currentUser
-    });
-  }).catch(next);
+  res.render('profile/index');
 }
 
 /**

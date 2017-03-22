@@ -1,5 +1,6 @@
 extends ../layouts/main
 append js
+  include ../share/_ueditor_js.pug
   script(src=assetHashPath('profile/index.js'))
 block content
   div(class='u-flex' id='profile-mount')
