@@ -8,7 +8,7 @@ div
       popup-list(
         field-name='university'
         ref='university'
-        ori-field-val=user.university
+        v-bind:ori-field-val="oriValues['university']"
         v-bind:field-class="['o-fm-ctl']"
         init-items='constants.universities'
         v-on:change='onChange')
@@ -22,7 +22,7 @@ div
         ref='major'
         field-class='o-fm-ctl'
         v-on:change='onChange'
-        init-item=user.major
+        v-bind:init-item="oriValues['major']"
         v-bind:init-lables='constants.majors.labels'
         v-bind:init-items='constants.majors.data')
       change-btns(v-bind:is-show="btnStates['major']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='major')
@@ -90,12 +90,14 @@ div
 </template>
 
 <script>
+  var $ = require('jquery');
+  var _ = require('lodash');
+
   module.exports = {
     name: 'profile-user-info',
 
     data: function() {
       return {
-        user: {},
         btnStates: {},
         oriValues: {},
         values: {},
@@ -184,6 +186,27 @@ div
           me.onChange(editorName);
         });
       }
+    },
+
+    created: function() {
+      var me = this;
+      var constantsAjax;
+
+      if (this.userType == 0) {
+        constantsAjax = $.get('//api.51shixi.net/std_consts');
+      } else {
+        constantsAjax = $.get('//api.51shixi.net/cmp_consts');
+      }
+
+      var userAjax = $.get('//api.51shixi.net/nc/user_info');
+
+      $.when(constantsAjax, userAjax).done(function(consts, user) {
+        me.constants = consts;
+        _.assign(me.oriValues, user);
+        _.assign(me.values, user);
+      }).fail(function(err) {
+        // TODO
+      });
     }
   };
 </script>
