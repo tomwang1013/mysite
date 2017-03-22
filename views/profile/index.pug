@@ -4,5 +4,5 @@ append js
   script(src=assetHashPath('profile/index.js'))
 block content
   div(class='u-flex' id='profile-mount')
-    left-nav(:page-name='pageName' :user-type='userInfo.type')
-    component(class='c-uc-right-content' :user-type='userInfo.type' v-bind:is="pageName")
+    left-nav(v-bind:page-name='pageName' v-bind:user-type='userInfo.type')
+    component(class='c-uc-right-content' v-bind:user-type='userInfo.type' v-bind:is="pageName")

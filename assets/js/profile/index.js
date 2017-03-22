@@ -1,31 +1,34 @@
 var Vue = require('vue');
+var Cookies = require('js-cookie');
 
 var pi = new Vue({
   el: '#profile-mount',
 
   data: {
-    pageName: this.getPageName(),
+    pageName: getPageName(),
     userInfo: Cookies.getJSON('_ppinfo')
   },
 
   components: {
-    user_info: require('profile/user_info.vue'),
-    jobs:      require('profile/jobs.vue'),
-    message:   require('profile/message.vue'),
-    account:   require('profile/account.vue')
+    'left-nav': require('profile/left_nav.vue'),
+    user_info:  require('profile/user_info.vue'),
+    jobs:       require('profile/jobs.vue'),
+    message:    require('profile/message.vue'),
+    account:    require('profile/account.vue')
   },
 
   methods: {
-    getPageName: function() {
-      if (window.location.pathname.length > 9) {
-        return window.location.pathname.slice(9);
-      } else {
-        return 'user_info';
-      }
-    }
   }
 });
 
+function getPageName() {
+  if (window.location.pathname.length > 9) {
+    return window.location.pathname.slice(9);
+  } else {
+    return 'user_info';
+  }
+}
+
 window.addEventListener('popstate', function(evt) {
-  pi.pageName = pi.getPageName();
+  pi.pageName = getPageName();
 });

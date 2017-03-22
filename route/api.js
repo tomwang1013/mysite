@@ -7,6 +7,6 @@ router.get('/cmp_consts', gControllers.api_cache.cmpConsts);
 
 
 // no cache
-router.get('/nc/user_info', gControllers.api_nocache.user_info);
+router.get('/nc/user_info', gControllers.api_nocache.userInfo);
 
 module.exports = router;

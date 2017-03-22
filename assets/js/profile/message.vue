@@ -4,4 +4,4 @@
 <script>
 </script>
 
-<style lang="sass" src='partials/message.scss'></style>
+<style lang="sass" src='profile/message.scss'></style>

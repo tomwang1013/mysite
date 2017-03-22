@@ -176,7 +176,7 @@ div
     },
 
     mounted: function() {
-      var editors = document.getElementByTagName('textarea');
+      var editors = document.getElementsByTagName('textarea');
       var me = this;
 
       for (var i = 0; i < editors.length; i++) {
@@ -211,4 +211,4 @@ div
   };
 </script>
 
-<style lang="sass" src='partials/user_info.scss'></style>
+<style lang="sass" src='profile/user_info.scss'></style>
