@@ -1,24 +1,36 @@
 <template>
-  <left-nav/>
-  <component v-bind:is="rightContent">
+<div class='u-flex'>
+  <left-nav :page-name='pageName' :user-type='userInfo.type'/>
+  <component class='c-uc-right-content' v-bind:is="pageName">
   </component>
+</div>
 </template>
 
 <script>
-  var routes = {
-    user_info: require('profile/user_info.vue'),
-    account:   require('profile/account'),
-    message:   require('profile/message'),
-    jobs:      require('profile/jobs')
-  };
+  var Cookies = require('js-cookie');
 
   module.exports = {
     data: function() {
       return {
-        rightContent: window.location.pathname.slice(9)
+        userInfo: Cookies.getJSON('_ppinfo'),
+        pageName: window.location.pathname.slice(9)
       };
+    },
+
+    components: {
+      user_info: require('profile/user_info.vue'),
+      jobs:      require('profile/jobs.vue'),
+      message:   require('profile/message.vue'),
+      account:   require('profile/account.vue'),
     }
   };
 </script>
 
-<style lang="sass"></style>
+<style lang="sass">
+.c-uc-right-content {
+  flex: 6;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-left:none;
+}
+</style>
