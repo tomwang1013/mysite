@@ -69,6 +69,35 @@ function jobs(req, res, next) {
   }).catch(next);
 }
 
+// account and password
+function account(req, res, next) {
+  gModels.User.findById(req.currentUser.id, function(err, user) {
+    res.render('profile/account', {
+      pos:         'account',
+      user:        user,
+      currentUser: req.currentUser,
+      flash:       {
+        success: req.flash('success')[0],
+        error:   req.flash('error')[0]
+      }
+    });
+  });
+};
+
+// 消息中心
+function message(req, res, next) {
+  co(function* () {
+    let messages = yield gModels.Message.find({
+      userId: req.currentUser.id
+    }).populate('_job').exec();
+
+    res.render('profile/message', {
+      messages: messages,
+      pos: 'message'
+    });
+  }).catch(next);
+}
+
 // 修改用户基本信息
 function changeUserInfo(req, res, next) {
   co(function* () {
@@ -92,21 +121,6 @@ function changeUserInfo(req, res, next) {
     return res.json({ error: 0 });
   });
 }
-
-// account and password
-function account(req, res, next) {
-  gModels.User.findById(req.currentUser.id, function(err, user) {
-    res.render('profile/account', {
-      pos:         'account',
-      user:        user,
-      currentUser: req.currentUser,
-      flash:       {
-        success: req.flash('success')[0],
-        error:   req.flash('error')[0]
-      }
-    });
-  });
-};
 
 // 修改账号信息: user name, email, phone
 function changeAccount(req, res, next) {
@@ -219,20 +233,6 @@ function changeAvatar2(req, res, next) {
     //});
 
     res.json({ error: 0, url: gridfs.downloadPath(filename) });
-  }).catch(next);
-}
-
-// 消息中心
-function message(req, res, next) {
-  co(function* () {
-    let messages = yield gModels.Message.find({
-      userId: req.currentUser.id
-    }).populate('_job').exec();
-
-    res.render('profile/message', {
-      messages: messages,
-      pos: 'message'
-    });
   }).catch(next);
 }
 
