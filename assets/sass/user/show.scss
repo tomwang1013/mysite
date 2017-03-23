@@ -1,0 +1,62 @@
+@import 'partials/common/index';
+
+/**************
+ * 用户详情页 *
+ **************/
+
+// 基本信息
+.c-user-basics {
+  padding: 0.5em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px 4px 0 0;
+
+  // 基本信息分隔栏
+  & > span {
+    padding: 0 0.5em;
+    border-right: 2px solid $bd-normal;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+      border-right: none;
+    }
+  }
+}
+
+// 小头像
+.c-user-basics__ava {
+  border-radius: 4px;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+}
+
+// 用户的部分信息
+.c-user-part-info {
+  padding: 0.5em;
+  border: 1px solid $bd-normal;
+  border-top: none;
+}
+
+// 部分信息标题
+.c-user-part-info__head {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+// 企业发布的职位
+.c-user-part-info__cmp-job {
+  display: flex;
+  padding: 0.5em 0;
+  border-top: 1px dashed $bd-normal;
+
+  & > span { flex: 1; }
+
+  &:last-child {
+    border-bottom: 1px dashed $bd-normal;
+  }
+}

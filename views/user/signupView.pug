@@ -1,20 +1,11 @@
-extends _layout.pug
+extends ../layouts/main
 prepend js
   include ../share/_ueditor_js.pug
+append js
+  script(src=assetHashPath('user/signup.js'))
+append css
+  link(href=assetHashPath("user/signup.css"), rel="stylesheet")
 block content
   .u-larger-font
     | 加入实习网， 更快找到实习岗位，更好学习专业知识， 快速锁定优秀毕业生：
-
-  .c-signup-progress
-    .c-signup-progress__step(class={'is-active': step == 1}) 创建账号
-    .c-signup-progress__step(class={'is-active': step == 2}) 完善基本资料
-    .c-signup-progress__step(class={'is-active': step == 3}) 注册完毕
-
-  .u-flex
-    case step
-      when 1
-        include ./_signup_step1.pug
-      when 2
-        include ./_signup_step2.pug
-      when 3
-        include ./_signup_step3.pug
+  #signup-view

@@ -1,4 +1,8 @@
-extends _layout.pug
+extends ../layouts/main
+append js
+  script(src=assetHashPath('user/show.js'))
+append css
+  link(href=assetHashPath("user/show.css"), rel="stylesheet")
 block content
   if user.isStudent()
     include ./_student_show.pug

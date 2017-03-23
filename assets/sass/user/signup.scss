@@ -1,0 +1,53 @@
+@import 'partials/common/index';
+
+/***************
+ *    注册     *
+ ***************/
+
+// 注册进度
+.c-signup-progress {
+  display: flex;
+  margin: 1em 0 2em 0;
+  border-radius: 4px;
+  border: 1px solid $bd-normal;
+}
+
+// 具体每一步
+.c-signup-progress__step {
+  flex: 1;
+  border-left: 1px solid $bd-normal;
+  padding: 20px 30px;
+
+  &:first-child { border-left: none; }
+
+  &.is-active { background-color: $bd-normal; }
+}
+
+// 每一步的注册表单
+.c-signup-step-fm {
+  padding: 0.5em 1em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
+  flex: 1;
+}
+
+// 第一步注册过程中的宣传语
+.c-signup-step-comments {
+  padding: 0.5em 1em;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  margin-left: 2em;
+  flex: 1;
+}
+
+.c-signup-step-comment {
+  line-height: 1.5em;
+  margin: 1em 0;
+}
+
+// 注册完成
+.c-signup-step-over {
+  text-align: center;
+  font-weight: bold;
+  flex: 1;
+}
