@@ -34,6 +34,7 @@ module.exports = {
 </script>
 
 <style lang="sass">
+
 .c-uc-left-nav {
   flex: 1;
   border: 1px solid #ccc;
@@ -54,5 +55,13 @@ module.exports = {
   &:hover:not(.is-active) {
     background-color: #ddd;
   }
+}
+
+/* 右侧具体内容(暂时放这里) */
+.c-uc-right-content {
+  flex: 6;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-left:none;
 }
 </style>
