@@ -3,7 +3,7 @@ div
   .c-signup-progress
     .c-signup-progress__step(
       v-for="(title, idx) in ['创建账号', '完善基本资料', '注册完毕']"
-      v-bind:class="{'is-active': step == idx}") {{title}}
+      v-bind:class="{'is-active': step == idx + 1}") {{title}}
 
   component(v-bind:is='currentView')
 
@@ -32,7 +32,7 @@ div
     computed: {
       currentView: function() {
         if (this.step != 2) {
-          return 'step' + step;
+          return 'step' + this.step;
         } else {
           if (this.signupAccount.userType == 0) {
             return 'stu_step2';

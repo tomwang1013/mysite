@@ -3,20 +3,25 @@
     // 学生信息
     .o-fm-grp
       label(for='university') 学校名称：
-      popup-list(field-name='university' v-bind:field-class="['o-fm-ctl']" items-init-url='/universities')
+      popup-list(
+        field-name='university'
+        v-if='constants.universities.length > 0'
+        v-bind:field-class="['o-fm-ctl']"
+        v-bind:init-items='constants.universities')
 
     .o-fm-grp
       label(for='major') 专业：
       popup-tabs(
         field-name='major'
         field-class='o-fm-ctl'
+        v-if='constants.majors.labels.length > 0'
         v-bind:init-lables='constants.majors.labels'
         v-bind:init-items='constants.majors.data')
 
     .o-fm-grp
       label(for='entryDate') 入学年份：
       select(name='entryDate', id='entryDate', class='o-fm-ctl')
-        option(v-for='ed in entryDates' v-bind:value='ed') {{ed}} 
+        option(v-for='ed in constants.entryDates' v-bind:value='ed') {{ed}} 
 
     .o-fm-grp
       label(for='careerPlan') 职业规划：

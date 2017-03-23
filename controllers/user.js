@@ -47,7 +47,7 @@ function signup_step1(req, res, next) {
     // validate account
     yield (new gModels.User(signupAccount)).validate();
 
-    res.cookie('signupAccount', signupAccount, {
+    res.cookie('signupAccount', JSON.stringify(signupAccount), {
       domain: gConfig.site,
       secure: process.env.NODE_ENV == 'production',
       path: '/signup'
@@ -62,7 +62,7 @@ function signup_step1(req, res, next) {
       });
     } else {
       // 临时保存用户账号信息供之后创建账户使用
-      res.cookie('signupAccount', signupAccount, {
+      res.cookie('signupAccount', JSON.stringify(signupAccount), {
         domain: gConfig.site,
         secure: process.env.NODE_ENV == 'production',
         path: '/signup'
