@@ -10,7 +10,7 @@ div
         ref='university'
         v-bind:ori-field-val="oriValues['university']"
         v-bind:field-class="['o-fm-ctl']"
-        init-items='constants.universities'
+        v-bind:init-items='constants.universities'
         v-on:change='onChange')
       change-btns(v-bind:is-show="btnStates['university']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='university')
 
@@ -101,7 +101,14 @@ div
         btnStates: {},
         oriValues: {},
         values: {},
-        constants: {},
+        constants: {
+          universities: [],
+          majors: { labels: [], data: {} },
+          entryDates: [],
+          businesses: [],
+          scales: [],
+          maturities: []
+        },
         errors: {}
       };
     },
@@ -198,12 +205,16 @@ div
         constantsAjax = $.get('//api.51shixi.net/cmp_consts');
       }
 
-      var userAjax = $.get('//api.51shixi.net/nc/user_info');
+      var userAjax = $.ajax('//api.51shixi.net/nc/user_info', {
+        xhrFields: {
+          withCredentials: true
+        }
+      });
 
       $.when(constantsAjax, userAjax).done(function(consts, user) {
-        me.constants = consts;
-        _.assign(me.oriValues, user);
-        _.assign(me.values, user);
+        me.constants = consts[0];
+        _.assign(me.oriValues, user[0]);
+        _.assign(me.values, user[0]);
       }).fail(function(err) {
         // TODO
       });

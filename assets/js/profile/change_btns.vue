@@ -14,7 +14,7 @@
         default: false
       },
 
-      relFielName: {
+      relFieldName: {
         type: String,
         required: true
       }

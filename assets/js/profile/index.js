@@ -1,5 +1,6 @@
 var Vue = require('vue');
 var Cookies = require('js-cookie');
+var z = require('common/global');
 
 var pi = new Vue({
   el: '#profile-mount',

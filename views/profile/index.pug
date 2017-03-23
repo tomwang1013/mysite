@@ -1,4 +1,6 @@
 extends ../layouts/main
+append css
+  link(href=assetHashPath("profile/index.css"), rel="stylesheet")
 append js
   include ../share/_ueditor_js.pug
   script(src=assetHashPath('profile/index.js'))

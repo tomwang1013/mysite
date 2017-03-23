@@ -8,11 +8,11 @@
  */
 function stdConsts(req, res, next) {
   Promise.all([
-    gModels.University.all(),
+    gModels.University.find({}).select('name').lean().sort({ ranking: 1 }).exec(),
     gModels.Major.all()
   ]).then(function(result) {
     res.json({
-      universities: result[0],
+      universities: result[0].map(item => item.name),
       majors:       result[1],
       entryDates:   gModels.User.allEntryDates,
     });
