@@ -1,22 +1,24 @@
-var $ = require('jquery');
-var x = require('common/jq_val_wrapper');
 var y = require('common/global');
 var Cookies = require('js-cookie');
+var Vue = require('vue');
+var FV  = require('vue-form-validator');
 
 var z = require('home.scss');
 
-$(function() {
-  var userInfo = Cookies.getJSON('_ppinfo');
+var userInfo = Cookies.getJSON('_ppinfo');
 
-  if (userInfo) {
-    if (userInfo.type == 0) {
-      location = '/jobs';
-    } else {
-      location = '/profile/jobs';
-    }
+if (userInfo) {
+  if (userInfo.type == 0) {
+    location = '/jobs';
+  } else {
+    location = '/profile/jobs';
   }
+}
 
-  $('.js-home-signup-form').validate({
+var validator = new Vue({
+  el: '.c-home-welcome',
+
+  data: {
     rules: {
       name: {
         required: true,
@@ -47,8 +49,10 @@ $(function() {
       }
     },
 
-    errorPlacement: function(error, element) {
-      error.insertAfter(element);
-    }
-  });
+    errorPlacement: 'after_field'
+  }
+
+  components: {
+    'form-validator': FV
+  }
 });

@@ -1,41 +1,43 @@
 var $   = require('jquery');
-var x   = require('common/jq_val_wrapper');
 var w   = require('common/global');
 
 var Vue = require('vue');
 var PL  = require('mycomps/lib/components/popup_list.vue');
 var PT  = require('mycomps/lib/components/popup_tabs.vue');
+var FV  = require('vue-form-validator');
 
 var css = require('user.scss');
 
-$(document).ready(function() {
-  // 大学选择
-  if ($('#university-field').length) {
-    var uv = new Vue({
-      el: '#university-field',
+// 大学选择
+if ($('#university-field').length) {
+  var uv = new Vue({
+    el: '#university-field',
 
-      components: {
-        'popup-list': PL
-      }
-    });
-  }
+    components: {
+      'popup-list': PL
+    }
+  });
+}
 
-  // 专业选择
-  if ($('.o-pt-mount').length) {
-    var ptVm = new Vue({
-      data: {
-        initLables: window.ms.labels,
-        initItems:  window.ms.data
-      },
-      el: '.o-pt-mount',
-      components: {
-        'popup-tabs': PT
-      }
-    });
-  }
+// 专业选择
+if ($('.o-pt-mount').length) {
+  var ptVm = new Vue({
+    data: {
+      initLables: window.ms.labels,
+      initItems:  window.ms.data
+    },
+    el: '.o-pt-mount',
+    components: {
+      'popup-tabs': PT
+    }
+  });
+}
 
-  // 用户注册第一步
-  $('#signup-step1').validate({
+// 用户注册第一步
+new Vue({
+  el: '.u-flex',
+
+  data: {
     rules: {
       name: {
         required: true,
@@ -65,10 +67,18 @@ $(document).ready(function() {
         required: '密码不能为空'
       }
     }
-  });
+  },
 
-  // 用户注册第二步
-  $('#signup-step2').validate({
+  components: {
+    'form-validator': FV
+  }
+});
+
+// 用户注册第二步
+new Vue({
+  el: '.u-flex',
+
+  data: {
     rules: {
       // 学生
       university: 'required',
@@ -98,7 +108,7 @@ $(document).ready(function() {
       major:      '请选择专业',
       careerPlan: {
         required: '职业规划不能为空',
-        ta_minlength: $.validator.format("职业规划应至少包含 {0} 个字符")
+        ta_minlength: "职业规划应至少包含 {0} 个字符"
       },
 
       // 公司
@@ -111,13 +121,21 @@ $(document).ready(function() {
       maturity: '请选择企业成熟度',
       desc: {
         required: '公司介绍不能为空',
-        ta_minlength: $.validator.format("公司介绍应至少包含 {0} 个字符")
+        ta_minlength: "公司介绍应至少包含 {0} 个字符"
       }
     }
-  });
+  },
 
-  // 登陆
-  $('.js-login-fm').validate({
+  components: {
+    'form-validator': FV
+  }
+});
+
+// 登陆
+new Vue({
+  el: '.c-login-box',
+
+  data: {
     rules: {
       email: 'required',
       password: 'required'
@@ -127,5 +145,9 @@ $(document).ready(function() {
       email: 'email不能为空',
       password: '密码不能为空'
     }
-  });
+  },
+
+  components: {
+    'form-validator': FV
+  }
 });

@@ -3,7 +3,7 @@ block content
   .c-login-box
     if flashErrors && flashErrors.length
       .u-center-text.u-flash-error= flashErrors[0]
-    form(method='post', action='/login', class='js-login-fm')
+    form-validator(method='post', action='/login', v-bind='$data')
       input(type='hidden' name='return_to' value=return_to)
 
       .o-fm-grp

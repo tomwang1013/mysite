@@ -1,4 +1,4 @@
-form(method='post', action='/signup_step2', class='c-signup-step-fm', id='signup-step2', data-step=step)
+form-validator(method='post', action='/signup_step2', class='c-signup-step-fm', v-bind='$data')
   if userType == 0
     include _student_signup_detail.pug
   else

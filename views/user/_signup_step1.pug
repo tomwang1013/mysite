@@ -1,4 +1,4 @@
-form(method='post', action='/signup_step1', class='c-signup-step-fm', id='signup-step1', data-step=step)
+form-validator(method='post', action='/signup_step1', class='c-signup-step-fm', v-bind='$data')
   .o-fm-grp
     label(for='name') 用户名：
     input(type='text', name='name', id='name', class='o-fm-ctl', autofocus)
