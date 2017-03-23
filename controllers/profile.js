@@ -23,17 +23,7 @@ function jobs(req, res, next) {
 
 // account and password
 function account(req, res, next) {
-  gModels.User.findById(req.currentUser.id, function(err, user) {
-    res.render('profile/account', {
-      pos:         'account',
-      user:        user,
-      currentUser: req.currentUser,
-      flash:       {
-        success: req.flash('success')[0],
-        error:   req.flash('error')[0]
-      }
-    });
-  });
+  res.render('profile/index');
 };
 
 // 消息中心

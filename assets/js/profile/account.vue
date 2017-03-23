@@ -1,7 +1,123 @@
 <template lang='pug'>
+div
+  //- 头像上传
+  .c-uc-chg-head 修改头像
+  .c-uc-acc-chg
+    div(style={'margin-bottom': '1em'})
+      div(style={'margin-bottom': '1em'}) 头像：
+      img(class='u-round-border' width=70 height=70 :src='user.avatarUrl')
+      span(class='c-uc-acc-chg__upload-ava js-upload-btn o-btn o-btn-normal')
+        label(for='avatar') 上传头像
+        input(type='file' id='avatar' name='avatar')
+
+    //- 头像裁减框
+    .o-overlay-mount
+      popup-overlay(v-on:ok='onOk' ref='po')
+        span(slot='head') 裁剪并替换新的头像
+        .c-ava-crop-area.js-ava-crop-area(slot='body')
+          img.c-ava-crop-area__ori-img(:src='originImgPath')
+          .c-ava-crop-area__ret-img.js-crop-area
+            img.js-ret-img(:src='originImgPath')
+          .c-ava-crop-area__move-area.js-crop-edge.js-move-area
+          .c-ava-crop-area__left-edge.js-crop-edge.js-left-edge
+          .c-ava-crop-area__top-edge.js-crop-edge.js-top-edge
+          .c-ava-crop-area__right-edge.js-crop-edge.js-right-edge
+          .c-ava-crop-area__bottom-edge.js-crop-edge.js-bottom-edge
+          .c-ava-crop-area__tl-corner.js-crop-edge.js-tl-corner
+          .c-ava-crop-area__tm-corner.js-crop-edge.js-tm-corner
+          .c-ava-crop-area__tr-corner.js-crop-edge.js-tr-corner
+          .c-ava-crop-area__lm-corner.js-crop-edge.js-lm-corner
+          .c-ava-crop-area__rm-corner.js-crop-edge.js-rm-corner
+          .c-ava-crop-area__bl-corner.js-crop-edge.js-bl-corner
+          .c-ava-crop-area__bm-corner.js-crop-edge.js-bm-corner
+          .c-ava-crop-area__br-corner.js-crop-edge.js-br-corner
+
+  //- 账号修改
+  .c-uc-chg-head 修改账号信息
+  form(method='post' action='/profile/change_account' class='c-uc-acc-chg js-account-edit')
+    .o-fm-grp
+      label(for='name') 用户名：
+      input(type='text', name='name', id='name', class='o-fm-ctl', value=user.name)
+
+    .o-fm-grp
+      label(for='email') Email：
+      input(type='email', name='email', id='email', class='o-fm-ctl', value=user.email)
+
+    .o-fm-grp
+      label(for='phone') 电话：
+      input(type='text', name='phone', id='phone', class='o-fm-ctl', value=user.phone)
+
+    .o-fm-grp
+      input(type='submit', value='更新账号信息' class='o-btn o-btn-primary u-fir-span')
+      span.u-bold-text.u-success-result.js-result-hint(style={display: 'none'})
+
+  //- 修改密码
+  .c-uc-chg-head 修改密码
+  form(method='post' action='/profile/change_password' class='c-uc-acc-chg js-password-edit')
+    .o-fm-grp
+      label(for='old_pwd') 旧密码：
+      input(type='password', name='old_pwd', id='old_pwd', class='o-fm-ctl')
+
+    .o-fm-grp
+      label(for='new_pwd') 新密码：
+      input(type='password', name='new_pwd', id='new_pwd', class='o-fm-ctl')
+
+    .o-fm-grp
+      label(for='c_new_pwd') 确认新密码：
+      input(type='password', name='c_new_pwd', id='c_new_pwd', class='o-fm-ctl')
+
+    .o-fm-grp
+      input(type='submit', value='更新密码' class='o-btn o-btn-primary u-fir-span')
+      span.u-bold-text.u-success-result.js-result-hint(style={display: 'none'})
 </template>
 
 <script>
+  var $ = require('jquery');
+  var PO  = require('mycomps/lib/components/popup_overlay.vue');
+
+  module.exports = {
+    data: function() {
+      user: {},
+      originImgPath: '',
+      cropArea: {},
+      originSize: {}
+    },
+
+    props: {
+    },
+
+    components: {
+      'popup-overlay': PO
+    },
+
+    methods: {
+      onOk: function() {
+        var me = this;
+
+        $.post('/profile/change_avatar2', {
+          x: this.cropArea.left,
+          y: this.cropArea.top,
+          width: this.cropArea.width,
+          height: this.cropArea.height,
+          origin_img_path: this.originImgPath
+        }, function(data) {
+          me.user.avatarUrl = data.url + '?' + new Date().getTime();
+        });
+      }
+    },
+
+    created: function() {
+      var me = this;
+
+      $.ajax('//api.51shixi.net/nc/user_info', {
+        xhrFields: {
+          withCredentials: true
+        }
+      }).done(function(data) {
+        me.user = data;
+      });
+    }
+  };
 </script>
 
 <style lang="sass" src='profile/account.scss'></style>

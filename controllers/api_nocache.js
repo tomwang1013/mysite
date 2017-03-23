@@ -4,7 +4,8 @@
  * get current user's info
  */
 function userInfo(req, res, next) {
-  gModels.User.findOne({ _id: req.currentUser.id }).exec().then(function(user) {
+  gModels.User.findById(req.currentUser.id).exec().then(function(user) {
+    user.avatarUrl = user.avatarUrl();
     res.json(user);
   }).catch(next);
 }
