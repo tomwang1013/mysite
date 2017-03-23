@@ -1,5 +1,5 @@
 <template lang='pug'>
-  form-validator(method='post', action='/signup_step2', class='c-signup-step-fm', v-bind='validationInfo')
+  form-validator(method='post', action='/signup_step2', class='c-signup-step-fm', v-bind='validationInfo' v-bind:setup-rules-on-mounted='false' ref='fv')
     // 学生信息
     .o-fm-grp
       label(for='university') 学校名称：
@@ -106,6 +106,9 @@
 
       $.get('//api.51shixi.net/std_consts', function(data) {
         me.constants = data;
+        me.$nextTick(function() {
+          me.$refs.fv.setupRules()
+        });
       })
     },
 
