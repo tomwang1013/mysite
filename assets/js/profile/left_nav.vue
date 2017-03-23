@@ -1,9 +1,8 @@
 <template lang='pug'>
 ul.c-uc-left-nav.u-small-font.u-nav-list
   li(v-for='item in items')
-    a(href="'/profile/' + item[0]"
-      class='c-uc-left-nav__item'
-      v-bind:class="{ 'is-active': 'pageName == item[0]' }") {{ item[1] }}
+    a(v-bind:href="'/profile/' + item[0]" class='c-uc-left-nav__item'
+      v-bind:class="{ 'is-active': pageName == item[0] }") {{ item[1] }}
 </template>
 
 <script>

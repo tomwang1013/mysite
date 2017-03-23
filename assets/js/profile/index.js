@@ -16,9 +16,6 @@ var pi = new Vue({
     jobs:       require('profile/jobs.vue'),
     message:    require('profile/message.vue'),
     account:    require('profile/account.vue')
-  },
-
-  methods: {
   }
 });
 

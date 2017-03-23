@@ -37,13 +37,13 @@ div
     .o-fm-grp
       label(for='careerPlan') 职业规划：
       label.input-error(v-show="errors['careerPlan']") {{ errors['careerPlan'] }}
-      textarea(name='careerPlan' id='careerPlan' v-model="values['careerPlan']")
+      textarea(name='careerPlan' id='careerPlan' v-model="values['careerPlan']" class='u-rich-editor')
       change-btns(v-bind:is-show="btnStates['careerPlan']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='careerPlan')
 
     .o-fm-grp
       label(for='zuopin') 课外作品：
       label.input-error(v-show="errors['zuopin']") {{ errors['zuopin'] }}
-      textarea(name='zuopin' id='zuopin' v-model="values['zuopin']")
+      textarea(name='zuopin' id='zuopin' v-model="values['zuopin']" class='u-rich-editor')
       change-btns(v-bind:is-show="btnStates['zuopin']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='zuopin')
       .o-fm-ctl-hint.
         可以提供简单描述及相关的链接，让公司可以通过链接查看详细说明，如：<br/>
@@ -85,7 +85,7 @@ div
     .o-fm-grp
       label(for='desc' class='label label-input') 介绍：
       label.input-error(v-show="errors['desc']") {{ errors['desc'] }}
-      textarea(name='desc' id='desc' v-model="values['desc']")
+      textarea(name='desc' id='desc' v-model="values['desc']" class='u-rich-editor')
       change-btns(v-bind:is-show="btnStates['desc']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='desc')
 </template>
 
