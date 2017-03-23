@@ -4,7 +4,7 @@ var y = require('jquery-validation');
 
 $(function() {
   // 初始化textarea富文本编辑器
-  $('textarea.js-rich-editor').each(function(idx, ele) {
+  $('textarea.u-rich-editor').each(function(idx, ele) {
     UE.getEditor(ele.name);
   });
 });
@@ -31,11 +31,6 @@ $.validator.setDefaults({
   submitHandler: function(form) {
     var validator = this;
     var args = $(form).serializeObject();
-
-    // check ckeditor textarea of this form
-    $(form).find('textarea.js-rich-editor').each(function(i, ele) {
-      args[ele.name] = UE.getEditor(ele.name).getContent();
-    });
 
     $.post(form.action, args, function(data) {
       if (data.error) {

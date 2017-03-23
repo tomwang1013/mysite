@@ -145,7 +145,7 @@ function changeAvatar2(req, res, next) {
     gControllers.user.loginUser(res, user);
     yield user.save()
 
-    // 删除中间文件: 裁剪后自动删除了原始文件，无需再删除
+    // 删除中间文件
     yield new Promise(function(resolve, reject) {
       fs.unlink(fullFilePath, function(err) {
         if (err) reject(err);
