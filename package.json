@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "express-subdomain": "^1.0.5",
     "gm": "^1.23.0",
     "jquery": "^2.2.1",
     "jquery-validation": "^1.15.1",

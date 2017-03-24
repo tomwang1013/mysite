@@ -26,7 +26,7 @@ module.exports = {
     },
 
     userType: {
-      type: String,
+      type: Number,
       required: true
     }
   }

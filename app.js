@@ -1,6 +1,7 @@
 'use strict';
 
 const express       = require('express');
+const subdomain     = require('express-subdomain');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
 const cookieParser  = require('cookie-parser');
@@ -35,6 +36,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(subdomain('api', require('./route/api')));
 app.use(require('./route'));
 app.use(gControllers.error);
 
