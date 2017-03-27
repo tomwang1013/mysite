@@ -194,26 +194,26 @@ div
         } else {
           this.values[relFieldName] = this.oriValues[relFieldName];
         }
-      }
-    },
+      },
 
-    mounted: function() {
-      var editors = document.getElementsByTagName('textarea');
-      var me = this;
+      initEditors: function() {
+        var editors = document.getElementsByTagName('textarea');
+        var me = this;
 
-      for (var i = 0; i < editors.length; i++) {
-        var editorName = editors[i].name;
+        for (var i = 0; i < editors.length; i++) {
+          var editorName = editors[i].name;
 
-        if (!me.editors[editorName]) {
-          me.editors[editorName] = window.UE.getEditor(editorName);
-        }
-
-        (function(en) {
-          me.editors[en].addListener('contentChange', function() {
-            me.values[en] = this.getContent();
-            me.onChange(en);
+          me.editors[editorName] = window.UE.getEditor(editorName, {
+            initialContent: me.oriValues[editorName]
           });
-        })(editorName);
+
+          (function(en) {
+            me.editors[en].addListener('contentChange', function() {
+              me.values[en] = this.getContent();
+              me.onChange(en);
+            });
+          })(editorName);
+        }
       }
     },
 
@@ -238,6 +238,7 @@ div
         me.initialized = true;
         _.assign(me.oriValues, user[0]);
         _.assign(me.values, user[0]);
+        me.$nextTick(me.initEditors.bind(me));
       }).fail(function(err) {
         // TODO
       });
