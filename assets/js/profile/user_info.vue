@@ -8,6 +8,7 @@ div
       popup-list(
         field-name='university'
         ref='university'
+        v-if='initialized'
         v-bind:ori-field-val="oriValues['university']"
         v-bind:field-class="['o-fm-ctl']"
         v-bind:init-items='constants.universities'
@@ -20,6 +21,7 @@ div
       popup-tabs(
         field-name='major'
         ref='major'
+        v-if='initialized'
         field-class='o-fm-ctl'
         v-on:change='onChange'
         v-bind:init-item="oriValues['major']"
@@ -98,7 +100,18 @@ div
 
     data: function() {
       return {
-        btnStates: {},
+        btnStates: {
+          university: false,
+          major: false,
+          entryDate: false,
+          careerPlan: false,
+          zuopin: false,
+          url: false,
+          business: false,
+          scale: false,
+          maturity: false,
+          desc: false
+        },
         oriValues: {},
         values: {},
         constants: {
@@ -109,7 +122,9 @@ div
           scales: [],
           maturities: []
         },
-        errors: {}
+        errors: {},
+        initialized: false,
+        editors: {}
       };
     },
 
@@ -132,7 +147,7 @@ div
           // popup-list && popup-tabs
           this.oriValues[fieldName] = oriValue;
           this.values[fieldName] = value;
-          this.btnStates[oriValue] = oriValue != value;
+          this.btnStates[fieldName] = oriValue != value;
         } else {
           // other field
           var fieldName = oriValue;
@@ -169,15 +184,15 @@ div
         this.btnStates[relFieldName] = false;
         this.errors[relFieldName] = null;
 
-        var editor = window.UE.getEditor(relFieldName);
-        var vm = me.$refs[relFieldName];
+        var editor = this.editors[relFieldName];
+        var vm = this.$refs[relFieldName];
 
         if (editor) {
-          editor.setContent(oriValues[relFieldName] || '')
+          editor.setContent(this.oriValues[relFieldName] || '')
         } else if (vm) {
           vm.value = vm.oriValue;
         } else {
-          me.values[relFieldName] = me.oriValues[relFieldName];
+          this.values[relFieldName] = this.oriValues[relFieldName];
         }
       }
     },
@@ -188,10 +203,17 @@ div
 
       for (var i = 0; i < editors.length; i++) {
         var editorName = editors[i].name;
-        window.UE.getEditor(editorName).addListener('contentChange', function() {
-          me.values[editorName] = this.getContent();
-          me.onChange(editorName);
-        });
+
+        if (!me.editors[editorName]) {
+          me.editors[editorName] = window.UE.getEditor(editorName);
+        }
+
+        (function(en) {
+          me.editors[en].addListener('contentChange', function() {
+            me.values[en] = this.getContent();
+            me.onChange(en);
+          });
+        })(editorName);
       }
     },
 
@@ -213,6 +235,7 @@ div
 
       $.when(constantsAjax, userAjax).done(function(consts, user) {
         me.constants = consts[0];
+        me.initialized = true;
         _.assign(me.oriValues, user[0]);
         _.assign(me.values, user[0]);
       }).fail(function(err) {

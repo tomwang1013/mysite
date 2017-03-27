@@ -1,7 +1,7 @@
 <template lang='pug'>
   .c-change-btns(v-show='isShow')
-    button.u-fir-span(type='button', class='o-btn o-btn-primary' @click="$emit('save', relFielName)") 修改
-    button(type='button', class='o-btn o-btn-normal' @click="$emit('cancel', relFielName)") 取消
+    button.u-fir-span(type='button', class='o-btn o-btn-primary' @click="$emit('save', relFieldName)") 修改
+    button(type='button', class='o-btn o-btn-normal' @click="$emit('cancel', relFieldName)") 取消
 </template>
 
 <script>
@@ -11,7 +11,7 @@
     props: {
       isShow: {
         type: Boolean,
-        default: false
+        required: true
       },
 
       relFieldName: {
