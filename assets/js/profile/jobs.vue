@@ -8,17 +8,16 @@ div
         v-bind:class="{'is-active': status == s}") {{tab}}
 
     .u-center-text(v-if='appliedJobs.length == 0') {{stdNoJobHints[status]}}
-    .c-uc-job(v-else v-for='appliedJob in appliedJobs' v-bind:job='appliedJob._job')
+    .c-uc-job(v-else v-for='appliedJob in appliedJobs')
       .c-uc-job__title
-        a(v-bind:href="'/job/' + job.id") {{job.title}}
+        a(v-bind:href="'/job/' + appliedJob._job.id") {{appliedJob._job.title}}
 
       .c-uc-job__basics.u-small-font
-        span 发布日期：<strong>{{job.createdAt.toLocaleDateString()}}</strong>
-        span 申请日期：<strong>{{appliedJob.createdAt.toLocaleDateString()}}</strong>
-        span 公司：    <strong>{{job._creator.name}}</strong>
-        span <strong>{{job.address}}</strong>
-        span <strong>{{job.displaySalary}}</strong>
-        span 申请人数：<strong>{{job.appliers_cnt}}</strong>
+        span 发布日期：<strong>{{appliedJob._job.createdAt.toLocalTime()}}</strong>
+        span 申请日期：<strong>{{appliedJob.createdAt.toLocalTime()}}</strong>
+        span 公司：    <strong>{{appliedJob._job._creator.name}}</strong>
+        span 工作地点：<strong>{{appliedJob._job.address}}</strong>
+        span 申请人数：<strong>{{appliedJob._job.appliers_cnt}}</strong>
 
       .c-uc-job__status.u-small-font
         .u-unknown-result(v-if='appliedJob.status == 0') 您的申请正在审核中，请耐心等待
@@ -38,9 +37,8 @@ div
         a(v-bind:href="'/job/' + job.id + '/questions'") 题目列表
 
       .c-uc-job__basics.u-small-font
-        span 发布日期：<strong>{{job.createdAt.toLocaleDateString()}}</strong>
+        span 发布日期：<strong>{{job.createdAt.toLocalTime()}}</strong>
         span 工作地点：<strong>{{job.address}}</strong>
-        span 薪资：    <strong>{{job.displaySalary}}</strong>
 </template>
 
 <script>
@@ -61,6 +59,7 @@ div
           replied:   '已经回复的职位',
           unreplied: '还未回复的职位'
         },
+        status: window.location.search ? window.location.search.slice(8) : 'all'
       };
     },
 
@@ -69,11 +68,6 @@ div
         type: Number,
         required: true
       },
-
-      status: {
-        type: String,
-        default: 'all'
-      }
     },
 
     created: function() {
@@ -87,6 +81,9 @@ div
       }
 
       $.ajax(dataUrl, {
+        data: {
+          status: this.status
+        },
         xhrFields: {
           withCredentials: true
         }

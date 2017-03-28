@@ -18,39 +18,7 @@ function userInfo(req, res, next) {
  * 职位信息
  */
 function jobs(req, res, next) {
-  co(function* () {
-    let jobs;
-    let appliedJobs;
-    let status = req.query.status || 'all';
-
-    if (req.currentUser.type == 0) {
-      let query  = { _user: req.currentUser.id };
-
-      if (status == 'replied') {
-        query.status = { $ne: 0 };
-      } else if (status == 'unreplied') {
-        query.status = 0;
-      }
-
-      appliedJobs = yield gModels.ApplyJob.find(query).populate({
-        path:     '_job',
-        populate: { path: '_creator' }
-      }).exec();
-    } else {
-      jobs = yield gModels.Job.find({
-        _creator: req.currentUser.id,
-        deleted: 0
-      }).exec();
-    }
-
-    res.render('profile/jobs', {
-      pos:          'jobs',
-      appliedJobs:  appliedJobs,
-      jobs:         jobs,
-      status:       status,
-      currentUser:  req.currentUser 
-    });
-  }).catch(next);
+  res.render('profile/index');
 }
 
 // account and password
