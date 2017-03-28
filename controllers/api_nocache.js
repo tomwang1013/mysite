@@ -38,8 +38,18 @@ function createdJobs(req, res, next) {
   });
 }
 
+function messages(req, res, next) {
+  gModels.Message.find({
+    userId: req.currentUser.id
+  }).populate('_job').exec(function(err, result) {
+    if (err) return next(err);
+    res.json(result);
+  });
+}
+
 module.exports = {
   userInfo,
   appliedJobs,
-  createdJobs
+  createdJobs,
+  messages
 };

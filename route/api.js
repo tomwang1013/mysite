@@ -10,5 +10,6 @@ router.get('/cmp_consts', gControllers.api_cache.cmpConsts);
 router.get('/nc/user_info', gControllers.api_nocache.userInfo);
 router.get('/nc/applied_jobs', gControllers.api_nocache.appliedJobs);
 router.get('/nc/created_jobs', gControllers.api_nocache.createdJobs);
+router.get('/nc/messages', gControllers.api_nocache.messages);
 
 module.exports = router;

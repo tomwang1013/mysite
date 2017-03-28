@@ -38,16 +38,7 @@ function account(req, res, next) {
 
 // 消息中心
 function message(req, res, next) {
-  co(function* () {
-    let messages = yield gModels.Message.find({
-      userId: req.currentUser.id
-    }).populate('_job').exec();
-
-    res.render('profile/message', {
-      messages: messages,
-      pos: 'message'
-    });
-  }).catch(next);
+  res.render('profile/index');
 }
 
 // 修改用户基本信息
