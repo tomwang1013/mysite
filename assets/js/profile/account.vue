@@ -20,9 +20,13 @@ div
                       @mouseup='onLeave'
                       @mouseleave='onLeave')
         img.c-ava-crop-area__ori-img(:src='originImgPath')
-        .c-ava-crop-area__ret-img.js-crop-area
-          img.js-ret-img(:src='originImgPath')
-        div(v-for='part in cropAreaParts' v-bind:class="'c-ava-crop-area__' + part.name" v-bind:style='part.css' @mousedown='onDown')
+        .c-ava-crop-area__ret-img(v-bind:style='cropArea')
+          img(:src='originImgPath' v-bind:style="{'margin-left': -cropArea.left, 'margin-top': -cropArea.top}")
+        div(v-for='part in cropAreaParts'
+          v-bind:class="'c-ava-crop-area__' + part.name"
+          v-bind:style='part.css'
+          @mousedown='onDown'
+          :name='part.name')
 
   //- 账号修改
   .c-uc-chg-head 修改账号信息
@@ -77,19 +81,19 @@ div
       uploadAvatarDisabled: false,
       cropAreaCss: {},
       cropAreaParts: [
-        { name: 'move-area',   css: { cursor: 'move' } },
-        { name: 'left-edge',   css: { cursor: 'w-resize' } },
-        { name: 'top-edge',    css: { cursor: 'n-resize' } },
-        { name: 'right-edge',  css: { cursor: 'e-resize' } },
-        { name: 'bottom-edge', css: { cursor: 's-resize' } },
-        { name: 'tl-corner',   css: { cursor: 'nw-resize' } },
-        { name: 'tm-corner',   css: { cursor: 'n-resize' } },
-        { name: 'tr-corner',   css: { cursor: 'ne-resize' } },
-        { name: 'lm-corner',   css: { cursor: 'w-resize' } },
-        { name: 'rm-corner',   css: { cursor: 'e-resize' } },
-        { name: 'bl-corner',   css: { cursor: 'sw-resize' } },
-        { name: 'bm-corner',   css: { cursor: 's-resize' } },
-        { name: 'br-corner',   css: { cursor: 'se-resize' } },
+        { name: 'move-area',   css: { cursor: 'move' },      oldCursor: 'move' },
+        { name: 'left-edge',   css: { cursor: 'w-resize' },  oldCursor: 'w-resize' },
+        { name: 'top-edge',    css: { cursor: 'n-resize' },  oldCursor: 'n-resize' },
+        { name: 'right-edge',  css: { cursor: 'e-resize' },  oldCursor: 'e-resize' },
+        { name: 'bottom-edge', css: { cursor: 's-resize' },  oldCursor: 's-resize' },
+        { name: 'tl-corner',   css: { cursor: 'nw-resize' }, oldCursor: 'nw-resize' },
+        { name: 'tm-corner',   css: { cursor: 'n-resize' },  oldCursor: 'n-resize' },
+        { name: 'tr-corner',   css: { cursor: 'ne-resize' }, oldCursor: 'ne-resize' },
+        { name: 'lm-corner',   css: { cursor: 'w-resize' },  oldCursor: 'w-resize' },
+        { name: 'rm-corner',   css: { cursor: 'e-resize' },  oldCursor: 'e-resize' },
+        { name: 'bl-corner',   css: { cursor: 'sw-resize' }, oldCursor: 'sw-resize' },
+        { name: 'bm-corner',   css: { cursor: 's-resize' },  oldCursor: 's-resize' },
+        { name: 'br-corner',   css: { cursor: 'se-resize' }, oldCursor: 'se-resize' },
       ],
       dragInfo: {
         target: null,
@@ -176,14 +180,48 @@ div
         this.dragInfo.target = evt.target;
         this.dragInfo.oriPos.left = evt.pageX;
         this.dragInfo.oriPos.top = evt.pageY;
+
+        // 得到点击时的鼠标形状并将其应用于整个区域
+        var dragPart = _.find(this.cropAreaParts, function(p) {
+          return p.name == evt.target.name;
+        });
+
+        this.cropAreaCss.cursor = dragPart.css.cursor;
+        _.each(cropAreaParts, function(p) {
+          p.css.cursor = dragstart.css.cursor;
+        });
       },
 
       // 拖动
       onMove: function(evt) {
+        var oriPos = this.dragInfo.oriPos;
+
+        if (this.dragInfo.target) {
+          var offset = {
+            dx: e.pageX - oriPos.left,
+            dy: e.pageY - oriPos.top
+          };
+
+          if (offset.dx || offset.dy) {
+            this.adjustCropArea(target, offset);
+            oriPos.left = e.pageX;
+            oriPos.top  = e.pageY;
+          }
+        }
       },
 
       // 拖动结束
       onLeave: function(evt) {
+        if (this.dragInfo.target) {
+          // restore the cursor
+          this.cropAreaCss.cursor = 'default';
+
+          _.each(cropAreaParts, function(p) {
+            p.css.cursor = p.oldCursor;
+          });
+
+          this.dragInfo.target = null;
+        }
       }
     },
 
