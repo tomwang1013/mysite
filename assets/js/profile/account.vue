@@ -6,31 +6,23 @@ div
     div(style={'margin-bottom': '1em'})
       div(style={'margin-bottom': '1em'}) 头像：
       img(class='u-round-border' width=70 height=70 :src='user.avatarUrl')
-      span(class='c-uc-acc-chg__upload-ava js-upload-btn o-btn o-btn-normal')
-        label(for='avatar') 上传头像
-        input(type='file' id='avatar' name='avatar')
+      span(class='c-uc-acc-chg__upload-ava o-btn o-btn-normal')
+        label(for='avatar') {{uploadAvatarText}}
+        input(type='file' id='avatar' name='avatar' @change='uploadAvatar' :disabled='uploadAvatarDisabled')
 
     //- 头像裁减框
-    .o-overlay-mount
-      popup-overlay(v-on:ok='onOk' ref='po')
-        span(slot='head') 裁剪并替换新的头像
-        .c-ava-crop-area.js-ava-crop-area(slot='body')
-          img.c-ava-crop-area__ori-img(:src='originImgPath')
-          .c-ava-crop-area__ret-img.js-crop-area
-            img.js-ret-img(:src='originImgPath')
-          .c-ava-crop-area__move-area.js-crop-edge.js-move-area
-          .c-ava-crop-area__left-edge.js-crop-edge.js-left-edge
-          .c-ava-crop-area__top-edge.js-crop-edge.js-top-edge
-          .c-ava-crop-area__right-edge.js-crop-edge.js-right-edge
-          .c-ava-crop-area__bottom-edge.js-crop-edge.js-bottom-edge
-          .c-ava-crop-area__tl-corner.js-crop-edge.js-tl-corner
-          .c-ava-crop-area__tm-corner.js-crop-edge.js-tm-corner
-          .c-ava-crop-area__tr-corner.js-crop-edge.js-tr-corner
-          .c-ava-crop-area__lm-corner.js-crop-edge.js-lm-corner
-          .c-ava-crop-area__rm-corner.js-crop-edge.js-rm-corner
-          .c-ava-crop-area__bl-corner.js-crop-edge.js-bl-corner
-          .c-ava-crop-area__bm-corner.js-crop-edge.js-bm-corner
-          .c-ava-crop-area__br-corner.js-crop-edge.js-br-corner
+    popup-overlay(v-on:ok='onOk' ref='po')
+      span(slot='head') 裁剪并替换新的头像
+      .c-ava-crop-area(slot='body'
+                      v-bind:style='cropAreaCss'
+                      @dragstart.stop.prevent='return false'
+                      @mousemove='onMove'
+                      @mouseup='onLeave'
+                      @mouseleave='onLeave')
+        img.c-ava-crop-area__ori-img(:src='originImgPath')
+        .c-ava-crop-area__ret-img.js-crop-area
+          img.js-ret-img(:src='originImgPath')
+        div(v-for='part in cropAreaParts' v-bind:class="'c-ava-crop-area__' + part.name" v-bind:style='part.css' @mousedown='onDown')
 
   //- 账号修改
   .c-uc-chg-head 修改账号信息
@@ -80,10 +72,29 @@ div
       user: {},
       originImgPath: '',
       cropArea: {},
-      originSize: {}
-    },
-
-    props: {
+      originSize: {},
+      uploadAvatarText: '上传头像',
+      uploadAvatarDisabled: false,
+      cropAreaCss: {},
+      cropAreaParts: [
+        { name: 'move-area',   css: { cursor: 'move' } },
+        { name: 'left-edge',   css: { cursor: 'w-resize' } },
+        { name: 'top-edge',    css: { cursor: 'n-resize' } },
+        { name: 'right-edge',  css: { cursor: 'e-resize' } },
+        { name: 'bottom-edge', css: { cursor: 's-resize' } },
+        { name: 'tl-corner',   css: { cursor: 'nw-resize' } },
+        { name: 'tm-corner',   css: { cursor: 'n-resize' } },
+        { name: 'tr-corner',   css: { cursor: 'ne-resize' } },
+        { name: 'lm-corner',   css: { cursor: 'w-resize' } },
+        { name: 'rm-corner',   css: { cursor: 'e-resize' } },
+        { name: 'bl-corner',   css: { cursor: 'sw-resize' } },
+        { name: 'bm-corner',   css: { cursor: 's-resize' } },
+        { name: 'br-corner',   css: { cursor: 'se-resize' } },
+      ],
+      dragInfo: {
+        target: null,
+        oriPos: { left: 0, top: 0 }
+      }
     },
 
     components: {
@@ -103,6 +114,76 @@ div
         }, function(data) {
           me.user.avatarUrl = data.url + '?' + new Date().getTime();
         });
+      },
+
+      // 用户选择图片后开始上传
+      uploadAvatar: function(evt) {
+        var file = evt.files[0];
+
+        if (!file) return;
+
+        var me = this;
+
+        this.uploadAvatarText = '上传中，请稍等...';
+        this.uploadAvatarDisabled = true;
+
+        var formData = new FormData();
+
+        formData.append('avatar', file);
+
+        $.ajax({
+          type: 'POST',
+          url: '/profile/change_avatar',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(data) {
+            me.uploadAvatarText = '上传头像';
+            me.uploadAvatarDisabled = false;
+
+            if (!data.error) {
+              me.cropImageAndSave(data.url, data.size);
+            }
+          }
+        });
+      },
+
+      // 展示裁减悬浮框
+      cropImageAndSave: function(imgToCrop, size) {
+        var ow = size.width;
+        var oh = size.height;
+
+        this.originImgPath = imgToCrop;
+        this.originSize = size;
+
+        this.cropArea = { left: 0, top: 0, width: 0, height: 0 };
+
+        if (ow <= oh) {
+          this.cropArea.top = (oh - ow) / 2;
+          this.cropArea.width = this.cropArea.height = ow;
+        } else {
+          this.cropArea.left = (ow - oh) / 2;
+          this.cropArea.width = this.cropArea.height = oh;
+        }
+
+        this.cropAreaCss = { width: ow, height: oh };
+        this.drawCropArea();
+        this.$refs.po.isShow = true;
+      },
+
+      // 点击开始拖动
+      onDown: function(evt) {
+        this.dragInfo.target = evt.target;
+        this.dragInfo.oriPos.left = evt.pageX;
+        this.dragInfo.oriPos.top = evt.pageY;
+      },
+
+      // 拖动
+      onMove: function(evt) {
+      },
+
+      // 拖动结束
+      onLeave: function(evt) {
       }
     },
 
