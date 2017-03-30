@@ -346,6 +346,68 @@ div
           cropArea.left += offset.dx;
           cropArea.top  += offset.dy;
         }
+
+        this.drawCropArea();
+      }
+
+      drawCropArea: function() {
+        var edgeWidth = this.edgeWidth;
+        var cornerWidth = this.cornerWidth;
+        var cropArea = this.cropArea;
+
+        _.assign(this.cropAreaParts['move-area'].css, {
+          left:   cropArea.left + edgeWidth,
+          top:    cropArea.top + edgeWidth,
+          width:  cropArea.width - 2 * edgeWidth,
+          height: cropArea.height - 2 * edgeWidth
+        });
+        _.assign(this.cropAreaParts['left-edge'].css, _.omit(cropArea, 'width'));
+        _.assign(this.cropAreaParts['top-edge'].css, _.omit(cropArea, 'height'));
+        _.assign(this.cropAreaParts['right-edge'].css, {
+          left:   cropArea.left + cropArea.width - edgeWidth,
+          top:    cropArea.top,
+          height: cropArea.height
+        });
+        _.assign(this.cropAreaParts['bottom-edge'].css, {
+          left:   cropArea.left,
+          top:    cropArea.top + cropArea.height - edgeWidth,
+          width:  cropArea.width,
+        });
+
+        _.assign(this.cropAreaParts['tl-corner'].css, {
+          left: cropArea.left,
+          top:  cropArea.top,
+        });
+        _.assign(this.cropAreaParts['tm-corner'].css, {
+          left: cropArea.left + (cropArea.width - cornerWidth) / 2,
+          top:  cropArea.top,
+        });
+        _.assign(this.cropAreaParts['tr-corner'].css, {
+          left: cropArea.left + cropArea.width - cornerWidth,
+          top:  cropArea.top,
+        });
+
+        _.assign(this.cropAreaParts['lm-corner'].css, {
+          left: cropArea.left,
+          top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
+        });
+        _.assign(this.cropAreaParts['rm-corner'].css, {
+          left: cropArea.left + cropArea.width - cornerWidth,
+          top:  cropArea.top + (cropArea.height - cornerWidth) / 2,
+        });
+
+        _.assign(this.cropAreaParts['bl-corner'].css, {
+          left: cropArea.left,
+          top:  cropArea.top + cropArea.height - cornerWidth,
+        });
+        _.assign(this.cropAreaParts['bm-corner'].css, {
+          left: cropArea.left + (cropArea.width - cornerWidth) / 2,
+          top:  cropArea.top + cropArea.height - cornerWidth,
+        });
+        _.assign(this.cropAreaParts['br-corner'].css, {
+          left: cropArea.left + cropArea.width - cornerWidth,
+          top:  cropArea.top + cropArea.height - cornerWidth,
+        });
       }
     },
 
@@ -358,6 +420,63 @@ div
         }
       }).done(function(data) {
         me.user = data;
+      });
+    },
+
+    mounted: function() {
+      /**
+       * 更改账号与密码
+       */
+      $('.js-account-edit').validate({
+        rules: {
+          name: 'required',
+          email: 'required'
+        },
+
+        messages: {
+          name: '用户名不能为空',
+          email: 'Email不能为空'
+        },
+
+        submitHandler: function(form) {
+          var validator = this;
+          var args = $(form).serializeObject();
+
+          $.post(form.action, args, function(data) {
+            if (data.error) {
+              validator.showErrors(data.errors);
+            } else {
+              $(form).find('.js-result-hint').text('账号修改成功').show().fadeOut(3000);
+            }
+          }, 'json');
+        }
+      });
+
+      $('.js-password-edit').validate({
+        rules: {
+          old_pwd: 'required',
+          new_pwd: 'required',
+          c_new_pwd: { equalTo: '#new_pwd' }
+        },
+
+        messages: {
+          old_pwd: '请输入旧密码',
+          new_pwd: '请输入新密码',
+          c_new_pwd: { equalTo: '新密码2次输入不一致' }
+        },
+
+        submitHandler: function(form) {
+          var validator = this;
+          var args = $(form).serializeObject();
+
+          $.post(form.action, args, function(data) {
+            if (data.error) {
+              validator.showErrors(data.errors);
+            } else {
+              $(form).find('.js-result-hint').text('密码修改成功').show().fadeOut(3000);
+            }
+          }, 'json');
+        }
       });
     }
   };
