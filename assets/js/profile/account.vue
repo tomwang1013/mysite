@@ -15,7 +15,7 @@ div
       span(slot='head') 裁剪并替换新的头像
       .c-ava-crop-area(slot='body'
                       v-bind:style='pxPrefix(cropAreaCss)'
-                      @dragstart.stop.prevent='noDrag'
+                      @dragstart.stop.prevent=''
                       @mousemove='onMove'
                       @mouseup='onLeave'
                       @mouseleave='onLeave')
@@ -417,10 +417,6 @@ div
           if (_.isNumber(v)) res[k] = v + 'px';
           else res[k] = v;
         }, {});
-      },
-
-      noDrag: function() {
-        return false;
       }
     },
 
