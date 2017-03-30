@@ -8,6 +8,7 @@ const path    = require('path');
 const fs      = require('fs');
 const async   = require('async');
 const gridfs  = require('../lib/gridfs');
+const url     = require('url');
 
 // 基本信息
 function userInfo(req, res, next) {
@@ -140,7 +141,11 @@ function changeAvatar(req, res, next) {
 function changeAvatar2(req, res, next) {
   let sepIdx = req.body.origin_img_path.lastIndexOf('/');
   let filename = req.body.origin_img_path.slice(sepIdx + 1);
-  let fullFilePath = path.join(gRoot, 'public', req.body.origin_img_path);
+  let fullFilePath = path.join(
+    gRoot,
+    'public',
+    url.parse(req.body.origin_img_path, false, true).pathname
+  );
 
   co(function* () {
     let user = yield gModels.User.findById(req.currentUser.id);
@@ -158,12 +163,12 @@ function changeAvatar2(req, res, next) {
     yield user.save()
 
     // 删除中间文件: 裁剪后自动删除了原始文件，无需再删除
-    //yield new Promise(function(resolve, reject) {
-      //fs.unlink(fullFilePath, function(err) {
-        //if (err) reject(err);
-        //else resolve();
-      //});
-    //});
+    yield new Promise(function(resolve, reject) {
+      fs.unlink(fullFilePath, function(err) {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
 
     res.json({ error: 0, url: gridfs.downloadPath(filename) });
   }).catch(next);
