@@ -128,7 +128,7 @@ function changeAvatar(req, res, next) {
       function(callback) { fs.unlink(path.join(gRoot, req.file.path), callback); }
     ], function(err, result) {
       if (err) return next(err);
-      res.json({ error: 0, size: result[0], url: resizePath.slice(6) });
+      res.json({ error: 0, size: result[0], url: `${gConfig.assets_host}${resizePath.slice(6)}`});
     });
   });
 }

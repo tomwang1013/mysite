@@ -5,8 +5,7 @@
  */
 function userInfo(req, res, next) {
   gModels.User.findById(req.currentUser.id).exec().then(function(user) {
-    user.avatarUrl = user.avatarUrl();
-    res.json(user);
+    res.json(user.toJSON({ virtuals: true }));
   }).catch(next);
 }
 

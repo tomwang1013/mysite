@@ -69,13 +69,13 @@ userSchema.methods.isCompany = function() {
   return this.userType === 1;
 };
 
-userSchema.methods.avatarUrl = function() {
+userSchema.virtual('avatarUrl').get(function() {
   if (this.avatar) {
     return gridfs.downloadPath(this.avatar);
   } else {
     return gConfig.assets_host + '/images/default_avatar.png';
   }
-};
+});
 
 userSchema.methods.scaleValue = function() {
   return User.scales[this.scale];

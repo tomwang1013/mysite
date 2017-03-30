@@ -5,43 +5,43 @@ div
   .c-uc-acc-chg
     div(style={'margin-bottom': '1em'})
       div(style={'margin-bottom': '1em'}) 头像：
-      img(class='u-round-border' width=70 height=70 :src='user.avatarUrl')
+      img(class='u-round-border' width=70 height=70 v-bind:src='user.avatarUrl')
       span(class='c-uc-acc-chg__upload-ava o-btn o-btn-normal')
         label(for='avatar') {{uploadAvatarText}}
-        input(type='file' id='avatar' name='avatar' @change='uploadAvatar' :disabled='uploadAvatarDisabled')
+        input(type='file' id='avatar' name='avatar' @change='uploadAvatar' v-bind:disabled='uploadAvatarDisabled')
 
     //- 头像裁减框
     popup-overlay(v-on:ok='onOk' ref='po')
       span(slot='head') 裁剪并替换新的头像
       .c-ava-crop-area(slot='body'
-                      v-bind:style='cropAreaCss'
-                      @dragstart.stop.prevent='return false'
+                      v-bind:style='pxPrefix(cropAreaCss)'
+                      @dragstart.stop.prevent='noDrag'
                       @mousemove='onMove'
                       @mouseup='onLeave'
                       @mouseleave='onLeave')
-        img.c-ava-crop-area__ori-img(:src='originImgPath')
-        .c-ava-crop-area__ret-img(v-bind:style='cropArea')
-          img(:src='originImgPath' v-bind:style="{'margin-left': -cropArea.left, 'margin-top': -cropArea.top}")
-        div(v-for='part in cropAreaParts'
-          v-bind:class="'c-ava-crop-area__' + part.name"
-          v-bind:style='part.css'
+        img.c-ava-crop-area__ori-img(v-bind:src='originImgPath')
+        .c-ava-crop-area__ret-img(v-bind:style='pxPrefix(cropArea)')
+          img(v-bind:src='originImgPath' v-bind:style="{'margin-left': -cropArea.left + 'px', 'margin-top': -cropArea.top + 'px'}")
+        div(v-for='(part, name) in cropAreaParts'
+          v-bind:class="'c-ava-crop-area__' + name"
+          v-bind:style='pxPrefix(part.css)'
           @mousedown='onDown'
-          :name='part.name')
+          v-bind:name='name')
 
   //- 账号修改
   .c-uc-chg-head 修改账号信息
   form(method='post' action='/profile/change_account' class='c-uc-acc-chg js-account-edit')
     .o-fm-grp
       label(for='name') 用户名：
-      input(type='text', name='name', id='name', class='o-fm-ctl', value=user.name)
+      input(type='text', name='name', id='name', class='o-fm-ctl', :value='user.name')
 
     .o-fm-grp
       label(for='email') Email：
-      input(type='email', name='email', id='email', class='o-fm-ctl', value=user.email)
+      input(type='email', name='email', id='email', class='o-fm-ctl', :value='user.email')
 
     .o-fm-grp
       label(for='phone') 电话：
-      input(type='text', name='phone', id='phone', class='o-fm-ctl', value=user.phone)
+      input(type='text', name='phone', id='phone', class='o-fm-ctl', :value='user.phone')
 
     .o-fm-grp
       input(type='submit', value='更新账号信息' class='o-btn o-btn-primary u-fir-span')
@@ -70,37 +70,40 @@ div
 <script>
   var $ = require('jquery');
   var PO  = require('mycomps/lib/components/popup_overlay.vue');
+  var y = require('jquery-validation');
 
   module.exports = {
     data: function() {
-      user: {},
-      originImgPath: '',
-      cropArea: {},
-      originSize: {},
-      uploadAvatarText: '上传头像',
-      uploadAvatarDisabled: false,
-      cropAreaCss: {},
-      cropAreaParts: [
-        { name: 'move-area',   css: { cursor: 'move' },      oldCursor: 'move' },
-        { name: 'left-edge',   css: { cursor: 'w-resize' },  oldCursor: 'w-resize' },
-        { name: 'top-edge',    css: { cursor: 'n-resize' },  oldCursor: 'n-resize' },
-        { name: 'right-edge',  css: { cursor: 'e-resize' },  oldCursor: 'e-resize' },
-        { name: 'bottom-edge', css: { cursor: 's-resize' },  oldCursor: 's-resize' },
-        { name: 'tl-corner',   css: { cursor: 'nw-resize' }, oldCursor: 'nw-resize' },
-        { name: 'tm-corner',   css: { cursor: 'n-resize' },  oldCursor: 'n-resize' },
-        { name: 'tr-corner',   css: { cursor: 'ne-resize' }, oldCursor: 'ne-resize' },
-        { name: 'lm-corner',   css: { cursor: 'w-resize' },  oldCursor: 'w-resize' },
-        { name: 'rm-corner',   css: { cursor: 'e-resize' },  oldCursor: 'e-resize' },
-        { name: 'bl-corner',   css: { cursor: 'sw-resize' }, oldCursor: 'sw-resize' },
-        { name: 'bm-corner',   css: { cursor: 's-resize' },  oldCursor: 's-resize' },
-        { name: 'br-corner',   css: { cursor: 'se-resize' }, oldCursor: 'se-resize' },
-      ],
-      dragInfo: {
-        target: null,
-        oriPos: { left: 0, top: 0 }
-      },
-      edgeWidth: 2,
-      cornerWidth: 8
+      return {
+        user: {},
+        originImgPath: '',
+        cropArea: {},
+        originSize: {},
+        uploadAvatarText: '上传头像',
+        uploadAvatarDisabled: false,
+        cropAreaCss: {},
+        cropAreaParts: {
+          'move-area': { css: { cursor: 'move' }, oldCursor: 'move' },
+          'left-edge': { css: { cursor: 'w-resize' }, oldCursor: 'w-resize' },
+          'top-edge': { css: { cursor: 'n-resize' }, oldCursor: 'n-resize' },
+          'right-edge': { css: { cursor: 'e-resize' }, oldCursor: 'e-resize' },
+          'bottom-edge': { css: { cursor: 's-resize' }, oldCursor: 's-resize' },
+          'tl-corner': { css: { cursor: 'nw-resize' }, oldCursor: 'nw-resize' },
+          'tm-corner': { css: { cursor: 'n-resize' }, oldCursor: 'n-resize' },
+          'tr-corner': { css: { cursor: 'ne-resize' }, oldCursor: 'ne-resize' },
+          'lm-corner': { css: { cursor: 'w-resize' }, oldCursor: 'w-resize' },
+          'rm-corner': { css: { cursor: 'e-resize' }, oldCursor: 'e-resize' },
+          'bl-corner': { css: { cursor: 'sw-resize' }, oldCursor: 'sw-resize' },
+          'bm-corner': { css: { cursor: 's-resize' }, oldCursor: 's-resize' },
+          'br-corner': { css: { cursor: 'se-resize' }, oldCursor: 'se-resize' },
+        },
+        dragInfo: {
+          target: null,
+          oriPos: { left: 0, top: 0 }
+        },
+        edgeWidth: 2,
+        cornerWidth: 8
+      }
     },
 
     components: {
@@ -124,7 +127,7 @@ div
 
       // 用户选择图片后开始上传
       uploadAvatar: function(evt) {
-        var file = evt.files[0];
+        var file = evt.target.files[0];
 
         if (!file) return;
 
@@ -184,28 +187,27 @@ div
         this.dragInfo.oriPos.top = evt.pageY;
 
         // 得到点击时的鼠标形状并将其应用于整个区域
-        var dragPart = _.find(this.cropAreaParts, function(p) {
-          return p.name == evt.target.name;
-        });
+        var dragPart = this.cropAreaParts[evt.target.getAttribute('name')];
 
         this.cropAreaCss.cursor = dragPart.css.cursor;
-        _.each(cropAreaParts, function(p) {
-          p.css.cursor = dragstart.css.cursor;
+        _.forOwn(this.cropAreaParts, function(p) {
+          p.css.cursor = dragPart.css.cursor;
         });
       },
 
       // 拖动
-      onMove: function(evt) {
+      onMove: function(e) {
         var oriPos = this.dragInfo.oriPos;
+        var target = this.dragInfo.target;
 
-        if (this.dragInfo.target) {
+        if (target) {
           var offset = {
             dx: e.pageX - oriPos.left,
             dy: e.pageY - oriPos.top
           };
 
           if (offset.dx || offset.dy) {
-            this.adjustCropArea(target.name, offset);
+            this.adjustCropArea(target.getAttribute('name'), offset);
             oriPos.left = e.pageX;
             oriPos.top  = e.pageY;
           }
@@ -218,7 +220,7 @@ div
           // restore the cursor
           this.cropAreaCss.cursor = 'default';
 
-          _.each(cropAreaParts, function(p) {
+          _.forOwn(this.cropAreaParts, function(p) {
             p.css.cursor = p.oldCursor;
           });
 
@@ -348,7 +350,7 @@ div
         }
 
         this.drawCropArea();
-      }
+      },
 
       drawCropArea: function() {
         var edgeWidth = this.edgeWidth;
@@ -408,6 +410,17 @@ div
           left: cropArea.left + cropArea.width - cornerWidth,
           top:  cropArea.top + cropArea.height - cornerWidth,
         });
+      },
+
+      pxPrefix: function(styleObj) {
+        return _.transform(styleObj, function(res, v, k) {
+          if (_.isNumber(v)) res[k] = v + 'px';
+          else res[k] = v;
+        }, {});
+      },
+
+      noDrag: function() {
+        return false;
       }
     },
 

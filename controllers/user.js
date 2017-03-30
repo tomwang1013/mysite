@@ -170,7 +170,7 @@ function loginUser(res, user) {
     id:     user.id,
     name:   user.name,
     type:   user.userType,
-    avatar: user.avatarUrl()
+    avatar: user.avatarUrl
   }), {
     // apply to mysite.com and all its subdomains
     // no way to match exactly 'mysite.com'
