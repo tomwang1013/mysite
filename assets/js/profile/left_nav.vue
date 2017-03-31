@@ -1,8 +1,7 @@
 <template lang='pug'>
 ul.c-uc-left-nav.u-small-font.u-nav-list
   li(v-for='item in items')
-    a(v-bind:href="'/profile/' + item[0]" class='c-uc-left-nav__item'
-      v-bind:class="{ 'is-active': pageName == item[0] }") {{ item[1] }}
+    router-link(v-bind:to="'/profile/' + item[0]" class='c-uc-left-nav__item' active-class='is-active') {{ item[1] }}
 </template>
 
 <script>
@@ -19,11 +18,6 @@ module.exports = {
   },
 
   props: {
-    pageName: {
-      type: String,
-      required: true
-    },
-
     userType: {
       type: Number,
       required: true
