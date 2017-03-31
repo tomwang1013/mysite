@@ -26,7 +26,3 @@ function getPageName() {
     return 'user_info';
   }
 }
-
-window.addEventListener('popstate', function(evt) {
-  pi.pageName = getPageName();
-});

@@ -64,24 +64,21 @@ div
       label(for='business') 所属行业：
       label.input-error(v-show="errors['business']") {{ errors['business'] }}
       select(name='business' id='business' class='o-fm-ctl' v-on:change="onChange('business')" v-model="values['business']")
-        option(value='') 请选择行业
-        option(v-for='b in constants.businesses')= b
+        option(v-for='b in constants.businesses' v-bind:value='b') {{b}}
       change-btns(v-bind:is-show="btnStates['business']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='business')
 
     .o-fm-grp
       label(for='scale') 规模：
       label.input-error(v-show="errors['scale']") {{ errors['scale'] }}
       select(name='scale' id='scale' class='o-fm-ctl' v-on:change="onChange('scale')" v-model="values['scale']")
-        option(value='') 请选择企业规模
-        option(v-for='(s,i) in constants.scales' value=i)= s
+        option(v-for='(s,i) in constants.scales' v-bind:value='i') {{s}}
       change-btns(v-bind:is-show="btnStates['scale']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='scale')
 
     .o-fm-grp
       label(for='maturity' class='label label-input') 成熟度：
       label.input-error(v-show="errors['maturity']") {{ errors['maturity'] }}
       select(name='maturity' id='maturity' class='o-fm-ctl' v-on:change="onChange('maturity')" v-model="values['maturity']")
-        option(value='') 请选择企业成熟度
-        option(v-for='(m,i) in constants.maturities' value=i)= m
+        option(v-for='(m,i) in constants.maturities' v-bind:value='i') {{m}}
       change-btns(v-bind:is-show="btnStates['maturity']" v-on:save='onSave' v-on:cancel='onCancel' rel-field-name='maturity')
 
     .o-fm-grp

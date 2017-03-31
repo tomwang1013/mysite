@@ -69,12 +69,8 @@ router.post('/question/:qid/answer/:aid/update_score',  gControllers.middlewares
 router.post('/question/:qid/answer/:aid/remove',        gControllers.middlewares.checkStudentLogin, gControllers.answers.remove);
 
 // user center
-router.get('/profile/account',            gControllers.middlewares.checkLogin, gControllers.profile.account);
-router.get('/profile/message',            gControllers.middlewares.checkLogin, gControllers.profile.message);
+router.get('/profile(/:page_name)?',      gControllers.middlewares.checkLogin, gControllers.profile.index);
 router.get('/profile/message_status',     gControllers.profile.messageStatus);
-router.get('/profile(/user_info)?',       gControllers.middlewares.checkLogin, gControllers.profile.userInfo);
-router.get('/profile/jobs',               gControllers.middlewares.checkLogin, gControllers.profile.jobs);
-
 router.post('/profile/change_user_info',  gControllers.middlewares.checkLogin, gControllers.profile.changeUserInfo);
 router.post('/profile/change_account',    gControllers.middlewares.checkLogin, gControllers.profile.changeAccount);
 router.post('/profile/change_password',   gControllers.middlewares.checkLogin, gControllers.profile.changePassword);
@@ -83,19 +79,19 @@ router.post('/profile/change_avatar2',    gControllers.middlewares.checkLogin, g
 router.post('/profile/message/set_read',  gControllers.middlewares.checkLogin, gControllers.profile.setMsgRead);
 
 // misc
-router.get('/download/:filename',   gControllers.gridfs.download );
-router.get('/upload/:filename',     gControllers.gridfs.upload );
-router.get('/universities',         gControllers.universities.index );
-router.get('/majors',               gControllers.majors.index );
+router.get('/download/:filename',   gControllers.gridfs.download);
+router.get('/upload/:filename',     gControllers.gridfs.upload);
+router.get('/universities',         gControllers.universities.index);
+router.get('/majors',               gControllers.majors.index);
 
 // question labels
-router.get('/qlabels/search', gControllers.ques_labels.search );
-router.post('/qlabels',       gControllers.ques_labels.create );
+router.get('/qlabels/search', gControllers.ques_labels.search);
+router.post('/qlabels',       gControllers.ques_labels.create);
 
 // 编辑器操作对应服务端处理
 router.use('/ueditor', upload.single('upfile'), gControllers.ueditor.index);
 
 // about
-router.get('/about', gControllers.about.index );
+router.get('/about', gControllers.about.index);
 
 module.exports = router;

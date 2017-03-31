@@ -11,24 +11,7 @@ const gridfs  = require('../lib/gridfs');
 const url     = require('url');
 
 // 基本信息
-function userInfo(req, res, next) {
-  res.render('profile/index');
-}
-
-/**
- * 职位信息
- */
-function jobs(req, res, next) {
-  res.render('profile/index');
-}
-
-// account and password
-function account(req, res, next) {
-  res.render('profile/index');
-};
-
-// 消息中心
-function message(req, res, next) {
+function index(req, res, next) {
   res.render('profile/index');
 }
 
@@ -202,7 +185,7 @@ function setMsgRead(req, res, next) {
 }
 
 exports = module.exports = {
-  userInfo, account, jobs, message,
+  index,
   messageStatus, setMsgRead, changeUserInfo,
   changeAccount, changePassword, changeAvatar,
   changeAvatar2
