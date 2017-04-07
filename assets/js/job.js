@@ -52,23 +52,14 @@ var cities = {
 };
 
 $(document).ready(function() {
-  // 工作地点选择
-  var ptVm = new Vue({
-    data: {
-      initLables: cities.labels,
-      initItems:  cities.data
-    },
-    el: '.o-pt-mount',
-    components: {
-      'popup-tabs': PT
-    }
-  });
-
   // 创建和修改职位表单验证
   var validator = new Vue({
     el: '#main-content',
 
     data: {
+      initLables: cities.labels,
+      initItems:  cities.data,
+
       rules: {
         title:        'required',
         address:      'required',
@@ -118,7 +109,8 @@ $(document).ready(function() {
     },
 
     components: {
-      'form-validator': FV
+      'form-validator': FV,
+      'popup-tabs': PT
     }
   });
 
