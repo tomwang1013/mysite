@@ -94,9 +94,5 @@ router.use('/ueditor', upload.single('upfile'), gControllers.ueditor.index);
 // about
 router.get('/about', gControllers.about.index);
 
-// form-validator test
-router.get('/about/fm_val_test', gControllers.about.fmValTest);
-router.get('/about/something', gControllers.about.something);
-
 
 module.exports = router;

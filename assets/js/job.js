@@ -3,6 +3,7 @@ var x   = require('common/jq_val_wrapper');
 var Vue = require('vue');
 var PO  = require('mycomps/lib/components/popup_overlay.vue');
 var PT  = require('mycomps/lib/components/popup_tabs.vue');
+var FV  = require('vue-form-validator');
 var w   = require('common/global');
 var v   = require('job.scss');
 
@@ -60,39 +61,60 @@ $(document).ready(function() {
   });
 
   // 创建和修改职位表单验证
-  $('.js-job-ne-fm').validate({
-    rules: {
-      title:        'required',
-      address:      'required',
-      salary:       'required',
-      business:     'required',
+  var new Vue({
+    el: '.u-content',
 
-      duty:         {
-        required: true,
-        ta_minlength: 20
+    data: {
+      rules: {
+        title:        'required',
+        address:      'required',
+        salary:       'required',
+        business:     'required',
+
+        duty:         {
+          required: true,
+          ta_minlength: 20
+        },
+
+        requirement:  {
+          required: true,
+          ta_minlength: 20
+        }
       },
 
-      requirement:  {
-        required: true,
-        ta_minlength: 20
+      messages: {
+        title:        '请给一个标题吧',
+        address:      '请选择工作地点',
+        salary:       '请选择薪资范围',
+        business:     '请选择所属行业',
+
+        duty:         {
+          required: '工作职责不能为空',
+          ta_minlength: $.validator.format("工作职责应至少包含 {0} 个字符")
+        },
+
+        requirement:  {
+          required: '职位要求不能为空',
+          ta_minlength: $.validator.format("职位要求应至少包含 {0} 个字符")
+        }
+      },
+
+      submitHandler: function(form) {
+        var validator = this;
+        var args = $(form).serializeObject();
+
+        $.post(form.action, args, function(data) {
+          if (data.error) {
+            validator.showErrors(data.errors);
+          } else {
+            location = data.location;
+          }
+        }, 'json');
       }
     },
 
-    messages: {
-      title:        '请给一个标题吧',
-      address:      '请选择工作地点',
-      salary:       '请选择薪资范围',
-      business:     '请选择所属行业',
-
-      duty:         {
-        required: '工作职责不能为空',
-        ta_minlength: $.validator.format("工作职责应至少包含 {0} 个字符")
-      },
-
-      requirement:  {
-        required: '职位要求不能为空',
-        ta_minlength: $.validator.format("职位要求应至少包含 {0} 个字符")
-      }
+    components: {
+      'form-validator': FormValidator
     }
   });
 
