@@ -2,7 +2,7 @@ extends _layout.pug
 append js
   include ../share/_ueditor_js.pug
 block content
-  form-validator(method='post', action='/jobs', class='c-job-ne-fm', v-bind='$data')
+  form-validator(ref='fv' method='post', action='/jobs', class='c-job-ne-fm', v-bind='$data')
     .c-job-ne-fm__head.u-large-font 创建实习岗位
 
     .o-fm-grp

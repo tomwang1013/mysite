@@ -7,6 +7,10 @@ var FV  = require('vue-form-validator');
 var w   = require('common/global');
 var v   = require('job.scss');
 
+FV.addValidationMethod('ta_minlength', function(element, minlen) {
+  return UE.getEditor(element.name).getContentLength(true) >= minlen;
+});
+
 var cities = {
   labels: ['省份', '市区'],
   data:   {
@@ -61,8 +65,8 @@ $(document).ready(function() {
   });
 
   // 创建和修改职位表单验证
-  var new Vue({
-    el: '.u-content',
+  var validator = new Vue({
+    el: '#main-content',
 
     data: {
       rules: {
@@ -90,12 +94,12 @@ $(document).ready(function() {
 
         duty:         {
           required: '工作职责不能为空',
-          ta_minlength: $.validator.format("工作职责应至少包含 {0} 个字符")
+          ta_minlength: "工作职责应至少包含 {0} 个字符"
         },
 
         requirement:  {
           required: '职位要求不能为空',
-          ta_minlength: $.validator.format("职位要求应至少包含 {0} 个字符")
+          ta_minlength: "职位要求应至少包含 {0} 个字符"
         }
       },
 
@@ -105,7 +109,7 @@ $(document).ready(function() {
 
         $.post(form.action, args, function(data) {
           if (data.error) {
-            validator.showErrors(data.errors);
+            validator.$refs.fv.showErrors(data.errors);
           } else {
             location = data.location;
           }
@@ -114,7 +118,7 @@ $(document).ready(function() {
     },
 
     components: {
-      'form-validator': FormValidator
+      'form-validator': FV
     }
   });
 
