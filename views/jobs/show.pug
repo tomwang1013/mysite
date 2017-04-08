@@ -1,4 +1,8 @@
-extends _layout.pug
+extends ../layouts/main
+append css
+  link(href=assetHashPath("job/show.css"), rel="stylesheet")
+append js
+  script(src=assetHashPath('job/show.js'))
 block content
   article.c-job-detail
     .c-job-detail__head

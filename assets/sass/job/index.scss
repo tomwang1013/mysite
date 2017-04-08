@@ -1,0 +1,63 @@
+@import 'partials/common/index';
+@import 'partials/modules/pager';
+
+/*************
+ * 职位列表页
+ *************/
+
+/* 搜索框 */
+
+.c-jobs-search-fm {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.8em;
+}
+
+// list of [label + input]
+.c-jobs-search-fm__field-grp {
+  display: flex;
+  margin-bottom: 0.5em;
+}
+
+// label + input
+.c-jobs-search-fm__field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  // 输入框最大化
+  & > .o-fm-ctl-hr { flex: 1; }
+}
+
+
+/* 搜索结果：职位列表  */
+
+.c-jobs-search-list {
+  margin-top:1em;
+}
+
+// 单个职位
+.c-jobs-search-item {
+  margin-bottom:1em;
+  padding:10px;
+  background-color:#eee;
+  border:1px solid #d2d2d2;
+}
+
+// 职位标题
+.c-jobs-search-item__title {
+  padding-bottom:6px;
+  margin-bottom: 6px;
+  border-bottom:1px solid $bd-normal;
+  display: flex;
+  align-items: center;
+}
+
+// 基本信息中的属性分隔符
+.c-jobs-search-item__attrs > span {
+  padding: 0 8px;
+  border-right: 1px solid $bd-normal;
+
+  &:first-child { padding-left: 0; }
+  &:last-child  { border-right: none; }
+}

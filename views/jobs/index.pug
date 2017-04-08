@@ -1,4 +1,8 @@
-extends _layout.pug
+extends ../layouts/main
+append css
+  link(href=assetHashPath("job/index.css"), rel="stylesheet")
+append js
+  script(src=assetHashPath('job/index.js'))
 block content
   //- 搜索框
   form.c-jobs-search-fm(action='/jobs' method='get')

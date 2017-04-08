@@ -1,15 +1,8 @@
 var $   = require('jquery');
-var x   = require('common/jq_val_wrapper');
-var Vue = require('vue');
-var PO  = require('mycomps/lib/components/popup_overlay.vue');
-var PT  = require('mycomps/lib/components/popup_tabs.vue');
-var FV  = require('vue-form-validator');
 var w   = require('common/global');
-var v   = require('job.scss');
-
-FV.addValidationMethod('ta_minlength', function(element, minlen) {
-  return UE.getEditor(element.name).getContentLength(true) >= minlen;
-});
+var Vue = require('vue');
+var PT  = require('mycomps/lib/components/popup_tabs.vue');
+var v   = require('job/index.scss');
 
 var cities = {
   labels: ['省份', '市区'],
@@ -49,175 +42,29 @@ var cities = {
     '澳门':   [],
     '香港':   []
   }
-};
+}
+var ptVm = new Vue({
+  data: {
+    initLables: cities.labels,
+    initItems:  cities.data
+  },
+  el: '.o-pt-mount',
+  components: {
+    'popup-tabs': PT
+  }
+});
 
-$(document).ready(function() {
-  // 创建和修改职位表单验证
-  var validator = new Vue({
-    el: '#main-content',
+// apply job at jobs index
+$('.js-idx-apply-job').click(function() {
+  var me = $(this);
 
-    data: {
-      initLables: cities.labels,
-      initItems:  cities.data,
-
-      rules: {
-        title:        'required',
-        address:      'required',
-        salary:       'required',
-        business:     'required',
-
-        duty:         {
-          required: true,
-          ta_minlength: 20
-        },
-
-        requirement:  {
-          required: true,
-          ta_minlength: 20
-        }
-      },
-
-      messages: {
-        title:        '请给一个标题吧',
-        address:      '请选择工作地点',
-        salary:       '请选择薪资范围',
-        business:     '请选择所属行业',
-
-        duty:         {
-          required: '工作职责不能为空',
-          ta_minlength: "工作职责应至少包含 {0} 个字符"
-        },
-
-        requirement:  {
-          required: '职位要求不能为空',
-          ta_minlength: "职位要求应至少包含 {0} 个字符"
-        }
-      },
-
-      submitHandler: function(form) {
-        var validator = this;
-        var args = $(form).serializeObject();
-
-        $.post(form.action, args, function(data) {
-          if (data.error) {
-            validator.$refs.fv.showErrors(data.errors);
-          } else {
-            location = data.location;
-          }
-        }, 'json');
-      }
-    },
-
-    components: {
-      'form-validator': FV,
-      'popup-tabs': PT
-    }
-  });
-
-  // apply job at jobs index
-  $('.js-idx-apply-job').click(function() {
-    var me = $(this);
-
-    $.post('/jobs/apply', {
-      job_id: me.closest('.js-jobs-search-item').data('jobId')
-    }, function(data) {
-      if (data.error) {
-        location = data.location;
-      } else {
-        me.text("已申请").prop('disabled', true).removeClass('o-btn-primary').addClass('o-btn-disabled');
-      }
-    });
-  });
-
-  // apply job at job detail
-  $('.js-to-apply').click(function() {
-    var me = $(this);
-
-    $.post('/jobs/apply', {
-      job_id: me.data('jobId')
-    }, function(data) {
-      if (!data.error) {
-        me.parent().replaceWith(
-          "<div class='u-bold-text'>" +
-            "<span class='u-unknown-result'>已申请，审核中...</span>" +
-          "</div>");
-      } else {
-        location = data.location || '/';
-      }
-    });
-  });
-
-  // pass or refuse applying
-  $('.js-apply-op > button').click(function() {
-    var me = $(this);
-    var confirm = me.closest('.c-applier').find('.js-op-message');
-    var message;
-    var status;
-
-    me.parent().hide();
-    confirm.show();
-
-    if (me.text() == '通过') {
-      message = '恭喜你通过审核：';
-      status = 2;
+  $.post('/jobs/apply', {
+    job_id: me.closest('.js-jobs-search-item').data('jobId')
+  }, function(data) {
+    if (data.error) {
+      location = data.location;
     } else {
-      message = '很遗憾你暂时不适合这个岗位：';
-      status = 1;
+      me.text("已申请").prop('disabled', true).removeClass('o-btn-primary').addClass('o-btn-disabled');
     }
-
-    confirm.find('textarea').data('status', status).val(message).focus();
-  });
-
-  // 处理学生的职位申请请求
-  $('.js-op-message button:first-child').click(function() {
-    var me = $(this);
-    var c = $(this).closest('.c-applier');
-    var userId = c.data('userId');
-    var jobId  = c.data('jobId');
-    var t = me.closest('.js-op-message').find('textarea');
-    var status = t.data('status');
-    var message = t.val();
-
-    $.post('/job/' + jobId + '/handle_apply', {
-      userId:   userId,
-      jobId:    jobId,
-      status:   status,
-      message:  message
-    }, function(data) {
-      var resultHtml;
-
-      if (status == 1) {
-        resultHtml = "<div class='u-error-result'>已拒绝：" + message + "</div>";
-      } else {
-        resultHtml = "<div class='u-success-result'>已通过：" + message + "</div>";
-      }
-
-      me.closest('.js-op-message').replaceWith(resultHtml);
-    });
-  });
-
-  $('.js-op-message button:last-child').click(function() {
-    $(this).closest('.js-op-message').hide();
-    $(this).closest('.c-applier').find('.js-apply-op').show();
-  });
-
-  // 删除职位
-  var delJobBtn = $('.js-del-job');
-  var poMount = new Vue({
-    el: delJobBtn.next().get(0),
-
-    components: { 'popup-overlay': PO },
-
-    methods: {
-      onOk: function() {
-        $.post(delJobBtn.data('link'), function(data) {
-          location.replace(data.location);
-        });
-      }
-    }
-  });
-
-  delJobBtn.click(function() {
-    poMount.$refs.po.isShow = true;
   });
 });

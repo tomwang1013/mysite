@@ -1,6 +1,9 @@
-extends _layout.pug
+extends ../layouts/main
+append css
+  link(href=assetHashPath("job/new_edit.css"), rel="stylesheet")
 append js
   include ../share/_ueditor_js.pug
+  script(src=assetHashPath('job/new_edit.js'))
 block content
   form-validator(ref='fv' method='post', action='/jobs', class='c-job-ne-fm', v-bind='$data')
     .c-job-ne-fm__head.u-large-font 创建实习岗位

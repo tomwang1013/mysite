@@ -1,0 +1,49 @@
+@import 'partials/common/index';
+
+/***********
+ * 职位详情
+ ***********/
+
+.c-job-detail {
+  padding: 1em 1em 0 1em;
+  border: 1px solid $bd-normal;
+  border-radius: 4px;
+}
+
+// head
+.c-job-detail__head {
+  padding-bottom: 0.8em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.5em;
+  text-align: center;
+  position: relative;
+}
+
+// questions link in head: 问题列表
+.c-job-detail__head__qlink {
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+
+// 职位信息的各个模块
+.c-job-detail__secion {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid $bd-normal;
+}
+
+// 职位基本信息，如发布日期，工作地点等
+.c-job-detail__basic-info {
+  &:not(:last-child) { margin-bottom: 0.5em; }
+  & > span { display: inline-block; }
+  & > span:first-child { width: 15%; }
+}
+
+// 底部申请状态栏
+.c-job-detail__foot { padding: 1em 0; }
+
+// 当前职位是我发布时的状态信息
+.c-job-detail__foot__myjob {
+  display: flex;
+  align-items: center;
+}

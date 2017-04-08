@@ -1,0 +1,21 @@
+@import 'partials/common/index';
+
+/*****************
+ * 新建及编辑职位
+ *****************/
+
+.c-job-ne-fm {
+  padding: 1em 1em 0 1em;
+  border: 1px solid $bd-normal;
+  max-width: 720px;
+  border-radius: 4px;
+  margin-left:  auto;
+  margin-right: auto;
+}
+
+.c-job-ne-fm__head {
+  border-bottom: 2px solid $hl-color;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+}

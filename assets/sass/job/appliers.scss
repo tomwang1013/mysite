@@ -1,0 +1,52 @@
+@import 'partials/common/index';
+
+/***************************
+ * 企业查看职位申请者列表
+ ***************************/
+
+// 申请者列表头部
+.c-appliers-list-head {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+// 单个申请者信息
+.c-applier {
+  border: 1px solid $bd-light;
+  margin: 1em 0;
+}
+
+// 申请者基本信息
+.c-applier__info {
+  padding: 0.5em;
+  border-bottom: 1px solid $bd-normal;
+
+  // 分隔线
+  & > span {
+    display: inline-block;
+    border-right: 2px solid $bd-light;
+    padding: 0 0.5em;
+
+    span:first-child {
+      padding-left: 0;
+    }
+
+    span:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+  }
+}
+
+// 申请结果
+.c-applier__result {
+  padding: 0.5em;
+}
+
+// 申请结果附带消息
+.c-applier__result__msg {
+  // overwrite default: margin-top: 0.5em
+  margin-top: 0;
+}

@@ -1,4 +1,8 @@
-extends _layout.pug
+extends ../layouts/main
+append css
+  link(href=assetHashPath("job/appliers.css"), rel="stylesheet")
+append js
+  script(src=assetHashPath('job/appliers.js'))
 block content
   .c-appliers-list-head.u-large-font
     a(href='/job/' + job.id) #{job.title} — 申请者列表
