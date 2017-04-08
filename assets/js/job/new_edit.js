@@ -1,13 +1,9 @@
 var $   = require('jquery');
 var Vue = require('vue');
 var PT  = require('mycomps/lib/components/popup_tabs.vue');
-var FV  = require('vue-form-validator');
 var w   = require('common/global');
+var FV  = require('vue-form-validator');
 var v   = require('job/new_edit.scss');
-
-FV.addValidationMethod('ta_minlength', function(element, minlen) {
-  return UE.getEditor(element.name).getContentLength(true) >= minlen;
-});
 
 var cities = {
   labels: ['省份', '市区'],
@@ -44,8 +40,8 @@ var cities = {
     '宁夏':   ['银川市', '石嘴山市', '吴忠市', '固原市', '中卫市'],
     '新疆':   ['乌鲁木齐', '克拉玛依市', '石河子市', '阿拉尔市', '图木舒克市', '五家渠市', '吐鲁番市', '阿克苏市', '喀什市', '哈密市', '和田市', '阿图什市', '库尔勒市', '昌吉市', '阜康市', '米泉市', '博乐市', '伊宁市', '奎屯市', '塔城市', '乌苏市', '阿勒泰市'],
     '内蒙':   ['呼和浩特', '包头市', '乌海市', '赤峰市', '通辽市', '鄂尔多斯市', '呼伦贝尔市', '巴彦淖尔市', '乌兰察布市', '锡林郭勒盟', '兴安盟', '阿拉善盟'],
-    '澳门':   [],
-    '香港':   []
+    '澳门':   '澳门',
+    '香港':   '香港'
   }
 };
 
@@ -89,19 +85,6 @@ var validator = new Vue({
         required: '职位要求不能为空',
         ta_minlength: "职位要求应至少包含 {0} 个字符"
       }
-    },
-
-    submitHandler: function(form) {
-      var validator = this;
-      var args = $(form).serializeObject();
-
-      $.post(form.action, args, function(data) {
-        if (data.error) {
-          validator.$refs.fv.showErrors(data.errors);
-        } else {
-          location = data.location;
-        }
-      }, 'json');
     }
   },
 

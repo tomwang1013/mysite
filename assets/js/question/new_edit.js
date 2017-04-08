@@ -1,30 +1,18 @@
 var $ = require('jquery');
-var x = require('common/jq_val_wrapper');
 var w = require('common/global');
 
 var Vue = require('vue');
 var IL  = require('mycomps/lib/components/input_labels.vue');
 var FA  = require('mycomps/lib/components/fa_rating.vue');
+var FV  = require('vue-form-validator');
 
 var css = require('question/new_edit.scss');
 
-$(function() {
-  new Vue({
-    el: '#labels-wrapper',
-    components: {
-      'input-labels': IL
-    }
-  });
+// question创建修改表单验证
+var validator = new Vue({
+  el: '.c-ques-n-e',
 
-  new Vue({
-    el: '.o-rat-mount',
-    components: {
-      'fa-rating': FA
-    }
-  });
-
-  // question创建修改表单验证
-  $('.js-ques-n-e-fm').validate({
+  data: {
     rules: {
       title:    'required',
       tag:      'required',
@@ -41,8 +29,14 @@ $(function() {
       labels:   '请至少指定一个标签',
       content:  {
         required: '忘记填问题内容了',
-        ta_minlength: $.validator.format("题目内容应至少包含 {0} 个字符")
+        ta_minlength: "题目内容应至少包含 {0} 个字符"
       }
     }
-  });
+  },
+
+  components: {
+    'form-validator': FV,
+    'input-labels': IL,
+    'fa-rating': FA
+  }
 });

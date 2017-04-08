@@ -1,5 +1,32 @@
+var $ = require('jquery');
 var Vue = require('vue');
 var MainNav = require('./main_nav.vue');
+var x = require('common/serialize_object');
+var FV  = require('vue-form-validator');
+
+FV.addValidationMethod('ta_minlength', function(element, minlen) {
+  return UE.getEditor(element.name).getContentLength(true) >= minlen;
+});
+
+FV.setDefaultProps({
+  submitHandler: function(event, form) {
+    var validator = this;
+    var args = $(form).serializeObject();
+
+    $.post(form.action, args, function(data) {
+      if (data.error) {
+        validator.showErrors(data.errors);
+      } else {
+        window.location = data.location;
+      }
+    }, 'json');
+  }
+});
+
+// 初始化textarea富文本编辑器
+$('textarea.u-rich-editor').each(function(idx, ele) {
+  UE.getEditor(ele.name);
+});
 
 new Vue({
   el: '.c-header',

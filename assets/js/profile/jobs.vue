@@ -10,7 +10,7 @@ div
     .u-center-text(v-if='appliedJobs.length == 0') {{stdNoJobHints[status]}}
     .c-uc-job(v-else v-for='appliedJob in appliedJobs')
       .c-uc-job__title
-        a(v-bind:href="'/job/' + appliedJob._job.id") {{appliedJob._job.title}}
+        a(v-bind:href="'/job/' + appliedJob._job._id") {{appliedJob._job.title}}
 
       .c-uc-job__basics.u-small-font
         span 发布日期：<strong>{{appliedJob._job.createdAt.toLocalTime()}}</strong>
@@ -29,12 +29,12 @@ div
       a(href='/jobs/new' class='o-btn o-btn-primary') 发布新的职位
     .c-uc-job(v-for='job in createdJobs')
       .c-uc-job__title
-        a.u-flex-mg-r-auto(v-bind:href="'/job/' + job.id") {{job.title}}
+        a.u-flex-mg-r-auto(v-bind:href="'/job/' + job._id") {{job.title}}
         span.u-fir-span 申请人数：
-          a(v-if='job.appliers_cnt > 0' v-bind:href="'/job/' + job.id + '/appliers'") {{job.appliers_cnt}}
+          a(v-if='job.appliers_cnt > 0' v-bind:href="'/job/' + job._id + '/appliers'") {{job.appliers_cnt}}
           a(v-else href='#') 0
-        a.u-fir-span(v-bind:href="'/job/' + job.id + '/edit'") 编辑
-        a(v-bind:href="'/job/' + job.id + '/questions'") 题目列表
+        a.u-fir-span(v-bind:href="'/job/' + job._id + '/edit'") 编辑
+        a(v-bind:href="'/job/' + job._id + '/questions'") 题目列表
 
       .c-uc-job__basics.u-small-font
         span 发布日期：<strong>{{job.createdAt.toLocalTime()}}</strong>

@@ -1,5 +1,5 @@
 extends _layout.pug
-append js
+prepend js
   include ../share/_ueditor_js.pug
 block content
   .c-answer-head
@@ -10,7 +10,7 @@ block content
 
   .c-your-answer-txt 你的答案：
   - var uri = `/question/${question.id}/answer/${answer.id}/update`
-  form(class='js-answer-ne-fm' method='post' action=uri)
+  form-validator(method='post' action=uri v-bind='$data')
     textarea(name='content' id='content' class='u-rich-editor')!= answer.content
     .c-answer-fm-submit
       input.o-btn.o-btn-primary.u-fir-span(type='submit' value='保 存')

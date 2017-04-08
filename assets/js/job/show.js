@@ -1,6 +1,8 @@
 var $   = require('jquery');
 var w   = require('common/global');
 var v   = require('job/show.scss');
+var Vue = require('vue');
+var PO  = require('mycomps/lib/components/popup_overlay.vue');
 
 // apply job at job detail
 $('.js-to-apply').click(function() {

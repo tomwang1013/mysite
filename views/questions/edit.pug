@@ -1,9 +1,10 @@
 extends ../layouts/main
 append css
   link(href=assetHashPath("question/new_edit.css"), rel="stylesheet")
+prepend js
+  include ../share/_ueditor_js.pug
 append js
   script(src=assetHashPath('question/new_edit.js'))
-  include ../share/_ueditor_js.pug
 block content
   .c-ques-n-e
     .c-ques-common-head
@@ -12,7 +13,7 @@ block content
       span 修改一道试题：
 
     - var uri = '/job/' + job.id + '/question/' + question.id + '/update'
-    form.c-ques-n-e__fm.js-ques-n-e-fm(method='post' action=uri)
+    form-validator.c-ques-n-e__fm(method='post' action=uri v-bind='$data')
       .o-fm-grp
         label(for='title') 标题：
         input(type='text' name='title', id='title' class='o-fm-ctl', value=question.title, autofocus)
@@ -26,10 +27,9 @@ block content
 
       .o-fm-grp
         label(for='labels') 标签：
-        div(id='labels-wrapper')
-          input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels' init-labels=question.labels.join(','))
+        input-labels(input-id='labels' search-url='/qlabels/search' add-url='/qlabels' init-labels=question.labels.join(','))
 
-      .o-fm-grp.o-rat-mount
+      .o-fm-grp
         label(for='level') 难度：
         fa-rating(
           field-name='level'
