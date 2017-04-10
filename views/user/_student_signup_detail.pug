@@ -1,7 +1,4 @@
 // 学生信息
-script.
-  window.ms = !{JSON.stringify(majors)};
-
 .o-fm-grp(id='university-field')
   label(for='university') 学校名称：
   popup-list(field-name='university' v-bind:field-class="['o-fm-ctl']" items-init-url='/universities')
@@ -11,8 +8,8 @@ script.
   popup-tabs(
     field-name='major'
     field-class='o-fm-ctl'
-    v-bind:init-lables='initLables'
-    v-bind:init-items='initItems')
+    v-bind:init-lables='majors.labels'
+    v-bind:init-items='majors.data')
 
 .o-fm-grp
   label(for='entryDate') 入学年份：

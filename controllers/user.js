@@ -106,8 +106,13 @@ function isValidName(req, res, next) {
   var name = req.query.name;
 
   gModels.User.findOne({ name: name }).exec().then(function(u) {
-    if (u) res.json(name + ' 已经存在');
-    else res.json('true');
+    if (u) res.json({
+      valid: false,
+      message: name + ' 已经存在'
+    });
+    else res.json({
+      valid: true
+    });
   });
 }
 
@@ -116,8 +121,13 @@ function isValidEmail(req, res, next) {
   var email = req.query.email;
 
   gModels.User.findOne({ email: email }).exec().then(function(u) {
-    if (u) res.json(email + ' 已经存在');
-    else res.json('true');
+    if (u) res.json({
+      valid: false,
+      message: email + ' 已经存在'
+    });
+    else res.json({
+      valid: true
+    });
   });
 }
 

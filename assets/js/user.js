@@ -23,12 +23,18 @@ if ($('#university-field').length) {
 if ($('.o-pt-mount').length) {
   var ptVm = new Vue({
     data: {
-      initLables: window.ms.labels,
-      initItems:  window.ms.data
+      majors: { labels: [], data: {} }
     },
     el: '.o-pt-mount',
     components: {
       'popup-tabs': PT
+    },
+    created: function() {
+      var me = this;
+
+      $.get('//api.51shixi.net/std_consts', function(data) {
+        me.majors = data.majors;
+      })
     }
   });
 }
@@ -132,22 +138,24 @@ new Vue({
 });
 
 // 登陆
-new Vue({
-  el: '.c-login-box',
+if ($('.c-login-box').length > 0) {
+  new Vue({
+    el: '.c-login-box',
 
-  data: {
-    rules: {
-      email: 'required',
-      password: 'required'
+    data: {
+      rules: {
+        email: 'required',
+        password: 'required'
+      },
+
+      messages: {
+        email: 'email不能为空',
+        password: '密码不能为空'
+      }
     },
 
-    messages: {
-      email: 'email不能为空',
-      password: '密码不能为空'
+    components: {
+      'form-validator': FV
     }
-  },
-
-  components: {
-    'form-validator': FV
-  }
-});
+  });
+}

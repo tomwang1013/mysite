@@ -70,7 +70,6 @@ div
 <script>
   var $ = require('jquery');
   var PO  = require('mycomps/lib/components/popup_overlay.vue');
-  var y = require('jquery-validation');
 
   module.exports = {
     data: function() {

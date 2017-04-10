@@ -50,7 +50,7 @@ var validator = new Vue({
     },
 
     errorPlacement: 'after_field'
-  }
+  },
 
   components: {
     'form-validator': FV
