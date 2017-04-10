@@ -68,7 +68,7 @@ function signup_step1(req, res, next) {
     yield (new gModels.User(signupAccount)).validate();
     res.json({ error: 0, location: '/signup?step=2' });
   }).catch(function(error) {
-    if (error && (error.errors['name'] || error.errors['email'])) {
+    if (error.errors && (error.errors['name'] || error.errors['email'])) {
       error.errors = _.pick(error.errors, 'name', 'email');
       res.json({
         error: 1,
