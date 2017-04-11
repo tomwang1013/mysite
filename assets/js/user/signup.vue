@@ -17,9 +17,16 @@ div
 
     data: {
       return {
-        step: 1,
+        step: this.originStep,
         signupAccount: Cookies.getJSON('signupAccount')
       };
+    },
+
+    props: {
+      originStep: {
+        type: Number,
+        default: 1
+      }
     },
 
     computed: {

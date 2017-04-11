@@ -26,28 +26,7 @@ function show(req, res, next) {
 
 // 用户注册页面
 function signupView(req, res, next) {
-  let step = req.query.step ? parseInt(req.query.step) : 1;
-
-  if (step == 2) {
-    gModels.Major.all().then(function(result) {
-      res.render('user/signupView', {
-        step:         step,
-        title:        '实习网-用户注册',
-        userType:     req.session.signupAccount.userType,
-        majors:       result,
-        entryDates:   gModels.User.allEntryDates,
-        businesses:   gModels.Business,
-        scales:       gModels.User.scales,
-        maturities:   gModels.User.maturities
-      });
-    })
-  } else {
-    res.render('user/signupView', {
-      step:       step,
-      title:      '实习网-用户注册',
-      userType:   req.currentUser ? req.currentUser.type : undefined
-    });
-  }
+  res.render('user/signupView')
 }
 
 /**
@@ -63,9 +42,16 @@ function signup_step1(req, res, next) {
         return resolve(hash);
       });
     });
-    signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'),
-                             { password: hashedPwd });
+    signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'), { password: hashedPwd });
+
+    // validate account
     yield (new gModels.User(signupAccount)).validate();
+
+    res.cookie('signupAccount', signupAccount, {
+      domain: gConfig.site,
+      secure: process.env.NODE_ENV == 'production',
+      path: '/signup'
+    });
     res.json({ error: 0, location: '/signup?step=2' });
   }).catch(function(error) {
     if (error.errors && (error.errors['name'] || error.errors['email'])) {
@@ -76,7 +62,11 @@ function signup_step1(req, res, next) {
       });
     } else {
       // 临时保存用户账号信息供之后创建账户使用
-      req.session.signupAccount = signupAccount;
+      res.cookie('signupAccount', signupAccount, {
+        domain: gConfig.site,
+        secure: process.env.NODE_ENV == 'production',
+        path: '/signup'
+      });
       res.json({ error: 0, location: '/signup?step=2' });
     }
   });

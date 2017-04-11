@@ -10,14 +10,13 @@
       popup-tabs(
         field-name='major'
         field-class='o-fm-ctl'
-        v-bind:init-lables='majors.labels'
-        v-bind:init-items='majors.data')
+        v-bind:init-lables='constants.majors.labels'
+        v-bind:init-items='constants.majors.data')
 
     .o-fm-grp
       label(for='entryDate') 入学年份：
       select(name='entryDate', id='entryDate', class='o-fm-ctl')
-        each ed in entryDates
-          option(value=ed)= ed 
+        option(v-for='ed in entryDates' v-bind:value='ed') {{ed}} 
 
     .o-fm-grp
       label(for='careerPlan') 职业规划：
@@ -40,13 +39,19 @@
   var PL  = require('mycomps/lib/components/popup_list.vue');
   var PT  = require('mycomps/lib/components/popup_tabs.vue');
   var FV  = require('vue-form-validator');
+  var $   = require('jquery');
+  var _   = require('lodash');
 
   module.exports = {
     name: 'signup-student-step2',
 
     data: function() {
       return {
-        majors: { labels: [], data: {} },
+        constants: {
+          universities: [],
+          majors: { labels: [], data: {} },
+          entryDates: [],
+        },
         validationInfo: {
           rules: {
             // 学生
@@ -66,6 +71,19 @@
               required: '职业规划不能为空',
               ta_minlength: "职业规划应至少包含 {0} 个字符"
             },
+          },
+
+          submitHandler: function(form) {
+            var validator = this;
+            var args = $(form).serializeObject();
+
+            $.post(form.action, _.marge(args, Cookies.getJSON('signupAccount')), function(data) {
+              if (data.error) {
+                validator.showErrors(data.errors);
+              } else {
+                window.location = data.location;
+              }
+            }, 'json');
           }
         }
       };
@@ -81,7 +99,7 @@
       var me = this;
 
       $.get('//api.51shixi.net/std_consts', function(data) {
-        me.majors = data.majors;
+        me.constants = data;
       })
     }
   };
