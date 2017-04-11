@@ -15,7 +15,7 @@ div
   module.exports = {
     name: 'signup-view',
 
-    data: {
+    data: function() {
       return {
         step: this.originStep,
         signupAccount: Cookies.getJSON('signupAccount')
@@ -44,10 +44,12 @@ div
     },
 
     components: {
-      step1: require('./signup_step1.vue');
-      stu_step2: require('./signup_stu_step2.vue');
-      cmp_step2: require('./signup_cmp_step2.vue');
-      step3: require('./signup_step3.vue');
+      step1: require('./signup_step1.vue'),
+      stu_step2: require('./signup_stu_step2.vue'),
+      cmp_step2: require('./signup_cmp_step2.vue'),
+      step3: require('./signup_step3.vue')
     }
   };
 </script>
+
+<style lang='sass' src='user/signup.scss'></style>

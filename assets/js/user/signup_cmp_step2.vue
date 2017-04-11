@@ -17,17 +17,20 @@
       label(for='scale') 规模：
       select(name='scale', id='scale', class='o-fm-ctl')
         option(value='') 请选择企业规模
-        option(v-for='s,i in scales' v-bind:value='i') {{s}}
+        option(v-for='s,i in constants.scales' v-bind:value='i') {{s}}
 
     .o-fm-grp
       label(for='maturity') 成熟度：
       select(name='maturity', id='maturity', class='o-fm-ctl')
         option(value='') 请选择企业成熟度
-        option(v-for='m,i in maturities' v-bind:value='i') {{m}}
+        option(v-for='m,i in constants.maturities' v-bind:value='i') {{m}}
 
     .o-fm-grp
       label(for='desc') 介绍：
       textarea(name='desc', id='desc', class='u-rich-editor')
+
+    .o-fm-grp
+      input(type='submit', value='保 存' class='o-btn o-btn-primary')
 </template>
 
 <script>
@@ -48,6 +51,19 @@
         },
 
         validationInfo: {
+          submitHandler: function(form) {
+            var validator = this;
+            var args = $(form).serializeObject();
+
+            $.post(form.action, _.marge(args, Cookies.getJSON('signupAccount')), function(data) {
+              if (data.error) {
+                validator.showErrors(data.errors);
+              } else {
+                window.location = data.location;
+              }
+            }, 'json');
+          },
+
           rules: {
             url: {
               required: true,
@@ -74,30 +90,25 @@
               required: '公司介绍不能为空',
               ta_minlength: "公司介绍应至少包含 {0} 个字符"
             }
-          },
-
-          submitHandler: function(form) {
-            var validator = this;
-            var args = $(form).serializeObject();
-
-            $.post(form.action, _.marge(args, Cookies.getJSON('signupAccount')), function(data) {
-              if (data.error) {
-                validator.showErrors(data.errors);
-              } else {
-                window.location = data.location;
-              }
-            }, 'json');
           }
         }
-      },
+      };
+    },
 
-      created: function() {
-        var me = this;
+    components: {
+      'form-validator': FV
+    },
 
-        $.get('//api.51shixi.net/cmp_consts', function(data) {
-          me.constants = data;
-        })
-      }
+    created: function() {
+      var me = this;
+
+      $.get('//api.51shixi.net/cmp_consts', function(data) {
+        me.constants = data;
+      })
+    },
+
+    mounted: function() {
+      UE.getEditor('desc');
     }
   };
 </script>

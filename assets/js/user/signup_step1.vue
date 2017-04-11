@@ -1,4 +1,5 @@
 <template lang='pug'>
+div
   form-validator(method='post', action='/signup_step1', class='c-signup-step-fm', v-bind='$data')
     .o-fm-grp
       label(for='name') 用户名：

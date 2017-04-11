@@ -39,6 +39,7 @@
   var PL  = require('mycomps/lib/components/popup_list.vue');
   var PT  = require('mycomps/lib/components/popup_tabs.vue');
   var FV  = require('vue-form-validator');
+  var Cookies = require('js-cookie');
   var $   = require('jquery');
   var _   = require('lodash');
 
@@ -101,6 +102,11 @@
       $.get('//api.51shixi.net/std_consts', function(data) {
         me.constants = data;
       })
+    },
+
+    mounted: function() {
+      UE.getEditor('careerPlan');
+      UE.getEditor('zuopin');
     }
   };
 </script>
