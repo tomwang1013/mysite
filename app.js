@@ -18,7 +18,8 @@ global.gControllers = require('./controllers');
 global.gModels      = require('./models');
 
 app.set('x-powered-by', false);
-app.set('etag', false);
+// FIXME why false?
+//app.set('etag', false);
 app.set('trust proxy', true);
 app.set('views', './views')
 app.set('view engine', 'pug')

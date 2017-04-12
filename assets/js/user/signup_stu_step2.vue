@@ -83,7 +83,7 @@
             var validator = this;
             var args = $(form).serializeObject();
 
-            $.post(form.action, _.marge(args, Cookies.getJSON('signupAccount')), function(data) {
+            $.post(form.action, _.merge(args, Cookies.getJSON('signupAccount')), function(data) {
               if (data.error) {
                 validator.showErrors(data.errors);
               } else {

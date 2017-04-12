@@ -30,46 +30,18 @@ div
 
   //- 账号修改
   .c-uc-chg-head 修改账号信息
-  form(method='post' action='/profile/change_account' class='c-uc-acc-chg js-account-edit')
-    .o-fm-grp
-      label(for='name') 用户名：
-      input(type='text', name='name', id='name', class='o-fm-ctl', :value='user.name')
-
-    .o-fm-grp
-      label(for='email') Email：
-      input(type='email', name='email', id='email', class='o-fm-ctl', :value='user.email')
-
-    .o-fm-grp
-      label(for='phone') 电话：
-      input(type='text', name='phone', id='phone', class='o-fm-ctl', :value='user.phone')
-
-    .o-fm-grp
-      input(type='submit', value='更新账号信息' class='o-btn o-btn-primary u-fir-span')
-      span.u-bold-text.u-success-result.js-result-hint(style={display: 'none'})
+  change-acc-fm(v-if='user.name' v-bind:user='user')
 
   //- 修改密码
   .c-uc-chg-head 修改密码
-  form(method='post' action='/profile/change_password' class='c-uc-acc-chg js-password-edit')
-    .o-fm-grp
-      label(for='old_pwd') 旧密码：
-      input(type='password', name='old_pwd', id='old_pwd', class='o-fm-ctl')
-
-    .o-fm-grp
-      label(for='new_pwd') 新密码：
-      input(type='password', name='new_pwd', id='new_pwd', class='o-fm-ctl')
-
-    .o-fm-grp
-      label(for='c_new_pwd') 确认新密码：
-      input(type='password', name='c_new_pwd', id='c_new_pwd', class='o-fm-ctl')
-
-    .o-fm-grp
-      input(type='submit', value='更新密码' class='o-btn o-btn-primary u-fir-span')
-      span.u-bold-text.u-success-result.js-result-hint(style={display: 'none'})
+  change-pwd-fm
 </template>
 
 <script>
   var $ = require('jquery');
   var PO  = require('mycomps/lib/components/popup_overlay.vue');
+  var ChangeAccFm = require('./change_acc_fm.vue');
+  var ChangePwdFm = require('./change_pwd_fm.vue');
 
   module.exports = {
     data: function() {
@@ -106,7 +78,9 @@ div
     },
 
     components: {
-      'popup-overlay': PO
+      'popup-overlay': PO,
+      'change-acc-fm': ChangeAccFm,
+      'change-pwd-fm': ChangePwdFm
     },
 
     methods: {
@@ -428,63 +402,6 @@ div
         }
       }).done(function(data) {
         me.user = data;
-      });
-    },
-
-    mounted: function() {
-      /**
-       * 更改账号与密码
-       */
-      $('.js-account-edit').validate({
-        rules: {
-          name: 'required',
-          email: 'required'
-        },
-
-        messages: {
-          name: '用户名不能为空',
-          email: 'Email不能为空'
-        },
-
-        submitHandler: function(form) {
-          var validator = this;
-          var args = $(form).serializeObject();
-
-          $.post(form.action, args, function(data) {
-            if (data.error) {
-              validator.showErrors(data.errors);
-            } else {
-              $(form).find('.js-result-hint').text('账号修改成功').show().fadeOut(3000);
-            }
-          }, 'json');
-        }
-      });
-
-      $('.js-password-edit').validate({
-        rules: {
-          old_pwd: 'required',
-          new_pwd: 'required',
-          c_new_pwd: { equalTo: '#new_pwd' }
-        },
-
-        messages: {
-          old_pwd: '请输入旧密码',
-          new_pwd: '请输入新密码',
-          c_new_pwd: { equalTo: '新密码2次输入不一致' }
-        },
-
-        submitHandler: function(form) {
-          var validator = this;
-          var args = $(form).serializeObject();
-
-          $.post(form.action, args, function(data) {
-            if (data.error) {
-              validator.showErrors(data.errors);
-            } else {
-              $(form).find('.js-result-hint').text('密码修改成功').show().fadeOut(3000);
-            }
-          }, 'json');
-        }
       });
     }
   };

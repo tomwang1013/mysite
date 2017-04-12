@@ -7,6 +7,7 @@ const gridfs = require('../lib/gridfs');
 
 function index(req, res, next) {
   if (req.query.action == 'config') {
+    res.set('Cache-Control', 'max-age=86400');
     res.json({
       /* 上传图片配置项 */
       "imageActionName": "uploadimage", /* 执行上传图片的action名称 */
