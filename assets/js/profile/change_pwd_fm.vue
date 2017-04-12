@@ -28,7 +28,7 @@
         rules: {
           old_pwd: 'required',
           new_pwd: 'required',
-          c_new_pwd: { equalTo: '#new_pwd' }
+          c_new_pwd: { equalTo: 'new_pwd' }
         },
 
         messages: {
@@ -37,19 +37,19 @@
           c_new_pwd: { equalTo: '新密码2次输入不一致' }
         },
 
-        submitHandler: function(form) {
-          var validator = this;
+        submitHandler: (function(validator, form) {
           var args = $(form).serializeObject();
+          var me = this;
 
           $.post(form.action, args, function(data) {
             if (data.error) {
-              validator.success = false;
+              me.success = false;
               validator.showErrors(data.errors);
             } else {
-              validator.success = true;
+              me.success = true;
             }
           }, 'json');
-        }
+        }).bind(this)
       };
     },
 

@@ -51,8 +51,7 @@
         },
 
         validationInfo: {
-          submitHandler: function(form) {
-            var validator = this;
+          submitHandler: function(validator, form) {
             var args = $(form).serializeObject();
 
             $.post(form.action, _.merge(args, Cookies.getJSON('signupAccount')), function(data) {

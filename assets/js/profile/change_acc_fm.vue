@@ -35,19 +35,19 @@
           email: 'Email不能为空'
         },
 
-        submitHandler: function(form) {
-          var validator = this;
+        submitHandler: (function(validator, form) {
           var args = $(form).serializeObject();
+          var me = this;
 
           $.post(form.action, args, function(data) {
             if (data.error) {
-              validator.success = false;
+              me.success = false;
               validator.showErrors(data.errors);
             } else {
-              validator.success = true;
+              me.success = true;
             }
           }, 'json');
-        }
+        }).bind(this)
       };
     },
 

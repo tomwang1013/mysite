@@ -9,8 +9,7 @@ FV.addValidationMethod('ta_minlength', function(element, minlen) {
 });
 
 FV.setDefaultProps({
-  submitHandler: function(form) {
-    var validator = this;
+  submitHandler: function(validator, form) {
     var args = $(form).serializeObject();
 
     $.post(form.action, args, function(data) {
