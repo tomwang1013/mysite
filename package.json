@@ -37,6 +37,7 @@
     "pug": "^2.0.0-beta3",
     "request": "^2.74.0",
     "vue": "^2.1.10",
+    "vue-auto-validator": "0.0.3",
     "vue-router": "^2.3.1"
   },
   "devDependencies": {

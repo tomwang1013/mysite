@@ -22,8 +22,9 @@ module.exports = {
     ],
 
     alias: {
-      vue$: 'vue/dist/vue.common.js',
-      'vue-router$': 'vue-router/dist/vue-router.common.js'
+      'vue$': 'vue/dist/vue.common.js',
+      'vue-router$': 'vue-router/dist/vue-router.common.js',
+      'vue-form-validator$': 'vue-auto-validator'
     }
   },
 

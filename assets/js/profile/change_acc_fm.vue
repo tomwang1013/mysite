@@ -1,16 +1,16 @@
 <template lang='pug'>
-  form-validator(method='post' action='/profile/change_account' class='c-uc-acc-chg' v-bind='$data')
+  form-validator(method='post' action='/profile/change_account' class='c-uc-acc-chg' v-bind='validationInfo')
     .o-fm-grp
       label(for='name') 用户名：
-      input(type='text', name='name', id='name', class='o-fm-ctl', :value='user.name')
+      input(type='text', name='name', id='name', class='o-fm-ctl', v-model='userInfo.name')
 
     .o-fm-grp
       label(for='email') Email：
-      input(type='email', name='email', id='email', class='o-fm-ctl', :value='user.email')
+      input(type='email', name='email', id='email', class='o-fm-ctl', v-model='userInfo.email')
 
     .o-fm-grp
       label(for='phone') 电话：
-      input(type='text', name='phone', id='phone', class='o-fm-ctl', :value='user.phone')
+      input(type='text', name='phone', id='phone', class='o-fm-ctl', v-model='userInfo.phone')
 
     .o-fm-grp
       input(type='submit', value='更新账号信息' class='o-btn o-btn-primary u-fir-span')
@@ -25,29 +25,34 @@
     data: function() {
       return {
         success: false,
-        rules: {
-          name: 'required',
-          email: 'required'
+
+        validationInfo: {
+          rules: {
+            name: 'required',
+            email: 'required'
+          },
+
+          messages: {
+            name: '用户名不能为空',
+            email: 'Email不能为空'
+          },
+
+          submitHandler: (function(validator, form) {
+            var args = $(form).serializeObject();
+            var me = this;
+
+            $.post(form.action, args, function(data) {
+              if (data.error) {
+                me.success = false;
+                validator.showErrors(data.errors);
+              } else {
+                me.success = true;
+              }
+            }, 'json');
+          }).bind(this)
         },
 
-        messages: {
-          name: '用户名不能为空',
-          email: 'Email不能为空'
-        },
-
-        submitHandler: (function(validator, form) {
-          var args = $(form).serializeObject();
-          var me = this;
-
-          $.post(form.action, args, function(data) {
-            if (data.error) {
-              me.success = false;
-              validator.showErrors(data.errors);
-            } else {
-              me.success = true;
-            }
-          }, 'json');
-        }).bind(this)
+        userInfo: this.user
       };
     },
 
