@@ -3,8 +3,6 @@ prepend js
   include ../share/_ueditor_js.pug
 append js
   script(src=assetHashPath('answer/new_edit.js'))
-append css
-  link(href=assetHashPath("answer/new_edit.css"), rel="stylesheet")
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title

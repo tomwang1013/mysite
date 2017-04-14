@@ -4,6 +4,7 @@ var w = require('common/global');
 var Vue = require('vue');
 var PO  = require('mycomps/lib/components/popup_overlay.vue');
 
+// FIXME answer.scss将进入到vendor.css，因为3个文件都引入了它，请剥离出来
 var css = require('answer.scss');
 
 // 企业给解答评分
