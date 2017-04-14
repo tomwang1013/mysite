@@ -22,6 +22,6 @@
 
       a.o-btn.o-btn-normal.u-fir-span(href=editUrl) 修 改
       button.o-btn.o-btn-warning.js-del-answer(data-link=remUrl data-job-id=job.id) 删 除
-      .o-overlay-mount
+      div
         popup-overlay(v-on:ok='onOk' ref='po')
           span(slot='body') 删除后无法恢复，确定要删除你的解答吗？

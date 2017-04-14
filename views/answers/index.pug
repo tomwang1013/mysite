@@ -1,4 +1,8 @@
 extends _layout.pug
+append js
+  script(src=assetHashPath('answer/index.js'))
+append css
+  link(href=assetHashPath("answer/index.css"), rel="stylesheet")
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title
@@ -30,7 +34,7 @@ block content
           else
             button.o-btn.o-btn-primary.js-to-score 为此解答评分
     //- 评分悬浮框
-    .o-overlay-mount(style={ display: 'none' })
+    .o-overlay-mount
       popup-overlay(v-on:ok='onOk' ref='po')
         div(slot='body')
           .o-fm-grp
