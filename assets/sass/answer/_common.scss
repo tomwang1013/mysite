@@ -1,0 +1,14 @@
+@import '../partials/common/index';
+@import '../partials/modules/question';
+
+/* header of all answer page */
+.c-answer-head {
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid $hl-color;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.c-answer-head__job-link {
+  margin-right: 0.5em;
+}

@@ -3,7 +3,7 @@ var Vue = require('vue');
 var FA  = require('mycomps/lib/components/fa_rating.vue');
 var FV  = require('vue-form-validator');
 
-var css = require('answer.scss');
+var css = require('answer/new_edit.scss');
 
 var validator = new Vue({
   el: '#main-content',

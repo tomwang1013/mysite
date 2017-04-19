@@ -1,3 +1,3 @@
 require('common/global');
 require('common/del_answer');
-require('answer.scss');
+require('answer/show.scss');

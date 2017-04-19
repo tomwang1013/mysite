@@ -1,6 +1,8 @@
 extends _layout.pug
 append js
   script(src=assetHashPath('answer/index.js'))
+append css
+  link(href=assetHashPath("answer/index.css"), rel="stylesheet")
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title

@@ -1,0 +1,28 @@
+@import './common';
+
+.c-list-answer {
+  margin-bottom: 0.5em;
+  border: 1px solid $bd-light;
+  border-radius: 4px 4px 0 0;
+}
+
+.c-list-answer__head {
+  padding: 0.5em;
+  border-bottom: 1px solid $bd-light;
+
+  & > span {
+    margin-right: 0.5em;
+  }
+}
+
+.c-list-answer__content {
+  padding: 0.5em;
+  border-bottom: 1px solid $bd-light;
+}
+
+.c-list-answer__foot {
+  padding: 0.5em;
+}
+
+// hint when none answer
+.c-none-answer-hint { margin-top: 0.5em; }
