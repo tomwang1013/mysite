@@ -1,4 +1,8 @@
-extends _layout.pug
+extends ../layouts/main
+append js
+  script(src=assetHashPath('answer/show.js'))
+append css
+  link(href=assetHashPath("answer/show.css"), rel="stylesheet")
 block content
   .c-answer-head
     a.c-answer-head__job-link(href='/job/' + job.id)= job.title

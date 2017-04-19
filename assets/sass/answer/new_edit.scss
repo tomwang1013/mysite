@@ -1,0 +1,13 @@
+@import './common';
+
+// 新建和编辑页面的："你的答案："
+.c-your-answer-txt {
+  border-bottom: none;
+  font-weight: bold;
+}
+
+// submit of the new & edit page's form
+.c-answer-fm-submit {
+  border-top: none;
+  padding: 0.5rem 0;
+}
