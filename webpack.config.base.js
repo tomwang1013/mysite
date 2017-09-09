@@ -6,10 +6,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 let entries = {};
 
 glob.sync('./assets/js/**/*.js').filter(f => {
-  return f.indexOf('/common/') == -1;
+  return f.indexOf('/common/') === -1;
 }).forEach(f => {
   entries[f.slice(12, -3)] = f;
 });
+
+entries['vendor'] = ['vue', 'lodash', 'jquery', 'vue-router'];
 
 module.exports = {
   entry: entries,
