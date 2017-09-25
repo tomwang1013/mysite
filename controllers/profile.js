@@ -1,5 +1,3 @@
-'use strict'
-
 const co      = require('co');
 const _       = require('lodash');
 const bcrypt  = require('bcrypt');
@@ -50,15 +48,15 @@ function changeAccount(req, res, next) {
 
     res.json({ error: 0 });
   }).catch(next);
-};
+}
 
 // 修改密码
 function changePassword(req, res, next) {
-  var oldPwd = req.body.old_pwd;
-  var newPwd = req.body.new_pwd;
-  var cNewPwd = req.body.c_new_pwd;
+  let oldPwd = req.body.old_pwd;
+  let newPwd = req.body.new_pwd;
+  let cNewPwd = req.body.c_new_pwd;
 
-  if (newPwd != cNewPwd) {
+  if (newPwd !== cNewPwd) {
     return res.json({
       error: 1,
       errors: { c_new_pwd: '新密码2次输入不一致' }
@@ -66,7 +64,7 @@ function changePassword(req, res, next) {
   }
 
   co(function *() {
-    var user = yield gModels.User.findById(req.currentUser.id).exec();
+    let user = yield gModels.User.findById(req.currentUser.id).exec();
     let match = yield new Promise(function(resolve, reject) {
       bcrypt.compare(oldPwd, user.password, function(err, match) {
         return resolve(match);
@@ -80,18 +78,17 @@ function changePassword(req, res, next) {
       });
     }
 
-    let newHashedPwd = yield new Promise(function(resolve) {
+    user.password = yield new Promise(function(resolve) {
       bcrypt.hash(newPwd, 10, function(err, hash) {
         return resolve(hash);
       });
     });
 
-    user.password = newHashedPwd;
-    yield user.save()
+    yield user.save();
 
     res.json({ error: 0 });
   }).catch(next);
-};
+}
 
 // 修改头像第一步：
 // 上传原图，缩放得到中间图
@@ -138,12 +135,12 @@ function changeAvatar2(req, res, next) {
                                         req.body.height,
                                         req.body.x,
                                         req.body.y).stream();
-    yield gridfs.uploadStream(aStream, filename),
+    yield gridfs.uploadStream(aStream, filename);
 
     // 保存文件名
     user.avatar = filename;
     gControllers.user.loginUser(res, user);
-    yield user.save()
+    yield user.save();
 
     // 删除中间文件
     yield new Promise(function(resolve, reject) {

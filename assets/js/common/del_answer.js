@@ -1,12 +1,12 @@
-var $   = require('jquery');
-var Vue = require('vue');
-var PO  = require('mycomps/lib/components/popup_overlay.vue');
+let $ = require('jquery');
+import Vue from 'vue'
+import PO  from 'mycomps/lib/components/popup_overlay.vue'
 
 $('.js-del-answer').each(function() {
-  var delUrl = this.dataset.link;
-  var jobId  = this.dataset.jobId;
+  let delUrl = this.dataset.link;
+  let jobId  = this.dataset.jobId;
 
-  var poMount = new Vue({
+  let poMount = new Vue({
     el: this.nextElementSibling,
 
     data: {

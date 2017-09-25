@@ -1,5 +1,3 @@
-'use strict';
-
 const pinyin = require('pinyin');
 const _ = require('lodash');
 
@@ -17,7 +15,7 @@ exports.index = function(req, res, next) {
         })).join('');
 
         return v.name;
-      })
+      });
 
       res.json({ items, itemsPinyin });
     })

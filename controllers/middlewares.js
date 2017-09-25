@@ -1,5 +1,3 @@
-'use strict'
-
 const session    = require('express-session');
 const mongoose   = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
@@ -7,7 +5,7 @@ const MongoStore = require('connect-mongo')(session);
 // check if loged in
 function checkLogin(req, res, next) {
   if (!req.currentUser) {
-    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+    let loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
     req.flash('error', '请先登录：');
 
@@ -24,7 +22,7 @@ function checkLogin(req, res, next) {
 // check if loged in and user is company
 function checkCompanyLogin(req, res, next) {
   if (!req.currentUser) {
-    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+    let loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
     req.flash('error', '请先登录：');
 
@@ -49,7 +47,7 @@ function checkCompanyLogin(req, res, next) {
 // check if loged in and user is company
 function checkStudentLogin(req, res, next) {
   if (!req.currentUser) {
-    var loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
+    let loginUrl = '/login?return_to=' + (req.get('Referer') || '/');
 
     req.flash('error', '请先登录：');
 
@@ -106,7 +104,7 @@ let sessionHandler = session({
   resave:            false,
   saveUninitialized: false,
   store:             sessionStore
-})
+});
 
 exports = module.exports = {
   session:            sessionHandler,

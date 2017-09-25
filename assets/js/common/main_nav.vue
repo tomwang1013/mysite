@@ -44,10 +44,10 @@
    * login for the whole site, e.g. nav bar
    */
 
-  var $ = require('jquery');
-  var Cookies = require('js-cookie');
+  let $ = require('jquery');
+  let Cookies = require('js-cookie');
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         userInfo: Cookies.getJSON('_ppinfo'),
@@ -69,7 +69,7 @@
 
     methods: {
       popupProfileMenu: function(evt) {
-        var me = this;
+        let me = this;
 
         this.showProfileMenu = true;
         this.dropdownTimer = setTimeout(function() {
@@ -90,7 +90,7 @@
     },
 
     mounted: function() {
-      var me = this;
+      let me = this;
 
       $.get('/profile/message_status', function(data) {
         me.hasMsg = data.has_msg;
@@ -99,4 +99,4 @@
   };
 </script>
 
-<style lang="sass" src='partials/modules/_main_nav.scss'></style>
+<style lang="scss" src='partials/modules/_main_nav.scss'></style>

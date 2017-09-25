@@ -1,5 +1,3 @@
-'use strict'
-
 /*
  * get current user's info
  */
@@ -13,9 +11,9 @@ function appliedJobs(req, res, next) {
   let status = req.query.status || 'all';
   let query  = { _user: req.currentUser.id };
 
-  if (status == 'replied') {
+  if (status === 'replied') {
     query.status = { $ne: 0 };
-  } else if (status == 'unreplied') {
+  } else if (status === 'unreplied') {
     query.status = 0;
   }
 

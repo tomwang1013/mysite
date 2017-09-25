@@ -34,12 +34,12 @@
 </template>
 
 <script>
-  var FV = require('vue-form-validator');
-  var Cookies = require('js-cookie');
-  var $ = require('jquery');
-  var _ = require('lodash');
+  import FV from 'vue-form-validator'
+  let Cookies = require('js-cookie');
+  let $ = require('jquery');
+  let _ = require('lodash');
 
-  module.exports = {
+  export default {
     name: 'signup-company-step2',
 
     data: function() {
@@ -52,7 +52,7 @@
 
         validationInfo: {
           submitHandler: function(validator, form) {
-            var args = $(form).serializeObject();
+            let args = $(form).serializeObject();
 
             $.post(form.action, _.merge(args, Cookies.getJSON('signupAccount')), function(data) {
               if (data.error) {
@@ -99,7 +99,7 @@
     },
 
     created: function() {
-      var me = this;
+      let me = this;
 
       $.get('//api.51shixi.net/cmp_consts', function(data) {
         me.constants = data;

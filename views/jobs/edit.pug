@@ -26,14 +26,14 @@ block content
       select(name='salary', id='salary' class='o-fm-ctl')
         option(value='' selected) 请选择
         each s, i in salaries
-          option(value=i, selected=i == job.salary)= s 
+          option(value=i, selected=i === job.salary)= s
 
     .o-fm-grp
       label(for='business') 行业：
       select(name='business', id='business' class='o-fm-ctl')
         option(value='' selected) 请选择
         each b in businesses
-          option(value=b, selected=b == job.business)= b 
+          option(value=b, selected=b === job.business)= b
 
     .o-fm-grp
       label(for='duty') 职责：

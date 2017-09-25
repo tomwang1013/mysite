@@ -1,1 +1,1 @@
-var css = require('user/password_reset.scss');
+require('user/password_reset.scss');

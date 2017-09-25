@@ -1,10 +1,10 @@
-var y = require('common/global');
-var css = require('question/list.scss');
-var $ = require('jquery');
+require('common/global');
+require('question/list.scss');
 
-var Vue = require('vue');
-var SS  = require('mycomps/lib/components/search_suggestion.vue');
-var FA  = require('mycomps/lib/components/fa_rating.vue');
+import $   from 'jquery'
+import Vue from 'vue'
+import SS  from 'mycomps/lib/components/search_suggestion.vue'
+import FA  from 'mycomps/lib/components/fa_rating.vue'
 
 new Vue({
   el: '#company-name-field',

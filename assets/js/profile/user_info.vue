@@ -89,10 +89,10 @@ div
 </template>
 
 <script>
-  var $ = require('jquery');
-  var _ = require('lodash');
+  let $ = require('jquery');
+  let _ = require('lodash');
 
-  module.exports = {
+  export default {
     name: 'profile-user-info',
 
     data: function() {
@@ -144,17 +144,17 @@ div
           // popup-list && popup-tabs
           this.oriValues[fieldName] = oriValue;
           this.values[fieldName] = value;
-          this.btnStates[fieldName] = oriValue != value;
+          this.btnStates[fieldName] = oriValue !== value;
         } else {
           // other field
-          var fieldName = oriValue;
-          this.btnStates[fieldName] = this.oriValues[fieldName] != this.values[fieldName];
+          let fieldName = oriValue;
+          this.btnStates[fieldName] = this.oriValues[fieldName] !== this.values[fieldName];
         }
       },
 
       onSave: function(relFieldName) {
-        var me = this;
-        var data = {};
+        let me = this;
+        let data = {};
 
         data[relFieldName] = this.values[relFieldName];
 
@@ -167,7 +167,7 @@ div
           me.btnStates[relFieldName] = false;
           me.errors[relFieldName] = null;
 
-          var vm = me.$refs[relFieldName];
+          let vm = me.$refs[relFieldName];
 
           if (vm) {
             vm.oriValue = vm.value;
@@ -181,8 +181,8 @@ div
         this.btnStates[relFieldName] = false;
         this.errors[relFieldName] = null;
 
-        var editor = this.editors[relFieldName];
-        var vm = this.$refs[relFieldName];
+        let editor = this.editors[relFieldName];
+        let vm = this.$refs[relFieldName];
 
         if (editor) {
           editor.setContent(this.oriValues[relFieldName] || '')
@@ -194,11 +194,11 @@ div
       },
 
       initEditors: function() {
-        var editors = document.getElementsByTagName('textarea');
-        var me = this;
+        let editors = document.getElementsByTagName('textarea');
+        let me = this;
 
-        for (var i = 0; i < editors.length; i++) {
-          var editorName = editors[i].name;
+        for (let i = 0; i < editors.length; i++) {
+          let editorName = editors[i].name;
 
           me.editors[editorName] = window.UE.getEditor(editorName, {
             initialContent: me.oriValues[editorName]
@@ -215,16 +215,16 @@ div
     },
 
     created: function() {
-      var me = this;
-      var constantsAjax;
+      let me = this;
+      let constantsAjax;
 
-      if (this.userType == 0) {
+      if (this.userType === 0) {
         constantsAjax = $.get('//api.51shixi.net/std_consts');
       } else {
         constantsAjax = $.get('//api.51shixi.net/cmp_consts');
       }
 
-      var userAjax = $.ajax('//api.51shixi.net/nc/user_info', {
+      let userAjax = $.ajax('//api.51shixi.net/nc/user_info', {
         xhrFields: {
           withCredentials: true
         }
@@ -243,4 +243,4 @@ div
   };
 </script>
 
-<style lang="sass" src='profile/user_info.scss'></style>
+<style lang="scss" src='profile/user_info.scss'></style>

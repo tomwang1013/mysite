@@ -2,11 +2,10 @@
  * 提供ueditor的上传图片及读取配置功能
  */
 
-const path = require('path');
 const gridfs = require('../lib/gridfs');
 
 function index(req, res, next) {
-  if (req.query.action == 'config') {
+  if (req.query.action === 'config') {
     res.set('Cache-Control', 'max-age=86400');
     res.json({
       /* 上传图片配置项 */
@@ -26,7 +25,7 @@ function index(req, res, next) {
       "snapscreenUrlPrefix": "", /* 图片访问路径前缀 */
       "snapscreenInsertAlign": "none", /* 插入的图片浮动方式 */
     });
-  } else if (req.query.action == 'uploadimage') {
+  } else if (req.query.action === 'uploadimage') {
     gridfs.uploadFile(req.file.path, req.file.filename).then(() => {
       res.json({
         "state":    "SUCCESS",

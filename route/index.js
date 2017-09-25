@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var multer  = require('multer')
+var multer  = require('multer');
 var gridfs  = require('../lib/gridfs');
 
 var storage = multer.diskStorage({

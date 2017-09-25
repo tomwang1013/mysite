@@ -1,21 +1,21 @@
-var y = require('common/global');
-var Cookies = require('js-cookie');
-var Vue = require('vue');
-var FV  = require('vue-form-validator');
+require('common/global');
+let Cookies = require('js-cookie');
+import Vue from 'vue'
+import FV  from 'vue-form-validator'
 
-var z = require('home.scss');
+require('home.scss');
 
-var userInfo = Cookies.getJSON('_ppinfo');
+let userInfo = Cookies.getJSON('_ppinfo');
 
 if (userInfo) {
-  if (userInfo.type == 0) {
+  if (userInfo.type === 0) {
     location = '/jobs';
   } else {
     location = '/profile/jobs';
   }
 }
 
-var validator = new Vue({
+new Vue({
   el: '.c-home-welcome',
 
   data: {

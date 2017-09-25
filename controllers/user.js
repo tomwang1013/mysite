@@ -1,5 +1,3 @@
-'use strict'
-
 const bcrypt  = require('bcrypt');
 const co      = require('co');
 const _       = require('lodash');
@@ -49,7 +47,7 @@ function signup_step1(req, res, next) {
 
     res.cookie('signupAccount', JSON.stringify(signupAccount), {
       domain: gConfig.site,
-      secure: process.env.NODE_ENV == 'production',
+      secure: process.env.NODE_ENV === 'production',
       path: '/signup'
     });
     res.json({ error: 0, location: '/signup?step=2' });
@@ -64,7 +62,7 @@ function signup_step1(req, res, next) {
       // 临时保存用户账号信息供之后创建账户使用
       res.cookie('signupAccount', JSON.stringify(signupAccount), {
         domain: gConfig.site,
-        secure: process.env.NODE_ENV == 'production',
+        secure: process.env.NODE_ENV === 'production',
         path: '/signup'
       });
       res.json({ error: 0, location: '/signup?step=2' });
@@ -93,7 +91,7 @@ function signup_step2(req, res, next) {
 
 // 验证用户名的正确性
 function isValidName(req, res, next) {
-  var name = req.query.name;
+  let name = req.query.name;
 
   gModels.User.findOne({ name: name }).exec().then(function(u) {
     if (u) res.json({
@@ -108,7 +106,7 @@ function isValidName(req, res, next) {
 
 // 验证email的正确性
 function isValidEmail(req, res, next) {
-  var email = req.query.email;
+  let email = req.query.email;
 
   gModels.User.findOne({ email: email }).exec().then(function(u) {
     if (u) res.json({
@@ -176,14 +174,14 @@ function loginUser(res, user) {
     // no way to match exactly 'mysite.com'
     // http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/
     domain: gConfig.site,
-    secure: process.env.NODE_ENV == 'production',
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 30 * 24 * 3600 * 1000
   });
 }
 
 // 密码重置
 function passwordReset(req, res, next) {
-  if (req.method == 'GET') {
+  if (req.method === 'GET') {
     if (req.params.token) {
       // step 3: user come here from reset email link
       return co(function* () {
@@ -213,7 +211,7 @@ function passwordReset(req, res, next) {
     let newPassword = req.body.new_password;
     let newPasswordAgain = req.body.new_password_again;
 
-    if (newPassword != newPasswordAgain) {
+    if (newPassword !== newPasswordAgain) {
       return res.render('user/passwordReset', {
         step:  3,
         token: req.params.token,
@@ -227,13 +225,11 @@ function passwordReset(req, res, next) {
       }).exec();
 
       // set new password
-      let newHashedPwd = yield new Promise(function(resolve) {
+      user.password = yield new Promise(function(resolve) {
         bcrypt.hash(newPassword, 10, function(err, hash) {
           return resolve(hash);
         });
       });
-
-      user.password = newHashedPwd;
 
       yield user.save();
 
@@ -267,8 +263,7 @@ function passwordReset(req, res, next) {
             <a href="http://${gConfig.site}/password_reset/${user.token}">
               http://${gConfig.site}/password_reset/${user.token}
             </a>
-          </p>
-          `
+          </p>`
       })
     }
 
@@ -280,7 +275,7 @@ function passwordReset(req, res, next) {
 function queryByCompanyName(req, res, next) {
   let companyName = req.query.kw;
 
-  if (companyName.trim() == '')
+  if (companyName.trim() === '')
     return res.json({ error: 0, items: [] });
 
   gModels.User.find({

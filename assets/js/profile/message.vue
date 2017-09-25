@@ -11,9 +11,9 @@ div
 </template>
 
 <script>
-  var $ = require('jquery');
+  let $ = require('jquery');
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         messages: []
@@ -46,7 +46,7 @@ div
     },
 
     created: function() {
-      var me = this;
+      let me = this;
 
       $.ajax('//api.51shixi.net/nc/messages', {
         xhrFields: {
@@ -61,4 +61,4 @@ div
   };
 </script>
 
-<style lang="sass" src='profile/message.scss'></style>
+<style lang="scss" src='profile/message.scss'></style>

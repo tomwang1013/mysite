@@ -38,12 +38,12 @@ div
 </template>
 
 <script>
-  var $ = require('jquery');
-  var PO  = require('mycomps/lib/components/popup_overlay.vue');
-  var ChangeAccFm = require('./change_acc_fm.vue');
-  var ChangePwdFm = require('./change_pwd_fm.vue');
+  let $ = require('jquery');
+  import PO from 'mycomps/lib/components/popup_overlay.vue'
+  import ChangeAccFm from './change_acc_fm.vue'
+  import ChangePwdFm from './change_pwd_fm.vue'
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         user: {},
@@ -85,7 +85,7 @@ div
 
     methods: {
       onOk: function() {
-        var me = this;
+        let me = this;
 
         $.post('/profile/change_avatar2', {
           x: this.cropArea.left,
@@ -100,16 +100,16 @@ div
 
       // 用户选择图片后开始上传
       uploadAvatar: function(evt) {
-        var file = evt.target.files[0];
+        let file = evt.target.files[0];
 
         if (!file) return;
 
-        var me = this;
+        let me = this;
 
         this.uploadAvatarText = '上传中，请稍等...';
         this.uploadAvatarDisabled = true;
 
-        var formData = new FormData();
+        let formData = new FormData();
 
         formData.append('avatar', file);
 
@@ -132,8 +132,8 @@ div
 
       // 展示裁减悬浮框
       cropImageAndSave: function(imgToCrop, size) {
-        var ow = size.width;
-        var oh = size.height;
+        let ow = size.width;
+        let oh = size.height;
 
         this.originImgPath = imgToCrop;
         this.originSize = size;
@@ -160,7 +160,7 @@ div
         this.dragInfo.oriPos.top = evt.pageY;
 
         // 得到点击时的鼠标形状并将其应用于整个区域
-        var dragPart = this.cropAreaParts[evt.target.getAttribute('name')];
+        let dragPart = this.cropAreaParts[evt.target.getAttribute('name')];
 
         this.cropAreaCss.cursor = dragPart.css.cursor;
         _.forOwn(this.cropAreaParts, function(p) {
@@ -170,11 +170,11 @@ div
 
       // 拖动
       onMove: function(e) {
-        var oriPos = this.dragInfo.oriPos;
-        var target = this.dragInfo.target;
+        let oriPos = this.dragInfo.oriPos;
+        let target = this.dragInfo.target;
 
         if (target) {
-          var offset = {
+          let offset = {
             dx: e.pageX - oriPos.left,
             dy: e.pageY - oriPos.top
           };
@@ -202,20 +202,20 @@ div
       },
 
       adjustCropArea: function(target, offset) {
-        var mindx, maxdx, mindy, maxdy;
-        var lx, rx, th, bh;
-        var dd, mindd, maxdd;
+        let mindx, maxdx, mindy, maxdy;
+        let lx, rx, th, bh;
+        let dd, mindd, maxdd;
 
-        var cropArea = this.cropArea;
-        var originSize = this.originSize;
-        var edgeWidth = this.edgeWidth;
+        let cropArea = this.cropArea;
+        let originSize = this.originSize;
+        let edgeWidth = this.edgeWidth;
 
         lx = cropArea.left;
         rx = originSize.width - lx - cropArea.width;
         th = cropArea.top;
         bh = originSize.height - th - cropArea.height;
 
-        if (target == 'left-edge' || target == 'lm-corner') {
+        if (target === 'left-edge' || target === 'lm-corner') {
           mindx = -Math.min(lx, th);
           maxdx = cropArea.width - 2 * edgeWidth;
 
@@ -226,7 +226,7 @@ div
           cropArea.top    += offset.dx;
           cropArea.width  -= offset.dx;
           cropArea.height -= offset.dx;
-        } else if (target == 'top-edge' || target == 'tm-corner') {
+        } else if (target === 'top-edge' || target === 'tm-corner') {
           mindy = -Math.min(th, rx);
           maxdy = cropArea.height - 2 * edgeWidth;
 
@@ -236,7 +236,7 @@ div
           cropArea.top    += offset.dy;
           cropArea.width  -= offset.dy;
           cropArea.height -= offset.dy;
-        } else if (target == 'right-edge' || target == 'rm-corner') {
+        } else if (target === 'right-edge' || target === 'rm-corner') {
           mindx = -(cropArea.width - 2 * edgeWidth);
           maxdx = Math.min(bh, rx);
 
@@ -245,7 +245,7 @@ div
 
           cropArea.width  += offset.dx;
           cropArea.height += offset.dx;
-        } else if (target == 'bottom-edge' || target == 'bm-corner') {
+        } else if (target === 'bottom-edge' || target === 'bm-corner') {
           mindy = -(cropArea.height - 2 * edgeWidth);
           maxdy = Math.min(lx, bh);
 
@@ -255,7 +255,7 @@ div
           cropArea.left   -= offset.dy;
           cropArea.width  += offset.dy;
           cropArea.height += offset.dy;
-        } else if (target == 'tl-corner') {
+        } else if (target === 'tl-corner') {
           if (offset.dx * offset.dy < 0) return;
 
           dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
@@ -269,7 +269,7 @@ div
           cropArea.top    += dd;
           cropArea.width  -= dd;
           cropArea.height -= dd;
-        } else if (target == 'tr-corner') {
+        } else if (target === 'tr-corner') {
           if (offset.dx * offset.dy > 0) return;
 
           dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
@@ -282,7 +282,7 @@ div
           cropArea.top    -= dd;
           cropArea.width  += dd;
           cropArea.height += dd;
-        } else if (target == 'br-corner') {
+        } else if (target === 'br-corner') {
           if (offset.dx * offset.dy < 0) return;
 
           dd    = (offset.dx > 0) ? Math.min(offset.dx, offset.dy) : Math.max(offset.dx, offset.dy);
@@ -294,7 +294,7 @@ div
 
           cropArea.width  += dd;
           cropArea.height += dd;
-        } else if (target == 'bl-corner') {
+        } else if (target === 'bl-corner') {
           if (offset.dx * offset.dy > 0) return;
 
           dd    = (offset.dx > 0) ? Math.min(offset.dx, -offset.dy) : Math.max(offset.dx, -offset.dy);
@@ -326,9 +326,9 @@ div
       },
 
       drawCropArea: function() {
-        var edgeWidth = this.edgeWidth;
-        var cornerWidth = this.cornerWidth;
-        var cropArea = this.cropArea;
+        let edgeWidth = this.edgeWidth;
+        let cornerWidth = this.cornerWidth;
+        let cropArea = this.cropArea;
 
         _.assign(this.cropAreaParts['move-area'].css, {
           left:   cropArea.left + edgeWidth,
@@ -394,7 +394,7 @@ div
     },
 
     created: function() {
-      var me = this;
+      let me = this;
 
       $.ajax('//api.51shixi.net/nc/user_info', {
         xhrFields: {
@@ -407,4 +407,4 @@ div
   };
 </script>
 
-<style lang="sass" src='profile/account.scss'></style>
+<style lang="scss" src='profile/account.scss'></style>

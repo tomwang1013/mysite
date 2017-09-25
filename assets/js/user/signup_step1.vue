@@ -37,10 +37,9 @@ div.u-flex
 </template>
 
 <script>
-  var Vue = require('vue');
-  var FV  = require('vue-form-validator');
+  import FV from 'vue-form-validator'
 
-  module.exports = {
+  export default {
     name: 'signup-step1',
     data: function() {
       return {

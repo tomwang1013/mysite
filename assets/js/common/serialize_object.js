@@ -1,10 +1,8 @@
-'use strict'
-
-var $ = require('jquery');
+let $ = require('jquery');
 
 $.fn.serializeObject = function() {
-  var o = {};
-  var a = this.serializeArray();
+  let o = {};
+  let a = this.serializeArray();
   $.each(a, function() {
     if (o[this.name]) {
       if (!o[this.name].push) {

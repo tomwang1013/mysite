@@ -1,8 +1,8 @@
-var w   = require('common/global');
-var Vue = require('vue');
-var FV  = require('vue-form-validator');
+require('common/global');
+require('user/login.scss');
 
-var css = require('user/login.scss');
+import Vue from 'vue'
+import FV  from 'vue-form-validator'
 
 // 登陆
 new Vue({

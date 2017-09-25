@@ -1,12 +1,12 @@
-var $   = require('jquery');
-var w   = require('common/global');
-var v   = require('job/show.scss');
-var Vue = require('vue');
-var PO  = require('mycomps/lib/components/popup_overlay.vue');
+let $ = require('jquery');
+require('common/global');
+require('job/show.scss');
+import Vue from 'vue'
+import PO  from 'mycomps/lib/components/popup_overlay.vue'
 
 // apply job at job detail
 $('.js-to-apply').click(function() {
-  var me = $(this);
+  let me = $(this);
 
   $.post('/jobs/apply', {
     job_id: me.data('jobId')
@@ -24,8 +24,8 @@ $('.js-to-apply').click(function() {
 
 
 // 删除职位
-var delJobBtn = $('.js-del-job');
-var poMount = new Vue({
+let delJobBtn = $('.js-del-job');
+let poMount = new Vue({
   el: delJobBtn.next().get(0),
 
   components: { 'popup-overlay': PO },

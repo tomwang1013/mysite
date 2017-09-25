@@ -1,11 +1,11 @@
-var $   = require('jquery');
-var Vue = require('vue');
-var PT  = require('mycomps/lib/components/popup_tabs.vue');
-var w   = require('common/global');
-var FV  = require('vue-form-validator');
-var v   = require('job/new_edit.scss');
+import Vue from 'vue'
+import PT  from 'mycomps/lib/components/popup_tabs.vue'
+import FV  from 'vue-form-validator'
 
-var cities = {
+require('common/global');
+require('job/new_edit.scss');
+
+let cities = {
   labels: ['省份', '市区'],
   data:   {
     '北京':   '北京',
@@ -46,7 +46,7 @@ var cities = {
 };
 
 // 创建和修改职位表单验证
-var validator = new Vue({
+let validator = new Vue({
   el: '#main-content',
 
   data: {

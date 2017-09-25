@@ -1,11 +1,11 @@
-var Vue = require('vue');
-var VueRouter = require('vue-router');
-var Cookies = require('js-cookie');
-var z = require('common/global');
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+let Cookies = require('js-cookie');
+require('common/global');
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
-var routes = [
+let routes = [
   { path: '/profile',           component: require('profile/user_info.vue') },
   { path: '/profile/user_info', component: require('profile/user_info.vue') },
   { path: '/profile/jobs',      component: require('profile/jobs.vue') },
@@ -13,7 +13,7 @@ var routes = [
   { path: '/profile/account',   component: require('profile/account.vue') },
 ];
 
-var pi = new Vue({
+new Vue({
   el: '#profile-mount',
 
   data: {

@@ -1,8 +1,8 @@
-var $ = require('jquery');
-var Vue = require('vue');
-var MainNav = require('./main_nav.vue');
-var x = require('common/serialize_object');
-var FV  = require('vue-form-validator');
+import $ from 'jquery'
+import Vue from 'vue'
+import MainNav from './main_nav.vue'
+require('common/serialize_object');
+import FV from 'vue-form-validator'
 
 FV.addValidationMethod('ta_minlength', function(element, minlen) {
   return UE.getEditor(element.name).getContentLength(true) >= minlen;
@@ -10,7 +10,7 @@ FV.addValidationMethod('ta_minlength', function(element, minlen) {
 
 FV.setDefaultProps({
   submitHandler: function(validator, form) {
-    var args = $(form).serializeObject();
+    let args = $(form).serializeObject();
 
     $.post(form.action, args, function(data) {
       if (data.error) {
@@ -36,16 +36,16 @@ new Vue({
 
 // 由mongo时间格式2017-03-28T06:50:23.415Z得到本地时间格式
 String.prototype.toLocalTime = function() {
-  var dt = new Date(this);
-  var y = dt.getFullYear();
-  var M = dt.getMonth() + 1;
-  var d = dt.getDate();
-  var h = dt.getHours();
-  var m = dt.getMinutes();
-  var s = dt.getSeconds();
+  let dt = new Date(this);
+  let y = dt.getFullYear();
+  let M = dt.getMonth() + 1;
+  let d = dt.getDate();
+  let h = dt.getHours();
+  let m = dt.getMinutes();
+  let s = dt.getSeconds();
 
-  var date = [y, M < 10 ? '0' + M : M, d < 10 ? '0' + d : d].join('-');
-  var time = [h < 10 ? '0' + h : h, m < 10 ? '0' + m : m, s < 10 ? '0' + s : s].join(':');
+  let date = [y, M < 10 ? '0' + M : M, d < 10 ? '0' + d : d].join('-');
+  let time = [h < 10 ? '0' + h : h, m < 10 ? '0' + m : m, s < 10 ? '0' + s : s].join(':');
 
 
   return [date, time].join(' ');

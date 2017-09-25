@@ -5,12 +5,12 @@ ul.c-uc-left-nav.u-small-font.u-nav-list
 </template>
 
 <script>
-module.exports = {
+export default {
   data: function() {
     return {
       items: [
         ['user_info', '基本信息'],
-        ['jobs', this.userType == 0 ? '申请的职位' : '发布的职位'],
+        ['jobs', this.userType === 0 ? '申请的职位' : '发布的职位'],
         ['message', '消息中心'],
         ['account', '账号与密码']
       ]
@@ -26,7 +26,7 @@ module.exports = {
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
 
 .c-uc-left-nav {
   flex: 1;

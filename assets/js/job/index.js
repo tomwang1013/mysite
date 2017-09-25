@@ -1,10 +1,10 @@
-var $   = require('jquery');
-var w   = require('common/global');
-var Vue = require('vue');
-var PT  = require('mycomps/lib/components/popup_tabs.vue');
-var v   = require('job/index.scss');
+let $ = require('jquery');
+require('common/global');
+import Vue from 'vue'
+import PT  from 'mycomps/lib/components/popup_tabs.vue'
+require('job/index.scss');
 
-var cities = {
+let cities = {
   labels: ['省份', '市区'],
   data:   {
     '北京':   '北京',
@@ -43,7 +43,7 @@ var cities = {
     '香港':   '香港'
   }
 }
-var ptVm = new Vue({
+new Vue({
   data: {
     initLables: cities.labels,
     initItems:  cities.data
@@ -56,7 +56,7 @@ var ptVm = new Vue({
 
 // apply job at jobs index
 $('.js-idx-apply-job').click(function() {
-  var me = $(this);
+  let me = $(this);
 
   $.post('/jobs/apply', {
     job_id: me.closest('.js-jobs-search-item').data('jobId')

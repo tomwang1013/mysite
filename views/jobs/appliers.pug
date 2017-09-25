@@ -17,7 +17,7 @@ block content
         span 申请时间：#{applier.createdAt.toLocaleDateString()}
 
       .c-applier__result
-        if applier.status == 0
+        if applier.status === 0
           .js-apply-op
             button.u-fir-span.o-btn.o-btn-primary 通过
             button.o-btn.o-btn-warning 拒绝

@@ -6,13 +6,16 @@ div
       v-bind:class="{'is-active': step == idx + 1}") {{title}}
 
   component(v-bind:is='currentView')
-
 </template>
 
 <script>
-  var Cookies = require('js-cookie');
+  let Cookies = require('js-cookie');
+  import step1 from './signup_step1.vue'
+  import stu_step2 from './signup_stu_step2.vue'
+  import cmp_step2 from './signup_cmp_step2.vue'
+  import step3 from './signup_step3.vue'
 
-  module.exports = {
+  export default {
     name: 'signup-view',
 
     data: function() {
@@ -31,10 +34,10 @@ div
 
     computed: {
       currentView: function() {
-        if (this.step != 2) {
+        if (this.step !== 2) {
           return 'step' + this.step;
         } else {
-          if (this.signupAccount.userType == 0) {
+          if (this.signupAccount.userType === 0) {
             return 'stu_step2';
           } else {
             return 'cmp_step2';
@@ -44,12 +47,12 @@ div
     },
 
     components: {
-      step1: require('./signup_step1.vue'),
-      stu_step2: require('./signup_stu_step2.vue'),
-      cmp_step2: require('./signup_cmp_step2.vue'),
-      step3: require('./signup_step3.vue')
+      step1,
+      stu_step2,
+      cmp_step2,
+      step3
     }
   };
 </script>
 
-<style lang='sass' src='user/signup.scss'></style>
+<style lang='scss' src='user/signup.scss'></style>

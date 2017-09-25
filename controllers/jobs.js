@@ -1,7 +1,4 @@
-'use strict'
-
 const _        = require('lodash');
-const mongoose = require('mongoose');
 const co       = require('co');
 
 // 职位列表搜索
@@ -74,12 +71,12 @@ function show(req, res, next) {
     };
 
     if (req.currentUser) {
-      if (req.currentUser.type == 0) {
+      if (req.currentUser.type === 0) {
         locals.applyStatus = yield gModels.ApplyJob.findOne({
           _job:  job.id,
           _user: req.currentUser.id
         }).exec();
-      } else if (req.currentUser.id == job._creator.id) {
+      } else if (req.currentUser.id === job._creator.id) {
         locals.isMyJob = true;
       }
     }
@@ -97,10 +94,10 @@ function create(req, res, next) {
 
 // 编辑职位
 function edit(req, res, next) {
-  var jobId = req.params.id;
+  let jobId = req.params.id;
 
   gModels.Job.findById(jobId).populate('_creator').exec(function(err, job) {
-    if (job._creator.id != req.currentUser.id) {
+    if (job._creator.id !== req.currentUser.id) {
       return next(new Error({ code: 403 }));
     }
 
@@ -113,10 +110,10 @@ function edit(req, res, next) {
 }
 
 function update(req, res, next) {
-  var jobId = req.params.id;
+  let jobId = req.params.id;
 
   gModels.Job.findById(jobId).populate('_creator').exec(function(err, job) {
-    if (job._creator.id != req.currentUser.id) {
+    if (job._creator.id !== req.currentUser.id) {
       return next(new Error({ code: 403 }));
     }
 
@@ -130,11 +127,11 @@ function update(req, res, next) {
 
 // apply for a job
 function apply(req, res, next) {
-  var userId = req.currentUser.id;
-  var jobId  = req.body.job_id;
+  let userId = req.currentUser.id;
+  let jobId  = req.body.job_id;
 
   co(function* () {
-    var isApplied = yield gModels.ApplyJob.findOne({
+    let isApplied = yield gModels.ApplyJob.findOne({
       _job:   jobId,
       _user:  userId
     }).exec();
@@ -143,7 +140,7 @@ function apply(req, res, next) {
       return res.json({ error: 0, message: '你已经申请过' });
     }
 
-    var appliedJob = yield gModels.ApplyJob.create({
+    let appliedJob = yield gModels.ApplyJob.create({
       status:   0,
       _job:   jobId,
       _user:  userId
@@ -160,7 +157,7 @@ function apply(req, res, next) {
 
 // 管理申请者
 function appliers(req, res, next) {
-  var jobId = req.params.id;
+  let jobId = req.params.id;
 
   gModels.Job.findById(jobId).populate(['_creator', {
     path:     '_appliers',
@@ -168,7 +165,7 @@ function appliers(req, res, next) {
   }]).exec(function(err, job) {
     if (err) return next(err);
 
-    if (job._creator.id != req.currentUser.id) {
+    if (job._creator.id !== req.currentUser.id) {
       return next(new Error({ code: 403 }));
     }
 
@@ -181,15 +178,15 @@ function appliers(req, res, next) {
 
 // 处理学生的职位申请请求
 function handleApply(req, res, next) {
-  var userId = req.body.userId;
-  var jobId = req.body.jobId;
-  var status = req.body.status;
-  var message = req.body.message;
+  let userId = req.body.userId;
+  let jobId = req.body.jobId;
+  let status = req.body.status;
+  let message = req.body.message;
 
   co(function* () {
     let job   = yield gModels.Job.findById(jobId).populate('_creator').exec();
 
-    if (job._creator.id != req.currentUser.id) {
+    if (job._creator.id !== req.currentUser.id) {
       throw new Error({ code: 403 });
     }
 
@@ -216,12 +213,12 @@ function handleApply(req, res, next) {
 
 // 删除职位
 function remove(req, res, next) {
-  var jobId = req.params.id;
+  let jobId = req.params.id;
 
   co(function* () {
     let job   = yield gModels.Job.findById(jobId).populate('_creator').exec();
 
-    if (job._creator.id != req.currentUser.id) {
+    if (job._creator.id !== req.currentUser.id) {
       throw new Error({ code: 403 });
     }
 

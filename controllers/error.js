@@ -1,10 +1,8 @@
-'use strict'
-
 const _ = require('lodash');
 
 function errorHandler(err, req, res, next) {
   // 统一处理model验证错误
-  if (req.xhr && err.name == 'ValidationError' && err.errors) {
+  if (req.xhr && err.name === 'ValidationError' && err.errors) {
     return res.json({
       error: 1,
       errors: _.mapValues(err.errors, e => e.message)

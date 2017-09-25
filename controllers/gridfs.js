@@ -1,5 +1,3 @@
-'use strict';
-
 const gridfs = require('../lib/gridfs');
 
 // download a file from gridfs and send it to client

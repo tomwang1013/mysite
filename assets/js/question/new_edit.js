@@ -1,15 +1,14 @@
-var $ = require('jquery');
-var w = require('common/global');
+require('jquery');
+require('common/global');
+require('question/new_edit.scss');
 
-var Vue = require('vue');
-var IL  = require('mycomps/lib/components/input_labels.vue');
-var FA  = require('mycomps/lib/components/fa_rating.vue');
-var FV  = require('vue-form-validator');
-
-var css = require('question/new_edit.scss');
+import Vue from 'vue'
+import IL  from 'mycomps/lib/components/input_labels.vue'
+import FA  from 'mycomps/lib/components/fa_rating.vue'
+import FV  from 'vue-form-validator'
 
 // question创建修改表单验证
-var validator = new Vue({
+new Vue({
   el: '.c-ques-n-e',
 
   data: {

@@ -42,9 +42,9 @@ div
 </template>
 
 <script>
-  var $ = require('jquery');
+  let $ = require('jquery');
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         appliedJobs: [],
@@ -71,10 +71,10 @@ div
     },
 
     created: function() {
-      var me = this;
-      var dataUrl;
+      let me = this;
+      let dataUrl;
 
-      if (this.userType == 0) {
+      if (this.userType === 0) {
         dataUrl = '//api.51shixi.net/nc/applied_jobs';
       } else {
         dataUrl = '//api.51shixi.net/nc/created_jobs';
@@ -88,7 +88,7 @@ div
           withCredentials: true
         }
       }).done(function(data) {
-        if (me.userType == 0) {
+        if (me.userType === 0) {
           me.appliedJobs = data;
         } else {
           me.createdJobs = data;
@@ -100,4 +100,4 @@ div
   };
 </script>
 
-<style lang="sass" src='profile/jobs.scss'></style>
+<style lang="scss" src='profile/jobs.scss'></style>

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  module.exports = {
+  export default {
     name: 'profile-change-buttons',
 
     props: {
@@ -22,7 +22,7 @@
   };
 </script>
 
-<style lang="sass">
+<style lang="scss">
   .c-change-btns {
     margin-top: 0.5em;
   }

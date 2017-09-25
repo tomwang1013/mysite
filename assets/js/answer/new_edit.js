@@ -1,11 +1,11 @@
-var w   = require('common/global');
-var Vue = require('vue');
-var FA  = require('mycomps/lib/components/fa_rating.vue');
-var FV  = require('vue-form-validator');
+require('common/global');
+import Vue from 'vue'
+import FA  from 'mycomps/lib/components/fa_rating.vue'
+import FV  from 'vue-form-validator'
 
-var css = require('answer/new_edit.scss');
+require('answer/new_edit.scss');
 
-var validator = new Vue({
+new Vue({
   el: '#main-content',
 
   data: {

@@ -1,13 +1,13 @@
-var $ = require('jquery');
-var w = require('common/global');
+let $ = require('jquery');
+require('common/global');
 
-var Vue = require('vue');
-var PO  = require('mycomps/lib/components/popup_overlay.vue');
+import Vue from 'vue'
+import PO  from 'mycomps/lib/components/popup_overlay.vue'
 
-var css = require('answer/index.scss');
+require('answer/index.scss');
 
 // 企业给解答评分
-var poMount = new Vue({
+let poMount = new Vue({
   el: $('.o-overlay-mount').get(0),
 
   data: {
@@ -31,7 +31,7 @@ var poMount = new Vue({
 
 $('.js-re-score, .js-to-score').click(function() {
   $('.o-overlay-mount').show();
-  var a = $(this).closest('.js-list-answer');
+  let a = $(this).closest('.js-list-answer');
   poMount.$refs.po.isShow = true;
   poMount.updScoreUrl = '/question/' + a.data('qid') + '/answer/' +
     a.data('aid') + '/update_score';

@@ -1,5 +1,3 @@
-'use strict'
-
 const co = require('co');
 const _  = require('lodash');
 
@@ -22,7 +20,7 @@ function index(req, res, next) {
     let locals    = { job: job, questions: questions }
 
     if (req.currentUser) {
-      if (req.currentUser.type == 0) {
+      if (req.currentUser.type === 0) {
         // 得到我回答了哪些问题
         let myAnswers = yield gModels.Answer.find({
           _user: req.currentUser.id
@@ -32,7 +30,7 @@ function index(req, res, next) {
           result[answer._question] = answer._id;
           return result;
         }, {});
-      } else if (req.currentUser.id == job._creator) {
+      } else if (req.currentUser.id === job._creator) {
         locals.isMyJob = true;
       }
     }
@@ -64,7 +62,7 @@ function create(req, res, next) {
     let jobId = req.params.jid;
     let job = yield gModels.Job.findById(jobId).exec();
 
-    if (job._creator != req.currentUser.id) {
+    if (job._creator !== req.currentUser.id) {
       throw new Error({ code: 403 });
     }
 
@@ -109,7 +107,7 @@ function show(req, res, next) {
     let answer;
 
     if (req.currentUser) {
-      if (req.currentUser.type == 0) {
+      if (req.currentUser.type === 0) {
         answer = yield gModels.Answer.findOne({
           _question: question.id,
           _user: req.currentUser.id
@@ -121,7 +119,7 @@ function show(req, res, next) {
           status = 'toAnswer';
         }
       } else {
-        if (job._creator == req.currentUser.id) {
+        if (job._creator === req.currentUser.id) {
           status = 'toEdit';
         } else {
           throw new Error(403);
@@ -146,7 +144,7 @@ function edit(req, res, next) {
       question: gModels.Question.findById(questionId).exec()
     };
 
-    if (a.job._creator != req.currentUser.id) {
+    if (a.job._creator !== req.currentUser.id) {
       throw new Error({ code: 403 });
     }
 
@@ -169,7 +167,7 @@ function update(req, res, next) {
   co(function* () {
     let question = yield gModels.Question.findById(questionId).exec();
 
-    if (question._creator != req.currentUser.id) {
+    if (question._creator !== req.currentUser.id) {
       throw new Error({ code: 403 });
     }
 
@@ -227,7 +225,7 @@ function search(req, res, next) {
       curTag: req.query.tag
     };
 
-    if (req.currentUser && req.currentUser.type == 0) {
+    if (req.currentUser && req.currentUser.type === 0) {
       // 得到我回答了哪些问题
       let myAnswers = yield gModels.Answer.find({
         _user: req.currentUser.id

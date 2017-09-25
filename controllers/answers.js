@@ -1,5 +1,3 @@
-'use strict'
-
 const co = require('co');
 const _  = require('lodash');
 
@@ -12,7 +10,7 @@ function index(req, res, next) {
     };
 
     // 企业只能查看其发布的职位的答案列表
-    if (req.currentUser.id != result.question._job._creator) {
+    if (req.currentUser.id !== result.question._job._creator) {
       throw new Error({ code: 403 });
     }
 
@@ -38,8 +36,8 @@ function show(req, res, next) {
 
     // 学生只能查看自己的答案
     // 企业只能查看其发布的职位的答案
-    if (req.currentUser.type == 0 && answer._user != req.currentUser.id ||
-        req.currentUser.type == 1 && answer._question._job._creator != req.currentUser.id) {
+    if (req.currentUser.type === 0 && answer._user !== req.currentUser.id ||
+        req.currentUser.type === 1 && answer._question._job._creator !== req.currentUser.id) {
       return next({ code: 403 });
     }
 
@@ -97,7 +95,7 @@ function edit(req, res, next) {
 
     let answer = result;
 
-    if (answer._user != req.currentUser.id) {
+    if (answer._user !== req.currentUser.id) {
       return next({ code: 403 });
     }
 
@@ -118,7 +116,7 @@ function update(req, res, next) {
     }).exec(function(err, answer) {
 
     // 学生只能查看自己的答案
-    if (answer._user != req.currentUser.id) {
+    if (answer._user !== req.currentUser.id) {
       return next({ code: 403 });
     }
 
@@ -138,7 +136,7 @@ function updateScore(req, res, next) {
   gModels.Answer.findById(req.params.aid).populate('_job').exec(function(err, answer) {
 
     // 企业只能查看其发布的职位的答案
-    if (answer._job._creator != req.currentUser.id) {
+    if (answer._job._creator !== req.currentUser.id) {
       return next({ code: 403 });
     }
 
@@ -155,7 +153,7 @@ function remove(req, res, next) {
   co(function* () {
     let answer = yield gModels.Answer.findById(req.params.aid);
 
-    if (req.currentUser.id != answer._user) {
+    if (req.currentUser.id !== answer._user) {
       return next({ code: 403 });
     }
 

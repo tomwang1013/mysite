@@ -1,5 +1,3 @@
-'use strict'
-
 /*
  * get students' const info:
  * universities

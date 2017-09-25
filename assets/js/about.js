@@ -1,2 +1,2 @@
-var w = require('common/global');
-var css = require('about.scss');
+require('common/global');
+require('about.scss');

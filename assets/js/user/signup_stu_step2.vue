@@ -41,14 +41,14 @@
 </template>
 
 <script>
-  var PL  = require('mycomps/lib/components/popup_list.vue');
-  var PT  = require('mycomps/lib/components/popup_tabs.vue');
-  var FV  = require('vue-form-validator');
-  var Cookies = require('js-cookie');
-  var $   = require('jquery');
-  var _   = require('lodash');
+  import PL  from 'mycomps/lib/components/popup_list.vue'
+  import PT  from 'mycomps/lib/components/popup_tabs.vue'
+  import FV  from 'vue-form-validator'
+  let Cookies = require('js-cookie');
+  let $   = require('jquery');
+  let _   = require('lodash');
 
-  module.exports = {
+  export default {
     name: 'signup-student-step2',
 
     data: function() {
@@ -80,7 +80,7 @@
           },
 
           submitHandler: function(validator, form) {
-            var args = $(form).serializeObject();
+            let args = $(form).serializeObject();
 
             $.post(form.action, _.merge(args, Cookies.getJSON('signupAccount')), function(data) {
               if (data.error) {
@@ -101,7 +101,7 @@
     },
 
     created: function() {
-      var me = this;
+      let me = this;
 
       $.get('//api.51shixi.net/std_consts', function(data) {
         me.constants = data;

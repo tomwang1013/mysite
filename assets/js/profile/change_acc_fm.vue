@@ -18,10 +18,10 @@
 </template>
 
 <script>
-  var $ = require('jquery');
-  var FV  = require('vue-form-validator');
+  let $ = require('jquery');
+  import FV from 'vue-form-validator'
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         success: false,
@@ -38,8 +38,8 @@
           },
 
           submitHandler: (function(validator, form) {
-            var args = $(form).serializeObject();
-            var me = this;
+            let args = $(form).serializeObject();
+            let me = this;
 
             $.post(form.action, args, function(data) {
               if (data.error) {
