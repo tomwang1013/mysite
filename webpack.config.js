@@ -124,7 +124,10 @@ module.exports = function buildConfig(env) {
       contentBase: path.resolve(__dirname, 'public'),
       publicPath: '/assets/',
       host: "localhost",
-      port: 4000
+      port: 4000,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+      }
     };
   }
 

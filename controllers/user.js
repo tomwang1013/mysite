@@ -2,7 +2,10 @@ const bcrypt  = require('bcrypt');
 const co      = require('co');
 const _       = require('lodash');
 const crypto  = require('crypto');
+const querystring = require('querystring');
+const uuidv1 = require('uuid/v1');
 const mailer  = require('../lib/mailer');
+const rp      = require('request-promise');
 
 // 用户详情页: 暂时没有权限限制
 function show(req, res, next) {
@@ -286,10 +289,101 @@ function queryByCompanyName(req, res, next) {
   });
 }
 
+/**
+ * 跳转到第三方登录授权页面
+ * @param req
+ * @param res
+ */
+function loginByAuth(req, res) {
+  let oauthServer = req.params.oauthServer;
+  let oauthCfg = gConfig.oauth[oauthServer];
+  let state = uuidv1();
+
+  let qs = Object.assign(_.pick(oauthCfg, [
+    'client_id', 'redirect_uri', 'scope'
+  ]), { state });
+
+  req.session.oauthState = state;
+
+
+  res.redirect(`${oauthCfg.authorize_uri}?${querystring.stringify(qs)}`);
+}
+
+/**
+ * oauth服务器回调
+ * @param req
+ * @param res
+ * @param next
+ */
+function oauthCallback(req, res, next) {
+  let code = req.query.code;
+  let state = req.query.state;
+  let oauthServer = req.params.oauthServer;
+  let oauthCfg = gConfig.oauth[oauthServer];
+
+  if (state !== req.session.oauthState) {
+    return next(new Error('无效oauth验证'));
+  }
+
+  let qs = Object.assign(_.pick(oauthCfg, [
+    'client_id', 'client_secret', 'redirect_uri'
+  ]), { code });
+
+  if (oauthServer === 'github') {
+    qs.state = state;
+  } else if (oauthServer === 'qq') {
+    qs.grant_type = 'authorization_code';
+  }
+
+  co(function *() {
+    // 1. 获取access_token
+    let accessToken = querystring.parse(rp({
+      method: 'POST',
+      uri: oauthCfg.token_uri,
+      body: qs
+    })).access_token;
+
+    // 2. 获得用户在第三方的基本信息
+    let user;
+
+    if (oauthServer === 'qq') {
+      let openid = rp({
+        uri: oauthCfg.openid_uri,
+        qs: { access_token: accessToken }
+      }).match(/"openid":"(\w+)"/)[1];
+
+      user = rq({
+        uri: oauthCfg.user_uri,
+        qs: {
+          access_token: accessToken,
+          oauth_consumer_key: oauthCfg.client_id,
+          openid,
+          format: 'json'
+        }
+      })
+
+    } else {
+      user = rp({
+        uri: oauthCfg.user_uri,
+        headers: {
+          'Authorization': 'token ' + accessToken
+        },
+        json: true
+      });
+    }
+
+    console.log(user);
+
+    // 3. 将用户信息保存起来并让用户登录
+    loginUser(res, user);
+  }).catch(next);
+}
+
 exports = module.exports = {
   login:  loginHandler,
   logout: logoutHandler,
   signupView, signup_step1, signup_step2,
   loginView, isValidName, isValidEmail, loginUser,
-  passwordReset, show, queryByCompanyName
+  passwordReset, show, queryByCompanyName,
+  loginByAuth, oauthCallback
 };

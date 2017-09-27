@@ -1,5 +1,3 @@
-'use strict';
-
 const path          = require('path');
 const express       = require('express');
 const subdomain     = require('express-subdomain');
@@ -20,8 +18,6 @@ global.gControllers = require('./controllers');
 global.gModels      = require('./models');
 
 app.set('x-powered-by', false);
-// FIXME why false?
-//app.set('etag', false);
 app.set('trust proxy', true);
 app.set('views', './views');
 app.set('view engine', 'pug');

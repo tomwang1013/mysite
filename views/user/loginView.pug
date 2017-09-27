@@ -21,3 +21,8 @@ block content
       .o-fm-grp
         input(type='submit', value='登 陆' class='u-fir-span o-btn o-btn-primary')
         a(href='/password_reset' class='u-small-font') 忘记密码
+
+        span.c-login-box__oauth
+          span.other-style 其他登录方式：
+          span: a(href="/login/by/github"): i(class="fa fa-github fa-2x" aria-hidden="true")
+

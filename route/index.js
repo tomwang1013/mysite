@@ -31,6 +31,8 @@ router.get('/password_reset',         gControllers.user.passwordReset);
 router.post('/password_reset',        gControllers.user.passwordReset);
 router.get('/password_reset/:token',  gControllers.user.passwordReset);
 router.post('/password_reset/:token', gControllers.user.passwordReset);
+router.get('/login/by/:oauthServer',  gControllers.user.loginByAuth);
+router.get('/oauth/:oauthServer/cb',  gControllers.user.oauthCallback);
 
 // users
 router.get('/user/:id',                 gControllers.middlewares.checkLogin, gControllers.user.show);

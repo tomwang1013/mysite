@@ -19,12 +19,12 @@
           span(class='c-msg-notify__icon fa fa-bell' v-bind:class="{ 'has-msg': hasMsg }")
           span.c-msg-notify__tip.u-small-font.u-round-border {{msgHint}}
         span.u-relative
-          a.u-inline-block(href='/profile' @mouseenter='popupProfileMenu')
+          a.u-inline-block(href='/profile' v-on:mouseenter='popupProfileMenu')
             img.c-profile-bar__avatar(:src='userInfo.avatar')
             span.u-vertical-middle(class='fa' v-bind:class="{ 'fa-caret-down': !showProfileMenu, 'fa-caret-up': showProfileMenu }")
           ul.c-profile-bar__pop-menu.u-nav-list.u-small-font(v-show='showProfileMenu'
-                                                             @mouseenter='keepProfileMenu'
-                                                             @mouseleave='hideProfileMenu')
+                                                             v-on:mouseenter='keepProfileMenu'
+                                                             v-on:mouseleave='hideProfileMenu')
             li.c-profile-bar__pop-menu__item {{userInfo.name}}, 你好
             li.c-profile-bar__pop-menu__item
               a(href='/profile/user_info') 基本信息

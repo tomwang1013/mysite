@@ -36,7 +36,9 @@
     "pinyin": "^2.8.0",
     "pug": "^2.0.0-beta3",
     "request": "^2.74.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "^2.4.3",
+    "uuid": "^3.1.0",
     "vue": "^2.1.10",
     "vue-auto-validator": ">=0.0.4",
     "vue-router": "^2.3.1"
