@@ -3,7 +3,8 @@ const glob = require('glob');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ManifestPlugin = require('webpack-manifest-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // entries
 let entry = glob.sync('./assets/js/**/*.js').filter(f => {
@@ -43,6 +44,12 @@ let scssExactLoader = ExtractTextPlugin.extract({
 
 let mod = {
   rules: [
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader"
+    },
+
     {
       test: /\.(jpg|png|gif)$/,
       use: {
@@ -104,14 +111,8 @@ module.exports = function buildConfig(env) {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"'
       }),
-      new webpack.optimize.UglifyJsPlugin({
-        comments: false,
-        mangle: {
-          // Skip mangling these
-          except: ['$super', '$', 'exports', 'require']
-        }
-      }),
-      new BundleAnalyzerPlugin()
+      new UglifyJSPlugin(),
+      //new BundleAnalyzerPlugin()
     ]);
   }
 
