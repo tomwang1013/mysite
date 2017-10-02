@@ -1,6 +1,6 @@
 const co      = require('co');
 const _       = require('lodash');
-const bcrypt  = require('bcrypt');
+const cryptoUtil = require('../lib/crypto_util');
 const gm      = require('gm');
 const path    = require('path');
 const fs      = require('fs');
@@ -65,11 +65,7 @@ function changePassword(req, res, next) {
 
   co(function *() {
     let user = yield gModels.User.findById(req.currentUser.id).exec();
-    let match = yield new Promise(function(resolve, reject) {
-      bcrypt.compare(oldPwd, user.password, function(err, match) {
-        return resolve(match);
-      });
-    });
+    let match = cryptoUtil.validatePassword(oldPwd, user.password, user.salt);
 
     if (!match) {
       return res.json({
@@ -78,12 +74,9 @@ function changePassword(req, res, next) {
       });
     }
 
-    user.password = yield new Promise(function(resolve) {
-      bcrypt.hash(newPwd, 10, function(err, hash) {
-        return resolve(hash);
-      });
-    });
-
+    let { salt, hashedPassword } = cryptoUtil.saltHashPassword(newPwd);
+    user.salt = salt;
+    user.password = hashedPassword;
     yield user.save();
 
     res.json({ error: 0 });

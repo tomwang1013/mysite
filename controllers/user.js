@@ -1,11 +1,10 @@
-const bcrypt  = require('bcrypt');
 const co      = require('co');
 const _       = require('lodash');
 const crypto  = require('crypto');
 const querystring = require('querystring');
-const uuidv1 = require('uuid/v1');
 const mailer  = require('../lib/mailer');
 const rp      = require('request-promise');
+const cryptoUtil = require('../lib/crypto_util');
 
 // 用户详情页: 暂时没有权限限制
 function show(req, res, next) {
@@ -38,12 +37,11 @@ function signup_step1(req, res, next) {
   let signupAccount;
 
   co(function* () {
-    let hashedPwd = yield new Promise(function(resolve) {
-      bcrypt.hash(req.body.password, 10, function(err, hash) {
-        return resolve(hash);
-      });
+    let { salt, hashedPwd } = cryptoUtil.saltHashPassword(req.body.password);
+    signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'), {
+      salt,
+      password: hashedPwd
     });
-    signupAccount = _.assign(_.pick(req.body, 'name', 'email', 'userType'), { password: hashedPwd });
 
     // validate account
     yield (new gModels.User(signupAccount)).validate();
@@ -142,11 +140,7 @@ function loginHandler(req, res, next) {
       return res.json({ error: 1, errors: { email: '该用户不存在' } });
     }
 
-    let match = yield new Promise(function(resolve, reject) {
-      bcrypt.compare(password, user.password, function(err, match) {
-        return resolve(match);
-      });
-    });
+    let match = cryptoUtil.validatePassword(password, user.password, user.salt);
 
     if (match) {
       loginUser(res, user);
@@ -224,16 +218,13 @@ function passwordReset(req, res, next) {
 
     return co(function* () {
       let user = yield gModels.User.findOne({
-        token:    req.params.token
+        token: req.params.token
       }).exec();
 
       // set new password
-      user.password = yield new Promise(function(resolve) {
-        bcrypt.hash(newPassword, 10, function(err, hash) {
-          return resolve(hash);
-        });
-      });
-
+      let { salt, hashedPwd } = cryptoUtil.saltHashPassword(newPassword);
+      user.salt = salt;
+      user.password = hashedPwd;
       yield user.save();
 
       res.render('user/passwordReset', { step: 4 });
@@ -297,19 +288,12 @@ function queryByCompanyName(req, res, next) {
 function loginByAuth(req, res) {
   let oauthServer = req.params.oauthServer;
   let oauthCfg = gConfig.oauth[oauthServer];
-  let state = uuidv1();
 
   let qs = Object.assign(_.pick(oauthCfg, [
     'client_id', 'redirect_uri', 'scope'
-  ]), { state });
-
-  // TODO how to set and verify state
-  // https://ciphertrick.com/2016/01/18/salt-hash-passwords-using-nodejs-crypto/
-  // $state = sha1(sessionid() . 'some-salt');
-
-
-  console.log('aaaa: ', req.session)
-
+  ]), {
+    state: cryptoUtil.hashIt(req.sessionId, gConfig.secret)
+  });
 
   res.redirect(`${oauthCfg.authorize_uri}?${querystring.stringify(qs)}`);
 }
@@ -326,7 +310,7 @@ function oauthCallback(req, res, next) {
   let oauthServer = req.params.oauthServer;
   let oauthCfg = gConfig.oauth[oauthServer];
 
-  if (state !== req.session.oauthState) {
+  if (state !== cryptoUtil.hashIt(req.sessionId, gConfig.secret)) {
     return next(new Error('无效oauth验证'));
   }
 

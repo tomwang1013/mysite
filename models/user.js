@@ -27,6 +27,7 @@ let userSchema = new Schema({
     match:    [emailValidFormat, '请输入有效的电子邮件地址']
   },
   password: { type: String, required: [true, '这是必填字段'] },
+  salt: String,
   userType: Number, // 用户类型：0:student,1:company
   phone:    String, // 电话号码
   avatar:   String, // 头像
