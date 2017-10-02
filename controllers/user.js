@@ -303,7 +303,12 @@ function loginByAuth(req, res) {
     'client_id', 'redirect_uri', 'scope'
   ]), { state });
 
-  req.session.oauthState = state;
+  // TODO how to set and verify state
+  // https://ciphertrick.com/2016/01/18/salt-hash-passwords-using-nodejs-crypto/
+  // $state = sha1(sessionid() . 'some-salt');
+
+
+  console.log('aaaa: ', req.session)
 
 
   res.redirect(`${oauthCfg.authorize_uri}?${querystring.stringify(qs)}`);

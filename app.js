@@ -9,6 +9,7 @@ const _             = require('lodash');
 const favicon       = require('serve-favicon');
 const app           = express();
 
+global.app          = app;
 global.gRoot        = __dirname;
 global.gConfig      = _.merge({},
   require('./config/settings'),

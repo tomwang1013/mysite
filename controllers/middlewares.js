@@ -103,7 +103,11 @@ let sessionHandler = session({
   secret:            'xiongwang',
   resave:            false,
   saveUninitialized: false,
-  store:             sessionStore
+  store:             sessionStore,
+  proxy:             true,
+  cookie: {
+    secure: app.get('env') === 'production'
+  }
 });
 
 exports = module.exports = {
