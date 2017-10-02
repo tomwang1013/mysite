@@ -6,6 +6,8 @@ const mailer  = require('../lib/mailer');
 const rp      = require('request-promise');
 const cryptoUtil = require('../lib/crypto_util');
 
+let oauthStates = new Set();
+
 // 用户详情页: 暂时没有权限限制
 function show(req, res, next) {
   gModels.User.findById(req.params.id, function(err, user) {
@@ -288,12 +290,17 @@ function queryByCompanyName(req, res, next) {
 function loginByAuth(req, res) {
   let oauthServer = req.params.oauthServer;
   let oauthCfg = gConfig.oauth[oauthServer];
+  let state = cryptoUtil.genSalt();
 
   let qs = Object.assign(_.pick(oauthCfg, [
     'client_id', 'redirect_uri', 'scope'
-  ]), {
-    state: cryptoUtil.hashIt(req.sessionId, gConfig.secret)
-  });
+  ]), { state });
+
+  if (oauthServer === 'qq') {
+    qs.response_type = 'code';
+  }
+
+  oauthStates.add(state);
 
   res.redirect(`${oauthCfg.authorize_uri}?${querystring.stringify(qs)}`);
 }
@@ -310,9 +317,11 @@ function oauthCallback(req, res, next) {
   let oauthServer = req.params.oauthServer;
   let oauthCfg = gConfig.oauth[oauthServer];
 
-  if (state !== cryptoUtil.hashIt(req.sessionId, gConfig.secret)) {
+  if (!oauthStates.has(state)) {
     return next(new Error('无效oauth验证'));
   }
+
+  oauthStates.delete(state);
 
   let qs = Object.assign(_.pick(oauthCfg, [
     'client_id', 'client_secret', 'redirect_uri'
@@ -326,22 +335,24 @@ function oauthCallback(req, res, next) {
 
   co(function *() {
     // 1. 获取access_token
-    let accessToken = querystring.parse(rp({
+    let tokenRes = yield rp({
       method: 'POST',
       uri: oauthCfg.token_uri,
-      body: qs
-    })).access_token;
+      formData: qs,
+      headers: { 'User-Agent': '51shixi' }
+    });
+    let accessToken = querystring.parse(tokenRes).access_token;
 
     // 2. 获得用户在第三方的基本信息
     let user;
 
     if (oauthServer === 'qq') {
-      let openid = rp({
+      let openid = (yield rp({
         uri: oauthCfg.openid_uri,
         qs: { access_token: accessToken }
-      }).match(/"openid":"(\w+)"/)[1];
+      })).match(/"openid":"(\w+)"/)[1];
 
-      user = rq({
+      user = yield rp({
         uri: oauthCfg.user_uri,
         qs: {
           access_token: accessToken,
@@ -350,22 +361,26 @@ function oauthCallback(req, res, next) {
           format: 'json'
         }
       })
-
     } else {
-      user = rp({
+      user = yield rp({
         uri: oauthCfg.user_uri,
         headers: {
+          'User-Agent': '51shixi',
           'Authorization': 'token ' + accessToken
         },
         json: true
       });
     }
 
-    console.log(user);
-
     // 3. 将用户信息保存起来并让用户登录
-    loginUser(res, user);
+    loginOauthUser(res, oauthServer, user);
   }).catch(next);
+}
+
+// TODO 将oauth用户信息保存起来并将用户置为已登录
+// 返回登录成功后的页面
+function loginOauthUser(res, oauthServer, user) {
+  res.send('登录成功');
 }
 
 exports = module.exports = {
