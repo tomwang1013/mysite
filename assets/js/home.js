@@ -47,9 +47,7 @@ new Vue({
       password: {
         required: '密码不能为空'
       }
-    },
-
-    errorPlacement: 'after_field'
+    }
   },
 
   components: {
